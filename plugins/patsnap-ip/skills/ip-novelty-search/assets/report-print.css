@@ -1,0 +1,24 @@
+/* 屏幕沿用完整矩阵；纸张每组最多两篇文献，重复特征列及文献身份。 */
+.novelty-report .report-print-matrix { display: none; }
+@media print {
+  .novelty-report .report-atomic-matrix:has(+ .report-print-matrix) { display: none; }
+  .novelty-report .report-print-matrix { display: block; }
+  .novelty-report .report-atomic-matrix thead th:first-child { width: 26%; }
+  .novelty-report .report-atomic-matrix th small { white-space: normal; overflow: visible; text-overflow: clip; }
+  .novelty-report .report-atomic-matrix .report-state { white-space: normal; }
+  .novelty-report .report-print-group { break-before: page; }
+  .novelty-report .report-print-group > h3 { margin: 0 0 16px; font-size: 18px; }
+  .novelty-report .report-print-group table { width: 100%; table-layout: fixed; border: 1px solid var(--ps-border); font-size: 14px; line-height: 1.7; }
+  .novelty-report .report-print-group thead { display: table-header-group; }
+  .novelty-report .report-print-group tr { break-inside: avoid; }
+  .novelty-report .report-print-group :is(th,td) { padding: 12px; position: static; white-space: normal; overflow-wrap: anywhere; }
+  .novelty-report .report-print-group th:first-child { width: 26%; }
+  .novelty-report .report-print-group th small { display: block; margin-top: 4px; font-size: 14px; color: var(--ps-fg-3); }
+  .novelty-report .report-print-group :is(.report-map-facts p,.report-map-location) { display: block; -webkit-line-clamp: unset; max-height: none; overflow: visible; white-space: normal; font-size: 14px; }
+  .novelty-report .report-print-group .report-state { white-space: normal; max-width: 100%; }
+  .novelty-report .report-print-group .report-atomic-thumbnail img { width: auto; max-width: 100%; max-height: 120px; }
+  .novelty-report .report-print-group .report-map-open { display: none; }
+  .novelty-report .report-print-group a { text-decoration: none; }
+  .novelty-report .report-print-group a::after { content: none; }
+  .novelty-report .report-scheme-nav, .novelty-report .report-scope-help { display: none; }
+}

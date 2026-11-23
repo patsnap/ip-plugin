@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{report_title}}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --canvas: #F4F5F7;
+      --paper: #FFFFFF;
+      --ink: #020A1A;
+      --body: #495973;
+      --muted: #6B778C;
+      --line: #DFE1E6;
+      --blue: #0764E9;
+      --green: #2E7D19;
+      --amber: #925400;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font: 14px/26px Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, p, dl, blockquote { margin: 0; }
+    strong, b, h1, h2, h3, h4, th { font-weight: 600; }
+    h1 { font-size: 32px; line-height: 44px; letter-spacing: -.5px; }
+    h2 { font-size: 20px; line-height: 32px; }
+    h3 { font-size: 16px; line-height: 28px; }
+    h4 { font-size: 14px; line-height: 24px; }
+    p + p { margin-top: 12px; }
+    a { color: var(--blue); text-underline-offset: 3px; overflow-wrap: anywhere; }
+    a:hover { color: #0456D1; }
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 4px;
+    }
+    button { font: inherit; cursor: pointer; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .topbar-inner {
+      max-width: 1376px;
+      min-height: 64px;
+      margin: auto;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 16px; flex: 0 0 auto; white-space: nowrap; }
+    .wordmark { font-size: 20px; line-height: 28px; letter-spacing: -.5px; }
+    .brand-caption { border-left: 1px solid var(--line); padding-left: 16px; color: var(--muted); }
+    .actions { display: flex; width: 372px; gap: 8px; }
+    .button {
+      width: 104px;
+      flex: 0 0 104px;
+      min-height: 32px;
+      padding: 2px 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--body);
+      font-size: 13px;
+      line-height: 26px;
+      white-space: nowrap;
+      min-width: 0;
+    }
+    .button:hover { background: #FAFBFC; }
+    .button.primary { width: 148px; flex-basis: 148px; border-color: var(--blue); background: var(--blue); color: #FFFFFF; }
+    .button.primary:hover { background: #0456D1; }
+    .layout {
+      display: grid;
+      grid-template-columns: 184px minmax(0, 1fr);
+      align-items: start;
+      gap: 32px;
+      max-width: 1376px;
+      margin: 32px auto 64px;
+      padding: 0 24px;
+    }
+    .contents { position: sticky; top: 96px; padding: 8px 0; }
+    .contents-title, .eyebrow {
+      font-size: 11px;
+      line-height: 20px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contents-title { padding: 0 12px 16px; }
+    .contents a {
+      display: block;
+      margin-bottom: 4px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: var(--body);
+      text-decoration: none;
+    }
+    .contents a:hover { background: #E9EEF5; color: var(--blue); }
+    .contents a span { margin-right: 8px; color: var(--muted); font-size: 12px; }
+    .paper { min-width: 0; border: 1px solid var(--line); background: var(--paper); }
+    .cover { padding: 40px 40px 32px; }
+    .cover-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .meta, .muted { color: var(--muted); font-size: 12px; line-height: 22px; }
+    .subtitle { margin-top: 12px; color: var(--body); max-width: 68ch; }
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: var(--body);
+      background: #FAFBFC;
+      font-size: 12px;
+      line-height: 22px;
+      vertical-align: middle;
+    }
+    .badge.supported { color: var(--green); background: #F2F8EF; border-color: #C9DFC0; }
+    .badge.pending { color: var(--amber); background: #FFF8EA; border-color: #E8D5AD; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 32px; border-top: 1px solid var(--line); }
+    .stat { padding: 20px 16px 0 0; }
+    .stat + .stat { padding-left: 20px; }
+    .stat-value { display: block; font-size: 28px; line-height: 36px; font-variant-numeric: tabular-nums; }
+    .stat-label { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+    .section { padding: 32px 40px 40px; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+    .section-number { color: var(--blue); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .section-intro { color: var(--body); margin-bottom: 20px; max-width: 72ch; }
+    .finding { padding: 16px 20px; border-left: 3px solid var(--blue); background: #F5F8FC; line-height: 28px; }
+    .next-step { margin-top: 16px; color: var(--body); }
+    .next-step strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 12px; }
+    .scope { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; margin-top: 24px; }
+    .scope > div { min-width: 0; }
+    .scope dt { color: var(--muted); font-size: 12px; line-height: 22px; }
+    .scope dd { margin: 4px 0 0; line-height: 26px; overflow-wrap: anywhere; }
+    .scope .full { grid-column: 1 / -1; }
+    .scope-note { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--line); }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0 16px; color: var(--body); font-size: 12px; }
+    .legend strong { margin-right: 4px; }
+    .table-scroll { width: 100%; max-height: 640px; overflow: auto; border: 1px solid var(--line); }
+    table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13px; line-height: 22px; }
+    th, td { padding: 14px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    thead th { background: #FAFBFC; color: var(--body); }
+    tbody tr:last-child > * { border-bottom: 0; }
+    tbody tr:hover > * { background-color: #F7FAFE; }
+    .matrix { table-layout: fixed; min-width: 640px; }
+    .matrix thead th { position: sticky; top: 0; z-index: 2; }
+    .matrix thead th:first-child { width: 240px; }
+    .matrix thead th:last-child { width: 140px; }
+    .matrix .core-col { width: 112px; text-align: center; }
+    .matrix .core-col a { text-decoration: none; }
+    .matrix .core-col small { display: block; margin-top: 4px; font-size: 11px; font-weight: 400; color: var(--muted); }
+    .matrix .product-cell { position: sticky; left: 0; z-index: 1; background: var(--paper); font-weight: 400; }
+    .matrix thead th:first-child { left: 0; z-index: 3; }
+    .product-name { display: block; margin: 2px 0 6px; font-weight: 600; overflow-wrap: anywhere; }
+    .matrix .match-cell { vertical-align: middle; text-align: center; }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      color: var(--amber);
+      background: #FFF8EA;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .mark.supported { color: var(--green); background: #F2F8EF; }
+    .mark:hover { outline: 1px solid currentColor; }
+    .core-legend { padding: 0; margin: 16px 0 0; list-style: none; color: var(--muted); font-size: 12px; }
+    .core-legend li + li { margin-top: 4px; }
+    .group + .group, .patent + .patent, .core-point + .core-point, .lead + .lead { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .group-heading, .item-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+    .item-heading { margin-bottom: 12px; }
+    .patent-id { font: 12px/22px ui-monospace, SFMono-Regular, Consolas, monospace; color: var(--muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    .reading-notes { display: grid; gap: 12px; margin-top: 16px; max-width: 96ch; }
+    .reading-notes > div { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px; }
+    .reading-notes dt { color: var(--muted); font-size: 12px; }
+    .reading-notes dd { margin: 0; color: var(--body); overflow-wrap: anywhere; }
+    .core-point .explanation { color: var(--body); margin: 12px 0; max-width: 80ch; }
+    .elements { padding-left: 24px; color: var(--body); }
+    .elements li { margin: 8px 0; }
+    details { margin-top: 16px; }
+    summary { padding: 8px 0; color: var(--blue); font-size: 13px; cursor: pointer; }
+    details[open] > summary { margin-bottom: 12px; }
+    details:target { outline: 2px solid #B9D4FA; outline-offset: 8px; }
+    .evidence-body { padding-left: 16px; border-left: 2px solid var(--line); max-width: 82ch; }
+    .evidence-body h4 { margin: 16px 0 8px; }
+    .evidence-body p { color: var(--body); }
+    blockquote { padding: 12px 16px; margin: 12px 0; background: #F7F8FA; color: var(--body); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .source-line { margin-top: 8px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .sources, .next-actions { padding-left: 20px; color: var(--body); }
+    .sources li, .next-actions li { padding: 4px 0 8px 4px; }
+    .report-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 20px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    @media (max-width: 1000px) {
+      .layout { display: block; max-width: 960px; margin-top: 24px; }
+      .contents { position: static; display: flex; flex-wrap: wrap; padding: 0 0 12px; margin-bottom: 12px; }
+      .contents-title { display: none; }
+      .contents a { padding: 4px 12px; margin: 0; font-size: 12px; }
+    }
+    @media (max-width: 600px) {
+      html { scroll-padding-top: 128px; }
+      .topbar-inner { display: block; padding: 12px 16px; }
+      .brand { margin-bottom: 8px; }
+      .brand-caption { font-size: 12px; }
+      .actions { width: 100%; }
+      .button { width: 80px; flex: 0 0 80px; padding-left: 8px; padding-right: 8px; }
+      .button.primary { width: auto; flex: 1 1 0; }
+      .layout { margin-top: 16px; padding: 0 12px; }
+      .cover { padding: 24px 20px; }
+      h1 { font-size: 24px; line-height: 36px; }
+      .section { padding: 24px 20px 32px; }
+      .section-heading { gap: 8px; }
+      .stats { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
+      .stat, .stat + .stat { padding: 16px 8px 0 0; }
+      .scope { grid-template-columns: 1fr; gap: 16px; }
+      .reading-notes > div { grid-template-columns: 1fr; gap: 2px; }
+      .matrix thead th:first-child { width: 180px; }
+      .report-footer { padding: 20px; }
+    }
+    @page { size: A4 portrait; margin: 14mm; }
+    @media print {
+      body { background: #FFFFFF; font-size: 10pt; line-height: 17pt; }
+      .topbar, .contents { display: none; }
+      .layout { display: block; margin: 0; padding: 0; max-width: none; }
+      .paper { border: 0; }
+      .cover { padding: 0 0 20px; }
+      h1 { font-size: 24pt; line-height: 32pt; }
+      .section { padding: 20px 0; scroll-margin-top: 0; }
+      .section-heading { break-after: avoid; }
+      #leads { break-inside: avoid; }
+      .table-scroll { overflow: visible; max-height: none; }
+      .matrix { min-width: 0; width: 100%; font-size: 9pt; line-height: 14pt; }
+      .matrix thead th, .matrix .product-cell { position: static; }
+      .matrix thead th:first-child { width: 44mm; }
+      .matrix thead th:last-child { width: 26mm; }
+      .matrix .core-col { width: auto; }
+      th, td { padding: 8px 6px; overflow-wrap: anywhere; }
+      tr, .item-heading, .reading-notes > div, .scope > div { break-inside: avoid; }
+      thead { display: table-header-group; }
+      .mark { background: transparent; width: 24px; height: 24px; }
+      details > :not(summary) { display: block !important; }
+      details::details-content { content-visibility: visible; block-size: auto; }
+      .report-footer { padding: 16px 0 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><strong class="wordmark">Patsnap</strong><span class="brand-caption">EoU investigation report</span></div>
+      <div class="actions" aria-label="Report controls">
+        <button class="button" type="button" data-expand>Expand evidence</button>
+        <button class="button" type="button" data-collapse>Collapse evidence</button>
+        <button class="button primary" type="button" data-print>Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+  <div class="layout">
+    <nav class="contents" aria-label="Report contents">
+      <p class="contents-title">Report contents</p>
+      <a href="#overview"><span>01</span>Findings and scope</a>
+      <a href="#leads"><span>02</span>Lead matrix</a>
+      <a href="#portfolio"><span>03</span>Patent portfolios</a>
+      <a href="#core-points"><span>04</span>Key claim points</a>
+      <a href="#evidence"><span>05</span>Evidence and gaps</a>
+      <a href="#sources"><span>06</span>Sources and next steps</a>
+    </nav>
+    <main class="paper">
+      <header class="cover">
+        <div class="cover-meta"><span class="eyebrow">Evidence of Use</span><span class="badge">{{report_status}}</span><span class="meta">{{report_date}}</span></div>
+        <h1>{{report_title}}</h1>
+        <p class="subtitle">{{report_subtitle}}</p>
+        <div class="stats" aria-label="Report counts">
+          <div class="stat"><strong class="stat-value">{{lead_count}}</strong><span class="stat-label">Retained product leads</span></div>
+          <div class="stat"><strong class="stat-value">{{supported_count}}</strong><span class="stat-label">Evidence supported</span></div>
+          <div class="stat"><strong class="stat-value">{{pending_count}}</strong><span class="stat-label">Pending manual review</span></div>
+          <div class="stat"><strong class="stat-value">{{patent_count}}</strong><span class="stat-label">Selected patents</span></div>
+        </div>
+      </header>
+      <section class="section" id="overview">
+        <div class="section-heading"><span class="section-number">01</span><h2>Findings and investigation scope</h2></div>
+        <div class="finding">{{findings_summary}}</div>
+        <p class="next-step"><strong>Priority evidence to obtain</strong>{{priority_next_step}}</p>
+        <!-- Populate confirmed_scope with div elements containing dt and dd. Use class="full" for long product descriptions. -->
+        <dl class="scope">{{confirmed_scope}}</dl>
+        <p class="meta scope-note">{{coverage_summary}}</p>
+      </section>
+      <section class="section" id="leads">
+        <div class="section-heading"><span class="section-number">02</span><h2>Product lead matrix</h2></div>
+        <p class="section-intro">Select a cell marker to review the evidence and uncovered conditions for that point.</p>
+        <div class="legend"><span><strong>✓</strong>Evidence supports the key point</span><span><strong>?</strong>Evidence insufficient, confirmation pending</span></div>
+        <div class="table-scroll" role="region" aria-label="Product and claim point comparison, scroll horizontally" tabindex="0">
+          <table class="matrix" id="lead-matrix">
+            <thead><tr><th scope="col">Company, product, and model</th>{{core_point_headers}}<th scope="col">Lead classification</th></tr></thead>
+            <tbody>{{product_rows}}</tbody>
+          </table>
+        </div>
+        <!-- Use one th.core-col per claim point and one row per product.
+             Use th.product-cell[scope=row] for the product and td.match-cell for each comparison.
+             Each a.mark shows only ? or ✓ and links to its evidence details by ID.
+             Use span.badge.pending or span.badge.supported for the final classification. -->
+        <ul class="core-legend">{{core_point_legend}}</ul>
+        <p class="meta">Rows with at least one ✓ are classified as “Evidence supported.” All other rows are “Pending manual review.” Markers follow the confirmed key point definitions. Details document partial support, other claim limitations, and evidence gaps.</p>
+      </section>
+      <section class="section" id="portfolio">
+        <div class="section-heading"><span class="section-number">03</span><h2>Selected patent portfolios</h2></div>
+        <!-- Use div.group for a portfolio and article.patent for each member.
+             Explain the protected subject, exact version, rationale, relationships, and any User specified label.
+             Reuse .item-heading, .patent-id, .tags, .badge, and .reading-notes.
+             Put original text and sources in details.evidence-detail and keep the summary readable. -->
+        {{portfolio_overview}}
+      </section>
+      <section class="section" id="core-points">
+        <div class="section-heading"><span class="section-number">04</span><h2>Key claim points for comparison</h2></div>
+        <!-- Use article.core-point with the ID referenced by the matrix header.
+             Show a stable ID, plain-language mechanism, and confirmation status, then publication, claim, and dependencies.
+             Expand full claim text and elements in details.evidence-detail and ol.elements. -->
+        {{confirmed_core_points}}
+      </section>
+      <section class="section" id="evidence">
+        <div class="section-heading"><span class="section-number">05</span><h2>Evidence by product and outstanding material</h2></div>
+        <p class="section-intro">Expand a product to see what was read, what it supports, and what is missing.</p>
+        <!-- Use article.lead per product and details.evidence-detail with a stable ID per comparison.
+             Use div.evidence-body for reasoning, blockquote for source text, and p.source-line for location.
+             State support, gaps, and which material was assessed, unassessed, or unread. -->
+        {{evidence_details}}
+      </section>
+      <section class="section" id="sources">
+        <div class="section-heading"><span class="section-number">06</span><h2>Sources and next steps</h2></div>
+        <!-- List unique sources in ol.sources and follow-up actions in ol.next-actions. -->
+        {{sources_and_next_steps}}
+      </section>
+      <footer class="report-footer"><span>Patsnap · EoU investigation record</span><span>{{report_date}} · {{report_status}}</span></footer>
+    </main>
+  </div>
+  <script>
+    const disclosures = Array.from(document.querySelectorAll("details"));
+    document.querySelector("[data-expand]").addEventListener("click", () => {
+      disclosures.forEach(detail => { detail.open = true; });
+    });
+    document.querySelector("[data-collapse]").addEventListener("click", () => {
+      disclosures.forEach(detail => { detail.open = false; });
+    });
+    document.querySelector("[data-print]").addEventListener("click", () => { window.print(); });
+
+    function revealLinkedEvidence() {
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (target?.tagName === "DETAILS") target.open = true;
+    }
+    window.addEventListener("hashchange", revealLinkedEvidence);
+    revealLinkedEvidence();
+
+    let printState = null;
+    window.addEventListener("beforeprint", () => {
+      if (printState) return;
+      printState = disclosures.map(detail => detail.open);
+      disclosures.forEach(detail => { detail.open = true; });
+    });
+    window.addEventListener("afterprint", () => {
+      if (!printState) return;
+      disclosures.forEach((detail, index) => { detail.open = printState[index]; });
+      printState = null;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+$catalog
+<div class="report-status-guide report-matrix-guide" data-status-rules$guide_hidden>
+  <h3>$legend_label</h3>
+  <dl>$legend_rows</dl>
+  <p class="report-matrix-guide-note"><strong>$common_knowledge</strong> $common_knowledge_note</p>
+</div>
+<div class="report-unified-matrix report-atomic-matrix" data-unified-matrix style="--report-matrix-min-width:${minimum_width}px">
+  <div class="report-relation-map-heading"><h4>$matrix_label</h4><span>$counts</span></div>
+  <div class="report-table-wrap report-relation-map"><table>
+    <thead><tr><th scope="col">$feature_label</th>$headings</tr></thead>
+    <tbody>$rows</tbody>
+  </table></div>
+</div>
+$print_matrix
+$document_details

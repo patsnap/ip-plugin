@@ -1,0 +1,101 @@
+
+/* 仅作用于附录，采用 Patsnap Core UI 浅色设计变量。 */
+.appendix-redesign,[data-appendix-record]{--ap-fg:#020A1A;--ap-secondary:#495973;--ap-meta:#697B96;--ap-hint:#8993A4;--ap-disabled:#9EAABD;--ap-white:#FFFFFF;--ap-bg2:#FAFBFC;--ap-bg3:#F4F5F7;--ap-line:#DFE1E6;--ap-line-strong:#BCC2CC;--ap-brand:#0764E9;--ap-brand-hover:#0456D1;--ap-success:#45A321;--ap-info:#1976D2;--ap-warning:#DC7C08;--ap-error:#D11A32;}
+.novelty-report section.appendix-redesign{padding:32px;margin:0 0 24px;background:var(--ap-white);border:1px solid var(--ap-line);border-radius:8px;color:var(--ap-fg);font-size:16px;line-height:1.75;}
+.novelty-report .appendix-redesign *{box-sizing:border-box;}
+.novelty-report .appendix-redesign a{color:var(--ap-brand);font-size:14px;text-decoration:none;}
+.novelty-report .appendix-redesign a:hover{color:var(--ap-brand-hover);text-decoration:underline;}
+.novelty-report .appendix-redesign a:focus-visible{outline:2px solid var(--ap-brand);outline-offset:4px;}
+.novelty-report .appendix-redesign > .report-section-heading{display:flex;align-items:baseline;gap:16px;padding-bottom:24px;border-bottom:1px solid var(--ap-line);}
+.novelty-report .appendix-letter{font-size:32px;line-height:1;font-weight:400;color:var(--ap-meta);}
+.novelty-report .appendix-redesign > .report-section-heading h2{font-size:24px;font-weight:600;line-height:1.5;color:var(--ap-fg);margin:0;}
+.novelty-report .appendix-redesign > .report-section-heading p{font-size:14px;color:var(--ap-secondary);margin:8px 0 0;}
+.novelty-report .appendix-statistics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:24px 0;}
+.novelty-report .appendix-statistics>div{display:flex;flex-direction:column;gap:4px;}
+.novelty-report .appendix-statistics strong{font-size:32px;line-height:1.5;color:var(--ap-fg);font-weight:500;font-variant-numeric:tabular-nums;}
+.novelty-report .appendix-statistics span{font-size:14px;color:var(--ap-meta);}
+.novelty-report .appendix-boundary{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 20px;background:var(--ap-bg2);border-top:1px solid var(--ap-line);border-bottom:1px solid var(--ap-line);}
+.novelty-report .appendix-boundary p{margin:0;font-size:14px;color:var(--ap-secondary);}
+.novelty-report .appendix-boundary p span{margin-right:8px;color:var(--ap-meta);}
+.novelty-report .appendix-route{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:32px;padding:24px 0 32px;}
+.novelty-report .appendix-route>div+div{border-left:1px solid var(--ap-line);padding-left:24px;}
+.novelty-report .appendix-redesign h3{font-size:16px;font-weight:600;line-height:1.5;color:var(--ap-fg);margin:0;}
+.novelty-report .appendix-route p{margin:8px 0 0;font-size:14px;color:var(--ap-secondary);}
+.novelty-report .appendix-ledger-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:16px;}
+.novelty-report .appendix-ledger-heading span{font-size:14px;color:var(--ap-meta);}
+.novelty-report .appendix-search-row{display:grid;grid-template-columns:96px minmax(0,1fr) 144px;gap:24px;padding:24px 0;border-top:1px solid var(--ap-line);}
+.novelty-report .appendix-search-index>span{font-size:14px;color:var(--ap-meta);font-variant-numeric:tabular-nums;}
+.novelty-report .appendix-search-index p{margin:8px 0 0;font-size:14px;color:var(--ap-secondary);}
+.novelty-report .appendix-query-input{font:14px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--ap-secondary);background:var(--ap-bg2);border:0;border-radius:4px;padding:12px 16px;margin:12px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;}
+.novelty-report .appendix-query-summary{font-size:16px;line-height:1.75;margin:12px 0 0;color:var(--ap-secondary);}
+.novelty-report .appendix-record-link{display:inline-block;margin-top:12px;}
+.novelty-report .appendix-search-count{text-align:right;font-size:14px;color:var(--ap-meta);font-variant-numeric:tabular-nums;}
+.novelty-report .appendix-status{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ap-secondary);font-weight:400;}
+.novelty-report .appendix-status:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ap-success);flex:none;}
+.novelty-report .appendix-search-count p{font-size:14px;margin:12px 0 0;}
+.novelty-report .appendix-search-count strong{font-size:20px;font-weight:500;color:var(--ap-fg);}
+.novelty-report .appendix-search-count small{display:block;margin-top:4px;font-size:14px;color:var(--ap-meta);}
+.novelty-report .appendix-accounting{padding-top:16px;border-top:1px solid var(--ap-line);font-size:14px;color:var(--ap-meta);}
+.novelty-report .appendix-document-summary{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:24px 0;}
+.novelty-report .appendix-document-summary p{font-size:16px;color:var(--ap-secondary);margin:0;}
+.novelty-report .appendix-document-summary strong{font-size:24px;line-height:1.5;font-weight:500;color:var(--ap-fg);margin-right:8px;}
+.novelty-report .appendix-document-summary>span{font-size:14px;color:var(--ap-meta);}
+.novelty-report .appendix-document-columns,.novelty-report .appendix-document-row{display:grid;grid-template-columns:32px minmax(0,1.2fr) minmax(0,1fr) minmax(0,.9fr);gap:24px;}
+.novelty-report .appendix-document-columns{padding:12px 0;border-top:1px solid var(--ap-line);background:var(--ap-bg2);font-size:14px;color:var(--ap-meta);}
+.novelty-report .appendix-document-row{padding:24px 0;border-top:1px solid var(--ap-line);}
+.novelty-report .appendix-document-index{font-size:14px;color:var(--ap-meta);font-variant-numeric:tabular-nums;}
+.novelty-report .appendix-publication{display:inline-block;margin-top:8px;}
+.novelty-report .appendix-original-title{font-size:14px;line-height:1.75;color:var(--ap-meta);margin:8px 0 0;}
+.novelty-report .appendix-date{font-size:14px;color:var(--ap-meta);margin:8px 0 0;}
+.novelty-report .appendix-document-relevance p{font-size:16px;line-height:1.75;color:var(--ap-secondary);margin:0;}
+.novelty-report .appendix-document-coverage p{font-size:14px;line-height:1.75;color:var(--ap-secondary);margin:12px 0;}
+.novelty-report .appendix-tail{display:grid;grid-template-columns:1fr 1fr;gap:40px;border-top:1px solid var(--ap-line);padding:24px 0 0;}
+.novelty-report .appendix-tail p{font-size:14px;color:var(--ap-secondary);margin:8px 0 12px;}
+.novelty-report dialog:has([data-appendix-record]){width:min(960px,calc(100vw - 32px))!important;height:min(820px,calc(100dvh - 48px))!important;opacity:1!important;animation:none!important;transition:none!important;background:#FFFFFF!important;}
+.novelty-report dialog:has([data-appendix-record]) header h3{font-size:20px!important;color:#020A1A;}
+.novelty-report [data-appendix-record]>h3{display:none;}
+.novelty-report [data-appendix-record] h4{font-size:16px;color:var(--ap-fg);margin:24px 0 12px;}
+.novelty-report [data-appendix-record] p,.novelty-report [data-appendix-record] li{font-size:16px;line-height:1.75;color:var(--ap-secondary);}
+.novelty-report [data-appendix-record] pre{font-size:14px;line-height:1.75;border:0;background:var(--ap-bg2);color:var(--ap-secondary);padding:16px;}
+@media(max-width:800px){
+ .novelty-report section.appendix-redesign{padding:24px 20px;}
+ .novelty-report .appendix-redesign > .report-section-heading h2{font-size:20px;}
+ .novelty-report .appendix-statistics{grid-template-columns:1fr 1fr;}
+ .novelty-report .appendix-route{grid-template-columns:1fr;gap:20px;}
+ .novelty-report .appendix-route>div+div{border:0;padding:0;}
+ .novelty-report .appendix-search-row{grid-template-columns:minmax(0,1fr) 96px;gap:12px 16px;}
+ .novelty-report .appendix-search-index{grid-column:1/-1;display:flex;gap:12px;align-items:baseline;}
+ .novelty-report .appendix-search-index p{margin:0;}
+ .novelty-report .appendix-search-count small{font-size:14px;}
+ .novelty-report .appendix-query-input{padding:12px;}
+ .novelty-report .appendix-document-summary{display:block;}
+ .novelty-report .appendix-document-summary>span{display:block;margin-top:8px;}
+ .novelty-report .appendix-document-columns{display:none;}
+ .novelty-report .appendix-document-row{grid-template-columns:24px minmax(0,1fr);gap:16px;}
+ .novelty-report .appendix-document-relevance,.novelty-report .appendix-document-coverage{grid-column:2;}
+ .novelty-report .appendix-tail{grid-template-columns:1fr;gap:24px;}
+}
+@media print{.novelty-report .appendix-search-row,.novelty-report .appendix-document-row{break-inside:avoid;}.novelty-report section.appendix-redesign{border:0;}}
+
+/* 抵消旧附录的全局文字覆盖，只在新附录内采用 Core UI 色阶。 */
+.novelty-report section.appendix-redesign a { color:var(--ap-brand)!important; }
+.novelty-report section.appendix-redesign a:hover { color:var(--ap-brand-hover)!important; }
+.novelty-report section.appendix-redesign .appendix-original-title,
+.novelty-report section.appendix-redesign .appendix-date { color:var(--ap-meta)!important; }
+.novelty-report .appendix-search-content,.novelty-report .appendix-document-identity { min-width:0; }
+.novelty-report section.appendix-redesign .appendix-query-input { width:100%; max-width:100%; white-space:pre-wrap!important; overflow-wrap:anywhere!important; word-break:break-word; }
+
+/* 状态取自真实回执；不完整、失败和未开始不使用成功绿点。 */
+.novelty-report .appendix-status[data-status="partial"]:before { background:var(--ap-warning); }
+.novelty-report .appendix-status[data-status="failed"]:before { background:var(--ap-error); }
+.novelty-report .appendix-status[data-status="incomplete"]:before { background:var(--ap-hint); }
+.novelty-report .appendix-incomplete { padding:24px 0 16px; }
+.novelty-report .appendix-redesign > .report-section-heading:after { display:none; }
+.novelty-report .appendix-redesign > .report-section-heading>div { min-width:0; }
+.novelty-report .appendix-redesign > .report-section-heading .appendix-letter { font-size:32px; color:var(--ap-meta); background:none; padding:0; }
+.novelty-report .appendix-redesign p { overflow-wrap:anywhere; }
+.novelty-report [data-appendix-record] pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+.novelty-report [data-appendix-record] a { color:var(--ap-brand)!important; }
+.novelty-report [data-appendix-record] a:hover { color:var(--ap-brand-hover)!important; }
+.novelty-report .appendix-redesign > .report-section-heading { margin:0; }
+.novelty-report .appendix-redesign > .report-section-heading .appendix-letter { font-family:inherit; font-weight:400; }

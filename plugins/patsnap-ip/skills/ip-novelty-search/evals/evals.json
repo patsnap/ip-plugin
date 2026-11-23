@@ -1,0 +1,86 @@
+{
+  "skill": "ip-novelty-search",
+  "version": 2,
+  "evals": [
+    {
+      "id": "explicit-new-plugin-name",
+      "type": "discovery",
+      "prompt": "Use $ip-novelty-search to find the closest prior patents for this technical solution, compare features and assess novelty.",
+      "expected_activation": true,
+      "assertions": [
+        "Recognize the official ip-novelty-search identifier and enter novelty research",
+        "Do not guarantee patentability or a formal novelty-search opinion"
+      ]
+    },
+    {
+      "id": "normal-cn-complete-disclosure",
+      "type": "behavior",
+      "prompt": "Conduct a China patent novelty search on the attached complete mechanical disclosure, using 2025-01-01 as assessment date, and deliver an HTML report.",
+      "expected_activation": true,
+      "assertions": [
+        "Preserve extracted source_features and use traceable comparison_units for formal comparison",
+        "Use mixed semantic/keyword recall and save actual requests and receipts",
+        "Show filing/publication dates per document and separate date eligibility from technical disclosure",
+        "Do not combine documents for novelty; audit numbered Y groups under the CN three-step approach"
+      ]
+    },
+    {
+      "id": "incomplete-target-date-and-jurisdiction",
+      "type": "behavior",
+      "prompt": "Assess whether this optical solution has inventive step.",
+      "expected_activation": true,
+      "assertions": [
+        "With a concrete solution already supplied, ask together only for target jurisdiction and assessment date that affect conclusions",
+        "For an authorized test first, state its jurisdiction and limit conclusion strength",
+        "Do not give definite novelty/inventive-step conclusions while decisive text or dates remain unresolved"
+      ]
+    },
+    {
+      "id": "step4-feedback-retrieval",
+      "type": "behavior",
+      "prompt": "Continue existing novelty research: the strongest candidate\u2019s full text introduces new industry terminology but its key relationship remains not_mentioned.",
+      "expected_activation": true,
+      "assertions": [
+        "Create feedback with source publication, affected features, triggering fact and new query",
+        "Return to step 3 for targeted mixed semantic/keyword retrieval",
+        "Compare only new documents or affected features and retain the previous judgment"
+      ]
+    },
+    {
+      "id": "legacy-name-not-an-entrypoint",
+      "type": "discovery",
+      "prompt": "Call $novelty-search.",
+      "expected_activation": false,
+      "assertions": [
+        "The legacy name is not an installed entry point; suggest ip-novelty-search or route by the actual request"
+      ]
+    },
+    {
+      "id": "fto-only-negative-routing",
+      "type": "discovery",
+      "prompt": "Assess whether our product falls within the claims of these three active US patents.",
+      "expected_activation": false,
+      "assertions": [
+        "Route to FTO or claim comparison; do not reframe implementation risk as novelty research"
+      ]
+    },
+    {
+      "id": "competitor-landscape-negative-routing",
+      "type": "discovery",
+      "prompt": "Analyze a competitor\u2019s patent portfolio and technology evolution over the last five years.",
+      "expected_activation": false,
+      "assertions": [
+        "Do not start novelty or inventive-step assessment"
+      ]
+    },
+    {
+      "id": "ambiguous-search-report-review",
+      "type": "discovery",
+      "prompt": "Review the attached novelty report for missed documents, wrong citations and overstated conclusions; do not search from scratch.",
+      "expected_activation": false,
+      "assertions": [
+        "Prioritize report review unless the user subsequently requests new or continued novelty research"
+      ]
+    }
+  ]
+}

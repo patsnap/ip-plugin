@@ -1,0 +1,111 @@
+
+/* 引用阅读器：沿用专利原文阅读器的双栏排版。 */
+.novelty-report dialog.report-citation-reader { width:min(1240px,calc(100vw - 64px))!important; max-width:none!important; height:min(820px,calc(100dvh - 64px))!important; max-height:calc(100dvh - 64px)!important; padding:0!important; opacity:1!important; animation:none!important; transition:none!important; border:1px solid var(--ps-border)!important; border-radius:12px!important; background:white!important; }
+.novelty-report dialog.report-citation-reader > header { background:white; padding:16px 24px; min-height:68px; border-bottom:1px solid var(--ps-border); }
+.novelty-report dialog.report-citation-reader > header h3 { font-size:18px; font-weight:600; color:var(--ps-fg); }
+.novelty-report dialog.report-citation-reader > footer { min-height:56px; padding:12px 24px; background:white; font-size:14px; }
+.novelty-report .report-citation-reader .report-cell-dialog-body { display:flex; flex:1; min-height:0; overflow:hidden!important; padding:0!important; }
+.novelty-report .report-citation-layout { display:grid; grid-template-columns:280px minmax(0,1fr); width:100%; min-height:0; }
+.novelty-report .report-citation-no-context { grid-template-columns:1fr; }
+.novelty-report .report-citation-sidebar { padding:24px; background:var(--ps-bg-2); border-right:1px solid var(--ps-border); overflow-y:auto; }
+.novelty-report .report-citation-sidebar .report-citation-eyebrow { margin:0 0 8px; font-size:14px; color:var(--ps-fg-3); }
+.novelty-report .report-citation-sidebar h4 { margin:0 0 12px; font-size:18px; line-height:1.7; color:var(--ps-fg); }
+.novelty-report .report-citation-state { display:inline-block; font-size:14px; line-height:1.8; color:var(--ps-fg-2); padding-bottom:16px; }
+.novelty-report .report-citation-reason { border-top:1px solid var(--ps-border); padding-top:16px; }
+.novelty-report .report-citation-reason p { font-size:16px!important; line-height:1.95!important; color:var(--ps-fg-2); margin:0 0 12px!important; display:block!important; -webkit-line-clamp:unset!important; overflow:visible!important; }
+.novelty-report .report-citation-workspace { display:flex; flex-direction:column; min-height:0; min-width:0; padding:24px 32px 0; }
+.novelty-report .report-citation-source-head { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding-bottom:16px; }
+.novelty-report .report-citation-source-head h4 { margin:0; font-size:16px; color:var(--ps-fg); }
+.novelty-report .report-citation-source-head span { color:var(--ps-fg-3); font-size:14px; }
+.novelty-report .report-citation-reader .report-popup-tabs { flex:none; display:flex; gap:24px; flex-wrap:wrap; margin:0!important; padding:0!important; border-bottom:1px solid var(--ps-border); }
+.novelty-report .report-citation-reader .report-popup-tabs button { border:0!important; border-bottom:2px solid transparent!important; border-radius:0!important; padding:8px 0 12px!important; margin:0!important; background:transparent!important; font-size:14px; color:var(--ps-fg-3); }
+.novelty-report .report-citation-reader .report-popup-tabs button[aria-selected=true] { color:var(--ps-brand); border-bottom-color:var(--ps-brand); font-weight:600; }
+.novelty-report .report-citation-pane { flex:1; min-height:0; overflow:auto; padding:24px 0; overscroll-behavior:contain; }
+.novelty-report .report-citation-source { padding:0!important; border:0!important; }
+.novelty-report .report-citation-paragraph { display:grid; grid-template-columns:48px minmax(0,1fr); gap:16px; margin-bottom:24px; }
+.novelty-report .report-citation-paragraph-number { font-size:14px; line-height:2.3; color:var(--ps-fg-hint); }
+.novelty-report .report-citation-quoted .report-citation-paragraph-number { color:var(--ps-brand); font-weight:600; }
+.novelty-report .report-citation-paragraph p { white-space:pre-wrap; margin:0!important; font-size:16px!important; line-height:1.95; color:var(--ps-fg-2); overflow-wrap:anywhere; }
+.novelty-report .report-citation-paragraph mark { color:inherit; background:var(--ps-warning-bg); box-decoration-break:clone; }
+.novelty-report .report-citation-source .report-evidence-footer { margin-top:16px; padding-top:16px; }
+.novelty-report .report-citation-source img { max-height:500px; object-fit:contain; }
+.novelty-report .report-citation-reader.report-image-zoomed .report-citation-source img { max-height:none; max-width:none; }
+.novelty-report .report-citation-reader .report-popup-image-tools { padding:12px 0 0; }
+@media(max-width:800px) {
+ .novelty-report dialog.report-citation-reader { width:calc(100vw - 16px)!important; height:calc(100dvh - 24px)!important; max-height:calc(100dvh - 24px)!important; }
+ .novelty-report .report-citation-layout { grid-template-columns:1fr; display:block; overflow-y:auto; }
+ .novelty-report .report-citation-sidebar { border-right:0; border-bottom:1px solid var(--ps-border); padding:20px; }
+ .novelty-report .report-citation-workspace { display:block; padding:20px; }
+ .novelty-report .report-citation-source-head { flex-wrap:wrap; gap:4px; }
+ .novelty-report .report-citation-pane { overflow:visible; padding-bottom:0; }
+ .novelty-report .report-citation-paragraph { grid-template-columns:40px minmax(0,1fr); gap:12px; }
+ .novelty-report .report-citation-reader .report-popup-tabs { gap:16px; }
+ .novelty-report dialog.report-citation-reader > footer span { display:none; }
+}
+
+.novelty-report .report-citation-source .report-source-context {border:0;padding:0;margin:0;background:none;}
+
+/* 完整对照依据：判断与原文并排阅读。 */
+
+.novelty-report dialog.report-complete-reader{padding:0!important;width:min(1240px,calc(100vw - 64px))!important;max-width:none!important;height:min(860px,calc(100dvh - 64px))!important;max-height:calc(100dvh - 64px)!important;border:1px solid var(--ps-border)!important;border-radius:12px!important;background:white!important;color:var(--ps-fg);box-shadow:0 24px 80px #142b4630;}
+.report-complete-reader::backdrop{background:#25384b55;backdrop-filter:blur(3px)}
+.novelty-report .report-complete-reader[open]{display:flex!important;flex-direction:column;}
+.novelty-report .report-complete-reader > header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:24px 32px;border-bottom:1px solid var(--ps-border);background:white;}
+.novelty-report .report-complete-reader .report-complete-kicker{font-size:14px;color:var(--ps-fg-3);margin:0 0 8px;}
+.novelty-report .report-complete-reader h3{font-size:24px;line-height:1.5;font-weight:600;margin:0;color:var(--ps-fg);}
+.novelty-report .report-complete-reader .report-complete-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;margin:8px 0 0;font-size:14px;color:var(--ps-fg-3);}
+.novelty-report .report-complete-reader .report-complete-patent-title{margin-top:4px;font-size:14px;color:var(--ps-fg-3);}
+.novelty-report .report-complete-reader a{color:var(--ps-brand);text-decoration:none;}
+.novelty-report .report-complete-reader a:hover{text-decoration:underline;}
+.novelty-report .report-complete-reader button{font:inherit;font-size:14px;}
+.novelty-report .report-complete-reader button:focus-visible,.novelty-report .report-complete-reader a:focus-visible{outline:2px solid var(--ps-brand);outline-offset:4px;}
+.novelty-report .report-complete-close{background:white;border:1px solid var(--ps-border);border-radius:6px;padding:8px 16px;white-space:nowrap;}
+.novelty-report .report-complete-columns{display:grid;grid-template-columns:380px minmax(0,1fr);flex:1;min-height:0;}
+.novelty-report .report-complete-analysis{overflow:auto;padding:32px 32px 32px 32px;border-right:1px solid var(--ps-border);background:white;}
+.novelty-report .report-complete-block+.report-complete-block{margin-top:24px;padding-top:24px;border-top:1px solid var(--ps-border);}
+.novelty-report .report-complete-block h4{font-size:14px;font-weight:500;color:var(--ps-fg-3);margin:0 0 12px;display:flex;align-items:center;gap:12px;}
+.novelty-report .report-complete-block p{font-size:14px;line-height:1.95;color:var(--ps-fg-2);margin:0;}
+.novelty-report .report-complete-state{color:var(--ps-fg-2);font-size:14px;display:inline-flex;align-items:center;gap:8px;margin-left:auto;}
+.novelty-report .report-complete-state:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ps-fg-hint);}
+.novelty-report .report-complete-state.satisfied:before{background:var(--ps-brand);}
+.novelty-report .report-complete-state.different:before{background:var(--ps-warning);}
+.novelty-report .report-complete-reader .report-complete-state{background:none!important;}
+.novelty-report .report-complete-review{margin:20px 0 0;font-size:14px;color:var(--ps-fg-3);}
+.novelty-report .report-complete-review .report-atomic-review{display:block;font-size:14px;color:var(--ps-fg-3);}
+.novelty-report .report-complete-review p{font-size:14px;line-height:1.9;}
+.novelty-report .report-complete-workspace{display:flex;flex-direction:column;min-width:0;min-height:0;padding:32px 32px 0;}
+.novelty-report .report-complete-source-title{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:20px;}
+.novelty-report .report-complete-source-title h4{font-size:16px;font-weight:600;}
+.novelty-report .report-complete-source-title span{font-size:14px;color:var(--ps-fg-3);}
+.novelty-report .report-complete-tabs{display:flex;gap:24px;flex-wrap:wrap;border-bottom:1px solid var(--ps-border);flex:none;}
+.novelty-report .report-complete-tabs button{font-size:14px;border:0;border-radius:0;border-bottom:2px solid transparent;padding:0 0 12px;background:none;color:var(--ps-fg-2);max-width:100%;text-align:left;}
+.novelty-report .report-complete-tabs button[aria-selected=true]{color:var(--ps-brand);border-bottom-color:var(--ps-brand);font-weight:600;}
+.novelty-report .report-complete-source-tools{display:flex;justify-content:space-between;gap:16px;padding:16px 0 12px;color:var(--ps-fg-3);font-size:14px;}
+.novelty-report .report-complete-source-tools button{border:0;padding:0;background:none;color:var(--ps-brand);font-size:14px;}
+.novelty-report .report-complete-source-pane{overflow:auto;flex:1;min-height:0;padding:8px 8px 24px 0;overscroll-behavior:contain;scrollbar-width:thin;}
+.novelty-report .report-complete-source-pane .report-source-context{margin:0;padding:0;background:none;border:0;}
+.novelty-report .report-complete-passage{display:grid;grid-template-columns:36px minmax(0,1fr);gap:16px;margin:0 0 24px;}
+.novelty-report .report-complete-passage>span{color:var(--ps-fg-3);font-size:14px;line-height:2.7;}
+.novelty-report .report-complete-passage.quoted>span{color:var(--ps-brand);}
+.novelty-report .report-complete-source-pane p{font-size:16px;line-height:1.95;color:var(--ps-fg-2);margin:0;white-space:pre-wrap;overflow-wrap:anywhere;}
+.novelty-report .report-complete-source-pane mark{color:inherit;background:var(--ps-warning-bg);box-decoration-break:clone;}
+.novelty-report .report-complete-source-pane img{display:block;max-width:100%;height:auto;max-height:520px;object-fit:contain;margin:auto;}
+.novelty-report .report-complete-source-pane.is-zoomed img{max-width:none;max-height:none;}
+.novelty-report .report-complete-reader .report-complete-footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex:none;border-top:1px solid var(--ps-border);padding:16px 32px;background:white;font-size:14px;color:var(--ps-fg-3);}
+@media(max-width:800px){.novelty-report dialog.report-complete-reader{width:calc(100vw - 16px)!important;height:calc(100dvh - 24px)!important;max-height:calc(100dvh - 24px)!important;}.novelty-report .report-complete-reader > header{padding:20px;gap:16px;}.novelty-report .report-complete-reader h3{font-size:20px;}.novelty-report .report-complete-columns{display:block;overflow:auto;}.novelty-report .report-complete-analysis{padding:20px;border-right:0;border-bottom:1px solid var(--ps-border);overflow:visible;}.novelty-report .report-complete-workspace{display:block;padding:20px;}.novelty-report .report-complete-source-pane{overflow:visible;padding:8px 0;}.novelty-report .report-complete-source-title{flex-wrap:wrap;gap:4px;}.novelty-report .report-complete-reader .report-complete-footer{padding:16px 20px;}.novelty-report .report-complete-reader .report-complete-footer span{display:none;}.novelty-report .report-complete-tabs{gap:16px;}.novelty-report .report-complete-passage{gap:12px;}}
+
+/* 完整对照复用已有弹窗生命周期，正文与附图各自滚动。 */
+.novelty-report .report-complete-reader > .report-cell-dialog-body { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden!important; padding:0!important; }
+.novelty-report .report-complete-reader > footer { display:none; }
+.novelty-report .report-complete-heading { flex:1; min-width:0; }
+.novelty-report .report-complete-analysis .report-state { margin-right:8px; }
+.novelty-report .report-complete-reader .report-complete-source-pane .report-source-text { border:0; padding:0; background:none; }
+.novelty-report .report-complete-reader .report-citation-paragraph { grid-template-columns:48px minmax(0,1fr); }
+@media(max-width:800px) {
+ .novelty-report .report-complete-reader .report-complete-source-pane.is-zoomed { overflow:auto; max-height:65dvh; }
+ .novelty-report .report-complete-reader .report-complete-columns { min-width:0; }
+}
+/* 覆盖旧行弹窗的入场动画，首帧即可清晰阅读。 */
+.novelty-report dialog.report-complete-reader { opacity:1!important; animation:none!important; transition:none!important; }
+.novelty-report dialog.report-complete-reader > header h3 { font-size:24px!important; line-height:1.5!important; font-weight:600; }
+@media(max-width:800px) { .novelty-report dialog.report-complete-reader > header h3 { font-size:20px!important; } }

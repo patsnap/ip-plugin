@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="{{output_language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>{{report_title}}</title>
+  <style>
+    :root{--ink:#020a1a;--muted:#697b96;--line:#dfe1e6;--soft:#f4f5f7;--brand:#0764e9;--ok:#1c6606;--okbg:#e3f1de;--warn:#a85604;--warnbg:#faecda;--bad:#9e1426;--badbg:#fcedef;--paper:#fff}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fafbfc;color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif}
+    a{color:var(--brand);text-underline-offset:3px}nav{position:sticky;top:0;z-index:3;display:flex;gap:8px;overflow:auto;padding:10px 18px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}nav a{white-space:nowrap;text-decoration:none;padding:6px 10px;border-radius:6px}nav a:hover{background:var(--soft)}
+    main{max-width:1180px;margin:auto;padding:32px 24px 72px}.cover{padding:36px;border-radius:14px;background:linear-gradient(135deg,#fff 0%,#eef5ff 100%);border:1px solid #d7e5fb}.eyebrow{color:var(--brand);font-weight:700;letter-spacing:.06em}.cover h1{font-size:34px;line-height:1.25;margin:8px 0 18px}.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.meta div,.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px}.label{display:block;color:var(--muted);font-size:12px}.review{margin-top:16px;border-left:4px solid var(--warn);background:var(--warnbg);padding:12px 16px;border-radius:6px}.format{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;font-size:13px}
+    section{scroll-margin-top:72px;margin-top:42px}h2{font-size:24px;margin:0 0 16px}h3{font-size:18px;margin:24px 0 10px}.lead{font-size:17px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.metric strong{display:block;font-size:26px}.muted,.source{color:var(--muted)}.source{font-size:12px}.status{display:inline-block;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}.status.ok{color:var(--ok);background:var(--okbg)}.status.warn{color:var(--warn);background:var(--warnbg)}.status.bad{color:var(--bad);background:var(--badbg)}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}table{border-collapse:collapse;width:100%;min-width:820px}th,td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--line)}th{background:var(--soft);font-size:13px}tr:last-child td{border-bottom:0}code,pre{font-family:"SFMono-Regular",Consolas,monospace}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1b2e;color:#e8f1ff;padding:16px;border-radius:8px}details{border:1px solid var(--line);border-radius:9px;background:#fff;margin:10px 0;padding:10px 14px}summary{cursor:pointer;font-weight:700}.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.flow span{background:#eef5ff;border:1px solid #d7e5fb;border-radius:8px;padding:6px 10px}.flow b{color:var(--muted)}.notice{padding:12px 14px;border-left:4px solid var(--brand);background:#eef5ff}.evidence{scroll-margin-top:72px}
+    footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    @media(max-width:760px){main{padding:18px 12px 48px}.cover{padding:22px}.cover h1{font-size:27px}.meta,.grid{grid-template-columns:1fr}nav{padding:8px}}
+    @media print{body{background:#fff}nav,.review .format{display:none}main{max-width:none;padding:0}.cover,.card,details,.table-wrap{break-inside:avoid}details>summary{list-style:none}details:not([open])>*:not(summary){display:block}a{color:#000;text-decoration:none}}
+  </style>
+</head>
+<body>
+  <!-- Replace all placeholders and remove comments. Follow references/plain-language.md for every customer-visible label. Without verified URLs remove external anchors and show “Original link not obtained.” Repeat candidate rows and CC details for adopted patents. -->
+  <nav aria-label="Report sections">
+    <a href="#summary">Summary</a><a href="#facts">Product</a><a href="#search">Search approach</a><a href="#screening">Candidates</a><a href="#claim-chart">Detailed review</a><a href="#conclusion">Conclusions and open issues</a><a href="#evidence">Evidence</a>
+  </nav>
+  <main>
+    <header class="cover" id="summary">
+      <div class="eyebrow">Patent freedom-to-operate assessment (FTO)· {{preview_status}}</div>
+      <h1>{{report_title}}</h1>
+      <p class="lead">{{scope_summary}}</p>
+      <div class="meta">
+        <div><span class="label">Case / version</span>{{case_id}} · {{report_version}}</div>
+        <div><span class="label">Markets / assessment date</span>{{target_markets}} · {{assessment_date}}</div>
+        <div><span class="label">Candidate screening / detailed review</span>{{screening_returned}} candidates · {{cc_selected}} selected · {{cc_completed}} completed</div>
+        <div><span class="label">Decisive unknowns</span>{{decisive_unknown_count}}</div>
+      </div>
+      <div class="review"><strong>Customer confirmation</strong><br>{{review_questions}}
+        <div class="format" aria-label="Final delivery formats"><span class="pill">HTML</span><span class="pill">Word</span><span class="pill">PDF</span><span class="pill">Markdown</span><span class="pill">Chosen combination</span></div>
+      </div>
+    </header>
+
+    <section id="facts"><h2>1. Solution and fact basis</h2><p>{{technical_proposal}}</p>
+      <div class="table-wrap"><table><thead><tr><th>ID</th><th>Product feature</th><th>Source location</th><th>Verification status</th><th>Search / detailed review purpose</th></tr></thead><tbody>{{feature_rows}}</tbody></table></div>
+    </section>
+
+    <section id="search"><h2>2. How we searched</h2>
+      <div class="flow"><span>Product feature</span><b>→</b><span>Independent search directions</span><b>→</b><span>Organize synonyms</span><b>→</b><span>Define OR / AND relationships</span><b>→</b><span>Boolean + broad semantic recall</span><b>→</b><span>Converge within semantic results</span><b>→</b><span>Apply country and status scope</span></div>
+      <p class="notice">{{query_logic_summary}}</p>
+      <h3>Keywords, synonyms and patent classes</h3>
+      <div class="table-wrap"><table><thead><tr><th>Search direction</th><th>Search concept</th><th>Chinese terms</th><th>Target-market language terms</th><th>Patent classes (IPC / CPC)</th><th>Adoption reason</th></tr></thead><tbody>{{keyword_rows}}</tbody></table></div>
+      <h3>Boolean and semantic searches</h3>
+      <div class="table-wrap"><table><thead><tr><th>Search method</th><th>Search intent</th><th>Countries, statuses and dates</th><th>Viewed window / returned / retrieved</th><th>Source record</th></tr></thead><tbody>{{query_route_rows}}</tbody></table></div>
+      <details><summary>View complete Boolean queries</summary><pre>{{boolean_queries}}</pre></details>
+      <details><summary>Expand semantic queries and source basis</summary><pre>{{semantic_queries}}</pre></details>
+      <h3>Semantic-pool convergence: actual inputs</h3>
+      <p class="notice">The following inputs rank and tier already retrieved semantic candidates; they do not expand the database search.</p>
+      <div class="table-wrap"><table><thead><tr><th>Language</th><th>Original broad semantic query</th><th>Object + relationship + context phrases</th><th>Input candidate pool</th><th>Convergence method / retention rules</th></tr></thead><tbody>{{semantic_convergence_input_rows}}</tbody></table></div>
+      <p>{{semantic_convergence_result_summary}} <span class="source">Complete input candidate list: {{semantic_convergence_pool_reference}}</span></p>
+    </section>
+
+    <section id="screening"><h2>3. Retrieval, screening and client selection</h2>
+      <div class="grid">
+        <div class="card metric"><span class="label">Submitted for screening</span><strong>{{screening_submitted}}</strong><span class="source">{{screening_submission_source}}</span></div>
+        <div class="card metric"><span class="label">Returned candidates</span><strong>{{screening_returned}}</strong><span class="source">{{screening_mode_status}} · Version mapping: {{identity_remap_status}}</span></div>
+        <div class="card metric"><span class="label">Client-selected / pending or active verified</span><strong>{{cc_selected}} · {{lifecycle_gate_passed}}</strong><span class="source">{{selection_source}}</span></div>
+      </div>
+      <p>{{screening_completeness_note}}<br>{{lifecycle_gate_summary}}</p>
+      <div class="table-wrap"><table><thead><tr><th>Order</th><th>Adopted publication / original</th><th>Title / applicant</th><th>Country / pending or active rights</th><th>Adopted claim version</th><th>Detailed-review status</th></tr></thead><tbody>{{selected_candidate_rows}}</tbody></table></div>
+      <p class="source">Objects outside this claim comparison: {{lifecycle_excluded_or_unknown_reference}}. Reasons may include inactive rights or insufficient status evidence.</p>
+      <p class="source">Unselected objects: {{deferred_catalog_reference}}. Unselected does not mean excluded or low risk.</p>
+    </section>
+
+    <section id="claim-chart"><h2>4. Itemwise review of possible claim coverage</h2>
+      {{claim_chart_sections}}
+      <!-- One-patent example：
+      <details open id="patent-{{patent_id}}"><summary>{{pn}} · {{title}} · {{local_risk}}</summary>
+        <p><a href="{{verified_patent_source_url}}" target="_blank" rel="noopener noreferrer">View patent original</a> · <a href="#evidence-{{evidence_id}}">Go to evidence</a></p>
+        <div class="table-wrap"><table><thead><tr><th>Claim limitation (original / translation)</th><th>Description support / claim interpretation basis</th><th>Product facts</th><th>Assessment</th></tr></thead><tbody>{{claim_limitation_rows}}</tbody></table></div>
+      </details> -->
+    </section>
+
+    <section id="conclusion"><h2>5. Conclusions and unresolved matters</h2><div class="card">{{conditional_conclusion}}</div><p class="notice">Consistency between claim rows and tool summary: {{cc_conclusion_consistency_status}}</p><h3>Evidence and decisions still needed</h3>{{open_issues}}</section>
+
+    <section id="evidence"><h2>6. Evidence, adopted claims and current rights</h2>{{evidence_sections}}
+      <!-- Use a stable anchor for every evidence item：<section class="evidence" id="evidence-{{evidence_id}}">...</section> -->
+    </section>
+
+    <footer>{{disclaimer}}<br>Client confirmation: {{client_confirmation_status}} · Final format: {{final_output_choice}}</footer>
+  </main>
+</body>
+</html>

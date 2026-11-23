@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="__LANG__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+:root{--ink:#163b49;--muted:#607987;--line:#dce6e9;--blue:#00769d;--green:#078778;--bg:#f3f7f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1420px;margin:auto;padding:30px 32px 40px}h1{font-size:29px;letter-spacing:-.5px;margin:4px 0 8px}h2{font-size:17px;margin:0 0 12px}
+.eyebrow{color:var(--blue);font-size:12px;font-weight:750;letter-spacing:1.5px}.muted{color:var(--muted)}.lead{margin:0 0 20px}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;margin:18px 0}.flow span{border:1px solid var(--line);border-radius:20px;padding:5px 14px;background:white}.flow .active{background:var(--blue);color:white;border-color:var(--blue)}
+.scope{border-left:4px solid var(--green);background:#eaf5f3;padding:13px 17px;border-radius:6px;overflow-wrap:anywhere}.scope strong{margin-right:12px}.scope p{margin:4px 0 0}.layout{display:grid;grid-template-columns:minmax(0,1fr) 295px;gap:20px;margin-top:24px}
+.panel{border:1px solid var(--line);border-radius:12px;background:white;overflow:hidden}.toolbar{padding:16px;border-bottom:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap;align-items:center}.toolbar input{min-width:180px;flex:1;padding:10px 12px;border:1px solid #b8cbd2;border-radius:7px;font:inherit}
+.toolbar label{display:flex;gap:5px;align-items:center;font-size:13px}.toolbar input[type=checkbox]{min-width:0;flex:none}.listinfo{padding:9px 16px;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}
+.scroll{max-height:72vh;overflow:auto}table{border-collapse:collapse;width:100%;min-width:850px;font-size:13px}th{position:sticky;top:0;text-align:left;background:#edf3f5;padding:11px 10px;z-index:1;font-weight:650}td{padding:13px 10px;border-bottom:1px solid #edf1f3;vertical-align:top}tr.chosen{background:#edf8f5}tr[hidden]{display:none}
+td:first-child{width:78px;white-space:nowrap}td.identity{width:160px}td.subject{min-width:220px}td.owner{width:175px}td.region{width:100px}.rowid{display:block;color:var(--muted);font-size:11px;margin-top:4px}input[type=checkbox]{width:18px;height:18px;accent-color:var(--green);cursor:pointer}input:disabled{cursor:default}input:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #69b6d6;outline-offset:2px}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.pn{font-weight:650}.title{font-size:14px;font-weight:600}.abstract{color:#486570;white-space:pre-wrap;overflow-wrap:anywhere}.provenance{font-size:11px;color:var(--muted);overflow-wrap:anywhere}details{margin-top:8px}summary{color:var(--blue);cursor:pointer;font-size:12px}.side{position:sticky;top:20px;align-self:start;padding:20px}.counter{font-size:38px;font-weight:700;letter-spacing:-1px;line-height:1.2}.counter small{font-size:17px;color:var(--muted);font-weight:400}
+.chips{max-height:34vh;overflow:auto;margin:14px 0;display:grid;gap:6px}.chip{display:flex;gap:6px;align-items:center;justify-content:space-between;background:#edf6f5;border-radius:6px;padding:8px;font-size:12px}.chip button{border:none;background:none;color:var(--green);padding:0 4px;font-size:20px;line-height:1}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);padding:10px 12px;border-radius:7px;background:white;color:var(--ink)}button:disabled{opacity:.45;cursor:default}.primary{background:var(--blue);border-color:var(--blue);color:white}.actions{display:grid;gap:8px;margin-top:15px}.small{font-size:12px}.status{font-size:13px;margin-top:12px;min-height:20px;color:var(--green)}.empty{padding:22px;color:var(--muted)}footer{margin-top:20px;font-size:12px;color:var(--muted)}footer code{word-break:break-all;font-size:11px}.packet{width:100%;height:180px;font:11px/1.5 monospace;margin-top:8px;resize:vertical}#selection-packet[hidden]{display:none}
+@media(max-width:980px){main{padding:20px 15px}.layout{grid-template-columns:1fr}.side{position:static;grid-row:1}.chips{grid-template-columns:repeat(2,minmax(0,1fr));max-height:180px}.actions{grid-template-columns:1fr 1fr}.scroll{max-height:70vh;overflow:auto}h1{font-size:25px}}
+@media print{.side,.toolbar{display:none}.layout{display:block}.scroll{max-height:none;overflow:visible}th{position:static}body{background:white}main{padding:0}}
+
+.controls{display:grid;gap:12px;margin:12px 0}.controls label,.filters label{display:grid;gap:5px;font-size:12px;font-weight:600}.controls select,.filters select{font:inherit;padding:9px;border:1px solid #b8cbd2;border-radius:6px;background:white;min-width:0;max-width:100%}.filters{padding:12px 16px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.filters[hidden]{display:none}.filter-bottom{grid-column:1/-1;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.side{top:10px}.chosen-note{color:#8a650c;font-size:11px}.counter{font-size:32px}@media(max-width:980px){.filters{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.filter-bottom{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">FTO · Candidate selection</div>
+  <h1 id="heading"></h1><p class="lead muted" id="lead"></p>
+  <div class="flow"><span id="flow-screen"></span><b aria-hidden="true">→</b><span class="active" id="flow-select"></span><b aria-hidden="true">→</b><span id="flow-cc"></span><b aria-hidden="true">→</b><span id="flow-report"></span></div>
+  <div class="scope"><strong id="scope-label"></strong><span id="scope"></span><p class="small muted" id="scope-note"></p></div>
+  <div class="layout">
+    <section class="panel" aria-labelledby="list-title">
+      <div class="toolbar"><input id="search" type="search"><label><input id="selected-only" type="checkbox"><span id="selected-only-label"></span></label></div>
+      <div class="filters" id="filters" hidden>
+        <label><span id="f-owner-label"></span><select id="f-assignees"></select></label>
+        <label><span id="f-status-label"></span><select id="f-legal_status"></select></label>
+        <label><span id="f-region-label"></span><select id="f-jurisdiction"></select></label>
+        <div class="filter-bottom"><button id="apply-filter" class="small"></button><span id="filter-note" class="small muted" aria-live="polite"></span></div>
+      </div>
+      <div class="listinfo" id="list-title" aria-live="polite"></div>
+      <div class="scroll"><table><thead><tr><th id="h-select"></th><th id="h-pn"></th><th id="h-title"></th><th id="h-owner"></th><th id="h-region"></th></tr></thead><tbody id="rows"></tbody></table><div id="no-results" class="empty" hidden></div></div>
+    </section>
+    <aside class="panel side" aria-labelledby="selection-title">
+      <h2 id="selection-title"></h2>
+      <div class="controls">
+        <label><span id="strategy-label"></span><select id="strategy"><option value="" id="strategy-pending"></option><option value="all" id="strategy-all"></option><option value="subset" id="strategy-subset"></option></select></label>
+        <label><span id="evidence-label"></span><select id="evidence"><option value="" id="evidence-pending"></option><option value="claims" id="evidence-claims"></option><option value="fulltext" id="evidence-fulltext"></option></select></label>
+      </div>
+      <div class="counter"><span id="count" aria-live="polite">0</span> <small id="limit"></small></div>
+      <p class="small" id="batch-plan"></p><p class="muted small" id="depth-note"></p>
+      <div class="chips" id="chosen"></div><button id="clear" class="small" disabled></button>
+      <div class="actions"><button id="copy" class="primary" disabled></button><button id="download" disabled></button></div>
+      <div id="status" class="status" role="status"></div><p class="muted small" id="handoff-note"></p>
+      <div id="selection-packet" hidden><label for="packet" id="packet-label" class="small"></label><textarea id="packet" class="packet" readonly></textarea></div>
+    </aside>
+  </div>
+  <footer><div id="audit"></div><div id="hash-label"></div><code id="hash"></code></footer>
+</main>
+<script type="application/json" id="catalog">__CATALOG_JSON__</script>
+<script>
+"use strict";
+const catalog=JSON.parse(document.getElementById("catalog").textContent);
+const dictionary={
+ zh:{heading:"选择要进一步逐项检查的候选专利",lead:"先选择全部候选或其中一部分，再决定检查前是否需要阅读这些专利的完整说明书。候选总数没有固定上限。",screen:"6 · 筛选候选专利",select:"6.5 · 选择检查范围",cc:"7 · 逐项检查",report:"8 · 查看报告",scope:"本页可选的候选专利",scopeNote:"“全部”只包括本页列出的完整候选目录，不包括尚未检索的国家或本次没有取得的结果。",placeholder:"按编号、专利号、标题或申请人查找",selectedOnly:"只显示已选",pick:"选择",pn:"专利号",title:"标题／为什么列为候选",owner:"申请人",region:"受理局／当前状态",selection:"你的选择",strategy:"要逐项检查哪些专利",pending:"请选择",all:"逐项检查全部候选",subset:"只检查我选择的候选",evidence:"检查前是否阅读完整说明书",claims:"暂不逐篇阅读全文",fulltext:"先取得并阅读完整说明书",clear:"清空已选",copy:"确认并复制选择",download:"确认并下载选择",handoff:"请把选择内容粘贴回对话，或提交下载的 JSON 文件。本页只记录你的选择，不会开始阅读全文或逐项检查。",empty:"尚未选择候选",noResults:"当前条件下没有候选。清除显示条件可以查看完整目录。",unknown:"现有结果未提供",remove:"取消选择",copied:"已复制，请返回对话提交。",copyFallback:"选择内容已生成，请复制下方内容并提交。",downloaded:"选择文件已生成，请提交到对话。",packet:"提交内容（包括目录版本和两项选择）",dirty:"选择已更改，请重新确认并提交。",order:"沿用来源中的顺序，不代表风险高低。",screeningUnknown:"筛选结果还不能确认，暂时保留",groups:"按来源记录分组，不代表总体风险顺序。",hash:"候选目录校验值（SHA-256）",case:"案件",version:"输入版本",source:"来源",any:"不限",fOwner:"按申请人选择",fStatus:"专利当前状态",fRegion:"受理局",apply:"按以上条件更新选择（保留信息不明项）",filterChanged:"条件已更改，请应用后再确认",filterHelp:"不同条件需要同时满足；信息不明的候选会保留待确认。文字搜索只改变页面显示。",unknownRow:"这件专利缺少筛选所需信息，暂时保留待确认",basicNote:"仍会核对完整权利要求，并在需要时补充解释依据。",fullNote:"逐项检查前，先取得并阅读每批所选专利的完整说明书。",undecided:"请分别选择检查范围和是否先阅读全文。",status:{pending:"仍在申请中",active:"目前有效",inactive:"已经失效"},count:(n,m)=>"当前显示 "+n+" / "+m+" 件 · 完整目录",limit:n=>"/ 共 "+n+" 件候选",batches:n=>"本次选择 "+n+" 件 · 分为 "+Math.ceil(n/10)+" 批（每批最多10件）",filtered:(n,u)=>"按条件保留 "+n+" 件，其中 "+u+" 件信息需要确认"},
+ en:{heading:"Choose the patents for detailed review",lead:"First choose all candidates or a smaller set. Then decide whether we should read each selected patent's full description before the detailed claim review. There is no fixed overall limit.",screen:"6 · Screen candidate patents",select:"6.5 · Choose review scope",cc:"7 · Detailed claim review",report:"8 · View report",scope:"Patents available on this page",scopeNote:"All means every patent in this catalogue. It does not include countries that were not searched or results that were not retrieved in this run.",placeholder:"Find a row number, patent number, title, or applicant",selectedOnly:"Show selected only",pick:"Select",pn:"Patent number",title:"Title / why it is a candidate",owner:"Applicant",region:"Patent office / current status",selection:"Your choices",strategy:"Which patents should be reviewed in detail?",pending:"Choose an option",all:"Review every candidate",subset:"Review only the candidates I select",evidence:"Read the full descriptions first?",claims:"Do not read every full description first",fulltext:"Retrieve and read the full descriptions first",clear:"Clear selection",copy:"Confirm and copy choices",download:"Confirm and download choices",handoff:"Paste the choices into the conversation or submit the downloaded JSON file. This page records your choices; it does not start the full-text or detailed claim review.",empty:"No candidates selected",noResults:"No candidates match the current view. Clear the display filters to see the full catalogue.",unknown:"Not provided in the available result",remove:"Remove",copied:"Copied. Return to the conversation to submit it.",copyFallback:"Your choices are ready. Copy the content below and submit it.",downloaded:"Your choices file is ready. Submit it in the conversation.",packet:"Submission details (catalogue version and both choices)",dirty:"Your choices changed. Confirm and submit them again.",order:"This is the source order, not a risk ranking.",screeningUnknown:"The screening result is not yet clear, so this patent remains available",groups:"Grouped by source record, not by overall risk.",hash:"Catalogue check value (SHA-256)",case:"Case",version:"Input version",source:"Source",any:"Any",fOwner:"Choose by applicant",fStatus:"Current patent status",fRegion:"Patent office",apply:"Update selection using these conditions (keep unknowns)",filterChanged:"The conditions changed. Apply them before confirming.",filterHelp:"A patent must meet all selected conditions. Patents with missing information remain for review. Text search only changes what is shown.",unknownRow:"Information needed for this filter is missing, so this patent remains for review",basicNote:"We will still check the complete claims and add interpretation evidence where needed.",fullNote:"Before the detailed claim review, retrieve and read the full description for each selected patent.",undecided:"Choose both the review scope and whether to read the full descriptions first.",status:{pending:"Application pending",active:"Currently in force",inactive:"No longer in force"},count:(n,m)=>"Showing "+n+" of "+m+" patents · full catalogue",limit:n=>"/ "+n+" candidates",batches:n=>n+" selected · "+Math.ceil(n/10)+" batches (up to 10 in each batch)",filtered:(n,u)=>n+" kept by these conditions, including "+u+" with information to confirm"}
+};
+const t=dictionary[catalog.output_language];
+if(!t||catalog.schema_version!=="fto-cc-catalog-3")throw new Error("Unsupported catalogue or UI language.");
+const $=id=>document.getElementById(id),put=(id,text)=>{$(id).textContent=text};
+const labels={heading:"heading",lead:"lead","flow-screen":"screen","flow-select":"select","flow-cc":"cc","flow-report":"report","scope-label":"scope","scope-note":"scopeNote","selected-only-label":"selectedOnly","h-select":"pick","h-pn":"pn","h-title":"title","h-owner":"owner","h-region":"region","selection-title":"selection","strategy-label":"strategy","strategy-pending":"pending","strategy-all":"all","strategy-subset":"subset","evidence-label":"evidence","evidence-pending":"pending","evidence-claims":"claims","evidence-fulltext":"fulltext",clear:"clear",copy:"copy",download:"download","handoff-note":"handoff","no-results":"noResults","packet-label":"packet","hash-label":"hash","f-owner-label":"fOwner","f-status-label":"fStatus","f-region-label":"fRegion","apply-filter":"apply"};
+for(const [id,key] of Object.entries(labels))put(id,t[key]);
+put("scope",catalog.scope);put("limit",t.limit(catalog.candidate_count));put("hash",catalog.catalog_sha256);
+put("audit",t.case+": "+catalog.case_id+" · "+t.version+": "+catalog.input_version+" · "+(catalog.order==="source_order"?t.order:t.groups));
+$("search").placeholder=t.placeholder;$("search").setAttribute("aria-label",t.placeholder);
+const chosen=new Set(),views=[];let method="manual",appliedFilters={};
+function element(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function val(x){return typeof x==="string"&&x.trim()?x:t.unknown;}
+function dirty(){put("status",$("selection-packet").hidden?"":t.dirty);$("selection-packet").hidden=true;$("packet").value="";}
+const fields=["assignees","legal_status","jurisdiction"];
+for(const field of fields){
+ const select=$("f-"+field);select.append(new Option(t.any,""));
+ const values=new Set();
+ for(const row of catalog.candidates){const raw=(row.display||{})[field],items=Array.isArray(raw)?raw:[raw];for(const value of items)if(typeof value==="string"&&value.trim())values.add(value);}
+ for(const value of [...values].sort())select.append(new Option(field==="legal_status"?(t.status[value]||value):value,value));
+ select.addEventListener("change",()=>{dirty();render();});
+}
+function currentFilters(){const c={};for(const f of fields)if($("f-"+f).value)c[f]=[$("f-"+f).value];return c;}
+function match(row,criteria){let missing=false,mismatch=false;for(const [field,values] of Object.entries(criteria)){const raw=(row.display||{})[field];const actual=(Array.isArray(raw)?raw:[raw]).filter(x=>typeof x==="string"&&x.trim());if(!actual.length)missing=true;else if(!actual.some(x=>values.includes(x)))mismatch=true;}return {eligible:!mismatch,unknown:!mismatch&&missing};}
+for(const row of catalog.candidates){
+ const d=row.display||{},tr=element("tr"),pick=element("td"),checkbox=element("input");checkbox.type="checkbox";checkbox.dataset.pid=row.patent_id;checkbox.setAttribute("aria-label",t.pick+" "+row.row_id+" "+row.pn);
+ pick.append(checkbox,element("span","rowid",row.row_id));tr.append(pick);
+ const identity=element("td","identity");let link=element("span","pn",val(row.pn));
+ try{const u=new URL(d.url);if(["https:","http:"].includes(u.protocol)){link=element("a","pn",val(row.pn));link.href=u.href;link.target="_blank";link.rel="noopener noreferrer";}}catch{}
+ identity.append(link,element("div","rowid",row.origins.map(x=>x.source_index+" · #"+x.screening_position).join(" / ")));tr.append(identity);
+ const subject=element("td","subject");subject.append(element("div","title",val(d.title)));
+ if(row.screening_decision==="unknown")subject.append(element("div","chosen-note",t.screeningUnknown));
+ const marker=element("div","chosen-note");subject.append(marker);
+ if(typeof d.screening_reason==="string"&&d.screening_reason.trim())subject.append(element("div","chosen-note",d.screening_reason));
+ if(typeof d.completeness==="string"&&d.completeness.trim())subject.append(element("div","provenance",d.completeness));
+ if(typeof d.source_ref==="string"&&d.source_ref.trim())subject.append(element("div","provenance",t.source+": "+d.source_ref));
+ tr.append(subject);
+ tr.append(element("td","owner",Array.isArray(d.assignees)&&d.assignees.length?d.assignees.join(" · "):t.unknown));
+ const region=element("td","region");region.append(element("div",null,val(d.jurisdiction)),element("div","muted small",t.status[d.legal_status]||val(d.legal_status)));tr.append(region);
+ $("rows").append(tr);
+ const search=[row.row_id,row.pn,d.title,...(Array.isArray(d.assignees)?d.assignees:[]),d.jurisdiction,d.legal_status,d.screening_reason,d.completeness].join(" ").toLocaleLowerCase();
+ views.push({row,tr,checkbox,marker,search});
+ checkbox.addEventListener("change",()=>{if($("strategy").value!=="subset")return;if(checkbox.checked)chosen.add(row.patent_id);else chosen.delete(row.patent_id);method="manual";appliedFilters={};dirty();render();});
+}
+function render(){
+ const strategy=$("strategy").value,criteria=strategy==="subset"?currentFilters():{},query=$("search").value.trim().toLocaleLowerCase(),only=$("selected-only").checked;
+ let visible=0,eligible=0,unknown=0;
+ for(const v of views){const yes=chosen.has(v.row.patent_id),m=match(v.row,criteria);if(m.eligible)eligible++;if(m.unknown)unknown++;
+  v.checkbox.checked=yes;v.checkbox.disabled=strategy!=="subset";v.tr.classList.toggle("chosen",yes);
+  v.tr.hidden=!(m.eligible&&v.search.includes(query)&&(!only||yes));if(!v.tr.hidden)visible++;
+  v.marker.textContent=m.unknown?t.unknownRow:"";
+ }
+ put("count",chosen.size);put("list-title",t.count(visible,catalog.candidate_count));$("no-results").hidden=visible>0;
+ $("filters").hidden=strategy!=="subset";$("apply-filter").disabled=!Object.keys(criteria).length;
+ const filtersChanged=method==="filters"&&JSON.stringify(criteria)!==JSON.stringify(appliedFilters);
+ put("filter-note",(Object.keys(criteria).length?t.filtered(eligible,unknown):t.filterHelp)+(filtersChanged?" · "+t.filterChanged:""));
+ put("batch-plan",t.batches(chosen.size));put("depth-note",$("evidence").value==="fulltext"?t.fullNote:$("evidence").value==="claims"?t.basicNote:t.undecided);
+ for(const id of ["copy","download"])$(id).disabled=!(strategy&&$("evidence").value&&chosen.size&&!filtersChanged);
+ $("clear").disabled=strategy!=="subset"||!chosen.size;
+ $("chosen").replaceChildren();
+ if(!chosen.size)$("chosen").append(element("span","small muted",t.empty));
+ for(const row of catalog.candidates.filter(x=>chosen.has(x.patent_id))){const chip=element("div","chip");chip.append(element("span",null,row.row_id+" · "+(row.pn||row.patent_id)));
+  if(strategy==="subset"){const remove=element("button",null,"×");remove.setAttribute("aria-label",t.remove+" "+row.row_id);remove.addEventListener("click",()=>{chosen.delete(row.patent_id);method="manual";appliedFilters={};dirty();render();});chip.append(remove);}
+  $("chosen").append(chip);
+ }
+}
+function packet(){
+ const strategy=$("strategy").value,evidence=$("evidence").value;
+ if(!strategy||!evidence||!chosen.size)throw new Error("Both strategy choices and candidates are required.");
+ const obj={schema_version:"fto-cc-choice-3",catalog_sha256:catalog.catalog_sha256,strategy,evidence_mode:evidence,selected_patent_ids:catalog.candidates.filter(x=>chosen.has(x.patent_id)).map(x=>x.patent_id)};
+ if(strategy==="subset"){obj.subset_method=method;if(method==="filters")obj.filters=appliedFilters;}
+ return JSON.stringify(obj,null,2);
+}
+function showPacket(){const text=packet();$("packet").value=text;$("selection-packet").hidden=false;return text;}
+$("strategy").addEventListener("change",()=>{chosen.clear();method="manual";appliedFilters={};if($("strategy").value==="all")for(const row of catalog.candidates)chosen.add(row.patent_id);dirty();render();});
+$("evidence").addEventListener("change",()=>{dirty();render();});
+$("apply-filter").addEventListener("click",()=>{if($("strategy").value!=="subset")return;const criteria=currentFilters();if(!Object.keys(criteria).length)return;chosen.clear();for(const row of catalog.candidates)if(match(row,criteria).eligible)chosen.add(row.patent_id);method="filters";appliedFilters=criteria;dirty();render();});
+$("search").addEventListener("input",render);$("selected-only").addEventListener("change",render);
+$("clear").addEventListener("click",()=>{chosen.clear();method="manual";appliedFilters={};dirty();render();});
+$("copy").addEventListener("click",async()=>{const text=showPacket();try{await navigator.clipboard.writeText(text);put("status",t.copied);}catch{$("packet").focus();$("packet").select();put("status",t.copyFallback);}});
+$("download").addEventListener("click",()=>{const text=showPacket(),url=URL.createObjectURL(new Blob([text+"\n"],{type:"application/json"})),a=document.createElement("a");a.href=url;a.download="fto-strategy-"+catalog.catalog_sha256.slice(0,12)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);put("status",t.downloaded);});
+render();
+</script>
+</body>
+</html>

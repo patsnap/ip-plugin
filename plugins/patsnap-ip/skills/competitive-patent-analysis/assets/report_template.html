@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--
+  Competitor technology and patent assessment HTML layout template
+  Placeholder conventions: {{COMPANY}} {{COMPANY_EN}} {{INDUSTRY}} {{REPORT_DATE}}
+  {{TECH_N_TITLE}} {{TECH_N_CORE}} {{TECH_N_ROWS}} {{TECH_N_MONITOR}}
+  Add or remove sections, baseline rows and navigation to match the confirmed areas; cycle t1/t2/t3 colors.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{COMPANY}} — {{INDUSTRY}} Core Technology Patent Research Report</title>
+<style>
+  :root {
+    --brand: #0a3d62;
+    --accent: #1e88e5;
+    --accent2: #00897b;
+    --accent3: #6d4c41;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dde3ec;
+    --text: #1a1a2e;
+    --muted: #5f6b7c;
+    --tag-blue: #e3f0fb;
+    --tag-green: #e0f4f1;
+    --tag-brown: #efebe9;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(10,61,98,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 14px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .report-header {
+    background: linear-gradient(135deg, #0a3d62 0%, #1565c0 60%, #00897b 100%);
+    color: #fff;
+    padding: 48px 48px 36px;
+  }
+  .report-header .label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0.7; margin-bottom: 10px;
+  }
+  .report-header h1 { font-size: 28px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
+  .report-header .subtitle { font-size: 14px; opacity: 0.82; margin-bottom: 20px; }
+  .report-header .meta {
+    font-size: 12px; opacity: 0.65; display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 36px 24px 60px; }
+  .section-title {
+    font-size: 18px; font-weight: 700; color: var(--brand);
+    border-left: 4px solid var(--accent); padding-left: 14px; margin: 40px 0 20px;
+  }
+  .section-title.t2 { border-color: var(--accent2); }
+  .section-title.t3 { border-color: var(--accent3); }
+
+  .company-card, .summary-card {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 32px 36px; margin-bottom: 36px; border-top: 4px solid var(--brand);
+  }
+  .company-card h2, .summary-card h2 {
+    font-size: 20px; font-weight: 700; color: var(--brand); margin-bottom: 16px;
+  }
+  .company-card p { color: var(--muted); margin-bottom: 12px; }
+  .company-card p:last-child { margin-bottom: 0; }
+  .company-card strong { color: var(--text); }
+  .profile-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px; margin-top: 24px;
+  }
+  .profile-item { background: var(--bg); border-radius: 8px; padding: 14px 16px; }
+  .profile-item .pi-label {
+    font-size: 11px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .profile-item .pi-value { font-size: 14px; font-weight: 600; color: var(--text); }
+  .tech-card {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 28px 32px; margin-bottom: 12px;
+  }
+  .tech-card .tech-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; border-radius: 4px; padding: 3px 10px; margin-bottom: 12px;
+  }
+  .tag-t1 { background: var(--tag-blue); color: var(--accent); }
+  .tag-t2 { background: var(--tag-green); color: var(--accent2); }
+  .tag-t3 { background: var(--tag-brown); color: var(--accent3); }
+  .tech-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--brand); }
+  .tech-card p { color: var(--muted); font-size: 13.5px; }
+  .table-wrap { overflow-x: auto; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--brand); color: #fff; }
+  thead th { padding: 11px 14px; text-align: left; font-weight: 600; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:hover { background: #f0f5ff; }
+  tbody td { padding: 10px 14px; vertical-align: top; }
+  tbody td.center { text-align: center; }
+  .cite-chip {
+    display: inline-block; background: #fff3e0; color: #e65100; font-size: 11px;
+    font-weight: 700; border-radius: 10px; padding: 1px 8px; white-space: nowrap;
+  }
+  .status-ok {
+    display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: 11px;
+    font-weight: 600; border-radius: 10px; padding: 1px 8px;
+  }
+  /* Technical description required for every patent; retain this style. */
+  .tech-desc {
+    display: block; margin-top: 5px; font-size: 12px; color: #5f6b7c;
+    font-style: italic; line-height: 1.5;
+    border-left: 2px solid #c5d8f0; padding-left: 8px;
+  }
+  .monitor-box {
+    background: #fffde7; border-left: 4px solid #f9a825; border-radius: 0 8px 8px 0;
+    padding: 14px 18px; margin-top: 18px; font-size: 13px; color: #5d4037;
+  }
+  .monitor-box strong { color: #e65100; }
+  .note-box {
+    background: #eceff1; border-left: 4px solid var(--muted); border-radius: 0 8px 8px 0;
+    padding: 16px 20px; margin-top: 20px; font-size: 12.5px; color: #37474f;
+  }
+  .note-box ul { margin: 8px 0 0 18px; }
+  .note-box li { margin-bottom: 6px; }
+  .report-footer {
+    text-align: center; padding: 32px 24px; font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border); margin-top: 48px;
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="label">Patent Intelligence Report · {{INDUSTRY}}</div>
+  <h1>{{COMPANY}} — {{INDUSTRY}} Core Technology Patent Research Report</h1>
+  <div class="subtitle">{{TECH_DIRECTION_COUNT}} technology strengths · {{LISTED_PATENT_COUNT}} representative patents listed · Based on Patsnap patent data</div>
+  <div class="meta">
+    <span>📅 Report date: {{REPORT_DATE}}</span>
+    <span>🏢 Company: {{COMPANY_EN}}</span>
+    <span>🔍 Source: Patsnap · Search field: {{APPLICANT_FIELD}}</span>
+    <span>📋 Search scope: {{SCOPE}}</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══ Company profile: three paragraphs and profile cards ══ -->
+<div class="section-title">Company profile</div>
+<div class="company-card">
+  <h2>{{COMPANY_EN}}</h2>
+  <p>{{PARA_1_POSITION_AND_ORIGIN}}</p>
+  <p>{{PARA_2_PRODUCTS_AND_MILESTONES}}</p>
+  <p>{{PARA_3_COMPETITIVE_LOGIC}}</p>
+  <div class="profile-grid">
+    <!-- Repeat 6–8 times. Explain three strategic layers in paragraph 3; disclose evidence gaps and do not invent barriers. -->
+    <div class="profile-item">
+      <div class="pi-label">{{LABEL}}</div>
+      <div class="pi-value">{{VALUE}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Search baseline table ══ -->
+<div class="section-title">Search baseline</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Search basis</th><th>Count</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Company baseline ({{COMPANY}})</td><td>{{RAW}} publications</td><td>{{BASELINE_SCOPE_NOTE}}</td></tr>
+    <tr><td>Technology area 1</td><td>{{M1}} query-hit publications<br>{{R1}} retrieved publications<br>{{F1}} simple families<br>{{E1}} relevance-qualified families<br>{{L1}} representative patents listed</td><td>Keyword and applicant constraints</td></tr>
+    <tr><td>Technology area 2</td><td>{{M2}} query-hit publications<br>{{R2}} retrieved publications<br>{{F2}} simple families<br>{{E2}} relevance-qualified families<br>{{L2}} representative patents listed</td><td>Keyword and applicant constraints</td></tr>
+    <tr><td>Technology area 3</td><td>{{M3}} query-hit publications<br>{{R3}} retrieved publications<br>{{F3}} simple families<br>{{E3}} relevance-qualified families<br>{{L3}} representative patents listed</td><td>Keyword and applicant constraints</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="note-box">
+  Query hits and retrieval counts measure publications; deduplicated and relevance-qualified counts measure simple families; listings count representative patents. Without complete retrieval, family counts apply only to the retrieved sample. Area results may overlap and cannot be added into a company total.
+</div>
+
+<!-- ══ Repeat technology blocks for the confirmed number of areas; cycle t1/t2/t3 colors. ══ -->
+<div class="section-title">Technology area 1: {{TECH_1_TITLE}}</div>
+<div class="tech-card">
+  <span class="tech-tag tag-t1">Area 1 · {{STRATEGIC_ROLE}}</span>
+  <h3>{{TECH_1_TITLE}}</h3>
+  <p>{{TECH_1_CORE}}</p>
+</div>
+<div class="table-wrap">
+<table data-contract="representatives">
+  <thead>
+    <tr><th>#</th><th>Patent number</th><th>Publication/grant date</th><th>Jurisdiction</th><th>Title and technical description</th><th>Status</th><th>Estimated value</th><th>Countries covered</th></tr>
+  </thead>
+  <tbody>
+    <!-- Generate 0–10 rows from the actual listed_count; never pad with duplicate family members or weak matches. In the core paragraph, bold key components/mechanisms and end with the area’s portfolio role. -->
+    <tr>
+      <td>{{ROW_INDEX}}</td>
+      <td><a href="{{URL}}" target="_blank">{{PUB_NO}}</a></td>
+      <td>{{DATE}}</td>
+      <td>{{JURIS}}</td>
+      <td>
+        {{TITLE_VERBATIM}}
+        <span class="tech-desc">{{TECH_DESCRIPTION}}</span>
+      </td>
+      <td><span class="status-ok">{{STATUS_OR_DASH}}</span></td>
+      <td>{{VALUATION_WITH_UNIT_AND_PATENT_OR_FAMILY_BASIS_OR_DASH}}</td>
+      <td>{{JURISDICTION_COUNT_OR_CODES_OR_DASH}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="note-box">
+  This query matched {{MATCHED_TOTAL}} publications and retrieved {{RETURNED_COUNT}} publications; simple-family deduplication identified {{INDEPENDENT_FAMILY_COUNT}} families, {{ELIGIBLE_FAMILY_COUNT}} relevance-qualified families, and {{LISTED_COUNT}} representative patents listed here.
+  List at most 10 patents from eligible families without padding. Retain the value and country columns with “—” when data is unavailable.
+</div>
+<div class="monitor-box">
+  <strong>Monitoring priorities: </strong>{{TECH_1_MONITOR_WITH_SPECIFIC_FAMILY_OR_PATENT_NUMBERS}}
+</div>
+
+<!-- ══ Overall assessment ══ -->
+<div class="section-title">Overall assessment</div>
+<div class="summary-card">
+  <h2>Technology priorities and patent landscape</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Technology strength</th><th>Strategic role</th><th>Representative core families</th><th>Patent date range</th></tr></thead>
+    <tbody>
+      <tr><td>{{T1}}</td><td>{{ROLE}}</td><td>{{CORE_FAMILIES}}</td><td>{{START}} → {{END}}</td></tr>
+      <tr><td>{{T2}}</td><td>{{ROLE}}</td><td>{{CORE_FAMILIES}}</td><td>{{START}} → {{END}}</td></tr>
+      <tr><td>{{T3}}</td><td>{{ROLE}}</td><td>{{CORE_FAMILIES}}</td><td>{{START}} → {{END}}</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="monitor-box"><strong>🔍 Most active recent area: </strong>{{CONCLUSION_1}}</div>
+  <div class="monitor-box"><strong>⚠️ Competitor benchmarks: </strong>{{CONCLUSION_2}}</div>
+  <div class="monitor-box"><strong>🏭 Product series signals: </strong>{{CONCLUSION_3}}</div>
+</div>
+
+<!-- ══ Search notes (mandatory Gate B section; do not remove)══ -->
+<div class="section-title">Search notes</div>
+<div class="note-box">
+  <ul>
+    <li>Each area uses an independent Boolean query. Results may overlap and cannot be added or presented as combined shares.</li>
+    <li>Query hits count publications; simple-family counts are separate. Without complete retrieval, family counts cover only the retrieved sample, not every family in that area.</li>
+    <li>Patent numbers, publication dates and legal status come from actual tool results. Company facts identify user-material or MCP sources; facts not independently verified are labeled.</li>
+    <li>Use “—” when monetary valuation is unavailable. Countries are counted from simple-family members returned by fetch_patent; disclose member completeness and jurisdiction basis. Missing values are not zero.</li>
+    <li>List at most 10 patents per area. If fewer than 10 families qualify, list only those: do not borrow across areas, repeat family members or weaken relevance to fill a quota.</li>
+    <li>Technical descriptions combine title, abstract and family context. They are not claim construction.</li>
+    <li>Sources and verification status for certifications, milestones and specifications: {{COMPANY_FACT_VERIFICATION_NOTE}}</li>
+    <li>The consistent family basis is “simple-family deduplication”.</li>
+  </ul>
+</div>
+
+<div class="note-box">Sources and verification links: {{SOURCE_LINKS_OR_NOTE}}</div>
+<details>
+  <summary>View the actual company-baseline query</summary>
+  <pre>{{BASELINE_QUERY}}</pre>
+</details>
+
+</div>
+
+<div class="report-footer">
+  {{COMPANY}} Core Technology Patent Research Report · Generated on {{REPORT_DATE}} · Source: Patsnap
+</div>
+
+</body>
+</html>

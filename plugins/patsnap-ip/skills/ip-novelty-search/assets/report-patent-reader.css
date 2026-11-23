@@ -1,0 +1,258 @@
+.novelty-report dialog.patent-reader-modal {
+  width:min(1320px,calc(100vw - 48px))!important;
+  max-width:none!important;
+  height:calc(100vh - 48px)!important;
+  max-height:calc(100vh - 48px)!important}
+.novelty-report .patent-reader-modal .report-cell-dialog-body {
+  overflow:hidden!important;
+  min-height:0;
+  padding:20px!important;
+  display:flex;
+  flex:1}
+.novelty-report .patent-reader {
+  width:100%;
+  min-width:0;
+  min-height:0}
+.novelty-report .patent-reader>h3 {
+  display:none}
+.novelty-report .patent-reader-layout {
+  display:grid;
+  grid-template-columns:290px minmax(0,1fr);
+  gap:24px;
+  height:100%;
+  min-height:0}
+.novelty-report .reader-feature-nav {
+  overflow-y:auto;
+  background:var(--ps-bg-2);
+  border:1px solid var(--ps-border);
+  border-radius:8px;
+  padding:20px 12px}
+.novelty-report .reader-feature-nav>h4 {
+  font-size:16px;
+  padding:0 8px}
+.novelty-report .reader-feature-nav>p {
+  font-size:14px;
+  color:var(--ps-fg-3);
+  padding:4px 8px 16px}
+.novelty-report .reader-feature-nav button {
+  display:flex;
+  gap:12px;
+  width:100%;
+  height:auto;
+  text-align:left;
+  white-space:normal;
+  border:1px solid transparent;
+  background:transparent;
+  border-radius:7px;
+  padding:12px 12px;
+  margin-bottom:8px;
+  color:var(--ps-fg)}
+.novelty-report .reader-feature-nav button[aria-pressed=true] {
+  background:white;
+  border-color:var(--ps-border-strong);
+  box-shadow:0 2px 6px #203c5010}
+.novelty-report .reader-feature-number {
+  font:18px/1.7 Georgia,serif;
+  color:var(--ps-fg-hint)}
+.novelty-report .reader-feature-nav button strong {
+  display:block;
+  font-size:14px;
+  line-height:1.7}
+.novelty-report .reader-feature-nav button small {
+  display:block;
+  font-size:14px;
+  color:var(--ps-fg-3);
+  line-height:1.8;
+  margin:4px 0 8px}
+.novelty-report .reader-feature-nav .report-state {
+  font-size:14px}
+.novelty-report .reader-workspace {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0}
+.novelty-report .reader-source-header {
+  flex:none;
+  border-bottom:1px solid var(--ps-border);
+  padding:0 0 12px}
+.novelty-report .reader-source-header h4 {
+  font-size:16px;
+  line-height:1.7}
+.novelty-report .reader-source-header>div {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:12px;
+  font-size:14px;
+  color:var(--ps-fg-3)}
+.novelty-report .reader-source-header nav {
+  display:flex;
+  gap:8px}
+.novelty-report .reader-source-header button,.novelty-report .reader-locations button {
+  border:0;
+  background:var(--ps-bg-3);
+  color:var(--ps-fg-2);
+  border-radius:4px;
+  padding:4px 8px;
+  font-size:14px;
+  height:auto}
+.novelty-report .reader-source-pane {
+  min-height:0;
+  flex:1;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding:20px 16px 20px 0}
+.novelty-report .reader-source-pane>h4 {
+  font-size:16px;
+  margin:12px 0 20px!important}
+.novelty-report .reader-source-row {
+  display:grid;
+  grid-template-columns:54px minmax(0,1fr);
+  gap:12px;
+  margin-bottom:20px}
+.novelty-report .reader-paragraph-number {
+  font-size:14px;
+  color:var(--ps-fg-hint);
+  line-height:2.5}
+.novelty-report .reader-source-row p {
+  font-size:14px;
+  line-height:1.95;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  color:var(--ps-fg-2);
+  margin:0!important}
+.novelty-report .reader-source-row mark {
+  background:transparent;
+  color:inherit}
+.novelty-report .reader-source-row mark.reader-mark-active {
+  background:var(--ps-warning-bg);
+  padding:2px 0;
+  box-decoration-break:clone}
+.novelty-report .reader-evidence-dock {
+  flex:none;
+  border:1px solid var(--ps-border);
+  border-radius:8px;
+  overflow:hidden;
+  background:white;
+  margin-top:16px}
+.novelty-report .reader-dock-label {
+  background:var(--ps-bg-3);
+  color:var(--ps-fg-3);
+  padding:8px 16px;
+  font-size:14px;
+  border-bottom:1px solid var(--ps-border)}
+.novelty-report .reader-evidence-panel {
+  display:none;
+  max-height:23vh;
+  overflow-y:auto;
+  padding:16px}
+.novelty-report .reader-evidence-panel[data-active=true] {
+  display:block}
+.novelty-report .reader-evidence-panel>header {
+  display:flex;
+  gap:12px;
+  justify-content:space-between;
+  align-items:center;
+  font-size:14px}
+.novelty-report .reader-evidence-panel>p {
+  font-size:14px;
+  color:var(--ps-fg-2);
+  line-height:1.9;
+  margin-top:12px!important}
+.novelty-report .reader-locations {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  font-size:14px;
+  margin-top:12px}
+.novelty-report .reader-drawings {
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px}
+.novelty-report .reader-drawing {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:center;
+  border:1px solid var(--ps-border);
+  border-radius:8px;
+  padding:12px;
+  width:200px;
+  font-size:14px;
+  text-align:center}
+.novelty-report .reader-drawing img {
+  height:160px;
+  width:170px;
+  object-fit:contain}
+.novelty-report .reader-drawing span {
+  overflow-wrap:anywhere}
+@media(max-width:800px) {
+  .novelty-report dialog.patent-reader-modal {
+  width:calc(100vw - 16px)!important;
+  height:calc(100dvh - 24px)!important;
+  max-height:calc(100dvh - 24px)!important}
+.novelty-report .patent-reader-modal .report-cell-dialog-body {
+  padding:12px!important}
+.novelty-report .patent-reader-layout {
+  grid-template-columns:1fr;
+  grid-template-rows:auto minmax(0,1fr);
+  gap:12px}
+.novelty-report .reader-feature-nav {
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding:8px;
+  max-height:88px}
+.novelty-report .reader-feature-nav>h4,.novelty-report .reader-feature-nav>p,.novelty-report .reader-feature-nav button small,.novelty-report .reader-feature-nav button .report-state {
+  display:none}
+.novelty-report .reader-feature-nav button {
+  width:155px;
+  flex:none;
+  margin:0;
+  padding:8px;
+  font-size:14px}
+.novelty-report .reader-feature-nav button strong {
+  font-size:14px}
+.novelty-report .reader-source-header h4 {
+  font-size:14px}
+.novelty-report .reader-source-header>div {
+  flex-wrap:wrap}
+.novelty-report .reader-source-header nav {
+  gap:4px}
+.novelty-report .reader-source-row {
+  grid-template-columns:36px minmax(0,1fr);
+  gap:8px}
+.novelty-report .reader-source-pane {
+  padding-right:4px}
+.novelty-report .reader-evidence-panel {
+  max-height:20vh}
+.novelty-report .reader-evidence-panel>header {
+  flex-wrap:wrap}
+.novelty-report .reader-evidence-dock {
+  margin-top:8px}
+.novelty-report .reader-source-row p {
+  font-size:14px}
+}
+
+
+/* 可跳转的文献、出处与定位入口使用统一蓝色链接样式。 */
+.novelty-report a[href],.novelty-report .reader-locations button,.novelty-report .reader-source-header button {
+  color:var(--ps-brand);
+  text-decoration:none;
+  cursor:pointer}
+.novelty-report a[href]:hover,.novelty-report .reader-locations button:hover,.novelty-report .reader-source-header button:hover {
+  color:var(--ps-brand-hover)!important;
+  text-decoration:underline;
+  text-underline-offset:3px}
+.novelty-report a[href]:focus-visible,.novelty-report .reader-locations button:focus-visible {
+  outline:2px solid var(--ps-border-strong);
+  outline-offset:3px}
+.novelty-report .reader-locations button,.novelty-report .reader-source-header button {
+  background:transparent;
+  border:0;
+  padding:4px 2px}
+.novelty-report .reader-locations {
+  gap:8px 16px}
+.novelty-report .reader-source-header nav {
+  gap:16px}

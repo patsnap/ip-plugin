@@ -1,0 +1,16 @@
+{
+  "name": "patsnap-ip",
+  "version": "0.10.0",
+  "description": "For R&D and intellectual property teams, combines Patsnap patent search, scientific literature, and analysis tools with workflows for technical-proposal novelty searches, competitor patent analysis, R&D patent planning, patent mining, FTO search and analysis, evidence-of-use investigations, and report review.",
+  "author": {
+    "name": "Patsnap"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Patsnap IP",
+    "shortDescription": "Patent research workflows",
+    "developerName": "Patsnap",
+    "category": "Productivity"
+  }
+}

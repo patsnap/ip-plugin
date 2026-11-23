@@ -1,0 +1,117 @@
+{
+  "skill_name": "competitive-patent-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Consider only these two technology areas and organize the attached candidates into a report.",
+      "expected_output": "Generate two technology sections. Area A: 4 raw families, 0 eligible, 0 listed; keep pending verification. Area B: 3 raw families, 2 eligible, 2 listed. Do not add weak matches to fill a quota.",
+      "files": [],
+      "fixture": {
+        "notice": "Offline synthetic material, not a real company or patents. Do not call external services.",
+        "directions": {
+          "A": {
+            "families": 4,
+            "eligible": 0,
+            "uncertain": 1
+          },
+          "B": {
+            "families": 3,
+            "eligible": 2
+          }
+        },
+        "scope": "Review only the supplied samples; no new search."
+      }
+    },
+    {
+      "id": 2,
+      "prompt": "The company says its product is certified, but I cannot find proof. How should the report describe it?",
+      "expected_output": "Label certification as a user statement / not independently verified. Remove any template assertion of verified certification and do not invent certification milestones.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Both technologies are structural improvements. Analyze their respective advantages.",
+      "expected_output": "Retain the three strategic layers. Evidence supports only the physical/manufacturing foundation; place both there and disclose missing evidence for licensing barriers and commercial moats. Do not invent regulatory licensing or commercial barriers. Separate technical function from comparative advantages; without comparison evidence, limit statements to technical relevance.",
+      "files": [],
+      "fixture": {
+        "notice": "Offline synthetic technology description",
+        "material": "A is an airflow separation structure; B is a suction-head sealing structure. Only structural descriptions are available, with no performance or competitive comparison."
+      }
+    },
+    {
+      "id": 4,
+      "prompt": "We are evaluating next-generation ADC R&D directions, focusing on Daiichi Sankyo. Trace DXd portfolio evolution, distinguish the underlying platform from HER2/TROP2 product improvements, explain linker, payload and conjugation design relationships, and provide representative patents and a report.",
+      "expected_output": "The primary objective is research into the other company’s existing technology. Use competitive analysis, display candidate directions at Gate A and wait for confirmation before patent retrieval. No patent call while awaiting confirmation is not a failure. Include partners only with evidence and within task scope.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "We are developing robot-joint reducers. Research Harmonic Drive Systems’ flexspline, circular spline, wave generator and engagement structures; find representative patents and compare foundational designs with improvements.",
+      "expected_output": "Use competitive analysis. Present the supplied directions as a Gate A confirmation list before searching. “We are developing” does not change the objective into new technical proposal design.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Research Dameng Database patents for multi-node concurrency and consistency. Give an architecture-based roadmap and representative patents, and identify objects whose purchase value merits further assessment.",
+      "expected_output": "Competitive technology research is primary. Display technology directions at Gate A and wait for confirmation before retrieval. Present purchase-value evidence and limitations separately; citation counts are not litigation value.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Research the core technologies of “Huaxing.” Do not search yet; wait until I confirm which company it is.",
+      "expected_output": "Pause identity-dependent retrieval as requested and ask for or organize disambiguation options. Do not select the first candidate by default or override an explicit wait with default execution.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "The entity and technology area are confirmed. Continue retrieval from the attached builder result and prepare application trends and IPC statistics for the same scope.",
+      "expected_output": "Verify reference_query preserves confirmed ALL_AN and technical scope. Pass boolean_query unchanged to exclusive Boolean search. Combine trend and IPC dimensions in one field_analysis using the verified expression in source.query, never the opaque reference. Save actual queries/receipts; do not sum truncated buckets as totals.",
+      "files": [],
+      "fixture": {
+        "notice": "Synthetic offline receipt; inspect call plans only, without external services.",
+        "scope": "Example Company A and battery cooling are both confirmed by the user.",
+        "builder_result": {
+          "status": "success",
+          "data": {
+            "boolean_query": "BOOLEAN_QUERY_ID:bq_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "reference_query": "ALL_AN:(\"Example Company A\") AND TAC_ALL:(\"电池冷却\" OR \"battery cooling\")"
+          }
+        }
+      }
+    },
+    {
+      "id": 9,
+      "prompt": "ALL_AN restricts Company A but the returned current assignee is Company B. Is the search wrong? Can total hits be labeled Company A’s current holdings?",
+      "expected_output": "Check current/original assignee evidence. Original Company A can explain ALL_AN hits; a different current assignee alone does not prove a false hit or expand group scope. Hits measure the assignee query, not current holdings. Current ownership/transfer conclusions require relevant legal evidence.",
+      "files": [],
+      "fixture": {
+        "notice": "Synthetic offline document for entity/count-scope checks.",
+        "search_assignees": [
+          "Example Company B"
+        ],
+        "bibliography": {
+          "original_assignees": [
+            "Example Company A"
+          ],
+          "current_assignees": [
+            "Example Company B"
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "prompt": "Ordinary full text is available, but family retrieval requires authentication. Continue organizing what can be delivered now.",
+      "expected_output": "Preserve full text and AUTH_REQUIRED. Do not pass ID arrays to the single-patent interface. Until relationships are recovered, document counts/empty arrays cannot establish family totals, completed deduplication or full coverage. Reuse text for independent technical interpretation and deliver interim results with explicit gaps, without bypassing authentication or inventing relationships.",
+      "files": [],
+      "fixture": {
+        "notice": "Synthetic offline state, without external calls.",
+        "fulltext_state": "Bibliography, claims and description obtained for the exact publication version.",
+        "relations_error": {
+          "code": "AUTH_REQUIRED",
+          "message": "Patent relations require an authenticated user."
+        }
+      }
+    }
+  ]
+}

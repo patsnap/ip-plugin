@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="{{language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data: file:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>{{title}}</title>
+  <style>{{report_styles}}</style>
+</head>
+<body class="report-standalone">
+  <main class="novelty-report">
+    <section class="report-cover" id="overview">
+      <div class="report-cover-subject"><h1>{{title}}</h1></div>
+      <div class="report-conclusion {{primary_tone}}" id="report-primary-conclusion">
+        <div class="report-conclusion-label">{{primary_label}}</div>
+        <div class="report-conclusion-body"><div>
+          <h2>{{primary_verdict}}</h2>
+          <p class="report-conclusion-scope">{{primary_scope_and_date}}</p>
+          <div class="report-prose">{{primary_reasons_html}}</div>
+        </div></div>
+      </div>
+      <div class="report-cover-body report-prose">{{overview_html}}</div>
+      <nav class="report-cover-body" aria-label="{{contents_label}}">
+        <ol>
+          <li><a href="#comparison">{{comparison_label}}</a></li>
+          <li><a href="#novelty">{{novelty_label}}</a></li>
+          <li><a href="#inventiveness">{{inventiveness_label}}</a></li>
+          <li><a href="#recommendations">{{recommendations_label}}</a></li>
+          <li><a href="#search">{{search_label}}</a></li>
+        </ol>
+      </nav>
+    </section>
+    <section class="report-section" id="comparison">
+      <div class="report-section-heading"><h2>{{comparison_label}}</h2></div>
+      <div class="report-prose">{{comparison_html}}</div>
+    </section>
+    <section class="report-section" id="novelty">
+      <div class="report-section-heading"><h2>{{novelty_label}}</h2></div>
+      <div class="report-prose">{{novelty_html}}</div>
+    </section>
+    <section class="report-section" id="inventiveness">
+      <div class="report-section-heading"><h2>{{inventiveness_label}}</h2></div>
+      <div class="report-prose">{{inventiveness_html}}</div>
+    </section>
+    <section class="report-section" id="recommendations">
+      <div class="report-section-heading"><h2>{{recommendations_label}}</h2></div>
+      <div class="report-prose">{{recommendations_html}}</div>
+    </section>
+    <section class="report-section" id="search">
+      <div class="report-section-heading"><h2>{{search_label}}</h2></div>
+      <div class="report-prose">
+        <div id="search-strategy">
+          <h3>{{search_strategy_label}}</h3>
+          {{search_strategy_html}}
+        </div>
+        <div id="search-results">
+          <h3>{{compared_documents_label}}</h3>
+          {{compared_documents_html}}
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

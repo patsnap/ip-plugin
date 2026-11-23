@@ -1,0 +1,3 @@
+interface:
+  display_name: "Innovation Harvesting"
+  short_description: "Use when organizing real R&D results into potential invention ideas. Preserve supplied facts, support quick or deep exploration, compare prior art and identify differences, experiments and next actions. Do not invent technical achievements or guarantee patent grant. Proposed workflow; apply the local MC/Skill/ip-innovation-harvesting execution contract. Runtime binding and channel availability remain unverified."

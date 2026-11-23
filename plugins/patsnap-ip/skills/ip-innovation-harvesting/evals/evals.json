@@ -1,0 +1,51 @@
+{
+  "skill_name": "ip-innovation-harvesting",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We make freezers and want a removable, washable drip tray with no more than CNY 20 extra cost. Give me the report directly.",
+      "expected_output": "Respect existing continuous authorization; do not force repeated confirmation for report format. Propose concrete connection/sealing concepts and treat CNY 20 as a constraint. Without differentiation and experimental evidence, do not recommend immediate filing; include validation conditions in the roadmap.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Choose either motor-driven or mechanical valve opening. The goal is one year without battery replacement, but we have no experiments yet. Organize innovation directions first.",
+      "expected_output": "Keep the alternatives as separate branches. Do not call one-year battery life measured or require both drive types simultaneously. Without implementation structure, label research directions and propose validation.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I found a very old drainage-channel patent. Does it affect our current idea?",
+      "expected_output": "Prior-art comparison is not restricted by the recent-trend window. Distinguish the existing guide channel from added interface/cleaning structures. Without traceable comparison evidence, keep the assessment pending.",
+      "files": [],
+      "fixture": {
+        "notice": "Offline synthetic abstract",
+        "material": "A 2004 document describes a cabinet-opening collection tray and drainage channel. The new concept only adds a detachable guide channel, without connection details."
+      }
+    },
+    {
+      "id": 4,
+      "prompt": "I am Inovance’s IPR manager. Deeply explore servo vibration suppression under changing loads. First study Yaskawa patents, then develop surrounding proposals for vibration identification, parameter adjustment and control compensation; also give a 30-minute training outline.",
+      "expected_output": "Use harvesting, display the CP-0 card and wait for scope confirmation. Without continuous-execution authorization, confirm key choices by Block in deep mode. Training/report requests do not remove checkpoints. After confirmation scan within adopted scope, support proposal differences with evidence and present training separately.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I am Mindray’s IPR manager. Identify promising portable-ultrasound directions in miniaturization, power efficiency, imaging and user experience, combining our public patents with industry practice into proposals.",
+      "expected_output": "Organize CP-0 harvesting type, mode, technical focus and gaps from supplied subjects. Wait for scope confirmation before public-material scanning. Missing internal parameters remain pending; candidate differences do not establish grant prospects.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Review an oil-leak maintenance solution for converter transformers using the disclosure, R&D notes and existing literature. Select improvements to retain or validate further, with technical proposals and a novelty-comparison table.",
+      "expected_output": "Use harvesting for the objective of selecting and improving proposals from existing materials. Read actual materials; disclose missing attachments and ask for decisive missing inputs without claiming they were read. Confirm scope under CP-0, then proceed with sourced proposals and comparisons.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Check whether this already-defined device was disclosed before 2018. Give only the closest patents and comparison; no new concepts are needed.",
+      "expected_output": "The primary objective is disclosure assessment of an existing solution, outside proposal harvesting. Do not initiate four blocks/ten steps or create unsolicited concepts.",
+      "files": []
+    }
+  ]
+}

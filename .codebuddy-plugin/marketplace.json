@@ -1,0 +1,13 @@
+{
+  "name": "patsnap-plugins",
+  "owner": {
+    "name": "Patsnap"
+  },
+  "plugins": [
+    {
+      "name": "patsnap-ip",
+      "source": "./plugins/patsnap-ip",
+      "description": "For R&D and intellectual property teams, combines Patsnap patent search, scientific literature, and analysis tools with workflows for technical-proposal novelty searches, competitor patent analysis, R&D patent planning, patent mining, FTO search and analysis, evidence-of-use investigations, and report review."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "patsnap-plugins",
+  "interface": {
+    "displayName": "Patsnap Plugins"
+  },
+  "plugins": [
+    {
+      "name": "patsnap-ip",
+      "source": {
+        "source": "local",
+        "path": "./plugins/patsnap-ip"
+      },
+      "description": "For R&D and intellectual property teams, combines Patsnap patent search, scientific literature, and analysis tools with workflows for technical-proposal novelty searches, competitor patent analysis, R&D patent planning, patent mining, FTO search and analysis, evidence-of-use investigations, and report review.",
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "skill_name": "ip-portfolio-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Plan a patent portfolio for our drinking-cup lid. Start with a phase report based on the attachment.",
+      "expected_output": "Decompose cup-lid technology and analyze supply-chain roles. Do not force automotive/e-drive topics or four suppliers. Three samples are not the full population; mark unfinished risk and cluster analysis pending.",
+      "files": [],
+      "fixture": {
+        "notice": "Offline synthetic abstract; do not query real services.",
+        "entity": "Test Drinkware Team",
+        "evidence": "Three temperature-display samples, without competitor statistics or claim comparison."
+      }
+    },
+    {
+      "id": 2,
+      "prompt": "Both companies have temperature-control patents, but one has no visible new applications in two years. Can we say it exited and this area has no portfolio value?",
+      "expected_output": "No retrieved filings does not prove exit; overlapping technology areas do not establish that a particular solution is known or low-value. Request actual disclosures, differences and evidence of business exit.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Organize this portfolio table and preserve missing data.",
+      "expected_output": "Merge A/B publications of the same application at application level; do not merge cross-country applications merely because they share a family. Use consistent dates/geographies for comparisons. Separate unknown coverage from planned filings; do not turn approximate values into false precision.",
+      "files": [],
+      "fixture": {
+        "notice": "Offline synthetic table, not real patents.",
+        "rows": [
+          {
+            "application": "Application A",
+            "publications": [
+              "A publication A",
+              "A publication B"
+            ],
+            "jurisdiction": "CN"
+          },
+          {
+            "application": "Application B",
+            "publications": [
+              "B publication A"
+            ],
+            "jurisdiction": "US",
+            "family_link": "Application A"
+          }
+        ],
+        "other": "Market size approximately CNY 100 million without a source. Existing mechanical pressure-relief coverage unknown, but filing planned. Two trend charts use five-year and ten-year windows respectively."
+      }
+    },
+    {
+      "id": 4,
+      "prompt": "I lead IP at Dameng and need a 2027 HTAP patent plan. Benchmark OceanBase, PingCAP and Huawei on resource isolation, data synchronization and query scheduling. Combine our existing patents with filing priorities for China and the US; also provide a quarterly competitor-monitoring plan.",
+      "expected_output": "Use portfolio planning. Reuse supplied technologies, entities, countries and objectives to organize boundaries. Progress through P2 checkpoints for boundaries, decomposition, elements, noise, strategy and queries; do not search before confirmation. Monitoring is an additional deliverable, not authorization to create automation.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "I am Midea’s IPR manager. Revisit our smart-air-conditioner portfolio across energy saving, comfort and intelligent control, referring to Gree and Haier. Give a plan suitable for R&D discussion.",
+      "expected_output": "Organize entities, topics and defaults, then present a technical definition and boundary for confirmation. Follow P2 checkpoints without requiring an initial owned-patent list. An ordinary planning request or default scope is not confirmed fact.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Plan our solid-state-battery portfolio. First draft the technical boundary and wait for my confirmation before searching; I will provide company identity later.",
+      "expected_output": "Deliver the boundary draft and identify missing target-company information. Respect the pre-search wait. Do not assume an entity, claim retrieval or override the requested single step with complete-report defaults.",
+      "files": []
+    }
+  ]
+}
