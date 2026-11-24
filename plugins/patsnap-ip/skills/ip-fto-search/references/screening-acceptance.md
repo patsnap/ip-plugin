@@ -6,7 +6,7 @@ Run only after Skill installation, `patsnap-ip:screen_patents_for_FTO` protocol/
 
 ## 1. Binding
 
-- The actual call must use `@Patsnap IP`’s `patsnap-ip:screen_patents_for_FTO`. Narrative claims or another provider’s same-named tool do not prove binding.
+- The actual call must use `@Patsnap IP Plugin`’s `patsnap-ip:screen_patents_for_FTO`. Narrative claims or another provider’s same-named tool do not prove binding.
 - Save complete request, call provenance, case/batch identities and raw receipt. `isError=false` proves no reported call error only.
 - When Pro is required, explicitly request `mode=pro`. Without server `effective_mode=pro` or equivalent evidence, retain `pro_requested_unverified`.
 
@@ -32,7 +32,7 @@ Use invalid number `ZZ0000000000A1` separately as a parsing control. It must app
 
 | Check | Requirement |
 |---|---|
-| Binding | Actual `@Patsnap IP` `patsnap-ip:screen_patents_for_FTO` call |
+| Binding | Actual `@Patsnap IP Plugin` `patsnap-ip:screen_patents_for_FTO` call |
 | Identity set | All five valid inputs returned by original PN or verified version mapping; list missing/out-of-input objects separately |
 | Relevant first | Grade 3 before all 2/1/0; every grade ≥2 in top three |
 | Noise last | Grade 0 last; grade 1 below every grade ≥2 |

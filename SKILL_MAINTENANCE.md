@@ -26,8 +26,8 @@ Prefer names describing business capabilities and explain responsibilities throu
 
 Maintain plugin configuration centrally:
 
-- [Standard manifest](plugins/patsnap-ip/plugin.json) uses Agent Plugins 1.0 and discovers `skills/` and `mcp.json`. Keep identity, version, description and display metadata aligned with compatibility manifests. The Codex compatibility format also remains supported; this repository packages both formats.
-- [WorkBuddy/CodeBuddy](plugins/patsnap-ip/.codebuddy-plugin/plugin.json), [Claude Code](plugins/patsnap-ip/.claude-plugin/plugin.json) and [Codex](plugins/patsnap-ip/.codex-plugin/plugin.json) manifests declare the same plugin name, version, skills and MCP paths. Client adapters coexist without duplicating business content.
+- [Standard manifest](plugins/patsnap-ip/plugin.json) uses Agent Plugins 1.0 and discovers `skills/` and `mcp.json`. Keep version, description and display metadata aligned with compatibility manifests. The Codex compatibility format also remains supported; this repository packages both formats.
+- [WorkBuddy/CodeBuddy](plugins/patsnap-ip/.codebuddy-plugin/plugin.json), [Claude Code](plugins/patsnap-ip/.claude-plugin/plugin.json) and [Codex](plugins/patsnap-ip/.codex-plugin/plugin.json) manifests declare the same version, skills and MCP paths. Use `patsnap-ip-plugin` in the standard manifest, all three compatibility manifests and their marketplace entries. Client adapters coexist without duplicating business content.
 - [Standard MCP configuration](plugins/patsnap-ip/mcp.json) and [compatibility configuration](plugins/patsnap-ip/.mcp.json) use `streamable-http` and `http` respectively. Synchronize service names, endpoints and authentication policy. Default to host-managed OAuth; do not distribute API-key forms, static authentication headers or real credentials. For client-specific configurations, verify manifest precedence and same-name service merging. OAuth metadata must have a real source; do not guess endpoints or client IDs.
 - [WorkBuddy/CodeBuddy](.codebuddy-plugin/marketplace.json), [Claude Code](.claude-plugin/marketplace.json) and [Codex](.agents/plugins/marketplace.json) marketplace files register the same plugin directory and description in each client’s format.
 
@@ -42,6 +42,10 @@ Configure display names through each Skill’s `agents/openai.yaml`: Chinese nam
 Avoid repeatedly stating the plugin name, service endpoint, MCP compatibility or “only use this MCP.” Describe the tools actually available; explain dependencies or limitations at the affected step.
 
 ### Language branches and delivery contract
+
+Use “智慧芽” for Chinese brand text and “Patsnap” for English brand text. In bilingual documents, follow the language of each passage; in reports, follow the output language. Preserve plugin identifiers, directory names, tool names, URLs and connection parameters such as `APP_ID`.
+
+Use the [listing document’s name and introduction table](https://xa3hdkuita.feishu.cn/wiki/PfiXw6a6TiXhMXkBCPFcDxMFnQg) for the official plugin display name and developer identity: “智慧芽 IP 专家套件” in Chinese, “Patsnap IP Plugin” as the English short name, and “Patsnap” for the developer/author. Keep marketplace names localized by branch and retain current plugin identifiers rather than adopting candidate identifiers.
 
 `main` defaults to Chinese and `release-en` defaults to English. An explicit output-language request takes precedence. Use the adopted output language for dialogue, prose, templates, headers, chart labels and HTML `lang`. Determine search languages and jurisdictions independently. Preserve source originals and locations, with labeled translations where needed.
 

@@ -2,9 +2,9 @@
 
 > Use these fields and syntax to construct queries; actual calls must follow the tool schema. Mark unexecuted syntax as pending validation. See [Tool usage](tool-usage.md).
 
-Use this reference when converting a technical theme into a Patsnap/Zhihuiya search formula. If the user provides Patsnap's exact field names or examples, follow those over this generic guidance.
+Use this reference when converting a technical theme into a Patsnap search formula. If the user provides Patsnap's exact field names or examples, follow those over this generic guidance.
 
-These rules are based on Patsnap/Zhihuiya Search Helper, the user's Search Helper screenshots, and Patsnap Help Center behavior. These syntax references do not prove that a formula has been executed. Check current tool schemas and record the outcome of any validation.
+These rules are based on Patsnap Search Helper, the user's Search Helper screenshots, and Patsnap Help Center behavior. These syntax references do not prove that a formula has been executed. Check current tool schemas and record the outcome of any validation.
 
 ## Core Syntax
 
@@ -62,7 +62,7 @@ For the full field abbreviation list parsed from the user's document, read `sear
 
 ### Classification Field Scope
 
-Be explicit about classification field scope. In Patsnap/Zhihuiya, `IPC:C22B3/00` is not equivalent to `IPC_LOW:C22B3/00`.
+Be explicit about classification field scope. In Patsnap, `IPC:C22B3/00` is not equivalent to `IPC_LOW:C22B3/00`.
 
 | Need | Use | Meaning |
 | --- | --- | --- |

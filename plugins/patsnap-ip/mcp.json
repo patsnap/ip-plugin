@@ -3,7 +3,7 @@
   "mcpServers": {
     "patsnap-ip": {
       "type": "streamable-http",
-      "url": "https://ai-fabric.patsnap.com/logic-mcp/patsnap-ip?APP_ID=Patsnap"
+      "url": "https://connect.patsnap.com/2b0355/logic-mcp"
     }
   }
 }

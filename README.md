@@ -30,14 +30,14 @@ s-search-agent-plugins/
 └── README.md
 ```
 
-The marketplace is `patsnap-plugins`; its plugin is `patsnap-ip`.
+The plugin ID in the `patsnap-plugins` marketplace is `patsnap-ip-plugin` for all clients.
 
 ## MCP service
 
 `plugins/patsnap-ip/mcp.json` and `.mcp.json` define the same `patsnap-ip` service using the `streamable-http` and `http` transport labels respectively, with the same endpoint:
 
 ```text
-https://ai-fabric.patsnap.com/logic-mcp/patsnap-ip?APP_ID=Patsnap
+https://connect.patsnap.com/2b0355/logic-mcp
 ```
 
 The client network must reach this service. Skills organize patent search, literature, full-text, legal-record and aggregation tools into workflows. Actual parameters follow the runtime tool schemas.
@@ -46,7 +46,7 @@ The client network must reach this service. Skills organize patent search, liter
 
 MCP supplies tools; skills define workflows. The manifest distributes both together.
 
-Current plugin version: **0.10.0**. Chinese edition: `main`; English edition: `release-en`.
+Current plugin version: **0.10.3**. Chinese edition: `main`; English edition: `release-en`.
 
 ### ip-novelty-search: Novelty Search
 
@@ -116,7 +116,7 @@ Novelty scripts organize report data and receipts; HTML rendering requires Pytho
 [WorkBuddy](#workbuddy-domestic-edition) · [WorkBuddy AI](#workbuddy-ai-international-edition) · [Codex](#codex-chatgpt-desktop) · [Claude Code](#claude-code-cc)
 
 - Chinese edition: `main`; English edition: `release-en`. Both editions share delivery formats, required sections and fields, template structure and styling. Dialogue and deliverables default to Chinese in `main` and English in `release-en`. An explicit output-language request takes precedence. Preserve original evidence and determine search languages and jurisdictions separately.
-- Install one language edition per client; marketplace/plugin identifiers are shared.
+- Install one language edition per client. Both editions use the same identifiers for that client.
 - Replace `/absolute/path/...` with actual paths. GitLab access requires the company network and SSH credentials.
 - Run commands in a terminal; examples target macOS, Linux or Git Bash. Obtain release packages from [Plugin versions and packages](https://xa3hdkuita.feishu.cn/docx/Wc5Dd2mDqoQ3C2xSgYucxWninwb); local development packaging is described below.
 
@@ -135,7 +135,7 @@ pwd
 
 1. Open **Experts · Skills · Connectors → Skills → Suites → Add Marketplace** (domestic UI: **专家·技能·连接器 → 技能 → 套件 → 添加市场**).
 2. Enter the repository root printed by `pwd` in **Marketplace Source / 市场源**, then click **Submit / 提交**.
-3. Select **patsnap-plugins → patsnap-ip → Install / 安装**, enable it and start a new task.
+3. Select **patsnap-plugins → patsnap-ip-plugin → Install / 安装**, enable it and start a new task.
 
 ## GitLab installation
 
@@ -145,7 +145,7 @@ Use the same marketplace UI, entering this source instead of a local path:
 git@git.patsnap.com:search-engine/search-service/s-search-agent-plugins.git
 ```
 
-Install `patsnap-ip`, enable it and start a new task. This method uses the repository’s default branch. For a specific language edition, switch branches locally and add the directory.
+Install `patsnap-ip-plugin`, enable it and start a new task. This method uses the repository’s default branch. For a specific language edition, switch branches locally and add the directory.
 
 # WorkBuddy AI international edition
 
@@ -160,7 +160,7 @@ pwd
 
 1. Open **Experts · Skills · Connectors → Skills → Plugins → Add Marketplace**.
 2. Enter the repository root printed by `pwd` in **Marketplace Source**, then click **Submit**.
-3. Select **patsnap-plugins → patsnap-ip → Install**, enable it and start a new task.
+3. Select **patsnap-plugins → patsnap-ip-plugin → Install**, enable it and start a new task.
 
 ## GitLab installation
 
@@ -170,13 +170,15 @@ Use the same UI with this marketplace source:
 git@git.patsnap.com:search-engine/search-service/s-search-agent-plugins.git
 ```
 
-Install `patsnap-ip`, enable it and start a new task. This uses the default branch; use a local directory after switching branches to select a particular language edition.
+Install `patsnap-ip-plugin`, enable it and start a new task. This uses the default branch; use a local directory after switching branches to select a particular language edition.
 
 # Codex ChatGPT desktop
 
 ## Local installation
 
 ### Marketplace UI
+
+The English marketplace and plugin appear as **Patsnap Plugins** and **Patsnap IP Plugin**; the Chinese versions appear as **智慧芽插件市场** and **智慧芽 IP 专家套件**. The interface names below use the English version.
 
 ```bash
 cd /absolute/path/s-search-agent-plugins
@@ -189,7 +191,7 @@ pwd
 2. Enter the absolute repository root in **Source**. It must contain `.agents/plugins/marketplace.json`.
 3. Set **Git ref** to `release-en` for English or `main` for Chinese, matching the local branch.
 4. Click **Add marketplace** and wait for loading.
-5. Select **Patsnap Plugins → Patsnap IP → ＋ / Install**.
+5. Select **Patsnap Plugins → Patsnap IP Plugin → ＋ / Install**.
 6. Complete connection prompts, confirm it is installed and enabled, and start a new chat.
 
 ### Marketplace CLI
@@ -199,7 +201,7 @@ cd /absolute/path/s-search-agent-plugins
 branch=release-en # English; use main for Chinese
 git switch "$branch"
 codex plugin marketplace add "$(pwd)"
-codex plugin add patsnap-ip@patsnap-plugins
+codex plugin add patsnap-ip-plugin@patsnap-plugins
 ```
 
 Restart the desktop app and start a new chat.
@@ -208,7 +210,7 @@ Restart the desktop app and start a new chat.
 
 ### Marketplace UI
 
-The machine requires company GitLab access and SSH credentials. Open **Plugins → Add → Add a marketplace**, enter the following **Source**, set **Git ref** to `release-en` or `main`, and click **Add marketplace**. Then select **Patsnap Plugins → Patsnap IP → ＋ / Install**, complete connection prompts and start a new chat.
+The machine requires company GitLab access and SSH credentials. Open **Plugins → Add → Add a marketplace**, enter the following **Source**, set **Git ref** to `release-en` or `main`, and click **Add marketplace**. Then select **Patsnap Plugins → Patsnap IP Plugin → ＋ / Install**, complete connection prompts and start a new chat.
 
 ```text
 git@git.patsnap.com:search-engine/search-service/s-search-agent-plugins.git
@@ -219,7 +221,7 @@ git@git.patsnap.com:search-engine/search-service/s-search-agent-plugins.git
 ```bash
 branch=release-en # English; use main for Chinese
 codex plugin marketplace add 'git@git.patsnap.com:search-engine/search-service/s-search-agent-plugins.git' --ref "$branch"
-codex plugin add patsnap-ip@patsnap-plugins
+codex plugin add patsnap-ip-plugin@patsnap-plugins
 ```
 
 Restart the desktop app and start a new chat.
@@ -266,7 +268,7 @@ cd /absolute/path/s-search-agent-plugins
 branch=release-en # English; use main for Chinese
 git switch "$branch"
 claude plugin marketplace add "$(pwd)"
-claude plugin install patsnap-ip@patsnap-plugins --scope user
+claude plugin install patsnap-ip-plugin@patsnap-plugins --scope user
 ```
 
 Open **Claude desktop → Code**, start a local project session under the same system user and complete MCP connection prompts.
@@ -286,7 +288,7 @@ This first synchronizes the marketplace, then installs a selected plugin. The sy
    ```
 
 4. Click **Sync**. This page has no separate branch selector.
-5. Search for `patsnap-ip`, verify the `patsnap-plugins` source and click **＋ / Install**.
+5. Search for `patsnap-ip-plugin`, verify the `patsnap-plugins` source and click **＋ / Install**.
 6. Complete MCP connection prompts and start a new **Code** session.
 
 `Network access to "git.patsnap.com" is blocked by egress settings.` means synchronization was blocked and the marketplace was not added. Ask the environment administrator to check domain access policy instead of repeatedly syncing. Alternatives are local CLI installation or a single-plugin ZIP upload where permitted.
@@ -298,7 +300,7 @@ Local Git requires access to `git.patsnap.com` and SSH credentials with reposito
 ```bash
 branch=release-en # English; use main for Chinese
 claude plugin marketplace add "git@git.patsnap.com:search-engine/search-service/s-search-agent-plugins.git#$branch"
-claude plugin install patsnap-ip@patsnap-plugins --scope user
+claude plugin install patsnap-ip-plugin@patsnap-plugins --scope user
 ```
 
 Open **Claude desktop → Code**, start a local project session under the same system user and connect MCP.
@@ -336,15 +338,15 @@ This affects only the current terminal session and does not persistently install
 
 ## Verification
 
-1. Confirm `patsnap-ip` is installed/enabled and its version matches `plugin.json`. Marketplace installations should show `patsnap-plugins` as the source.
+1. Confirm `patsnap-ip-plugin` is installed and enabled and its version matches `plugin.json`. Marketplace installations should show `patsnap-plugins` as the source.
 2. Start a new chat and verify discovery of all seven skills and loading of this plugin’s MCP tools.
 3. If the same MCP was configured separately, check actual tool attribution; an existing connection’s success does not prove the plugin connection loaded.
 
 Try the seven workflows individually:
 
-> Use competitive-patent-analysis from patsnap-ip to create a technology and patent report for a specified company. Confirm the technology areas as required before searching and reporting.
+> Use competitive-patent-analysis from the Patsnap IP Plugin to create a technology and patent report for a specified company. Confirm the technology areas as required before searching and reporting.
 
-> Use patent-search-report-reviewer from patsnap-ip to review my patent report, focusing on queries and original cited patent text.
+> Use patent-search-report-reviewer from the Patsnap IP Plugin to review my patent report, focusing on queries and original cited patent text.
 
 > Use ip-novelty-search on my technical disclosure. Search and compare complete technical relationships, verify decisive evidence, assess novelty and inventive step separately, and generate traceable HTML with unresolved issues.
 
@@ -378,7 +380,7 @@ Client adapters coexist within each branch. `main` and `release-en` share the de
 Use immutable release tags for distribution so later branch commits do not change a named ZIP. After the release commit and tag exist, export the plugin directory:
 
 ```bash
-release_tag=v0.10.0-en
+release_tag=v0.10.3-en
 mkdir -p outputs/releases
 git archive --format=zip --output="outputs/releases/patsnap-ip-$release_tag.zip" "$release_tag:plugins/patsnap-ip"
 (cd outputs/releases && shasum -a 256 "patsnap-ip-$release_tag.zip" > "patsnap-ip-$release_tag.zip.sha256")

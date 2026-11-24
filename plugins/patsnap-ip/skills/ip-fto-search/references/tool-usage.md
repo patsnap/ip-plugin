@@ -35,7 +35,7 @@ These are business checks, not response schemas.
 
 ## Screening handshake
 
-- Call only `@Patsnap IP`’s `patsnap-ip:screen_patents_for_FTO`; do not choose/fall back among same-named services. Stop affected work if its protocol cannot support the case.
+- Call only `@Patsnap IP Plugin`’s `patsnap-ip:screen_patents_for_FTO`; do not choose/fall back among same-named services. Stop affected work if its protocol cannot support the case.
 - Record `protocol_checked → request_accepted → mode_acknowledged → processing_reconciled`. Requesting Pro, `isError=false` or returned candidates do not acknowledge actual mode.
 - Use `pro_confirmed / pro_requested_unverified / mode_mismatch`. Only server mode evidence allows confirmed. Without it, disclose unverified mode; candidates may undergo subsequent strong-evidence review. Do not silently fall back on mismatch.
 - Mode and processing are independent gates. Even confirmed Pro requires submitted, resolved, explicitly processed, returned, unresolved, scoring-failed and status-unavailable reconciliation.

@@ -6,7 +6,7 @@ Source: `智慧芽可搜索字段.docx`, parsed into a reusable field reference 
 
 Total fields identified: 269.
 
-Use this file when the user asks for a Patsnap/Zhihuiya executable search formula or when mapping a retrieval idea to exact searchable fields. Prefer the source document if the user provides an updated version.
+Use this file when the user asks for a Patsnap executable search formula or when mapping a retrieval idea to exact searchable fields. Prefer the source document if the user provides an updated version.
 
 ## Category Summary
 

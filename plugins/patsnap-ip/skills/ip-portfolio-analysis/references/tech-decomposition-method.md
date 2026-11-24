@@ -192,7 +192,7 @@ Applicant field guidance:
 - Expand company names across languages and corporate structure.
 - Use design-patent or LOC classification attention when the target industry values design patents.
 
-## Patsnap/Zhihuiya Operation Lessons
+## Patsnap Operation Lessons
 
 Choose retrieval operations according to the available tools (see [Tool usage](tool-usage.md)):
 
