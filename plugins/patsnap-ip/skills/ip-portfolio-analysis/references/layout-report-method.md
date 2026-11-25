@@ -1,59 +1,112 @@
-# Built-in portfolio analysis/report method — P1, P9, P10
+# 内置方法论：专利布局分析与报告规范（P1 / P9 / P10 阶段）
 
-Ask users for boundaries and voluntarily supplied internal context, not the clusters, competitive maps, hotspots or matrices that this workflow must produce. A brief is a search boundary, not conclusion evidence; generate evidence through retrieval, processing, clustering, comparison and strategy.
+> 执行 P1 技术拆解、P9 布局矩阵、P10 报告规范时直接依据本文档提供的内置方法论。
 
-## Inputs and one canonical scope record
+## 核心原则
 
-Ask once for missing topic/company. Default objective: portfolio advice; all data with recent-ten-year trends; global totals + China depth; report with optional patent table. Useful optional assets: own list, disclosures, roadmap/products, required/excluded assignees/branches/regions and sensitive-data requirements.
+不要向用户索取分析产出物——专利集群、竞对图谱、技术热点、布局矩阵都是本流程要生成的工作成果，不是用户输入。只向用户索取界定边界的输入项，以及用户自愿提供的内部机密背景。
 
-P1 records `topic/branches | target and confirmed affiliates | competitor roles/objects | query scope/version | date field/start/end | geography | per-table counting unit | legal-status date`. User scope prevails; later phases reference this record rather than inventing five-year defaults. Trend charts name actual years/date fields.
+用户的简要说明是分析边界，不是结论依据。真正的报告输入必须通过专利检索、数据处理、聚类、比较与战略判断生成。
 
-Publication-level retains every published text. Application-level merges only publications of the same application, never different national applications. Family links explain relationships, not substitute counts. Convention changes create versions and update affected charts. Comparisons share units/scope.
+## 最小用户输入
 
-## Nine required intermediate assets
+| 输入项 | 缺省处理 |
+|---|---|
+| 技术主题 | 缺失时询问一次 |
+| 相关公司/竞对 | 缺失时询问一次 |
+| 分析目标 | 默认：专利布局建议 |
+| 时间范围 | 采用下述项目口径；默认全量，趋势重点近10年 |
+| 地域范围 | 采用下述项目口径；默认全球总量＋中国深度分析 |
+| 输出形式 | 默认：报告 + 可选专利清单表 |
 
-1. Technical tree, synonyms, Chinese/English keywords and adjacent technology.
-2. Assignee aliases, terms/classes, queries and date/geography filters.
-3. Raw patent pool with publications/assignees/abstracts/claim summaries/status/families.
-4. Cleaned data: chosen-unit deduplication, family links, normalized assignees/tags/status/pending items.
-5. Technical clusters: modules/hotspots/emerging directions/value/gaps.
-6. Competitor profiles: trends/focus/key patents/portfolio strength.
-7. Company/competitor comparison across all five spaces.
-8. Module strategies: protect/reserve/counter/design around/defer.
-9. Cluster plan: core/peripheral/improvement/application/defensive patents.
+有价值的可选输入：企业已有专利清单、交底书、研发路线、产品规划、重点产品/项目名称、必须纳入或排除的申请人/技术分支/国家地区、敏感信息处理要求。
 
-Unavailable sources require precise gaps and a defensible plan, never fabricated facts.
+## 项目口径（唯一配置来源）
 
-## Ten actions
+P1记录 `主题／技术分支｜目标企业及已确认关联主体｜竞对角色与对象｜查询范围及版本｜时间字段与起止日｜地域｜每表统计单位｜法律状态时点`。用户范围优先；未指定时按主入口的全量、趋势重点近10年、全球总量＋中国深度分析。后续阶段引用这份记录，不另设近5年等默认值。趋势图具体起止年和时间字段必须写明。
 
-Restate boundaries; build a tree before queries; construct queries/aliases with appendix provenance; search patents/authoritative public industry sources with dates; clean before analysis; cluster into readable modules; compare five spaces; convert evidence into strategy; build report/table under ppt-output-spec.md/data-fields.md; verify placeholders, evidence and counting consistency with every recommendation mapped to evidence.
+公开号级保留每个公开文本；申请号级仅合并同一申请的不同公开文本，不合并不同国家申请。同族关系用于技术关联，不冒充这两种计数。改变口径时生成新版本并更新受影响图表；同一比较使用相同单位与范围。
 
-## Five technical spaces
+## 必须生成的中间工作产物
 
-All five are mandatory, especially intersection and competitor expansion:
+写最终报告之前必须先生成以下九项：
 
-| Space | Meaning | Strategic use |
+1. **技术主题拆解**：技术树、同义词、中英文关键词、邻近技术
+2. **检索策略**：申请人别名、关键词、分类号、检索式、时间与地域过滤
+3. **专利基础池**：原始检索结果，含公开数据、申请人、摘要、权项摘要、法律状态、同族信息
+4. **清洗归并结果**：按所选单位去重、保留同族关联、规范化申请人和技术标签、记录状态及待核项
+5. **技术聚类**：模块、热点、新兴方向、高价值专利、空白点
+6. **竞对画像**：各公司申请趋势、技术聚焦、关键专利、组合强度
+7. **企业-竞对对比**：企业现有、竞对现有、交集、竞对拓展、企业拓展
+8. **布局策略**：按模块给出保护、储备、对抗、规避、暂不布局的决策
+9. **专利集群方案**：核心专利、外围专利、改进专利、应用专利、防御专利
+
+若某数据源不可用，须说明该缺口并给出可辩护的分析计划，禁止编造专利事实。
+
+## 执行流程
+
+1. 用一段话重述分析边界：主题、公司、时间、地域、输出形式
+2. 检索前先建技术树，用它避免只靠关键词的窄口径检索
+3. 生成检索式与申请人别名清单，保留在来源注释或报告附录
+4. 检索专利与公开行业信源。优先权威专利数据库，标注数据来源与日期
+5. 分析前先清洗规范化。不得把原始申请人计数与同族级结论混用
+6. 将专利聚类为技术模块。模块标签要让业务/技术读者看得懂
+7. 在五类技术空间上对比目标企业与竞对：
+   - 企业现有技术
+   - 竞争对手现有技术
+   - 双方交集技术
+   - 竞争对手拓展技术
+   - 企业可拓展/拟拓展技术
+8. 将发现转化为布局决策：
+   - **保护性专利**：防守现有或近期产品技术
+   - **储备性专利**：储备未来技术、平台技术或新兴方向
+   - **对抗性专利**：抵消竞对控制点或建立谈判筹码
+   - **规避/替代方案**：避开竞对高风险权项
+   - **暂不布局**：相关性低、可行性低或商业价值不足
+9. 构建最终交付物。报告页面规则见 `references/ppt-output-spec.md`，数据表字段规则见 `references/data-fields.md`
+10. 执行质量门控：无未说明的占位符、无缺乏支撑的专利论断、无原始/同族口径混用，每条建议都能映射到证据
+
+## 五类技术空间分析要求
+
+这是布局矩阵的核心章节，五个空间必须全部覆盖，不可缺失。实践中最易遗漏的是**双方布局交集**与**竞争对手拓展技术**两个空间。
+
+| 空间 | 含义 | 布局含义 |
 |---|---|---|
-| 1 | Company's existing technology | Protective foundation |
-| 2 | Competitors' existing technology | Risk/design-around objects |
-| 3 | Shared coverage | Verify disclosure/date/differences/status before opportunity judgments; overlap alone is not public domain, common knowledge or low value. |
-| 4 | Competitor expansion | Counter-positioning opportunities |
-| 5 | Company's feasible/proposed expansion | Reserve portfolio |
+| 空间一 | 企业现有技术 | 保护性布局的基础 |
+| 空间二 | 竞争对手现有技术 | 风险识别与规避设计对象 |
+| 空间三 | 双方布局交集 | 分别核验具体技术公开、公开日期、差异与权利状态，再判断可布局点；交集本身不证明公知、公有领域或低价值 |
+| 空间四 | 竞争对手拓展技术 | 对抗性布局与抢位窗口 |
+| 空间五 | 企业可拓展技术 | 储备性布局主战场 |
 
-Five strategy classes: protective for current/near-term products; reserve for future/platform/emerging work; counter-positioning for competitor control points/negotiation; design-around/alternatives for high-risk claims; defer where relevance/feasibility/value is insufficient.
+## 布局矩阵格式规范
 
-## Canonical matrix
+- 已有覆盖列使用 `√ 已有覆盖`／`▲ 部分覆盖`／`× 当前已核验范围未检出`／`? 待核`，符号必须与文字同现；×不表示不考虑申请，也不证明绝对没有专利
+- 另列未来动作（保护／补强／拟申请／储备／暂不布局）和证据状态（已核验／部分／待核），不能用同一符号兼指未来计划
+- 必须包含「布局策略」列，说明该模块采取保护/储备/对抗/规避/暂不布局中的哪一类
+- 地域分“已有权利的已核验地域”与“拟申请目标地域”，未评估的地区写待核，不将同族文献存在直接视为有效保护
+- 每个模块的策略判断都要能追溯到具体证据
 
-Columns: technical category/direction, patent type, existing coverage, future action, evidence status, portfolio strategy, verified existing-rights regions, proposed filing regions.
+## 数据表输出要求
 
-Existing coverage always combines symbol + text: `√ Existing coverage`, `▲ Partial coverage`, `× Not found within verified scope`, `? Pending verification`. × is neither no future filing nor proof of absolute absence. Future actions (protect/strengthen/propose/reserve/defer) and evidence (verified/partial/pending) are separate; symbols never encode plans. Strategy explicitly uses one of the five classes with evidence. Geography separates verified existing rights from intended filings; family-document presence is not active protection. Unassessed regions stay pending.
+数据表须包含：规范化的著录数据、同族/法律状态、技术模块、价值标签、风险/机会标签、建议动作。
 
-Data tables also retain normalized bibliography, family/status, module, value/risk/opportunity tags and actions.
+## 常见错误与纠正
 
-## Pitfalls and completion
+| 错误 | 纠正 |
+|---|---|
+| 把"技术主题 + 公司名"当成足以得出最终结论 | 视为检索边界，再通过检索与分析生成证据 |
+| 向用户索取热点、集群或布局点 | 作为中间工作产物自行生成 |
+| 报告申请量但不说明去重规则 | 明确标注原始口径与同族级口径，并保持分离 |
+| 把方法论模板当成最终报告 | 把所有示例与占位符替换为该主题的专利证据 |
+| 建议不映射到模块或专利 | 每条建议都链接到证据与商业理由 |
 
-Topic/company alone does not justify final conclusions; users should not supply generated hotspots/clusters. Counts need explicit deduplication; raw/family units stay separate. Replace templates/examples with actual evidence; recommendations link modules/patents and business reasons.
+## 完成条件
 
-Before delivery record three coverage layers: statistics (query/total unit), individual checks (actual list/denominator/unreviewed objects), deep reading (documents/claims/passages). Calculate ratios only with known denominators and identical units. Aggregates do not prove all details reviewed.
+交付前记录三层覆盖：统计（采用查询及总量口径）、逐件核查（实际清单／分母及未核查对象）、重点深读（文献与权项／段落范围）。仅在分母明确且单位相同时计算覆盖比例；聚合总量不证明全部明细已审核。
 
-Thirteen chapters alone do not mean business completion. Mark each completed/partial/pending/not applicable with basis. Missing decisive competitor/risk/innovation/cluster evidence means interim report and next steps. Explain inapplicability; do not invent suppliers/innovations/clusters to fill sections. Full completion requires substantive delivery within adopted scope.
+十三章齐全不是业务完成。逐章标完成、部分完成、待核或不适用及依据，竞对、风险、创新点或集群的决定性证据缺失时称阶段报告，列下一步；不适用说明理由，不为填章节凑供应商、创新点或集群。完整报告须满足已采用范围内的实质交付要求。
+
+## 配套参考
+
+- `references/ppt-output-spec.md`：报告页面规则与版式规范
+- `references/data-fields.md`：检索结果、数据表输出、来源注释表的字段规则

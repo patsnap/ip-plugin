@@ -80,7 +80,7 @@ export function formatEvidenceParagraphs(container) {
 }
 
   // 展示已保存的依据；不修改原文、判断，也不发起请求。
-  export function renderEvidenceReader(modal, body, heading, target, context, entries, language = "en-US") {
+  export function renderEvidenceReader(modal, body, heading, target, context, entries, language = "zh-CN") {
     const document = body.ownerDocument;
     const tr = key => evidenceReaderWord(language, key);
     modal.classList.add('report-citation-reader');
@@ -150,7 +150,7 @@ export function resetComparisonReader(modal, heading) {
 }
 
 /** 使用原始对照行构建双栏阅读器；不修改表格、不生成或缩写事实。 */
-export function renderComparisonReader(root, modal, body, heading, row, language = 'en-US') {
+export function renderComparisonReader(root, modal, body, heading, row, language = 'zh-CN') {
   const doc = row.closest('.report-doc-comparison');
   const match = row.id.match(/^(.*)-f(\d+)$/);
   const check = row.querySelector('.report-check');

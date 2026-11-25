@@ -79,7 +79,7 @@ Every final package should include a concise log:
 
 State quality honestly:
 
-- "Seed coverage validated" only when seed patents are checked.
-- "Sample precision validated" only when sample review is documented.
-- "Query suitable for preliminary analysis" when validation is partial.
-- "User must verify syntax/fields in Patsnap" when exact Patsnap syntax was not executed.
+- "已通过样本覆盖校验" only when seed patents are checked.
+- "已通过抽样查准校验" only when sample review is documented.
+- "检索式可用于初步分析" when validation is partial.
+- "需用户在智慧芽中复核语法/字段" when exact Patsnap syntax was not executed.

@@ -6,11 +6,11 @@
   "plugins": [
     {
       "name": "patsnap-ip-plugin",
-      "displayName": "Patsnap IP Plugin",
+      "displayName": "智慧芽 IP 专家套件",
       "author": { "name": "Patsnap" },
       "source": "./plugins/patsnap-ip",
-      "description": "Patent search, analytics and IP intelligence in your AI assistant, for prior art, FTO, landscapes and more. Every finding traceable to its source."
+      "description": "帮助知识产权与研发团队检索专利和论文，围绕确认的技术范围比对证据，形成带来源和缺口说明的研究底稿。"
     }
   ],
-  "description": "Patsnap plugins for R&D and IP teams."
+  "description": "面向研发与知识产权团队的智慧芽插件。"
 }

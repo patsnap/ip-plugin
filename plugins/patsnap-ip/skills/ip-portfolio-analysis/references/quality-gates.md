@@ -1,64 +1,206 @@
-# Portfolio report quality gates
+# 质量门控清单
+## 常见问题与防范规范
 
-These checks supplement substantive completion in layout-report-method.md. Interim work may be submitted as interim, never complete merely because the file has all sections.
+> 按问题类型列出示例、成因和检查要求，用于专利布局报告的质量核验。
 
-## Numbers
+---
 
-Reconcile cover, conclusions, charts and detail tables after every change. A cover count of 18 against a cluster total of 15 fails. Module summaries should derive from the same data rather than stale hardcoded counts. Status changes update main table→summary→cover→conclusions; equal grand totals do not excuse different active/inactive splits. Every named cluster/count in conclusions must exist in the cluster design.
+## 一、数字一致性问题
 
-## Images
+### Q1-1：封面件数与集群总计不一致
+- **示例：** 封面显示"18件"，集群章节统计"15件"
+- **根本原因：** 集群计数与封面指标卡、核心结论的数据不一致
+- **检查要求：** 生成报告后，全文搜索件数数字，强制逐一比对"封面/结论/图表/详情"四处
 
-Signed media URLs may expire; do not assume a fixed 24-hour lifetime. Obtain actual media clues from fetch_patent, record expiry only if supplied, and actually check image/document identity using available reading tools. Embed already acquired permitted originals with provenance. Without a local original, use labeled analytical SVG, never pretend it is an original drawing.
+### Q1-2：模块有效件数前后不一致
+- **示例：** 右侧汇总卡显示"M4有效6件"，但主表已更新为4件
+- **根本原因：** 主表更新后右侧汇总卡未同步
+- **检查要求：** 汇总卡数字使用 CSS counter 或 JS 动态计算，而非硬编码
 
-## IPC/CPC placement
+### Q1-3：有效/失效总数加总不匹配
+- **示例：** 有效31件+失效8件=39件，但主表加总为29+10=39件
+- **根本原因：** 法律状态变更未在所有展示位置同步
+- **检查要求：** 修改任一专利法律状态时，检查清单：主表→汇总卡→封面→结论
 
-Keep technical trees and business charts physically separate from search strategy. Move all class codes to the appendix; use engineering descriptions in nodes/focus labels. Do not hide codes inside parenthetical business labels.
+### Q1-4：集群拟申请件数描述不完整
+- **示例：** 结论中写"能量管理8+热管理4+对抗2+系统集成4=18"，但集群设计只有三个集群，无"系统集成集群"
+- **根本原因：** 结论与集群设计章节的方案内容不一致
+- **检查要求：** 结论中的集群描述必须与集群设计章节的实际内容完全对应
 
-## Charts and counting
+---
 
-Sort ranking data ascending with a sorting function, not handwritten order. Remove zero pie slices or use bars/text. Captions state included/excluded industry roles; selected-company or OEM-only samples are not industry-wide rankings.
+## 二、专利图片有效期问题（每版必须处理）
 
-Use common geography/unit across comparisons; if heterogeneous facts must be shown, label each explicitly rather than treating them as directly comparable. Keep global/CN distinct. Publication/application counts follow the canonical scope; family links do not become interchangeable units. Never replace unknowns with zero or estimates with false precision; every number needs source/unit and every estimate formula/assumptions.
+### Q2-1：摘要附图签名URL过期
+- **示例：** 专利图片签名有效期约24小时，次日全部变为破图
+- **根本原因：** 智慧芽专利图片使用临时签名URL，非永久链接
+- **检查要求：**
+  1. 通过fetch_patent的media取得图片线索；有明确过期时间才记录，不假定固定24小时
+  2. 使用可用的图片读取能力核对文献身份及图像内容；无法读取时注明缺口
+  3. 已取得原图时可嵌入Base64，保留来源
+  4. 没有本地原图时用SVG技术示意图并注明“分析示意，非原始专利附图”
 
-## Navigation and styles
+---
 
-After section changes check every href against an existing ID. Activate the first section on load (`cur=sections[0]`) and verify initial state. Status changes update badge class, border/tree classes and tag text together. Define every used class and remove unused classes after refactors.
+## 三、IPC编号出现位置错误
 
-## Required chapters
+### Q3-1：技术树正文中出现IPC编号
+- **示例：** 第二章技术树"关键词体系"一节写"IPC主分类：B60W20（混合动力控制）"
+- **根本原因：** 技术树和检索策略混写在同一章节
+- **检查要求：** 技术树章节与检索策略章节物理分离；技术树只含技术语言；IPC统一迁至附录
 
-P1–P10 are workflow phases, Chapters 01–13 report sections; never interchange them. Verify:
+### Q3-2：排名图/聚焦方向中出现IPC编号
+- **示例：** 竞对聚焦方向一列写"IPC B60W/B60K/B60L密集区"
+- **检查要求：** 改写为技术语言"混合动力控制策略/驱动配置/能量回收技术密集区"
 
-1. Cover/key conclusions.
-2. Technical tree/keywords.
-3. Industry/nonpatent evidence.
-4. Competitor landscape.
-5. Relevant suppliers/supply chain.
-6. Individually checked own portfolio.
-7. Frontier/high-value patent deep analysis.
-8. All five technical spaces.
-9. High-risk design-around.
-10. Innovations with three dimensions/TRIZ/dispositions.
-11. Portfolio matrix.
-12. Clusters.
-13. Complete executable queries.
+---
 
-Do not let an optional slide-deck condensation remove HTML chapters. Five spaces always appear in order: own existing, competitor existing, intersection, competitor expansion, own expansion. Unsupported/inapplicable sections state their status/reasons rather than fabricated content.
+## 四、图表数据质量问题
 
-Chapter 07 deeply analyzes solutions/independent claims/design-around; Chapter 08 references those conclusions in its five-space comparison without duplicating full analyses.
+### Q4-1：排名图数据未排序
+- **示例：** 条形图y轴顺序混乱，72件的申请人排在88件的申请人上方
+- **根本原因：** 手写数组未按数值排序
+- **检查要求：** ECharts条形图数据使用JS sort()函数动态排序，不手写顺序
 
-## Queries
+### Q4-2：饼图含0值切片
+- **示例：** M6（0件）出现在饼图图例中但扇形不可见，导致"图例多于图形"
+- **检查要求：** 过滤0值项；或改用柱状图（可清晰展示0值）
 
-Shorthand such as `S1=TAC:(A_CORE) AND TAC:(C_FUNC)` is design notation, not executable delivery. Provide expanded FINAL_BALANCED_EXPANDED, NOISE_TOTAL_EXPANDED and FINAL_PRECISION_EXPANDED without unresolved S#/N# placeholders. Syntax uncertainty is explicitly unverified, not a falsely executable expression.
+### Q4-3：排名图未注明统计范围
+- **示例：** 图标题"主要申请人排名"，但仅包含整车厂，遗漏主要竞争对手中的Tier-1供应商
+- **检查要求：** 图注写清实际涵盖的行业角色及未覆盖对象；汽车例可注明仅整车厂，其他行业使用对应角色
 
-## Acceptance checklist
+---
 
-- Repeated numbers agree across all four locations; cluster proposed/total counts differ correctly.
-- All 13 sections and five spaces are accounted for, with substantive states/gaps.
-- Rankings sorted, no zero pie slices, geographic/counting conventions explicit.
-- No dead anchors, initial navigation active, no undefined/unused CSS.
-- No IPC/CPC in business prose; no unfilled placeholders/example data.
-- Numbers/estimates traceable; final expressions fully expanded.
-- Individual-verification list, denominator and unreviewed objects are retrievable; samples labeled.
-- Image availability/identity checked; originals vs analytical diagrams clear.
-- Legal-status text, badges and colors agree.
-- English narrative/UI/figures are consistent unless another language is explicitly requested; source originals and multilingual query examples remain labeled exceptions.
+## 五、导航与交互问题
+
+### Q5-1：导航死链
+- **示例：** 侧边栏`#s-search`和`#s-noise`两个链接，对应ID在HTML中不存在
+- **根本原因：** 检索策略章节被重组为附录，但导航链接未更新
+- **检查要求：** 逐一比对侧边栏 href 与正文 id，确保每个导航链接都有对应章节
+
+### Q5-2：首屏导航未激活
+- **示例：** 页面初始加载时，侧边导航无任何激活项
+- **根本原因：** IntersectionObserver默认`cur=null`，进入第一个section前无激活态
+- **检查要求：** 在JS中设置`let cur = sections[0]`作为默认值，页面加载即激活首项
+
+---
+
+## 六、数据口径混用问题
+
+### Q6-1：全球/CN数字混入同一图表
+- **示例：** 竞对排名图中，主要竞争对手A 411件（全球）与主要竞争对手B 15件（CN境内过滤）放在同一图中比较
+- **根本原因：** 不同竞对使用了不同检索策略
+- **检查要求：** 同一图表必须使用同一口径；若必须混用，明确在每行注明口径
+
+### Q6-2：技术族口径混入件数表达
+- **示例：** 报告中混用"约150族""84件"两种表达
+- **检查要求：** 各表引用项目口径，明确公开号或申请号单位；同族只作关联信息，不混入件数
+
+---
+
+## 七、章节遗漏问题
+
+### Q7-1：HTML转写漏掉4个必需章节
+- **示例：** 报告第02章技术主题拆解、第03章行业动态与非专利文献、第07章前沿高价值专利、第08章五类技术空间（仅3/5）均缺失
+
+> 📌 编号约定：`P1—P10` 仅指十阶段 SOP 的执行阶段；`第01—13章` 仅指报告章节。两套编号不可互相替代或混用。
+- **根本原因：** HTML 生成后未按本节 13 章交付清单逐一核查
+- **检查要求：** HTML生成后，对照以下必须章节清单逐项检查：
+
+```
+必须章节清单（13项）：
+□ 01 封面 + 核心结论
+□ 02 技术主题拆解（含技术树+关键词）
+□ 03 行业动态与非专利文献
+□ 04 竞对全量态势
+□ 05 关键供应商与产业链分析
+□ 06 目标企业自有专利画像（逐件核查）
+□ 07 前沿高价值专利深度分析
+□ 08 五类技术空间（全5个空间）
+□ 09 高风险专利规避设计
+□ 10 创新点清单（三维+TRIZ+去向）
+□ 11 专利布局矩阵
+□ 12 专利集群设计
+□ 13 附录：完整可执行检索式
+```
+
+---
+
+## 八、样式与CSS问题
+
+### Q8-1：卡片边框/徽标颜色语义不一致
+- **示例：** 同一专利顶部badge显示"蓝色=审中"，但该专利实际已失效；tags区正确显示"已失效"
+- **根本原因：** 法律状态更新只改了tags文字，未同步更新badge class和卡片边框class
+- **检查要求：** 专利状态变更需同时更新：badge class + 边框class + tags文字（三处联动）
+
+### Q8-2：CSS死代码积累
+- **示例：** 存在未被HTML引用的CSS类（如`.cluster-overview`）
+- **检查要求：** 交付的样式仅包含报告 HTML 实际使用的 CSS 类
+
+### Q8-3：未定义CSS类
+- **示例：** HTML中使用了`.cr-badge`类，但CSS中未定义
+- **检查要求：** 生成HTML时，对每个非标准class名搜索对应CSS定义，确保全部有定义
+
+---
+
+## 九、内容质量问题
+
+### Q9-1：五类技术空间仅覆盖3/5
+- **示例：** 空间三（双方布局交集）和空间四（竞对拓展方向）完全缺失
+- **检查要求：** 五类空间固定顺序：①目标企业现有 ②竞对现有 ③双方布局交集 ④竞对拓展/需防范 ⑤目标企业可拓展；每次必须全5个输出
+
+### Q9-2：第07章与第08章内容重复30%
+- **示例：** 两章均包含对同一批竞对专利的分析，信息冗余
+- **检查要求：** 第07章聚焦"技术方案/独立权利要求/规避路径"深度解析；第08章在五类空间中仅引用第07章结论，不重复展开
+
+---
+
+## 十、检索策略规范问题
+
+### Q10-1：提供伪代码检索式而非可执行展开式
+- **示例：** 报告中提供`S1 = TAC:(A_CORE) AND TAC:(C_FUNC)`这样的概念块伪代码，无法直接在智慧芽执行
+- **根本原因：** 将"检索策略设计"与"可执行检索式生成"混为一谈
+- **检查要求：** 必须同时提供三条完整展开式，每条可直接粘贴到智慧芽专家搜索框：
+  - `FINAL_BALANCED_EXPANDED`：无任何S#/N#占位符
+  - `NOISE_TOTAL_EXPANDED`：无任何占位符
+  - `FINAL_PRECISION_EXPANDED`：无任何占位符
+
+---
+
+## 质量门控通过标准
+
+以下检查与 layout-report-method.md 的实质完成条件共同验收；阶段成果可提交阶段评审，不称完整业务完成：
+
+```
+数字一致性（4处同步）：
+□ 封面指标卡
+□ 核心结论
+□ 图表数据
+□ 章节详情表格
+
+章节完整性（13项）：
+□ 必须章节清单全部打勾
+
+图表质量：
+□ 排名图严格升序
+□ 无0值饼图切片
+□ 全球/CN口径分开标注
+
+代码质量：
+□ 零导航死链
+□ 首屏JS激活
+□ 零CSS未定义类
+□ 零CSS死代码
+
+内容合规：
+□ 正文零IPC编号
+□ 数字有来源、单位；测算有公式和假设，未知不伪精确
+□ FINAL_PRECISION_EXPANDED完全展开
+□ 五类技术空间全5个
+
+专利数据：
+□ 逐件核查清单、分母与未覆盖对象可回查；样本明确标注
+□ 图片URL在有效期内
+□ 样式徽标与法律状态一致
+```

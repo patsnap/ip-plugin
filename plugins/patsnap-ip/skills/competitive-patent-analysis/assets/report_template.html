@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <!--
-  Competitor technology and patent assessment HTML layout template
-  Placeholder conventions: {{COMPANY}} {{COMPANY_EN}} {{INDUSTRY}} {{REPORT_DATE}}
+  竞对技术—专利—HTML 研判报告 · 版式模板
+  占位符约定：{{COMPANY}} {{COMPANY_EN}} {{INDUSTRY}} {{REPORT_DATE}}
   {{TECH_N_TITLE}} {{TECH_N_CORE}} {{TECH_N_ROWS}} {{TECH_N_MONITOR}}
-  Add or remove sections, baseline rows and navigation to match the confirmed areas; cycle t1/t2/t3 colors.
+  技术方向按确认数量增删章节、基线行和导航；t1 / t2 / t3 配色可循环复用。
 -->
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{COMPANY}} — {{INDUSTRY}} Core Technology Patent Research Report</title>
+<title>{{COMPANY}} — {{INDUSTRY}} 核心技术专利研究报告</title>
 <style>
   :root {
     --brand: #0a3d62;
@@ -108,7 +108,7 @@
     display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: 11px;
     font-weight: 600; border-radius: 10px; padding: 1px 8px;
   }
-  /* Technical description required for every patent; retain this style. */
+  /* 专利技术描述句 —— 每件专利必填，勿删此样式 */
   .tech-desc {
     display: block; margin-top: 5px; font-size: 12px; color: #5f6b7c;
     font-style: italic; line-height: 1.5;
@@ -135,27 +135,27 @@
 
 <div class="report-header">
   <div class="label">Patent Intelligence Report · {{INDUSTRY}}</div>
-  <h1>{{COMPANY}} — {{INDUSTRY}} Core Technology Patent Research Report</h1>
-  <div class="subtitle">{{TECH_DIRECTION_COUNT}} technology strengths · {{LISTED_PATENT_COUNT}} representative patents listed · Based on Patsnap patent data</div>
+  <h1>{{COMPANY}} — {{INDUSTRY}} 核心技术专利研究报告</h1>
+  <div class="subtitle">{{TECH_DIRECTION_COUNT}} 个优势技术方向 · 实际列出 {{LISTED_PATENT_COUNT}} 件代表专利 · 基于智慧芽专利数据库</div>
   <div class="meta">
-    <span>📅 Report date: {{REPORT_DATE}}</span>
-    <span>🏢 Company: {{COMPANY_EN}}</span>
-    <span>🔍 Source: Patsnap · Search field: {{APPLICANT_FIELD}}</span>
-    <span>📋 Search scope: {{SCOPE}}</span>
+    <span>📅 报告日期：{{REPORT_DATE}}</span>
+    <span>🏢 研究对象：{{COMPANY_EN}}</span>
+    <span>🔍 数据来源：智慧芽 · {{APPLICANT_FIELD}} 字段检索</span>
+    <span>📋 检索范围：{{SCOPE}}</span>
   </div>
 </div>
 
 <div class="container">
 
-<!-- ══ Company profile: three paragraphs and profile cards ══ -->
-<div class="section-title">Company profile</div>
+<!-- ══ 公司介绍：三段正文 + 档案卡 ══ -->
+<div class="section-title">公司介绍</div>
 <div class="company-card">
   <h2>{{COMPANY_EN}}</h2>
   <p>{{PARA_1_POSITION_AND_ORIGIN}}</p>
   <p>{{PARA_2_PRODUCTS_AND_MILESTONES}}</p>
   <p>{{PARA_3_COMPETITIVE_LOGIC}}</p>
   <div class="profile-grid">
-    <!-- Repeat 6–8 times. Explain three strategic layers in paragraph 3; disclose evidence gaps and do not invent barriers. -->
+    <!-- 重复 6–8 次。第三段按三层战略地位展开并说明缺证，不虚构壁垒。 -->
     <div class="profile-item">
       <div class="pi-label">{{LABEL}}</div>
       <div class="pi-value">{{VALUE}}</div>
@@ -163,37 +163,37 @@
   </div>
 </div>
 
-<!-- ══ Search baseline table ══ -->
-<div class="section-title">Search baseline</div>
+<!-- ══ 检索基线表 ══ -->
+<div class="section-title">检索基线</div>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Search basis</th><th>Count</th><th>Notes</th></tr></thead>
+  <thead><tr><th>检索口径</th><th>数量</th><th>说明</th></tr></thead>
   <tbody>
-    <tr><td>Company baseline ({{COMPANY}})</td><td>{{RAW}} publications</td><td>{{BASELINE_SCOPE_NOTE}}</td></tr>
-    <tr><td>Technology area 1</td><td>{{M1}} query-hit publications<br>{{R1}} retrieved publications<br>{{F1}} simple families<br>{{E1}} relevance-qualified families<br>{{L1}} representative patents listed</td><td>Keyword and applicant constraints</td></tr>
-    <tr><td>Technology area 2</td><td>{{M2}} query-hit publications<br>{{R2}} retrieved publications<br>{{F2}} simple families<br>{{E2}} relevance-qualified families<br>{{L2}} representative patents listed</td><td>Keyword and applicant constraints</td></tr>
-    <tr><td>Technology area 3</td><td>{{M3}} query-hit publications<br>{{R3}} retrieved publications<br>{{F3}} simple families<br>{{E3}} relevance-qualified families<br>{{L3}} representative patents listed</td><td>Keyword and applicant constraints</td></tr>
+    <tr><td>公司基线（{{COMPANY}}）</td><td>{{RAW}} 件公开文献</td><td>{{BASELINE_SCOPE_NOTE}}</td></tr>
+    <tr><td>技术一专项</td><td>查询命中 {{M1}} 件公开文献<br>实际取回 {{R1}} 件公开文献<br>简单同族去重 {{F1}} 个同族<br>相关性合格 {{E1}} 个同族<br>本表列出 {{L1}} 件代表专利</td><td>关键词 + 申请人双限定</td></tr>
+    <tr><td>技术二专项</td><td>查询命中 {{M2}} 件公开文献<br>实际取回 {{R2}} 件公开文献<br>简单同族去重 {{F2}} 个同族<br>相关性合格 {{E2}} 个同族<br>本表列出 {{L2}} 件代表专利</td><td>关键词 + 申请人双限定</td></tr>
+    <tr><td>技术三专项</td><td>查询命中 {{M3}} 件公开文献<br>实际取回 {{R3}} 件公开文献<br>简单同族去重 {{F3}} 个同族<br>相关性合格 {{E3}} 个同族<br>本表列出 {{L3}} 件代表专利</td><td>关键词 + 申请人双限定</td></tr>
   </tbody>
 </table>
 </div>
 <div class="note-box">
-  Query hits and retrieval counts measure publications; deduplicated and relevance-qualified counts measure simple families; listings count representative patents. Without complete retrieval, family counts apply only to the retrieved sample. Area results may overlap and cannot be added into a company total.
+  查询命中与实际取回按公开文献计数；简单同族去重与相关性合格按同族计数；本表列出按代表专利计数。未取回全量时，同族数量仅代表已取回样本。各方向的结果可能重叠，不能相加求公司总量。
 </div>
 
-<!-- ══ Repeat technology blocks for the confirmed number of areas; cycle t1/t2/t3 colors. ══ -->
-<div class="section-title">Technology area 1: {{TECH_1_TITLE}}</div>
+<!-- ══ 技术方向区块按确认数量重复：t1 / t2 / t3 配色可循环 ══ -->
+<div class="section-title">技术一：{{TECH_1_TITLE}}</div>
 <div class="tech-card">
-  <span class="tech-tag tag-t1">Area 1 · {{STRATEGIC_ROLE}}</span>
+  <span class="tech-tag tag-t1">技术一 · {{STRATEGIC_ROLE}}</span>
   <h3>{{TECH_1_TITLE}}</h3>
   <p>{{TECH_1_CORE}}</p>
 </div>
 <div class="table-wrap">
 <table data-contract="representatives">
   <thead>
-    <tr><th>#</th><th>Patent number</th><th>Publication/grant date</th><th>Jurisdiction</th><th>Title and technical description</th><th>Status</th><th>Estimated value</th><th>Countries covered</th></tr>
+    <tr><th>#</th><th>专利号</th><th>公开/授权日</th><th>管辖</th><th>标题 · 技术描述</th><th>状态</th><th>评估价值</th><th>布局国家</th></tr>
   </thead>
   <tbody>
-    <!-- Generate 0–10 rows from the actual listed_count; never pad with duplicate family members or weak matches. In the core paragraph, bold key components/mechanisms and end with the area’s portfolio role. -->
+    <!-- 按真实 listed_count 生成 0–10 行，不复制同族件或弱相关件。技术内核加粗关键构件与机制，末句说明布局定位。 -->
     <tr>
       <td>{{ROW_INDEX}}</td>
       <td><a href="{{URL}}" target="_blank">{{PUB_NO}}</a></td>
@@ -211,20 +211,20 @@
 </table>
 </div>
 <div class="note-box">
-  This query matched {{MATCHED_TOTAL}} publications and retrieved {{RETURNED_COUNT}} publications; simple-family deduplication identified {{INDEPENDENT_FAMILY_COUNT}} families, {{ELIGIBLE_FAMILY_COUNT}} relevance-qualified families, and {{LISTED_COUNT}} representative patents listed here.
-  List at most 10 patents from eligible families without padding. Retain the value and country columns with “—” when data is unavailable.
+  查询命中 {{MATCHED_TOTAL}} 件公开文献，实际取回 {{RETURNED_COUNT}} 件公开文献；简单同族去重后为 {{INDEPENDENT_FAMILY_COUNT}} 个同族，相关性合格 {{ELIGIBLE_FAMILY_COUNT}} 个同族，本表列出 {{LISTED_COUNT}} 件代表专利。
+  只从合格同族中最多列出 10 件，不凑数；评估价值与布局国家无返回时保留列并填“—”。
 </div>
 <div class="monitor-box">
-  <strong>Monitoring priorities: </strong>{{TECH_1_MONITOR_WITH_SPECIFIC_FAMILY_OR_PATENT_NUMBERS}}
+  <strong>技术监控重点：</strong>{{TECH_1_MONITOR_WITH_SPECIFIC_FAMILY_OR_PATENT_NUMBERS}}
 </div>
 
-<!-- ══ Overall assessment ══ -->
-<div class="section-title">Overall assessment</div>
+<!-- ══ 综合研判 ══ -->
+<div class="section-title">综合研判</div>
 <div class="summary-card">
-  <h2>Technology priorities and patent landscape</h2>
+  <h2>关注技术方向与专利格局</h2>
   <div class="table-wrap">
   <table>
-    <thead><tr><th>Technology strength</th><th>Strategic role</th><th>Representative core families</th><th>Patent date range</th></tr></thead>
+    <thead><tr><th>优势技术</th><th>战略地位</th><th>代表专利核心族</th><th>专利时间跨度</th></tr></thead>
     <tbody>
       <tr><td>{{T1}}</td><td>{{ROLE}}</td><td>{{CORE_FAMILIES}}</td><td>{{START}} → {{END}}</td></tr>
       <tr><td>{{T2}}</td><td>{{ROLE}}</td><td>{{CORE_FAMILIES}}</td><td>{{START}} → {{END}}</td></tr>
@@ -232,36 +232,36 @@
     </tbody>
   </table>
   </div>
-  <div class="monitor-box"><strong>🔍 Most active recent area: </strong>{{CONCLUSION_1}}</div>
-  <div class="monitor-box"><strong>⚠️ Competitor benchmarks: </strong>{{CONCLUSION_2}}</div>
-  <div class="monitor-box"><strong>🏭 Product series signals: </strong>{{CONCLUSION_3}}</div>
+  <div class="monitor-box"><strong>🔍 近期最活跃方向：</strong>{{CONCLUSION_1}}</div>
+  <div class="monitor-box"><strong>⚠️ 竞争对手对标点：</strong>{{CONCLUSION_2}}</div>
+  <div class="monitor-box"><strong>🏭 产品系列化信号：</strong>{{CONCLUSION_3}}</div>
 </div>
 
-<!-- ══ Search notes (mandatory Gate B section; do not remove)══ -->
-<div class="section-title">Search notes</div>
+<!-- ══ 检索说明（Gate B 强制章节，不得删除）══ -->
+<div class="section-title">检索说明</div>
 <div class="note-box">
   <ul>
-    <li>Each area uses an independent Boolean query. Results may overlap and cannot be added or presented as combined shares.</li>
-    <li>Query hits count publications; simple-family counts are separate. Without complete retrieval, family counts cover only the retrieved sample, not every family in that area.</li>
-    <li>Patent numbers, publication dates and legal status come from actual tool results. Company facts identify user-material or MCP sources; facts not independently verified are labeled.</li>
-    <li>Use “—” when monetary valuation is unavailable. Countries are counted from simple-family members returned by fetch_patent; disclose member completeness and jurisdiction basis. Missing values are not zero.</li>
-    <li>List at most 10 patents per area. If fewer than 10 families qualify, list only those: do not borrow across areas, repeat family members or weaken relevance to fill a quota.</li>
-    <li>Technical descriptions combine title, abstract and family context. They are not claim construction.</li>
-    <li>Sources and verification status for certifications, milestones and specifications: {{COMPANY_FACT_VERIFICATION_NOTE}}</li>
-    <li>The consistent family basis is “simple-family deduplication”.</li>
+    <li>各技术方向为独立布尔查询，结果集可能重叠，不能直接相加或呈现合并占比。</li>
+    <li>查询命中按公开文献计数，简单同族去重数量另列；未取回全量时，同族数仅限已取回样本，不代表该方向全部同族。</li>
+    <li>专利号、公开日、法律状态均取自数据工具 的真实返回值；公司资料注明用户材料或MCP来源，未经独立核实的事实显式标注。</li>
+    <li>未取得金额估值时，评估价值填“—”；布局国家由 fetch_patent 返回的简单同族成员统计，并说明成员完整性与辖区口径。缺失值不代表零。</li>
+    <li>每方向最多列出 10 件；不足 10 个合格同族时按合格数量列出，不跨方向借用、不重复同族成员、不降低相关度凑数。</li>
+    <li>专利技术描述句基于专利标题、摘要及专利族上下文综合研判，不构成权利要求解释。</li>
+    <li>公司认证、里程碑与规格参数的来源和核验状态：{{COMPANY_FACT_VERIFICATION_NOTE}}</li>
+    <li>同族口径统一表述为「简单同族去重」。</li>
   </ul>
 </div>
 
-<div class="note-box">Sources and verification links: {{SOURCE_LINKS_OR_NOTE}}</div>
+<div class="note-box">来源与核验入口：{{SOURCE_LINKS_OR_NOTE}}</div>
 <details>
-  <summary>View the actual company-baseline query</summary>
+  <summary>查看公司基线的实际查询</summary>
   <pre>{{BASELINE_QUERY}}</pre>
 </details>
 
 </div>
 
 <div class="report-footer">
-  {{COMPANY}} Core Technology Patent Research Report · Generated on {{REPORT_DATE}} · Source: Patsnap
+  {{COMPANY}} 核心技术专利研究报告 · 生成于 {{REPORT_DATE}} · 数据来源：智慧芽
 </div>
 
 </body>

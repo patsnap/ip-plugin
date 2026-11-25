@@ -1,171 +1,171 @@
-# {{Solution or product name}}
+# {{方案或产品名称}}
 
-## Patent freedom-to-operate (FTO) report
+## 专利自由实施分析（FTO）报告
 
-Case: {{Case name}} | Version: {{Report version}} | Date: {{Delivery date}}
+案件：{{案件名称}} ｜ 版本：{{报告版本}} ｜ 日期：{{交付日期}}
 
-Target markets/activity countries: {{Actual countries; an EP-document route alone does not establish European-market coverage}}
+目标市场／实施国家：{{实际国家；仅有 EP 文献路线时不得写欧洲已覆盖}}
 
-Task type: {{Complete FTO / partial analysis / specified-patent comparison / existing-report review}}
+任务类型：{{完整 FTO／局部分析／指定专利比对／既有报告复核}}
 
-Scope summary: {{Plain-language actual route count, Screening submitted/returned counts, CC selected/completed/incomplete counts and decisive unknowns; cite each source without inferring one count from another}}
+范围摘要：{{用普通读者能理解的语言写明检索方式数、候选专利筛选的提交／返回数、逐项权利要求对照的选定／完成／未完成数和关键未知；各数注明来源，不互相推算}}
 
-<!-- Remove these instructions and all placeholders after filling from adopted evidence. Unknown means not obtained/needs confirmation; unexecuted means not run. Do not fabricate content to fill sections. Label partial scope in titles. All customer-visible text follows output_language and references/plain-language.md. Preserve originals separately with complete itemwise translations; important evidence uses original/complete translation/plain explanation. Separate raw tool results from local review. Reuse verified complete CC without resummarizing to reduce length. Generate a customer HTML preview first; only confirmed content/format becomes final. Follow references/report-format.md for sections, orientations, fonts, tables and pagination. -->
+<!-- 模板提示（生成后删除）：按本模板固定正文与附录，从已采用资料填入。未知写“未取得／需要确认”，未执行写“未执行”；不要为了填满章节而补造内容。替换全部占位符并删除模板提示。局部任务标题注明范围；全部标题、标签、说明、备注和意见用输入卡的 output_language，并按 references/plain-language.md 面向目标国普通读者改写。证据原文另行保留并逐项翻译，重要证据按“原文／完整译文／平实说明”分层。下方中文只是模板文案。本地报告明确区分工具原始结果与本地复核意见。逐项权利要求对照必须复用已核验的完整内容，不能为了压缩篇幅再次摘要化。先生成 HTML 客户预览稿并标明状态，客户确认内容和最终格式后再标最终报告。Word／PDF／HTML 的章节、分节、字体、表格和分页按 references/report-format.md 执行。 -->
 
-## Contents
+## 目录
 
-{{Automatic contents for more than 10 body pages; patents at level 2, without individual limitations}}
+{{正文超过 10 页时插入自动目录；逐件专利进入二级目录，不列每条限定}}
 
-## 1. Executive summary and fact basis
+## 1. 执行摘要与事实基础
 
-| Item | Adopted basis |
+| 项目 | 本次采用 |
 |---|---|
-| Decision objective / R&D stage | {{Objective}} |
-| Product, configuration, module / activities | {{Object and activities}} |
-| Countries, assessment date, evidence cutoff | {{Scope and dates}} |
-| EP and actual country scope | {{target_markets/search_authorities and clarification source; national effects verified/pending separately; omit if inapplicable}} |
-| Countries not covered | {{Original requested countries not executed, unresolved or explicitly excluded, with basis; do not hide global needs behind completed CN work}} |
-| Input / output language | {{input_language/output_language; explain different intermediate tool language}} |
-| Search languages / coverage | {{search_languages; separate tool-returned Chinese/English from AI-localized lexicon; actual Boolean/semantic/index evidence and missing languages; do not infer from analysis language}} |
-| Technical facts / sources | {{Distinguish customer assertions from independent verification}} |
-| Assumptions / unknowns | {{Inference, plans and unresolved customer facts}} |
-| Version changes | {{Changes since previous version, or first version}} |
-| Execution path / evidence | {{Simplified/full/partial path, adopted materials and receipts}} |
-| Itemwise review scope | {{All/subset, applicant/status conditions or manual list, actual count, client decision and screening receipt; batches ≤10 are local verification, not total/API limits}} |
-| Status checks during retrieval | {{Requested scope, raw returns, pending/active passes, leaks, unknowns and paging continuation; internal codes in appendix}} |
-| Current rights / adopted claim version | {{Selected count, active/pending passes, inactive/withdrawn exclusions, status/text unknowns, assessment date and evidence references}} |
-| Full-description strategy | {{Advance per-patent review or no advance review; actually obtained/analyzed/incomplete objects and gaps}} |
-| Report state / final format | {{HTML preview awaiting confirmation/confirmed; chosen HTML/Word/PDF/Markdown/combination and decision source}} |
+| 决策目标／研发阶段 | {{目标}} |
+| 产品、配置、模块／行为 | {{对象与行为}} |
+| 目标国家或地区、评估日期、资料截止日 | {{范围与时间}} |
+| EP 与具体国家范围 | {{target_markets／search_authorities、澄清来源；EP 实际国家效力另列已核验／待核，不适用时省略}} |
+| 本次尚未覆盖的国家或地区 | {{客户原始目标中未执行、尚待明确或本阶段明确排除的地区及依据；不得只列已完成 CN 掩盖全球需求}} |
+| 输入语种／交付语言 | {{input_language／output_language；工具中间语言不同则说明}} |
+| 检索语言与覆盖依据 | {{search_languages；区分关键词扩展 Tool 的原始中英文与 AI 目标语言词表；列实际 Q／语义路线／索引依据及仍缺的语种，不从分析输出语言推断}} |
+| 技术事实及来源 | {{关键事实与来源；客户陈述和独立核验分清}} |
+| 关键假设／未知 | {{推断、计划、客户未确定事项}} |
+| 本版变更 | {{相对上版变化；首版写首版}} |
+| 执行路径／资料来源 | {{简化、完整或局部路径；采用的资料与回执引用}} |
+| 本次逐项对照范围 | {{全部／部分、申请人／专利状态等条件或手动名单、实际数量、客户决定及候选专利筛选回执；每批≤10是内部核验大小，不是总额或接口硬限制}} |
+| 检索结果中的专利状态核对 | {{用普通语言列请求范围、原始返回数、仍在申请中或有效的数量、不符合状态要求的数量、状态待确认数，以及是否继续取得后续结果；内部状态码只放附录}} |
+| 专利目前是否仍在申请中或有效／本次使用的权利要求版本 | {{客户选定数；有效授权／申请中通过数；失效、撤回等排除数；状态／文本待确认数；评估时点与内部证据引用}} |
+| 说明书全文策略 | {{预先逐篇全文分析／不预先全文分析；实际取得、已分析、未完成对象与缺口}} |
+| 报告状态／最终格式 | {{HTML 预览待确认／已确认；客户选择 HTML／Word／PDF／Markdown 或组合；选择来源}} |
 
-Front-page boundary: {{Product/configuration version, manufacturing/sales/use countries/date, patents/claims actually completed and decisive unknowns. Partial findings do not clear the whole product}}
+首页范围摘要：{{产品版本与配置；制造／销售／使用国家与时点；实际完成的专利和权项；决定性未知。局部结论只适用于此范围，不扩展为整体产品放行}}
 
-Product evidence: {{Input-card element evidence with present/absent/unknown, source location and configuration}}
+产品证据表：{{引用输入卡的逐要素证据表；存在／不存在／未知、材料定位及配置必须可回查}}
 
-Progress: {{Plain business steps completed/reused/not run/blocked; status/claim-version confirmation, client choice and full-description acquisition. Internal step codes stay in appendix}}
+工作进度：{{按客户能理解的业务步骤列已完成／沿用旧结果／未执行／暂时受阻；内部步骤号和状态码只放附录。另说明专利状态与权利要求版本是否确认、客户选择是否完成、完整说明书是否取得。}}
 
-### 1.1. Technical solution
+### 1.1 技术方案
 
-{{Coherent purpose/object, components/relationships, operation/conditions, problem/effect and unknowns/alternatives; separate configurations without converting expansions or patent disclosures into product facts}}
+{{按用途与对象、组成及关系、工作过程／条件、问题／效果、未知与备选形成连贯正文；不同配置分列，不把扩展词或专利内容写回产品事实}}
 
-### 1.2. Technical features
+### 1.2 技术特征列表
 
-| ID | Type | Technical feature | Original location | Retrieval purpose/status |
+| 编号 | 类型 | 技术特征 | 原文位置 | 检索用途／状态 |
 |---|---|---|---|---|
-| {{E01}} | {{Actual domain/core/implementation/support category}} | {{Verified feature}} | {{Source location}} | {{Retrieval/supplementation/Screening/CC or not adopted with reason}} |
+| {{E01}} | {{领域／核心／实现／支撑等真实类别}} | {{经核对的特征}} | {{材料定位}} | {{用于检索、补充检索、候选专利筛选、逐项对照，或未采用及理由}} |
 
-## 2. Retrieval and Screening scope
+## 2. 检索与筛选范围
 
-Adopted query/list: {{Content or retrievable reference}}
+采用查询／名单：{{内容或可定位引用}}
 
-Client-list reconciliation: {{If applicable: original file/version, rows, blanks/malformed/duplicate values, unique numbers submitted as exact OR, returned/verified objects, unresolved numbers, same-application mappings and outsiders. Separate query construction, actual hits and verified counts}}
+客户专利名单核对：{{不适用则写不适用；适用时用平实语言列原始文件与版本、总行数、空值／格式异常、重复、提交关键词逻辑检索的唯一号码、实际返回并核对的对象、无法识别的号码、同申请版本映射和输入外对象。检索式生成、实际命中和成功核对的数量分别列示}}
 
-Query formation: {{Explain product-to-unit logic, OR synonyms and AND concepts needed for one relationship. Plans/receipts/full queries in appendix. Untested expressions are untested; do not sum overlapping routes}}
+检索式如何形成：{{用普通语言说明产品特点如何分成检索方向、同义词怎样使用“或者”、构成同一技术关系的概念怎样使用“并且”；技术计划、工具回执和完整查询放附录。单条检索式未测试就写未测试，多种检索方式的返回数不能直接相加}}
 
-### 2.1. Actual semantic-convergence inputs for customer review
+### 2.1 语义结果收敛输入（客户可核对）
 
-| Item | Actual input |
+| 项目 | 本轮实际输入 |
 |---|---|
-| Broad semantic originals | {{Executed sentences by language, not hashes/references/summaries}} |
-| Relationship phrases | {{Object + decisive relationship + context by language, with source features}} |
-| Input pool | {{Count, source routes, actual windows, version and full PN/ID list link/attachment}} |
-| Countries/dates/statuses | {{Actual scope and client decision source; explicitly label unrestricted items}} |
-| Method | {{Fixed-pool tool reranking/local relationship tiers; absent words mean unknown/lower priority, not deletion}} |
-| Handoff | {{Submission count, retained count and separate design tracks}} |
+| 宽召回语义原句 | {{按语言逐条显示实际执行原句，不以散列、内部引用或概括代替}} |
+| 关系短语 | {{按语言显示实际采用的对象＋决定性关系＋场景短语及来源特征}} |
+| 输入候选池 | {{对象数、来源路线、实际窗口、候选池版本；完整 PN／ID 清单链接或附件}} |
+| 国家、日期和专利状态 | {{实际范围及客户决定来源；未限定项目明确写未限定}} |
+| 收敛方法 | {{固定候选池内工具重排／本地关系覆盖分层；明确缺词只记未知或降低优先级，不直接删除}} |
+| 交接规则 | {{进入候选专利筛选的数量、保留余集数量、外观设计等单独轨道}} |
 
-Convergence result: {{Original pool; largely complete/partial/insufficient/conflicting relationship counts; outsiders, status leaks, submissions and remainder. New whole-database mixed hits remain supplementary recall}}
+收敛结果：{{原池数量、关系较完整／部分出现／文本不足／含义冲突数量、池外异常、状态泄漏、送筛与保留数量。全库混合检索的新增对象另列为补召回，不写成池内收敛。}}
 
-Extra pre-Screening conditions: {{Adopted companies/countries/statuses/dates, client basis, priority versus exclusion, unknown fields and omitted scope. Detailed logic/records in appendix; missing fields are not low risk}}
+送入候选筛选前采用的额外条件：{{未采用则写未采用；采用时用普通语言列公司、国家、专利状态、日期等条件、客户依据、只是优先关注还是明确排除，以及信息不明和未纳入的范围。详细字段逻辑与记录放附录；缺少字段的对象不能写成低风险}}
 
-Scope, sources, original order and windows: {{Actual conditions/tools/order/batches/truncation}}
+范围、来源、官方排序与窗口：{{实际条件、工具、原始顺序、批次、截断情况}}
 
-Screening execution: {{Plain account of whether it ran, whether requested mode is server-confirmed and gaps; tool/mode codes in appendix/parentheses. Requesting Pro/no error does not prove Pro. PN changes require rowwise same-application/relationship evidence; missing server reasons stay unavailable}}
+候选专利筛选的执行情况：{{正文用平实语言说明筛选是否已开始、工具是否确认使用了要求的方式，以及还缺什么；Tool 名、requested_mode、effective_mode 和内部状态码放在括号或附录。仅传出 pro 或调用未报错不写“Pro 模式已确认”。输入／返回 PN 变化时另列身份映射表及相同申请号／关系证据；服务端未给映射理由则明确写未返回}}
 
-Stage counts: {{Search returns, retrieved/verified, submitted, explicitly processed, candidates returned, processing unknown, selected and unresolved; every number has object/source. No per-object statuses means not provided; differences are not exclusions/irrelevance/low risk}}
+各阶段数量：{{分别写明检索返回、实际取得并核对的专利、送入候选筛选、工具明确处理、筛选后列出、没有明确处理结果、客户最终选定和无法识别的数量；每个数字注明对象和来源。工具没有返回逐件状态时写“工具没有提供”，不能把差集写成已排除、低相关或低风险}}
 
-Screening adjustments/boundaries: {{Adopted rules, local rescreening and nonreturned/unprocessed scope}}
+筛选调整及边界：{{采用规则、局部复筛、工具未返回或未处理范围}}
 
-Actual windows/country coverage: {{Pages/counts obtained, planned boundary reached or not, uncovered countries/results}}
+实际取得范围与国家覆盖：{{说明本次取得到哪一页或多少件、是否达到计划范围、哪些国家或结果尚未覆盖}}
 
-Selection/unselected list: {{Actual row IDs/PNs, decision source/catalog version and deferred list reference. No selection means no CC conclusion; unselected is not excluded/low risk}}
+客户选择和未选清单：{{用户明确选择的编号／PN、选择来源和候选版本；其余候选及清单引用。没有用户选择就不生成逐项对照结论；未选不等于已排除或低风险}}
 
-Outside CC: {{Pending/active/inactive/unknown objects and evidence in plain language. Unknowns do not enter formal CC. Show same-application A/B mapping and basis}}
+没有进入逐项对照的对象：{{用普通语言说明哪些专利仍有效、仍在申请、已经失效或目前无法确认，并给出证据；内部状态码放括号或附录。无法确认的对象不进入正式逐项对照；同申请 A／B 版本替换列明映射和依据}}
 
-HTML search-logic overview: {{Features → Chinese/English terms → market-language terms → independent directions → OR synonyms / AND necessary concepts → Boolean/multilingual semantic recall → fixed-pool relationship convergence → countries/statuses. Show convergence inputs directly; codes/full queries may expand}}
+HTML 预览中的检索逻辑快览：{{按“产品特点 → 中文／英文检索词 → 目标国语言表达 → 几个独立检索方向 → 同义词用‘或者’、不同必要概念用‘并且’ → 关键词逻辑检索／多语言语义宽召回 → 固定语义池内关系短语收敛 → 国家和专利状态”显示；收敛输入明文展示，技术代码和完整查询放在可展开详情}}
 
-## 3. Results overview
+## 3. 分析结果概览
 
-Selected/completed/incomplete: {{Sourced counts/list for this frozen scope, without older larger denominators}}
+本次选定／已完成／未完成分析：{{只针对冻结名单，有来源的数量或名单；不沿用历史更大集合的统计}}
 
-Tool completion / evidence-review status: {{Separate actual completion and gaps; success does not prove original/translation/product/interpretation review. List cc_conclusion_conflict objects; do not adopt summaries conflicting with labels/unresolved rows or convert them to low risk}}
+逐项权利要求对照工具状态／证据复核状态：{{分别说明完成范围和缺口；工具成功不代表已经核对原文、完整翻译、产品证据和解释条件。另列 cc_conclusion_conflict 数量与对象；风险标签／逐行未决项和确定性总结冲突时不采用工具总结，也不转换成低风险}}
 
-Risk counts: {{Evidenced local high/medium/low/pending counts with basis/conditions; tool identical/equivalent/questionable/different labels separate from legal risk}}
+风险数量：{{有证据的本地高／中／低风险归纳及待核数量、依据和适用条件；工具的相同／可能等同／存疑／不同单独呈现，不能直接换算为法律风险}}
 
-| Screening batch/order | Publication / adopted claims | Raw result | Local review / missing evidence |
+| 候选筛选返回的批次／顺序 | 专利号与本次使用的权利要求 | 比对结论 | 本次复核意见和仍缺的证据 |
 |---|---|---|---|
-| {{Original order; multiple batches are not global ranking}} | {{PN/claim/version}} | {{Original label}} | {{Opinion/source/unknowns}} |
+| {{保留原顺序，多批不称全局排名}} | {{PN／权项／版本}} | {{原标签}} | {{复核意见、来源、未知}} |
 
-Required objects: {{Source and inclusion status; not official rank or automatic out-of-list additions}}
+指定必查对象：{{标来源及是否纳入采用名单，不伪装成官方排名，不自动添加名单外对象}}
 
-Applicant/owner matrix: {{Only with verified identities and decision value; same completed set, PNs and high/medium/low/pending; never risk from Screening order. Otherwise omit}}
+申请人／权利人分组矩阵：{{仅在身份字段已核对且有决策价值时生成；按同一已完成分析集合列 PN 和高／中／低／需要确认，不把候选筛选顺序换算为法律风险；否则省略}}
 
-## 4. Itemwise assessment of possible claim coverage
+## 4. 逐项检查权利要求是否可能覆盖产品
 
-### 4.{{Sequence}} {{PN}} {{Title}}
+### 4.{{序号}} {{PN}} {{标题}}
 
-| Identity | Adopted information | Identity | Adopted information |
+| 身份项目 | 采用信息 | 身份项目 | 采用信息 |
 |---|---|---|---|
-| Publication/version | {{adopted_pn; current_grant_claims/current_post_grant_claims/current_pending_claims/published_pending_claims; verified original URL or link unavailable}} | Applicant/current owner | {{Identity/source or pending}} |
-| Country/assessment date | {{Country/date}} | Pending or active rights | {{Plain explanation; internal status/evidence in appendix. Unverified objects do not belong here}} |
-| Filing/priority dates | {{Dates/pending}} | Expected expiry | {{Evidenced date/pending, without calculation}} |
+| 文献号／采用版本 | {{adopted_pn；current_grant_claims／current_post_grant_claims／current_pending_claims／published_pending_claims；已核验原文 URL 或“链接未取得”}} | 申请人／当前权利人 | {{身份及核验来源／待核}} |
+| 目标国家／评估日期 | {{国家与日期}} | 目前是否仍在申请中或有效 | {{用普通语言说明，内部状态码、工具状态和证据定位放括号或附录。尚未核对的对象不应出现在本节}} |
+| 申请日／优先权日 | {{日期／待核}} | 预计届满日 | {{有依据的日期／待核，不推算}} |
 
-Publication/adopted claims/dependencies: {{Group identity}}<br>
-Version baseline: {{Published/original-filed/amended text and date, or pending}}<br>
-Coverage: {{Whether tool covers independent claims only; local dependent review and gaps; excerpts explicitly labeled partial}}
+专利文献／本次使用的权利要求版本／权项及引用关系：{{本组身份}}<br>
+版本对照基线：{{申请公开／最初提交／修订文本及日期，或待核}}<br>
+本组检查范围：{{工具是否只检查独立权利要求；另列从属权利要求的本地复核及未完成部分；仅摘录时明确“只检查了部分限定”}}
 
-Configuration/interpretation: {{Reuse input-card version, actual/hypothetical conditions; disputed interpretations/branches only when relevant}}
+采用配置与解释：{{复用输入卡的配置／版本、实际陈述或假设条件；仅在有争点时列采用解释及待定分支}}
 
-| Claim limitation (original/translation) | Description support / claim interpretation basis | Product facts | Assessment |
+| 权利要求中的具体条件（原文／翻译） | 说明书支持／权项解释依据 | 产品中的对应情况 | 本次判断 |
 |---|---|---|---|
-| {{Row/source location}}<br>Original: {{Complete verbatim unit, no abbreviation; display highlighting only}}<br>Translation: {{Complete same-unit output-language translation, matching highlights}}<br>Provenance: {{Tool machine / AI translation or revision / human; omit duplicate translation/provenance if original already in output language}} | {{Prioritize original description/prosecution quotes, paragraph numbers and purpose; state claim-only reliance. No located original means unavailable, without common-knowledge filler; label local interpretation}} | {{Element ID, actual quote/figure, location and knowledge state; decisive contrary evidence too}} | {{Correspondence/difference/pending-evidence/interpretation/candidate-equivalence plus reason; unknown is not absence}} |
+| {{行号＋原文定位}}<br>原文：{{完整原文单元，逐字保留，不缩写；仅增加变动显示标记}}<br>翻译：{{同一单元完整译文，使用交付语言，对应标示变动}}<br>译文来源：{{工具机器译文／AI 翻译或校译／人工；同语种原文省略翻译与译文来源}} | {{优先列说明书／审查材料原句、段落号和解释用途；仅依据权项本身时注明。没有可定位原文就写“未取得”，不能用常识性推理补位；本地解释意见另标}} | {{产品要素ID、对应证据原句或图示、来源位置、认知状态；有决定性反向证据时同时列示}} | {{对应／差异／待补证／解释待定／等同候选及一句依据；不凭未知判不存在}} |
 
-**Note ({{Row}}):** {{Change, application-to-grant/post-grant stage and evidence; missing material pending}}. Details: appendix {{Evidence ID}}.
+**备注（{{行号}}）**：{{变更内容＋公开到授权或授权后阶段＋依据；缺材料标待核}}。详情见附录 {{证据编号}}。
 
-{{Relevant expandable support/counterevidence, concrete FWR way/differences, interpretation branches, linked/inherited rows; no forced empty fields or extra main-table columns}}
+{{仅在相关时加入行下展开内容：支持／反向证据、FWR 的具体方式与差异、解释分支、关联行和继承来源。不要为每行填空栏目，也不增设主表列。}}
 
-<!-- Repeat original-order rows to cover complete selected claims and inherited limitations, then every adopted patent regardless of risk. Four columns; notes below corresponding rows. Each limitation has its own row; no multi-page vertically merged whole-claim cell. Repeat landscape headers. No ellipses/paraphrases/summaries impersonating originals/translations. Expanded/printed/exported claims must be complete. Appendix contains full adopted/before-after claims, status and locations. Missing CC is incomplete, not an empty table proving safety. -->
+<!-- 模板提示（生成后删除）：按原文顺序重复行以覆盖所选权项全文，继承限定明确引用对应原文行；再对冻结名单的全部入选对象重复本组，不按风险意见省略对象。保持四列，备注放在对应行下。每条限定独立成行，不把整项权利要求合并为跨数十页的单元格；横向页面重复表头。禁止省略号、近义改写或概述冒充原文／译文；概览中的摘要不代替本表。可折叠整项权利要求，展开及导出内容必须齐全。附录保存本次使用的权利要求全文、版本前后全文、状态记录和定位。缺少逐项对照时明确未完成，不以空表证明无风险。 -->
 
-## 5. Conclusions and unresolved matters
+## 5. 本次结论与仍需确认的事项
 
-{{Limit conclusions to completed scope/configuration/interpretation; decisive evidence, unknowns and next steps. Search/file success does not establish clearance. Separate tool/local disagreement. cc_conclusion_conflict summaries are evidence only, not adopted conclusions. Unresolved material contradictions permit issue-review drafts rather than formal findings}}
+{{结论仅针对已完成范围及采用配置／解释；列决定性证据、关键未知及下一步，不由检索或文件生成成功推出自由实施。原始比对结论与本地复核意见存在分歧时列明；出现 cc_conclusion_conflict 时原总结只作证据展示，不进入采用结论。影响结论的重大矛盾未解决则不采用相关正式结论，可交付问题复核稿}}
 
-{{Distinguish original search scope, extra filters, actual Screening scope and all/subset CC. Completing selected objects does not complete global FTO. Separate description-supported interpretation from gaps; full-text reading does not guarantee accuracy}}
+{{用平实语言区分原检索范围、额外筛选条件、候选专利筛选的实际范围和全部／部分逐项对照范围；全部选定对象完成不代表全球专利自由实施分析已完成。说明书能够支持的解释和剩余缺口分开，不承诺阅读全文必然提高准确率。}}
 
-Review-only comparison: {{Original assertion/location → current evidence → disagreement/impact; omit if inapplicable}}
+复核任务另列：{{原报告主张／位置 → 本次核验依据 → 分歧及影响；不适用时省略本行}}
 
-## 6. Appendices
+## 6. 附录
 
-### A. Keywords and classifications
+### 附录 A 关键词与分类号
 
-| Unit | Product feature | Tool Chinese terms | Tool English terms | Local market-language terms | Translation/review basis | Classification | Adoption / actual route |
+| 检索方向 | 产品特点 | 工具返回的中文词组 | 工具返回的英文词组 | 本地补充的目标国语言词组 | 翻译与审核依据 | 专利分类号 | 是否采用及实际检索方式 |
 |---|---|---|---|---|---|---|---|
-| {{K01}} | {{Feature reference}} | {{Original terms/synonyms}} | {{Original terms/synonyms}} | {{Language, translation, back-translation}} | {{Source term, role, review state}} | {{IPC/CPC}} | {{Adoption/rejection reason and executed route IDs}} |
+| {{K01}} | {{特征引用}} | {{原始中文关键词与同义词}} | {{原始英文关键词与同义词}} | {{语言、译词及回译}} | {{源词、技术作用、审核状态}} | {{IPC／CPC 等}} | {{采用／未采用理由；进入的关键词逻辑检索／语义检索路线 ID}} |
 
-### B. Strategies and queries
+### 附录 B 检索策略与检索式
 
-| Route ID | Strategy/language | Intent | Countries/statuses/dates | Actual window | Database/retrieved counts | Evidence |
+| 检索路线编号 | 检索方式／语言 | 要查找的内容 | 国家、专利状态和日期 | 本次查看到的结果范围 | 数据库返回数／实际取得数 | 来源记录 |
 |---|---|---|---|---|---|---|
-| {{Q01}} | {{Boolean/semantic/keyword/client-list; actual languages}} | {{Single-focus intent/unit}} | {{Actual scope}} | {{Actual range}} | {{Separate sourced counts}} | {{Raw receipt}} |
+| {{Q01}} | {{关键词逻辑检索／语义检索／关键词／客户名单；实际语言}} | {{单中心意图或检索方向}} | {{国家、专利状态、日期}} | {{实际取得范围}} | {{分别写有来源的数字}} | {{原始回执}} |
 
-Complete queries: {{Verbatim per route, monospaced/naturally wrapped; overlapping totals are not union counts}}
+完整查询：{{逐路线原样列示，使用等宽字体和自然换行；多路线命中不相加当并集}}
 
-### C. Evidence, claim versions and current rights
+### 附录 C 证据、权利要求版本与当前专利状态
 
-{{By evidence ID: patent/claim identity, complete adopted originals/dependencies, source-range-to-row mapping, before/after originals/translations/locations, procedural materials/dates, product evidence, originals/receipts and review state. Include actual content or accessible files/locations, not empty “see original” references. Mark each missing item. Separate originals, inference and legal effects}}
+{{按证据编号列：专利与权项身份、本次使用的完整权利要求原文及引用来源、原文区间到逐项对照行号的对应、修改前后原文／译文及定位、程序材料与日期、客户证据、原件／回执引用、审核状态。附录必须实际包含内容或可访问的文件与定位，不能仅写“见原文”。未取得材料逐项注明；原文、推断与法律影响分开}}
 
-### D. Completeness and delivery verification
+### 附录 D 完整性与交付核验
 
-{{Actual file inspection, counts/versions, verbatim complete selected/inherited claims, complete translations, output-language/plain-language prose/headers/notes/opinions, traceable changes/notes/appendices/unknowns and consistency of configuration, evidence, interpretations, rows and risk. Record passed/failed/not verified and gaps; failed objects are not complete CC}}
+交付核验：{{文件是否已读取核对；数量和版本一致；逐项对照中的原文逐字对应且覆盖所选权项与引用限定；译文逐项完整对应；正文／表头／备注／意见同语种且符合目标国普通读者表达；高亮或替代标记、备注、附录与未知可回查；同一配置、证据状态、解释条件、逐行意见与风险结论一致。每项记录通过／未通过／未核验及缺口；未通过的对象不标“逐项对照已完整完成”}}
 
-## Disclaimer
+## 免责声明
 
-{{Search/technical-comparison research, not final legal advice. State database, publication-delay, scope, version, fact and interpretation limits. Do not disclaim intentional/gross negligence absolutely or conceal known body gaps}}
+{{本报告为检索与技术比对材料，不构成最终法律意见；明确数据库、公开时滞、范围、版本、事实和未决解释限制。不得使用免除故意或重大过失责任的绝对化措辞，也不得以免责声明覆盖正文中的已知缺口。}}

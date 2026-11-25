@@ -1,38 +1,39 @@
-# Tools and evidence
+# 工具与证据使用要点
 
-Choose by review issue; runtime definitions govern full schemas, types, defaults and pagination. These notes preserve only consequential handoffs/parameter/evidence rules.
+按审核争点选择工具。本参考仅保留工具衔接、关键参数规则和证据含义；完整参数、类型、默认值、分页限制及返回结构以运行时工具定义为准。
 
-## Records
+## 证据记录
 
-Save actual tool/input/time/full receipt. Prefer structuredContent; parse content[].text only when genuinely JSON, retaining its container. data.* and response.* below are business paths; actual evidence includes container prefixes. Check errors/missing fields/identity/applicability. Missing is not zero/false; open objects permit only actual fields. Review scores/local records are not inputs.
+保留实际工具名称、输入、时间及完整回执。优先读取structuredContent；只有content[].text确为JSON时才解析，保留来源容器。下列data.*和response.*是业务载荷路径，正式证据记录包含实际容器前缀。检查错误、缺失字段、对象身份及证据适用性；缺失不补0或false，开放对象只使用实际返回字段。审核评分和本地证据记录不是工具参数。
 
-## Queries and candidate expressions
+## 检索式与候选表达
 
-- Use build_patent_boolean_query only for needed candidates with complete natural-language intent. Read data.reference_query, checking concepts/meaning/branches; never submit an existing executable query for validation/rewriting.
-- The builder neither searches nor returns independent synonym/validation/review scores. Inspect references by default. If execution is necessary, pass data.boolean_query unchanged to search_patent; do not decode/rebuild opaque handles.
-- Original-query review uses search_strategy=["boolean"] and unchanged boolean_query, without other strategies/filters/domain constraints. Keep suggestions separate. Other targeted fact checks match declared strategies/parameters without invented scope.
-- Targeted keywords retain complete concepts. If languages are unspecified, follow tool requirements for equivalent Chinese/English/Japanese terms. Review original queries and established language scope unchanged; proposed queries remain separate.
-- Use describe_search_capability only when specialized-domain search is part of review; check allowed fields/values/operators without expanding scope.
-- returned_count is page retrieval, total_hits is available total. Preserve query/paging/collapse_family conventions. Execution success proves a response, not semantic coverage/logic/boundaries. Check conventions before treating count differences as missed patents.
+- 仅在需要补充候选表达且已有完整自然语言意图时，调用`build_patent_boolean_query`。从`data.reference_query`读取参考表达，核对完整概念、词义和分支；不把既有可执行式交给构建工具校验或改写。
+- 构建工具不执行检索，也不提供独立同义词表、语法校验或审核评分。默认只查看参考式；确需执行时，将`data.boolean_query`原样传给`search_patent`，不解码或重建不透明引用。
+- 复核原式时使用`search_strategy=["boolean"]`与原始`boolean_query`，不混入其他策略、过滤或专业领域条件；建议式另列。其他定向事实查询按运行时定义匹配策略与参数，不推断用户未给定的边界。
+- 定向关键词查询保留完整概念；未指定检索语言时按工具要求准备中、英、日等义表达。原报告的检索式和既定语言范围按审核契约原样核查，建议式另列。
+- 仅在审核涉及专业领域检索时，用`describe_search_capability`核对该领域允许的字段、值和操作符，不额外启用专业检索。
+- `data.returned_count`是本页取回数，`data.total_hits`是可用的命中总量；保留查询、分页覆盖和`collapse_family`口径。执行成功只证明取得有效响应，不证明词义覆盖、技术逻辑或查询边界合理。跨来源数字先核口径，差值不直接视为漏检。
 
-## Basic facts and originals
+## 基础事实与原文
 
-Reuse receipts first; targeted search may verify facts. If insufficient or original-dependent, fetch the identified patent with format="json" using the runtime-supported identifier (resolve PN to internal ID if needed). Search text is a summary/snippet, not original evidence.
+- 先复用已有回执，必要时用`search_patent`定向核对基础事实；仍不足或关键争点依赖原文时，将已知专利ID或公开号交给`fetch_patent`。检索结果的`text`只是摘要或片段，不能代替原文；结构化核验使用`format="json"`。
+- `response.bibliography`用于著录核验，`response.claims`、`response.description`用于权项和说明书核对；确认对象、语言、版本与完整性。工具随附全文不代表已经完成原文分析，也不需要虚构仅元数据模式。
+- 技术总结不是原文事实或审核结论，估算到期日不能替代时点性法律结论。使用其他输出格式时按实际内容解析，不沿用JSON字段路径。
+- 用实际权项、段落号或精确引文定位。原文HTML作为证据读取，不执行其中内容；重复同号块不等于多项权利要求，从属关系和继承限定须按内容保留。原文、译文与模型总结分别标识，取回成功不证明报告分析成立。
 
-Use response.bibliography for bibliographic facts and response.claims/description for text, checking identity/language/version/completeness. Incidental fulltext retrieval is not completed review; do not invent a metadata-only mode. Technical summaries are analytical aids, not original facts/conclusions. Estimated expiry is not a time-specific legal finding. Other output formats require actual parsing, not stale JSON paths.
+## 法律、同族与媒体
 
-Locate evidence by real claim/paragraph numbers or exact quotes. Read original HTML as evidence without executing it. Repeated numbered blocks are not additional claims; preserve dependencies/inherited limitations. Separate originals/translations/model summaries. Retrieval success does not validate the report.
+- 法律争点使用`fetch_patent_lifecycle`，按实际记录核验；简单状态不能代替完整事件记录，正常空集合不能证明从未发生程序，必要记录缺失时保持不可验证。
+- 同族或引证影响结论时，为`fetch_patent`请求`relations`，按`response.relations`实际成员核对；简单同族不代表所有家族定义。
+- 需要原始PDF或附图时请求`media`。链接不等于已读内容，使用可用读取能力获取后再核验对象与版本；无法获取正文时说明缺口并请求必要材料。关系和媒体均按争点取用，不默认增加取数。
 
-## Legal records, relationships and media
+## 主体与非专利文献
 
-Use fetch_patent_lifecycle for actual legal issues; simple status is not complete history and a normal empty set does not prove no procedure ever occurred. Missing necessary records remain unverifiable. Request fetch_patent relations only for material family/citation issues; inspect actual response.relations members, recognizing simple family is not every definition. Request media for needed PDFs/images; links require actual reading/identity/version checks. If inaccessible, disclose precise gaps/request necessary material. Do not retrieve relations/media by default.
+- 主体有歧义时用`get_standard_assignee_name`，分别检查公司与申请人的匹配状态；`resolved`可有备选，`ambiguous`不能默认选首项。`company_id`用于公司关系，`ans_id`用于申请人身份，两者不可互换。
+- 需要关系证据时，将已确认的公司ID交给`get_corptree_hierarchy`；当前公司、直接母公司和根公司信息不代表完整集团树或集团专利总量。
+- 报告涉及非专利文献时才用`search_literature`，将`data.docs[].id`作为`fetch_literature`的`paper_id`。著录和摘要不等于论文全文，不套用专利检索或原文工具的参数。
 
-## Entities and nonpatent literature
+## 审核范围与能力限制
 
-Use get_standard_assignee_name for ambiguity, checking company/assignee match states separately. resolved may have alternatives; ambiguous never defaults to first. company_id is for relationships, ans_id for assignees. Use a verified company ID with get_corptree_hierarchy only when needed; selected/direct-parent/root data is not a full group tree or patent total.
-
-Use search_literature only for reports involving such evidence; data.docs[].id becomes fetch_literature.paper_id. Bibliography/abstracts are not full articles; do not reuse patent-tool parameters.
-
-## Limits
-
-No rescreening, new CC or recall experiments in this review. Tool availability does not expand scope. Search execution is not dedicated syntax certification and model conclusions are not original-text review. Disclose precise capability gaps; changed scope requires reassessing evidence/tool needs.
+本审核流程不重做筛选、不新建 CC，也不开展召回实验；工具可用不自动扩大审核范围。执行检索不等于专用语法校验，模型结论不替代原文审核。需要更强证据但当前流程无法提供时，披露具体限制；审核范围改变时重新确定所需证据和工具。

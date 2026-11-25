@@ -1,53 +1,53 @@
-# Screening binding and ranked-list acceptance
+# Screening 绑定与排序列表验收
 
-## When to run
+## 适用时机
 
-Run only after Skill installation, `patsnap-ip:screen_patents_for_FTO` protocol/service changes or suspected binding/ranking faults. This controlled acceptance does not replace production cases or repeat on every FTO task.
+仅在 Skill 安装、`patsnap-ip:screen_patents_for_FTO` 协议或服务版本变化，或怀疑 Tool 绑定／排序行为异常时运行。它是受控验收，不替代真实案件，也不在每次 FTO 中重复消耗调用。
 
-## 1. Binding
+## 1. 绑定验收
 
-- The actual call must use `@Patsnap IP Plugin`’s `patsnap-ip:screen_patents_for_FTO`. Narrative claims or another provider’s same-named tool do not prove binding.
-- Save complete request, call provenance, case/batch identities and raw receipt. `isError=false` proves no reported call error only.
-- When Pro is required, explicitly request `mode=pro`. Without server `effective_mode=pro` or equivalent evidence, retain `pro_requested_unverified`.
+- 实际调用必须是 `@智慧芽 IP 专家套件` 提供的 `patsnap-ip:screen_patents_for_FTO`；自然语言叙述或另一个提供方的同名 Tool 回执不能作为证明。
+- 保存完整请求、Tool 调用来源、案件／批次标识和原始回执。`isError=false` 只证明本次调用未报错。
+- 要求 Pro 时显式发送 `mode=pro`。没有服务端 `effective_mode=pro` 或等价凭据时，状态仍为 `pro_requested_unverified`。
 
-## 2. Frozen five-patent ranking list
+## 2. 冻结五件排序列表
 
-Use this solution, order and relevance grades without relabeling after observing results:
+使用下列方案、输入顺序和相关性等级，不根据本次输出改标签：
 
-> A magnetic mobile-phone holder detachably connects to the phone’s back using magnets. The phone contains a metal coil. The holder’s front has a cosmetic case containing cosmetics or a mirror.
+> 一种磁吸式手机支架，通过磁铁吸附并可分离地连接手机背面；手机内部有金属线圈。支架正面设有容纳化妆品或镜子的化妆盒。
 
-Grades apply only to this test: 3 highly relevant; 2 relevant but missing one core relationship; 1 local terminology overlap only; 0 unrelated-field noise.
+等级只服务本测试：3=高度相关，2=相关但缺少一项核心关系，1=仅有局部术语重合，0=跨领域噪音。
 
-| Input order | PN | Grade | Frozen rationale |
+| 输入序位 | PN | 等级 | 冻结理由 |
 |---:|---|---:|---|
-| 1 | `CN113614954A` | 0 | Lithium-battery cathode material, unrelated-field noise |
-| 2 | `US8833379B1` | 2 | Phone-back cosmetics container/mirror using adhesion rather than magnetism |
-| 3 | `CN219535032U` | 1 | Magnetic connector without phone-holder/cosmetic-case/mirror combination |
-| 4 | `US11284525B2` | 2 | Attachable storage accessory for mobile electronics, connectable to stand/ring accessories |
-| 5 | `US9537992B2` | 3 | Phone-holder, mirror and magnetic-field components; closest overall test combination |
+| 1 | `CN113614954A` | 0 | 锂电池正极材料，跨领域噪音 |
+| 2 | `US8833379B1` | 2 | 手机背附化妆品容器和镜面，但采用粘接而非磁吸 |
+| 3 | `CN219535032U` | 1 | 磁吸连接器，无手机支架及化妆盒／镜子组合 |
+| 4 | `US11284525B2` | 2 | 手机电子设备的附接式储物附件，可与支架／环形附件连接 |
+| 5 | `US9537992B2` | 3 | 手机支架、镜面和磁场部件组合，整体最接近测试方案 |
 
-Use invalid number `ZZ0000000000A1` separately as a parsing control. It must appear as unresolved, never a ranked patent.
+无效号码另作解析控制：`ZZ0000000000A1` 必须进入未解析集合，不得混入排序结果。
 
-## 3. Pass criteria
+## 3. 排序通过门槛
 
-| Check | Requirement |
+| 检查 | 通过条件 |
 |---|---|
-| Binding | Actual `@Patsnap IP Plugin` `patsnap-ip:screen_patents_for_FTO` call |
-| Identity set | All five valid inputs returned by original PN or verified version mapping; list missing/out-of-input objects separately |
-| Relevant first | Grade 3 before all 2/1/0; every grade ≥2 in top three |
-| Noise last | Grade 0 last; grade 1 below every grade ≥2 |
-| Pairwise order | Higher grade precedes lower grade; no required order within a grade |
-| Invalid number | Unresolved set only |
-| Version mapping | Per-row input/returned PN, same application or explicit relationship evidence, adopted version/source; titles/family proximity alone do not suffice |
-| Pro | Server `effective_mode=pro` or equivalent; otherwise independently unconfirmed without negating observed ranking |
-| Processing evidence | If scores/reasons are absent, state “ranking observable; scoring basis not returned” |
+| Tool 绑定 | 调用来源为 `@智慧芽 IP 专家套件` 的 `patsnap-ip:screen_patents_for_FTO` |
+| 身份集合 | 五件有效输入均以原 PN 或已核验版本映射返回；缺件与输入外对象单列 |
+| 相关项前置 | 等级 3 位于所有等级 2／1／0 之前；全部等级≥2进入前三 |
+| 噪音后置 | 等级 0 位于末位，等级 1 不高于任何等级≥2对象 |
+| 成对顺序 | 所有等级不同的对象对均满足高等级在前；同等级内部不限定顺序 |
+| 无效号处理 | 无效号码只进入未解析集合 |
+| 版本映射 | 输入和返回 PN 不同时，逐行列输入 PN、返回 PN、相同申请号或明确关系证据、采用版本和来源；标题相似或同族相关不能单独通过 |
+| Pro 确认 | 服务端回显 `effective_mode=pro` 或等价模式凭据；否则独立记未确认，不否定已观察到的排序 |
+| 处理证据 | 若 Tool 未返回分数和理由，明确写“排序可观察、评分依据未返回” |
 
-Do not require every noise item to disappear. Returning all five does not fail a ranking tool; frozen relative order is decisive. Passing proves only this small-list reranking, not large-pool stability, recall completeness, per-patent claim coverage or legal risk.
+不得用“所有噪音必须消失”作为该排序型 Tool 的默认验收条件。返回全部五件并不自动失败；关键是冻结等级对应的相对顺序。排序验收通过也只证明这一个小列表被正确重排，不证明大池稳定性、召回完整性、逐件权项覆盖或法律风险结论。
 
-For replaced grant/application versions without server mapping reasons, record a local `identity_remap` only after full-text or verified identity materials establish the same application, noting “server reason not returned.” Unproven substitutions remain out-of-input results plus original inputs with unknown processing status; do not force count reconciliation.
+若服务端只返回替换后的授权／申请版本而没有映射理由，Skill 只能在 `patsnap-ip:fetch_patent` 或其他已核验身份资料证明申请号相同后记录本地 `identity_remap`，并注明“服务端理由未返回”。无法证明的替换按输入外对象和原输入处理状态未取得分别列示，不能为了让提交数等于返回数而强行配对。
 
-## 4. Record boundaries
+## 4. 验收记录边界
 
-Keep actual run dates, requests, receipts, metrics and large-pool observations in repository test records, not installation content. Judge each run against these frozen inputs/criteria and record current evidence locations. Historical passing does not replace retesting after changes.
+具体运行日期、请求、回执、指标和大池稳定性结果保存在发布仓库的测试记录中，不随安装包固化。每次验收只按本文件的冻结输入和通过条件判断，并记录当次证据位置；历史通过不能替代协议或服务变化后的复测。
 
-Large-pool counts, mappings and ranks depend on actual receipts, without permanent tool limits, global stable risk rankings or proof all inputs processed. Do not complete production pools through repeated identical-request unions or choose the most favorable ranking.
+小列表排序通过只证明该次受控列表被正确重排。大池返回数量、版本映射和顺序均以各次实际回执为准，不能固化成永久 Tool 上限、稳定全局风险排序或全部输入已处理的证明。生产案件不得通过重复相同请求并集来“补全”候选，也不得挑选某次更有利的排序。

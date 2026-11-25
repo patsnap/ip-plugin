@@ -1,81 +1,82 @@
-# Analysis and reporting requirements
+# 分析与报告要求
 
-## Novelty
+## 新颖性
 
-For each solution verify whether one date-eligible document completely corresponds to every necessary relationship in one compatible arrangement. Do not decide by match percentage, wording differences, irrelevant details or combined documents. Ease of modification is not disclosure; conventional direct substitution needs separate reasoning with actual differences preserved.
+对每个方案核实：是否有一篇日期合格文献，在同一兼容安排中完整对应全部必要关系。不能按对应比例、措辞差异、无关细节或多篇拼接判断。容易改造不等于已公开；惯用直接置换另行论证并保留真实差异。
 
-For a negative conclusion identify the decisive document, publication version/date, every necessary relationship and overall arrangement. For a positive conclusion each document must have an adequately verified necessary difference, without material gaps or unfinished checks that could change the outcome. Limit the conclusion to this search, rather than all possible prior art.
+否定时点明决定性文献、公开版本、日期、全部必要关系及整体安排。肯定时须逐篇有经充分核对的必要区别，没有可能改变判断的材料缺口或未完成核查；表述为本次查新范围内的判断，不能扩大为任何现有技术都没公开。
 
-For each document first explain what is disclosed, then actual differences and evidence locations, and finally the consequence for the complete solution. Do not stop at “partial correspondence” or “not mentioned.” Insufficient material or unfinished verification means the affected solution's assessment is incomplete.
+每篇先说明已公开内容，再说真实区别与证据位置，最后解释对完整方案的影响。不能停在“部分对应”或“未提及”标签。材料不足或核查未完成时，明确受影响方案尚未完成。
 
-## Inventive step
+## 创造性
 
-Read the jurisdiction-practice reference before inventive-step analysis. State the jurisdiction, rule version/source and assessment date on the report front page. Without a target jurisdiction, provide technical combination leads without a definite inventive-step conclusion.
+开始创造性分析前读取目标国审查实践文件。报告首页写明采用的法域、规则版本或来源、评价日；没有目标国时只报告通用技术组合线索，不给确定创造性结论。
 
-Judge novelty and inventive step separately. Stabilize current facts and all differences before analyzing closest art, effects, the objective problem and the most plausible complete modification/combination path. Do not embed the target solution in the problem. Effects require disclosure or evidence, without invented benefits.
+新颖性与创造性分别判断。先稳定当前事实和全部区别，再分析最接近技术、区别效果、实际问题及最合理的完整改造/结合路径。问题不直接写入目标解法，效果取自交底或证据，不编造收益。
 
-Present each path as a Y combination group identifying primary/secondary documents, source starting points/teachings, motivation, concrete changes, compatibility/obstacles, reasonable expectation of success, result and rationale. Separate document teachings, common general knowledge and engineering inference. A second document is not mechanically required, but conventionality and the actual technical chain need evidence; avoid hindsight.
+每条路径以 Y 组合组呈现，写主文献、辅文献、原文起点与启示、为何采用、具体改动、配合条件和障碍、合理成功预期、结果及理由。区分文献教导、公知常识和工程推断；不机械要求第二篇，但公知性及具体技术链条须有依据，不能用事后知识倒推。
 
-Explain why the chosen closest art is the most reasonable starting point for the complete solution and compare it with at least one competing strong candidate. Ranking, similar names or local feature counts alone cannot determine it. If another document more completely discloses the primary optical path, control chain or step relationships, change the starting point or analyze both.
+最接近技术的选择须写出为什么它是完整方案最合理的起点，并与至少一个可能竞争的强候选比较；不能只因原始排名靠前、同类名称相同或局部特征数量较多而选定。若另一文献更完整地公开主光路、控制链或步骤关系，应改选或并列分析。
 
-Label each difference’s evidential basis:
+对每个区别设置依据标签：
 
-- `document_teaching`: explicit teaching in the same or combinable documents, with locations and concrete modification chain.
-- `supported_common_knowledge`: date-eligible textbooks, standards, manuals, reviews or consistent evidence supporting conventionality and the substitution relationship.
-- `engineering_inference`: the analyst’s engineering experience alone; it cannot provide the decisive bridge to a definite negative conclusion.
+- `document_teaching`：同一文献或可组合文献存在明确启示，列出位置和具体改造链；
+- `supported_common_knowledge`：有日期合格教材、标准、手册、综述或多份一致证据支持其公知性及惯用替代关系；
+- `engineering_inference`：仅为分析者基于工程经验的推断，不得单独承担否定创造性的决定性桥梁。
 
-If a decisive step still depends on unverified assertions of routine practice, common knowledge or obviousness, report inventive-step risk or pending verification. Separate disclosure of all parts still requires combination motivation, structural compatibility, control interfaces and predictable effects.
+若完整路径中的决定性步骤仍依赖未核实的“常规、公知、通常采用、显而易见”，结论只能是创造性风险或待核查，不能确定否定创造性。多篇分别公开全部零件，也必须证明组合动机、结构兼容、控制接口和效果可预期。
 
-Assign document roles per solution and combination:
+文献角色按方案和组合分配：
 
-- `X`: one date-eligible document alone affects novelty or, under the target jurisdiction’s practice, inventive step; explain the basis.
-- `Y-candidate`: addresses some differences but teaching, compatibility or other differences remain unresolved.
-- `Y-confirmed`: the complete primary/secondary group covers every necessary difference and passes the jurisdiction-specific motivation/teaching, expectation-of-success and obstacle audit.
-- `A`: background or local common knowledge without a decisive combination bridge.
+- `X`：单篇日期合格文献足以单独影响新颖性，或按目标国实践单独足以影响创造性；写明具体依据。
+- `Y-candidate`：覆盖部分区别且可能进入组合，但结合启示、兼容性或其余区别尚未闭环。
+- `Y-confirmed`：与同组主/辅文献结合后覆盖全部必要区别，并通过目标国的动机/启示、成功预期和障碍审计。
+- `A`：仅反映背景或局部常识，不能承担决定性组合桥梁。
 
-Do not attach `Y-confirmed` to an isolated document. Identify complete groups as `Y1`, `Y2`, with each document’s role. Family members sharing the same disclosure occupy one evidence role.
+不能对一篇文献孤立贴 `Y-confirmed`；报告用 `Y1`、`Y2` 标识完整组合组，并说明组内每篇的角色。同一披露的同族成员只占一个证据角色。
 
-Separate sources for local differences do not automatically make the whole solution obvious. Assess interacting differences together and explain shared motivation and compatibility. Even one difference requires checking original structure, interfaces, safety or operating conditions. An opposite direction, new function or the label “synergy” does not by itself defeat a routine path; missing quantitative experiments do not prove obviousness.
+局部区别各有出处不自动证明完整方案显而易见。相互作用的区别成组评价，解释共同动机与兼容性；单个区别也须核对原结构、接口、安全或操作条件。相反方向、新功能或“协同”名称本身不否定常规路径，缺量化实验也不证明显而易见。
 
-- Negative inventive step: a viable complete path covers all differences and necessary interactions.
-- Positive inventive step: actually attempt the strongest complete path and explain its decisive obstacle; no viable or unresolved decisive path may remain.
-- Unresolved key path: perform targeted retrieval/reading; if still unresolved, leave the assessment incomplete.
-- Once novelty is negated for the same solution, inventive step is normally not assessed separately; do not give a positive inventive-step conclusion.
+- 否定创造性：有覆盖全部区别和必要配合的成立完整路径。
+- 肯定创造性：实际尝试最可能成立的完整路径，解释决定性障碍，不能还有成立或未决的决定性路径。
+- 关键路径未解决：定点补查、补读，仍未解决则保留未完成。
+- 同一方案新颖性已被否定时，创造性通常不再单独评价，不给肯定创造性结论。
 
-## Conclusion strength and task boundaries
+## 结论强度与任务边界
 
-Match conclusion strength to evidence completion:
+结论强度必须与证据完成度一致：
 
-- Definite negative novelty requires verified date eligibility, complete single-document disclosure and decisive inherency.
-- Definite negative inventive step requires verified dates and a complete path covering every difference, motivation and interaction.
-- A strong combination with unresolved conventionality, compatibility or motivation supports “high/moderately high inventive-step risk, pending evidence.”
-- Without an assessment date, key text, or resolution of a counterexample, give provisional conclusions with explicit blockers, without definite positive/negative findings.
+- 日期资格、单篇完整公开和决定性隐含均已核实，才可确定否定新颖性。
+- 日期资格明确，且完整创造性路径覆盖全部区别、动机和配合条件，才可确定否定创造性。
+- 找到强组合但公知性、兼容性或组合动机尚未核实，写“创造性风险较高/中高，待补证”。
+- 未指定评价日、关键正文缺失或存在未解决反例时，写阶段性结论并明确阻断项，不写“具备”或“不具备”的确定结论。
 
-Application status, effective claims and possible claim coverage are not novelty evidence. If the user also supplies an FTO report, cross-reference common key documents, families and jurisdictions to monitor while distinguishing disclosure/patentability from coverage/implementation risk.
+查新报告不把申请状态、有效权利要求或可能落入保护范围当作新颖性证据。用户同时提供 FTO 报告时，可以交叉列出共同关键文献、同族和需监控法域，但必须分别说明：技术公开影响可专利性，权利要求覆盖影响实施风险；二者不互相替代。
 
-For jurisdictions with earlier-filed, later-published application rules, show filing and publication dates for every formal comparison. With a known intended filing/effective priority date, separately list earlier-filed/later-published candidates and verify applicant requirements, public text and same-invention scope under the target rules rather than assuming eligibility from dates. CN conflicting-application candidates are for novelty audits only, not inventive-step prior art. With no target date, show dates and state that this audit cannot be completed.
+目标法域可能存在抵触申请制度时，每篇正式比较文献同时显示申请日和公开日。拟申请日或有效优先权日已知时，单列“在目标日之前申请、在目标日之后公开”的候选，并按目标国规则核实其申请主体要求、公开文本和同样发明范围；不得仅凭日期自动认定。CN 抵触申请候选仅用于新颖性审计，不作为创造性现有技术使用。目标日未知时只展示日期并标明无法完成抵触申请判断。
 
-## Report contents
+## 报告内容
 
-| Part | Content |
+| 部分 | 内容 |
 | --- | --- |
-| Cover | Primary solution, date boundary, conclusion strength, principal conclusions and complete reasons |
-| Technical overview | Problem/solution/effect, each subject's scope, complete relationships and disclosure sources |
-| Novelty assessment | Document-by-document overall judgment for each subject, decisive differences, dates and evidence |
-| Inventive-step assessment | Target-jurisdiction framework, X/Y/A roles, closest art, actual differences, Y combination groups, complete paths and overall judgment |
-| Recommendations | Main risks, improvement directions and technical value tied to actual gaps |
-| Technical-relationship matrix | All features × selected documents, facts, reasons, originals/drawings and checks |
-| Search appendix | Actual strategies/parameters, count definitions, failures, pagination and reuse |
-| Document appendix | Exact identities, filing/publication dates, earlier-application audit status, relevance, actual reading scope and gaps |
+| 封面 | 主方案、日期边界、结论强度、主要结论和完整理由 |
+| 技术方案概述 | 问题/方案/效果、各方案范围、完整关系及交底出处 |
+| 新颖性评估 | 各方案逐篇整体判断、决定性区别、日期和证据 |
+| 创造性评估 | 目标国审查框架、X/Y/A 文献角色、最接近技术、真实区别、Y 组合组、完整路径及综合判断 |
+| 改进建议 | 主要风险、优化方向和技术价值，对应实际缺口 |
+| 技术关系对照表 | 全部特征×入选文献、事实、理由、原文/附图和核查 |
+| 检索附录 | 实际策略、参数、数量口径、失败、分页和复用记录 |
+| 文献附录 | 精确身份、申请日、公开日、抵触申请判断状态、相关性、实际阅读范围及缺口 |
 
-Report raw hits, unique candidates, family groups and formal comparisons separately. National application identities may be listed individually without counting the same core disclosure as independent evidence. For an existing report, briefly compare common documents, key documents found by one report only and evidence/boundary reasons for conclusion differences; document counts alone do not establish report quality.
+文献数量同时给出原始命中、去重候选、同族组数和正式比较数。各国对应申请可分别列号，但不得把同一核心披露重复计作多项独立证据。用户提供既有报告时，增加简短差异说明：共同文献、仅一方命中的关键文献、结论差异来自何种证据或评价边界；不以篇数多少直接判断报告优劣。
 
-Lead with conclusions and explain concrete relationships/documents in connected English prose, without internal-field or D/F-code walls. Do not manually duplicate the whole matrix. Counts, quotations, figure numbers and reading scope come from actual records. List leads not fully compared and supplementary readings separately; do not count them as formal comparisons.
 
-## Presentation and delivery
+先给结论，再用连贯中文解释具体关系与文献，不堆内部字段或 D/F 编号，不手抄整份矩阵。数量、引文、图号和阅读范围来自实际记录。未完整比较的线索和补读资料单列，不计正式比较。
 
-Use the existing white Eureka template, six body categories, complete matrix, evidence dialogs, original-text reader and print layout; do not invent another theme. Use safe Markdown for prose, plain text for quotations and actual images with preserved aspect ratio. Do not invent placeholders or diagrams when images are absent.
+## 展示与交付
 
-Show complete reasons on the cover, both text and color for statuses, and scrolling only within wide tables. Display “Agent verification” and outcomes; retain genuine provenance of older reviews. User templates must use the same verified data.
+沿用现有白底 Eureka 模板、六类正文、完整矩阵、证据弹窗、原文阅读器和打印布局，不另造主题。正文用安全 Markdown，原文引句按纯文本保留，真实图片保持比例；无图时不生成占位或示意图。
 
-Open the HTML before delivery and check conclusions, matrix, dates/counts, evidence links, original images, verification, narrow-screen and print layouts. Completion depends on actual content; successful HTML generation does not establish technical conclusions.
+首页理由完整展示，状态兼有文字与颜色，宽表仅自身滚动。报告显示“Agent 核查”及结果；旧复核记录保留真实来源。用户模板沿用同一份核对过的数据。
+
+交付前打开 HTML，检查结论、矩阵、日期与统计、证据跳转、原图、核查、窄屏和打印。完成度取实际内容，HTML 生成成功不等于技术结论已经成立。

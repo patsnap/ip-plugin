@@ -1,84 +1,84 @@
 ---
 name: ip-EOU-investigation
-description: "EoU Investigation helps companies identify potential patent infringement leads by matching their own patents with evidence from third-party products. It discovers relevant patents, explains key claim features, researches competing products, and maps supporting evidence into a clear comparison matrix. Findings are delivered in a standalone HTML report with traceable sources, evidence gaps, and recommended next steps to support further review."
+description: "用自有专利调查第三方产品，梳理核心权利要求、检索产品证据，并生成专利与产品的对照矩阵及 HTML 报告。"
 metadata:
   version: "0.1.3"
 ---
 
-# EOU Investigation
+# 侵权线索发现
 
-Use this workflow when a user wants to investigate a third-party product using their own patents. Establish the objective and choose how to search, read source material, trace relationships, and fill evidence gaps. Use available public web capabilities to find and read product material. Default dialogue, reports, labels, and templates to English and honor an explicit output-language request. Keep search language and jurisdiction independent of output language, and preserve original evidence with translations where needed. Explain findings in plain language and short tables. Lead with findings, evidence, and the next action, adding technical detail as needed.
+用户表达用自家专利调查第三方产品的意图时采用本 skill。理解用户目的，自主选择检索、阅读、关系追踪和补证路线。用你已有的公网搜索能力查找、阅读产品材料。默认用通俗文字和简短表格解释发现，先说结论、依据与下一步，专业细节按需展开。
 
-Read the bundled references when their steps become relevant, and use the report template under assets. Resolve both relative to this Skill directory. Keep case records and generated files in the current task directory.
+按当前步骤读取本包的 references，使用 assets 中的报告模板。通过 skill 所在目录定位这些资源，案件底稿和生成文件保存到当前任务目录。
 
-## Inputs and confirmation
+## 输入和确认
 
-The company is the minimum input required to begin. Extract it from the chat or existing case and ask only when missing. Resolve the name with `get_standard_assignee_name`, show the actual legal entity candidates and the understood constraints, and ask the user to confirm. Reuse an explicitly confirmed company unless a real ambiguity emerges. Store company and assignee identities separately. A competitor name identifies the investigation target and cannot determine or replace the user's company.
+公司是开始调查的最小必需输入。先从聊天和现有案件提取信息，缺公司才询问。用 `get_standard_assignee_name` 解析名称，展示实际法律主体候选及已理解条件，让用户确认。用户已经明确确认的公司直接沿用，存在实际歧义才再问。公司与申请人身份分别保存。竞品名称用于调查对象，不能反推或替换我方公司。
 
-Product, technology or problem, competitor, owned patents, patent jurisdiction, and sales market are optional. State what each geographic or time constraint applies to. Use supplied information directly and distinguish suggested directions from user-specified constraints.
+产品、技术或要解决的问题、竞品、自有专利、专利地区、产品销售市场均为选填。地区与时间条件注明约束对象。已给信息直接使用，AI 提出的方向与用户指定条件分别标记。
 
-When the user specifies owned patents, ask whether they want additional recommendations. Reuse an existing explicit answer.
+用户指定自有专利时，问是否还需要推荐。已有明确回答直接采用。
 
-- If recommendations are wanted, include every specified patent in each portfolio. Each portfolio must contain at least two relevant patents verified as owned by the company.
-- If recommendations are unnecessary, use the specified patents as the portfolio, including a single patent when applicable. Verify ownership before summarizing key claim points.
-- Preserve the original input for malformed numbers, unverified ownership, or conflicts with company scope. State the specific issue and wait for the user to resolve it.
+- 需要推荐时，每个组合都包含全部用户指定专利，每组至少两件相关且核验为自有的专利。
+- 无需推荐时，指定号码直接构成组合，允许只有一件。核验后进入核心点总结。
+- 无效格式、权属待核或与公司范围冲突的号码保留原输入，指出具体缺口，等待用户处理。
 
-Obtain explicit confirmation separately for company scope, the selected portfolio, key claim points, and retained leads. Reuse prior answers. Interpret “yes” or “continue” at the current checkpoint without extending it to later choices the user has yet to see.
+公司范围、实际选定组合、核心保护点及最终保留线索分别需要明确用户确认。已有答复复用。当前节点的“同意”“继续”按上下文理解，不推定后面未知内容也已被确认。
 
-## Tools and methods
+## 工具和方法
 
-Patent and literature work uses the following nine tools. Check runtime definitions before first use and follow the actual schemas for requests and responses.
+专利业务使用九项工具。首次使用时核对运行时定义，参数和返回字段遵从实际 schema。
 
-| Tool | Purpose |
+| 工具 | 用途 |
 | --- | --- |
-| `get_standard_assignee_name` | Resolve company and standardized assignee identities |
-| `get_corptree_hierarchy` | Find the immediate parent or ultimate parent as needed |
-| `search_patent` | Find owned patents, relevant third-party patents, or patents by specified number |
-| `fetch_patent` | Read claims and descriptions for the exact document, and retrieve family, citation, or figure information as needed |
-| `fetch_patent_lifecycle` | Retrieve legal status, ownership changes, and other events |
-| `field_analysis` | Explore the company's portfolio or aggregate the same query scope |
-| `describe_search_capability` | Check supported fields and operators before specialized-domain searches |
-| `search_literature` | Find relevant terminology, principles, and research |
-| `fetch_literature` | Read the paper material actually returned |
+| `get_standard_assignee_name` | 解析公司和标准申请人身份 |
+| `get_corptree_hierarchy` | 按需要取得直接父公司或根公司关系 |
+| `search_patent` | 检索自家、相关第三方或指定号码专利 |
+| `fetch_patent` | 阅读准确文献的权项、说明书，按需补同族、引证或图片 |
+| `fetch_patent_lifecycle` | 补法律状态和权属变化等事件 |
+| `field_analysis` | 探索公司布局或统计同一查询范围的分布 |
+| `describe_search_capability` | 专业领域检索前了解其支持的字段和操作符 |
+| `search_literature` | 辅助查技术术语、原理和相关研究 |
+| `fetch_literature` | 按实际返回范围阅读论文资料 |
 
-The host constructs queries, screens results, decomposes claims, evaluates technical evidence, and prepares the report. Use each call to resolve the current question and reuse text and responses already acquired.
+由宿主完成查询构造、筛选、权项拆解、技术判断和报告。每次调用解决当前问题，复用已经取得的正文和回执。
 
-Check each request against confirmed user constraints and the actual schema. Use product or technology names for semantic and keyword expressions. Apply IPC, status, time, and jurisdiction filters only when explicitly specified by the user and supported by the schema. Copy internal patent and company IDs from actual responses. Use a known exact publication number directly where the interface supports it. Check the current case's material index before calling a tool to see whether existing material answers the question.
+构造请求时逐项核对用户已确认的条件与实际 schema。产品或技术名称用于语义和关键词表达；IPC、状态、时间、地区等过滤须有用户明确指定及 schema 支持。专利与公司内部编号从真实回执复制，已知准确公开号可按接口支持直接使用。调用前先查当前案件的材料索引，确认已有资料是否足以解决问题。
 
-## Investigate from the current stage
+## 按当前进度调查
 
-### Directions and portfolios
+### 方向与组合
 
-Read [Directions and portfolios](references/portfolio-discovery.md) before recommending patents. When only the company is known, aggregate the portfolio, read representative patents, and combine those findings with public material to suggest a few concrete directions. When a product or technology is known, examine its mechanism. When a competitor is known, read its product material before searching for relevant owned patents.
+推荐前读[方向与组合](references/portfolio-discovery.md)。只有公司时，可以先统计布局、抽读专利并结合公网资料提出几个具体方向。已有产品或技术时围绕其机制深入，已有竞品时先阅读产品资料再找自家相关专利。
 
-Organize portfolios around products that could be investigated. For every patent, give the exact document number, title, owner, jurisdiction, status, protected subject matter, reason for recommending it, and relationship to the other members. Describe family versions separately and support complementary roles with text. Mark user-specified products and patents as “User specified.” Let relevance determine how many portfolios to present, and continue after the user confirms the selection.
+按可能调查的产品组织组合，逐件说明准确文献号、标题、权利人、地区与状态、保护什么、推荐依据，以及与其他成员的关系。同族版本单独说明，互补关系须有文本支持。用户指定产品和专利标记“用户指定”。推荐数量服从实际相关性，确认所选组合后继续。
 
-Before presenting portfolios, compare their exact sets of documents. Merge identical sets and list their different uses as investigation angles. Describe supported technical roles, known citation links, and any unverified family membership separately. A limited relationship list that omits a document, different application numbers, or a citation link leaves family membership unresolved.
+展示前逐组比较准确文献的成员集合。成员完全相同的组合合并，把不同用途写成该组合的调查角度。分别说明有依据的技术分工、已知引证关系及尚待核验的同族归属。有限关系清单未列出某件、申请号不同或有被引关系时，同族归属仍保留待核。
 
-### Key claim points
+### 核心保护点
 
-Read [Claims and evidence](references/claims-comparison.md) and read the selected claims and dependencies in full. Summarize at least one point worth investigating per patent. Give the exact version and claim number, a plain-language explanation, supporting original wording, and conditions still to verify. Assign stable IDs and wait for written confirmation.
+读[权项与证据](references/claims-comparison.md)，完整阅读所选权项及依赖。每件专利至少总结一个值得调查的保护点，给出准确版本、权项号、通俗解释、原文依据和仍需核查的条件。保存稳定编号，等待文字确认。
 
-### Product leads
+### 产品线索
 
-Read [Search and evidence gathering](references/product-evidence.md). Use available public web capabilities to investigate iteratively, starting from product material or patent relationships. For broad discovery, aim for ten sourced, deduplicated, specific models and report the actual number found. For a single competitor or model, investigate it in depth. Present a meaningful batch of findings before pursuing the most consequential gaps.
+读[搜索与补证](references/product-evidence.md)。用你已有的公网搜索能力，从产品资料或专利关系等入口多轮调查。广泛发现以十条有来源、去重后的具体型号为目标，按实际找到数量交付。限定单一竞品或型号时围绕它深入。先呈现有意义的一批发现，再按关键缺口补证。
 
-### Comparison and delivery
+### 比对与交付
 
-Build a matrix with one product per row and one confirmed claim point per column. Use ✓ when the material actually read supports the confirmed definition of the point and ? when confirmation is pending. Identify partially supported elements in the evidence details. Keep confirmed point definitions and checkmark criteria consistent. If a definition changes, revise it and ask for confirmation again. Classify a lead with at least one ✓ as “Evidence supported” and a lead with zero ✓ as “Pending manual review.” Record the quotation, source, location, reasoning, and uncovered conditions for each cell. Track the key point separately from all limitations of the original claim.
+用当前确认的核心点制作产品行、核心点列的矩阵。✓表示已读材料支持已确认定义的核心点，?表示待确认。局部要素的支持在详情中点名记录。核心点含义与打勾口径在确认后持续沿用，改变含义时先修订定义并请用户重新确认。至少一✓的线索归为“有证据支持”，零✓归为“待人工复核”。逐格保留原句、来源、位置、理由及未覆盖条件，核心点与原权项全部限定分别记录。
 
-Use one overview row per retained product model and one column per confirmed key point. Put the product classification in the final column and element-level analysis in expandable details. Read the generated report, count its rows and claim-point columns, and check each classification against the retained list.
+概览中每个保留产品型号只占一行，每个已确认核心点占一列，最后一列给出该产品的分级。逐要素分析放在展开详情。生成报告后读取实际文件，逐行数清产品、核心点列与分级，核对当前保留清单。
 
-The user can remove leads in writing or add one with a URL alone. Read and verify a new URL before assessing it. After the user confirms which leads to retain, read [Report writing and template](references/report-writing.md) and use the [report template](assets/report-template.html) to generate a standalone HTML file. Lead with findings and the matrix, then expand on the portfolios, key points, and evidence. Explain in the report body what each patent protects and why it was recommended.
+用户可以文字删除线索或只提供网址新增。新网址阅读核实后再判断。用户确认保留范围后，阅读[报告写作与填充](references/report-writing.md)，使用[报告模板](assets/report-template.html)生成可独立打开的 HTML。先给结论与矩阵，再展开组合、核心点和证据；保护什么、为什么推荐直接写在正文。
 
-## Working across turns
+## 多轮工作方式
 
-When the investigation begins, read [Records and delivery](references/continuation-and-records.md). Before replying in any turn with substantive progress, confirmation, revision, or a pause, update `case.md` and read it back. Record the stage, pause status, confirmed and pending choices, exact patent and material index, and next action. Keep originals and detailed analysis in linked files and enough summary in the case record to resume across chats. Answer standalone conceptual questions directly.
+进入实际调查后，首次读取[记录与交付](references/continuation-and-records.md)。每个有调查进展、用户确认、修改或暂停的回合，在最终回复前更新 `case.md` 并读回核对。底稿包括当前阶段、暂停状态、已确认与待确认内容、准确专利和材料索引、下一步。原文和详细分析放在关联文件中，底稿保留足以跨会话恢复的摘要。普通概念问答按用户问题回答。
 
-When constraints change, new material arrives, or work pauses or resumes, revisit only the affected parts. On pause, save the status and handle only the user's intervening questions. When resuming in a new chat, read `case.md` and its necessary linked records before deciding whether further calls are needed.
+改条件、补材料、暂停和续查时只复核受变更影响的部分。暂停时将状态写为暂停并保存，随后只处理用户插问。新会话接手时先读 `case.md` 及其中必要的关联记录，再决定是否调用资源。
 
-Keep user material, product sources, original patent text, and investigation hypotheses separate. Hypotheses can guide queries and enter the evidence assessment only after obtaining direct support. Check citations, technical correspondence, and output consistency during the investigation. Keep unsupported conditions pending and specify the facts on which material findings depend.
+用户材料、产品来源、专利原文和调查假设分别保留。假设可以形成查询，获得直接依据后才能进入证据判断。由 AI 在调查中核对引用、技术对应和输出一致性。资料不足保持待核，决定性结论说明它依赖的具体事实。
 
-Deliver supported results for the current stage before investigating decisive gaps. Record actual time, calls, and material reuse, and plan the next action around the requested depth and deliverable.
+先交付当前阶段有依据的成果，再按决定性缺口补查。记录实际处理用时、调用及材料复用情况，按用户的调查深度和交付偏好安排下一步。
 
-Use plain language in user-facing material. Keep raw JSON, internal IDs, tool names, and parameter troubleshooting in the working records.
+对外使用通俗自然语言，原始 JSON、内部编号、工具名和参数排障保存在工作记录中。

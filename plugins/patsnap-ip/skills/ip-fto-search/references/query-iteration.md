@@ -1,75 +1,77 @@
-# Step 5 — Query iteration
+# Step 5：检索式迭代优化
 
-Read only when enabled; default simplified mode skips this step. Use `patsnap-ip:search_patent`/`patsnap-ip:fetch_patent` for evidence; fixed sampling, coverage and missed-hit diagnosis are local, not returned tool fields.
+仅本次路径启用时读取；默认简化模式不执行。使用 `patsnap-ip:search_patent` 与 `patsnap-ip:fetch_patent` 取得证据，本地完成固定样本、覆盖计算和漏项诊断，不把计算结果写成工具返回字段。
 
-Step 4 feature grouping, plan/expression checks, initial execution and bounded corrections remain mandatory where applicable even when this optional step is skipped. Freeze query-plan and branch provenance so local corrections preserve other adopted risk directions.
+Step 4 的特征分组、计划—表达式核对、初次执行与有限纠错不受本段“默认不执行”限制。进入本步时同时冻结 query-plan 与分支来源，避免修复某一局部时破坏已采用的其他风险方向。
 
-Reuse T/L/P/C/LS. Q0 is the adopted starting technical Boolean; Q=Q0. Save jurisdiction, legal-status and date scope separately as frozen `SEARCH_FILTERS`. Keep candidates separate from adopted queries.
+沿用主文 T/L/P/C/LS。Q0 是进入调优时采用的技术 Boolean，Q=Q0；法域、法律状态和日期另存为冻结的 `SEARCH_FILTERS`。每个候选与已采用式分开保存。
 
-All following Boolean + `SEARCH_FILTERS` steps require explicit runtime support for their combination and receipts proving filters effective. If Boolean is exclusive, filters are ignored or the result is an uneditable opaque reference, record `blocked_boolean_scope_unsupported`; do not run 5.1–5.7 and fabricate same-scope metrics. Retain unrestricted Boolean diagnosis separately from scoped semantic/keyword quality checks; they do not share S/U/H metrics. Sample initialization is also blocked if Boolean cannot execute within the same scope. Never edit opaque references to add scope.
+本文件下文所有“Boolean 与 `SEARCH_FILTERS` 同传”步骤都有一个前置条件：当前 `patsnap-ip:search_patent` 协议明确允许两者组合，且实际回执证明过滤生效。若 Boolean 是独占策略、filters 被忽略或构式结果只是不可编辑的不透明引用，则本 Step 5 的同范围 Boolean 覆盖率评估记为 `blocked_boolean_scope_unsupported`，不得执行 5.1–5.7 后伪造同范围指标。此时可保留未限定范围的 Boolean 技术诊断，并另用支持范围过滤的语义／关键词路线做候选质量检查；两者不可算同一 S/U/H 指标。
 
-## 5.0 Initialize one fixed sample
+## 5.0 初始化样本（一次）
 
-Under current search definitions, create one independent semantic sample from P with the same `SEARCH_FILTERS` as Q0, no family collapse, at most 200 publications under actual pagination capability. Scope includes all adopted authorities/statuses/dates; do not omit unsupported conditions. If structured filters cannot express equivalent scope, stop with the specific gap rather than evaluating against a broader sample.
+按当前 `patsnap-ip:search_patent` 定义，以 P 的语义表达和冻结的 `SEARCH_FILTERS` 建立一次独立候选样本，关闭同族折叠，按实际分页能力最多取 200 件。过滤包括本次实际采用的受理局、状态和日期等；不能为了建样本省略不支持的条件。若结构化过滤不能等价表达，或 Boolean 无法在相同范围执行，则本步受阻，说明具体范围缺口，不使用较宽样本冒充同范围评估。
 
-Save requests/receipts, exact ID-to-PN mapping, order, time and scope. S is this fixed publication set; never resample to improve metrics. Unresolved identities, partial paging failure, inconsistent counts or fewer than ten samples stop optimization. Users may choose repair or explicitly skip and retain Q0. This is a semantic-search window, not a human-labeled relevance gold standard.
+保存全部真实请求、回执、实际 ID 与精确 PN 对应、排序、时间和范围。本地 S 是该固定公开件集合，后续不重抽样，不以重复抽样提高指标。身份无法解析、分页部分失败、数量矛盾或样本少于 10 时停止调优；客户可选择修复或明确跳过本步沿用 Q0。样本是语义检索窗口，不是人工标注相关性金标准。
 
-## 5.1 Initial metrics (round 0)
+## 5.1 初始指标（轮次 0）
 
-Construct a sample restriction using verified publication-number Boolean fields with full country/kind codes. Pass frozen `SEARCH_FILTERS` for every Boolean evaluation and execute:
+通过已核对的公开号布尔字段构造固定样本限制，原样保留完整文献号，不截掉国家或种类代码。每次 Boolean 评估都同传冻结的 `SEARCH_FILTERS`，分别执行：
 
-- `SEARCH_FILTERS` intersected with sample restriction → reachable set U.
-- Complete Q intersected with sample restriction → hit set H.
-- Complete Q alone → available total N.
+- `SEARCH_FILTERS` 与样本限制的交集，取得可达集合 U。
+- 完整 Q 与样本限制的交集，取得命中集合 H。
+- 完整 Q 本身，取得可用的命中总量 N。
 
-Sample restrictions are for evaluation only, never final Q or `SEARCH_FILTERS`. Do not concatenate opaque builder handles. If valid sample restrictions cannot be constructed, stop. Retrieve complete intersections within runtime query-length/page limits; if needed, split into disjoint PN batches, verify identities and merge all batches. Sample-query totals are not N.
+样本限制只用于评估，不写入最终采用 Q 或 `SEARCH_FILTERS`。不将生成器的不透明句柄拼接为查询；无法构造合法的样本限制时停止本步。按可达分页获取完整交集；遵守运行时查询长度与页大小限制，必要时按互不重复的样本 PN 分批，核对身份并合并，不能仅看首批。样本查询返回总量不当作 N。
 
-Compute `coverage=100×|H|/|U|`, misses `U−H` locally. Require H⊆U⊆S, all batches complete and nonempty U. Partial failures/unresolved identities invalidate the metric. Retry a side-effect-free read once, then stop; failed batches do not supply zeroes.
+本地计算 `覆盖率=100×|H|/|U|`、漏项 `U−H`。要求 H⊆U⊆S，完整覆盖所有样本分批且 U 非空；任何部分失败或未解析身份使该次指标无效。无副作用读取可原请求重试一次，仍失败则停止。不能用失败批的零值计算覆盖。
 
-Save sets, formula, provenance and calculation time. Label “fixed semantic-sample coverage,” not true database recall or legal-risk coverage. Assess query breadth locally from actual technical conditions and N, with reasons; do not invent a tool breadth label.
+保存集合、公式、来源和计算时间。其含义是“固定语义样本覆盖率”，可用于诊断，不是数据库真实查全率或法律风险覆盖率。另据实际技术条件和 N 作本地查询宽窄判断，记录理由；不能伪装为工具返回的 breadth 标签。
 
-## 5.2 Convergence and stopping
+## 5.2 收敛与停止
 
-Stop the main loop after a valid evaluation meets any condition:
+有效评估满足其一结束主要循环：
 
-- Coverage ≥85% and evidence-based local checks find no overly narrow query.
-- Two consecutive valid rounds show no increase.
-- Five main query-change attempts are reached.
+- 样本覆盖率≥85%，且有依据的本地检查未发现查询过窄；
+- 连续两轮有效评估覆盖率没有上升；
+- 已达到 5 次主要改式尝试。
 
-85 is a working sample threshold, not proof of full recall. Every edit, syntax correction and rejected candidate counts toward five; read retries cannot become unlimited optimization. Partial failures are not valid rounds and cannot justify further changes. Window/workload checks remain independent even after coverage passes.
+85 是样本覆盖工作阈值，不证明真正查全。每次改式、语法纠正和被拒绝候选都计入 5 次上限；读取重试不得变成无限调优。部分失败不计为有效评估，也不能据此继续修改。窗口检查独立于样本指标；覆盖达标仍需落实 Step 6 的范围与工作量。
 
-If the target is unmet, show actual metrics/gaps and let the user accept the current state or revise input. Do not assume remaining misses are legitimate exclusions. Finalization uses only the last adopted, validly evaluated query.
+最终未达目标时说明实际指标与缺口，由客户决定接受现状或调整输入，不预设剩余均是合理排除。进入收尾时只用最后已采用且评估有效的查询。
 
-## 5.3 Diagnose misses
+## 5.3 未命中归因
 
-Use `patsnap-ip:fetch_patent` on at most ten valid misses to check actual titles, abstracts, classifications and necessary text. Diagnose terminology/fields/relationships/omissions locally. Test supported clauses only within the same `SEARCH_FILTERS` and missed set, recording actual queries/hits.
+对有效漏项集合最多 10 件使用 `patsnap-ip:fetch_patent` 核对真实标题、摘要、分类及必要文本。在本地检查术语、字段、关系和遗漏表达；需要执行子句对照时，只在同一组 `SEARCH_FILTERS` 和同一漏项集合内测试有依据的候选，记录实际查询与命中。
 
-`SEARCH_FILTERS` cannot be relaxed as technical conditions. A blocking clause is a diagnostic clue, not proof that the patent should be retrieved. Without misses/evidence, do not invent edits; missing fields are unknown.
+`SEARCH_FILTERS` 不作为可放宽的技术条件。子句拦截只是诊断线索，不证明该专利应被召回。没有漏项或证据不足时不凭空改式；缺字段记未知。
 
-## 5.4 Candidate rewrite
+## 5.4 改写候选
 
-Change one supported clause/variable; field edits and synonyms take separate rounds. Preserve `SEARCH_FILTERS`; scope changes are not technical Boolean optimization. Where domain terms are mandatory, check relevant classification OR fallbacks. Do not promote product names, active ingredients or exploratory alternatives to mandatory AND conditions without basis.
+只改归因支持的一个技术子句／变量；字段调整和加同义词分两轮。保持原 `SEARCH_FILTERS` 不变；范围变更不计作技术 Boolean 调优。
 
-Save complete before/after queries and rationale; Qcandidate does not overwrite Q. Do not reverse-engineer evaluation queries from answer keys or known missed titles; label such runs diagnostic experiments, not independent validation.
+领域词作必要条件时核对相关分类号 OR 兜底；产品名、活性成分名和探索性替代实现不得擅自升为 AND 必要条件。保存修改前后完整式与理由，Qcandidate 不覆盖 Q。不得用评测标准答案或已知漏检标题反向改写评测查询；这类运行另标诊断实验，不能报告成独立验证。
 
-## 5.5 Execute and check fixed scope
+## 5.5 执行与结构化范围检查
 
-Under main Step 4, locally verify parentheses, language and technical logic, then execute Qcandidate with Boolean and the same `SEARCH_FILTERS` through `patsnap-ip:search_patent`. Only successful, scope-preserving candidates proceed to evaluation. Do not invent auto-repair/validity fields. Preserve errors; failed candidates do not replace adopted Q. Syntax fixes still consume attempts.
+按主文 Step 4 在本地核对括号、语言和技术逻辑。只有当前协议满足本文件前置条件时，才由 `patsnap-ip:search_patent` 以 Boolean 及同一组 `SEARCH_FILTERS` 执行 Qcandidate；否则停止同范围评估，不手改不透明引用补范围。执行成功和范围核对通过才送评估，不伪造自动修复或有效性字段。错误原样记录，失败候选不能覆盖采用式；语法纠正仍占用尝试上限。
 
-## 5.6 Evaluate and adopt
+## 5.6 本轮评估与采用
 
-Repeat 5.1 with identical S/`SEARCH_FILTERS` and the candidate. Unexpected U changes require reachability checks, not a new denominator to fake improvement. Stop if comparability cannot be restored. Once valid, record query/sets/N/reasons and decide adoption; do not automatically adopt lower coverage or distorted scope. Update Q/N/metrics only when adopted, then return to 5.2. Failures preserve valid records.
+按 5.1 对相同 S、`SEARCH_FILTERS` 和新候选重新求交集与覆盖率。U 异常变化先核查数据可达性，不变更分母冒充提升；无法恢复可比性则停止调优。指标有效后记录新式、集合、N 和理由，再决定采用；不默认采用覆盖下降或范围失真的版本。
 
-## 5.7 Final recall expansion (once at most)
+仅采用时更新 Q/N 与本地指标；返回 5.2。失败不覆盖已有有效记录。
 
-If valid misses remain, retrieve actual details for at most 15 and identify supported terminology gaps from titles/abstracts/classifications/necessary text. No evidence means no expansion.
+## 5.7 收尾补召回（最多一次）
 
-With a clear blind spot, create one supplementary candidate using technical `B OR supplementary_technical_conditions` and execute with the same `SEARCH_FILTERS`. Do not put scope fields into the Boolean or relax adopted scope.
+若最终有效漏项非空，最多取得 15 件的真实详情，依据实际标题、摘要、分类及必要文本判断遗漏表达；没有证据记录不补式。
 
-Apply 5.5/5.6 again. Failure does not replace adopted Q; disclose the gap and stop without a new loop.
+有明确盲区才生成一次补充候选。技术式采用 `B OR 补充技术条件`，执行时保持同一组 `SEARCH_FILTERS`；不把范围字段写回 Boolean，也不放宽已采用范围。
 
-## Deliverables
+仍经 5.5 和 5.6 检查、评估；补召回失败不覆盖已采用式，说明缺口并停止，不另开循环。
 
-Show rounds, complete-query references, edit reasons, actual total hits, local sample coverage, validity and adoption. Include S/U/H sizes/provenance, final Q/N, stop reason and unresolved gaps. If the target is unmet and no acceptance is recorded, do not automatically start Screening.
+## 本步交付
 
-Attach final executable query, real search receipts and local iteration history; local history is not a tool-returned field.
+展示轮次、完整查询引用、改动原因、真实命中总量、本地样本覆盖率、有效性及是否采用；同时给 S/U/H 的大小及来源、最终 Q/N、停止原因与未解决缺口。未达目标且无接受决定，不自动进入筛选。
+
+报告附最终可执行式、实际搜索回执与本地迭代记录，不把本地查询历史伪造为工具返回字段。

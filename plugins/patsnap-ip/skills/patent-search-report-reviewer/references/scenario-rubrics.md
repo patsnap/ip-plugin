@@ -1,82 +1,128 @@
-# Scenario review rubrics
+# 场景审核准则
 
-## Four common modules
+## 目录
 
-### Search strategy
+- 通用四模块
+- 专利检索报告
+- 查新与专利性报告
+- FTO 报告
+- EoU 报告
+- 无效检索及其他报告
+- 严重性判定
 
-Use three evidence-based checks, never word counts, tool scores or hits as substitutes:
+## 通用四模块
 
-| Check | Professional assessment | Typical correction |
+### 检索策略质量
+
+只抓以下三个检查点。合格判断须有具体术语、式片段或技术逻辑依据，不以词数、工具分数或命中量替代。
+
+| 检查点 | 专业判断 | 典型问题及改进 |
 |---|---|---|
-| Synonyms | Preserve full concepts/qualifiers/languages; aliases, abbreviations and translations must be equivalent in context and enter appropriate branches. | Identify omissions/drift; distinguish synonyms from related/broader/narrower terms. Restrict broad terms or use supplemental branches, not indiscriminate synonym ORs. |
-| Query | Check applicable syntax/fields, intra-group alternatives, inter-group relationships, parentheses, phrase/proximity/truncation, date types and geography/status/class restrictions. | Keep originals/proposals and validation states separate; unverified database syntax is conceptual logic, not a fabricated executable query. |
-| Derivation | Features/problems→concepts, necessary conditions, alternatives, branches/merge; no unsupported scope shifts. | Explain concrete paths/counterexamples; without measurement, only potential misses/noise, not counts/recall. |
+| 同义词拓展质量 | 核心概念、限定和目标语言是否保留；别称、缩写和译词在当前技术语境下是否等义；合理候选是否实际进入适用检索分支 | 指明遗漏的检索表达或语义偏移；区分同义词与相关/上位/下位词；宽词应限用或另设补充支路，不全量并入同义词组 |
+| 检索式合理性 | 语法和字段是否适用；组内替代、组间关系、括号及短语/邻近/截词是否表达预期；日期类型、地域、状态和分类限制是否符合目的 | 原式与建议式分开；校验状态分开；未确认的数据库语法仅给概念逻辑，不伪造可执行式 |
+| 检索逻辑推导 | 是否从技术问题/特征形成合理概念组合；必要条件、替代路线、检索分支和合并关系是否保留；有无无依据收窄或扩展 | 用具体路径或逻辑反例解释影响；没有实测就只说潜在漏检/噪声，不给数量或查全率结论 |
 
-Start with report concepts and vocabulary (or terms extracted from queries), then Boolean logic. Use the builder only for needed candidates with complete natural-language intent, never to validate/rewrite existing executable queries. Adoption needs technical/semantic/original-use evidence; tool output alone is not equivalence. No requirement to include every candidate or score list overlap. Check languages according to purpose, not all languages by default.
+推荐核查顺序：先从报告取完整技术概念，对照原词表或从检索式提取的词，再核对布尔关系。仅在需要补充候选且已有完整自然语言意图时，使用融合检索的构建工具获取参考表达；不将既有可执行式送去改写或校验。候选词的采用理由应来自技术语境、明确词义或必要的原文用法；工具返回本身不是等义证据。不要求报告收录工具返回的每个词，也不按名单重合比例评分。语言只按报告目的核查，不能默认为全部语言。
 
-Normally OR equivalent expressions and AND concepts that must co-occur, subject to actual relationships. Do not AND incompatible alternatives or turn supplemental class routes into unsupported global conditions. Preserve dependencies when splitting compounds; broad words are not unconstrained replacements for complete concepts. For example, flattening flexible-hinge terms to `flexible OR elastic OR hinge OR joint` admits joint-only documents. Preserve the full term or constrained combinations. This is conceptual, not verified Patsnap syntax.
+组合通常遵循“同一概念的替代表达用OR、需要共同检出的概念用AND”，但须服从真实技术关系。互斥方案不能被强制AND，作为补充的分类支路不能无依据变成全局必选条件。拆分复合术语时要保留其组合约束；宽泛词不能作为完整技术概念的无约束替代。
 
-Search logic differs from legal analysis: single-document novelty and all-elements FTO do not require ANDing every feature/product detail during retrieval. Search identifies relevant claims/disclosures; legal sufficiency belongs to analysis. Reconstruct missing derivation as reviewer interpretation without penalizing absent process narrative. Ask only genuine concept/objective ambiguities. Selected-results/analysis-only work does not trigger this module.
+例如“柔性铰链”被拆为“柔性”和“铰链”两组时，不应把两组候选展平成 `柔性 OR 弹性 OR 铰链 OR 关节`；该式允许只有“关节”的文献进入，偏离完整概念。可先保留完整术语，再评估限定在同一语境的词组组合。这是逻辑示意，不是经过校验的智慧芽字段式。
 
-### Selected-reference results
+检索逻辑与法律分析分开：新颖性通常要求单篇完整公开，不代表检索阶段必须把全部技术特征都AND；FTO的全要素分析也不代表检索时必须同时命中全部产品细节。检索设计服务于识别相关权项或公开证据，结果是否满足法律判断在分析环节评价。
 
-Review final selected/actually cited documents only, excluding criteria/reasons/disposition/handoffs even if supplied. No exclusion-log requests.
+报告未单列推导过程时，可从现有技术描述和检索式重建映射，注明为审核者解释，不单因缺少流程说明扣分。概念含义确有歧义或目标缺失时才补问。只审核入选结果或分析的任务，不为填本模块而拓展词或运行检索。
 
-| Check | Object | Reportable issue |
+### 入选文献结果
+
+当前不审查筛选过程，只核查最终入选和实际引用的文献。筛选准则、理由、处置和流转不纳入评价，不索取或评价排除记录；即使附件中已有筛选过程内容，也不把它作为本次评价对象。
+
+| 检查内容 | 核查对象 | 可报告的问题 |
 |---|---|---|
-| Identity/applicability | Final documents, dates, versions and evidentiary eligibility | Wrong number, ineligible date under adopted rules, inapplicable claim version. |
-| Relevance | Link to report topic/features/use | Unrelated content used as evidence; insufficient abstracts require targeted originals during analysis. |
-| Citation mapping | Final list, comparisons and prose | D1 content attributed to D2, mixed family text, duplicated independent evidence. |
+| 文献身份与适用性 | 最终清单中的文献、日期、版本和相应证据资格 | 错误文献号；在报告所采用的法律规则下不具备所声称的时间资格；使用不适用的权项版本 |
+| 内容相关性 | 入选文献与报告主题、技术特征及用途之间的联系 | 将无关技术内容作为对比依据；摘要内容不足以判断时，仅对入选对象在分析环节核对原文 |
+| 引用对应关系 | 最终清单、比对表和正文中的引用 | 将D1的内容归给D2；混用同族原文；把同一文献重复计作独立证据 |
 
-Assess whether selected documents can support the report, not why authors chose/excluded them. Do not infer screening misses or compute screening hit/completeness rates. Final-list-only input is normal; absent exclusion material is not an issue, gap, unverifiable fraction or disposition factor. Missing necessary evidence for an actual selected object must still be identified precisely and distinguished from excluded process material.
+这里评价“已经选出的文献是否可用于报告中的论证”。不评价作者为什么选择或排除某篇文献，不推断漏筛情况，也不计算筛选命中率或完整性。只提供最终清单是正常输入，排除材料缺失不计入问题、证据缺口、不可验证比例或总体结论。
 
-### Analysis quality
+已选对象本身的必要材料缺失仍须明确说明，例如正文无法取得，或引用无法定位；只请求该对象的具体证据。筛选过程排除在范围之外，与已选对象证据尚不能核实应明确区分。
 
-Separately assess A1/A2 internally as Met/Partly met/Not met/Unverifiable/Not applicable with reasons. Prose gives concrete judgments, not mechanical IDs. Unverifiable is not scored as Not met.
+### 分析质量
 
-| Track | Check | Acceptance |
+按 A1 与 A2 两条主线分别评价。内部记录采用 `满足 / 部分满足 / 不满足 / 不可验证 / 不适用`，并附依据；正文写出具体判断，不机械显示编号或状态标签。`不可验证` 不按不满足计分。
+
+| 主线 | 检查点 | 具体合格条件 |
 |---|---|---|
-| A1 facts | Applicable object | Patent/family member/claim version matches jurisdiction/date; product models/versions not mixed. |
-| A1 facts | Sources | Decisive patent/product facts have located sources; dates/status checked to required depth. |
-| A1 facts | Nature | Originals, translations, facts, assumptions, unknowns and AI inference differ; silence is not absence. |
-| A2 comparison | Faithful quotation | Conditions/parameters/relationships/negatives retained; dependent claims include inherited limitations. |
-| A2 comparison | Supported mapping | Original elements map to report/product features with reasons; beyond-literal interpretation has support. |
-| A2 comparison | Proportionate inference | Scenario method applies; evidence supports conclusion strength and addresses counterevidence/unknowns. |
+| A1 事实基础 | 对象适用 | 专利/同族成员/权项版本与目标法域及时点一致，产品型号与版本不混用 |
+| A1 事实基础 | 来源充分 | 决定性专利与产品事实有可定位来源；日期、法律状态按所作结论需要核实 |
+| A1 事实基础 | 事实属性 | 原文、翻译、已知事实、假设、未知和AI推断有区别；未披露不写成不存在 |
+| A2 原文比对合理性 | 引用忠实 | 不删条件、参数、关系或否定词；解析从属权项时带入继承的限定 |
+| A2 原文比对合理性 | 对应有据 | 原文要素与报告/产品特征有解释充分的对应，超出字面匹配的解释有依据 |
+| A2 原文比对合理性 | 推论适度 | 所用新颖性/创造性/FTO/EoU方法适用，证据支持结论强度；反证与关键未知得到处理 |
 
-Check facts, quotations and reasoning separately. Reasonable professional disagreement is not automatically error; state issues, competing bases and effects for human disposition. Missing decisive facts mean inadequate factual foundation and unverifiable dependent comparisons, not a new CC run whose AI agreement fills the gap.
+事实、引文和推理分别核查。专业上合理但不同的解释不自动判错，应列出争点、各自依据和对结论的影响，交由 reviewer 裁量。决定性证据缺失时评价其事实基础不足，原文比对合理性中依赖缺失证据的部分为不可验证；不得另跑 CC 后用 AI 结果一致性填补缺口。
 
-Negative findings also need evidence: a reliably unmet necessary element may defeat literal coverage of that claim, not every claim/family/equivalence question. “Not in the manual” is insufficient proof of absence.
+负面判断也须有依据：FTO中有一项必要要素经可靠证据证实不对应，可支持该权项字面覆盖不成立，但不能直接扩展到所有权项、全部同族或等同问题；“手册没写”不足以证明这一要素缺失。
 
-### Compliance/traceability
+### 合规与可追溯性
 
-Check commission, scope, date, sources, methods, limitations, human judgment and versions; reconcile numbers/tables/prose/attachments.
+检查委托目的、范围、时点、数据来源、方法、局限、人员判断和版本是否清楚；检查报告数字、表格、正文和附件是否一致。
 
-## Patent search reports
+## 专利检索报告
 
-Prioritize reproducibility and result applicability, without forcing infringement/novelty/validity conclusions. Queries/databases/dates/languages/classes/merge rules must be reviewable. Assess missed-hit risk, bias and boundaries rather than hits alone. Target final selected/cited documents without regenerating pools or reviewing exclusions. “Comprehensive/no relevant patents” claims need stronger scope/limitation disclosure.
+重点是检索可复现性和结果适用性，不强制报告作出侵权、新颖性或有效性结论。
 
-## Novelty and patentability reports
+- 检索式、数据库、日期、语言、分类和合并规则应可复核。
+- 关注漏检风险、偏置和边界，不以命中数量单独评价质量。
+- 对最终入选及实际引用的关键文献做定向复核，不重新生成候选池或审核排除决定。
+- 若报告声称“全面”“无相关专利”，要求更高的范围说明和限制披露。
 
-Distinguish scientific novelty review from patent novelty/inventive-step judgments; apply patentability rules only to corresponding conclusions. Verify critical date and public availability. Novelty normally needs one reference disclosing all relevant features; do not mosaic multiple references into single-document disclosure. Check decisive original passages, not abstracts alone. Inventive-step/combinations need distinguishing features, technical problem, motivation/teaching and jurisdiction-appropriate method; similarity is not automatically obviousness. Nonpatent evidence needs verifiable source/date/content.
+## 查新与专利性报告
 
-Check selected records' actual evidentiary use/time/relevance; expired patents may still be prior art. A1 verifies date/version; A2 checks limitations, combination and same embodiment, avoiding incompatible embodiments assembled as one disclosure. A failed novelty combination may still matter to inventive step; assess each separately.
+- 先区分科技查新任务与专利新颖性/创造性判断；下述专利性规则仅适用于报告作出相应专利性结论的部分。
+- 明确关键日及文献在关键日前是否公开可用。
+- 新颖性结论通常要求单一文献完整公开相关技术特征；不得把多个文献拼接成单篇新颖性公开。
+- 对承担关键公开作用的文献，在分析阶段核对全文相关段落，而非仅凭摘要。
+- 创造性或组合分析应说明组合依据、技术启示和区别特征，不把“相似”直接写成显而易见。
+- 非专利文献只能在来源、公开时间和实际内容可核验时承担证据作用。
+- 入选文献按其实际用途核对时间资格和技术相关性；失效专利仍可作为符合条件的在先技术。事实基础核对时间资格和原文版本；原文比对检查限定、组合和同一实施方式，避免把互斥实施例拼成单一公开。
+- 新创性报告应分别评价新颖性与创造性。某组合不能支持新颖性否定，不自动意味着其对创造性也无意义；创造性应说明区别特征、相应技术问题、组合理由或技术启示，具体方法服从已明确的法域。
 
-## FTO reports
+## FTO 报告
 
-Establish configuration, activities, jurisdictions and date. Search targets potentially covering claims, not generic similarity. Verify applicable active/pending claims, family members and versions; simple status cannot support complex time-specific conclusions. Compare claim elements with implementation; abstracts/descriptions do not replace claim boundaries. Description may explain terms but cannot silently expand/narrow scope. “No risk found” means no blocking object identified within searched scope/date, not legal clearance. A1 checks applicable claims/real product facts; A2 preserves all necessary limitations without importing an embodiment restriction without basis.
+- 明确产品配置、实施行为、目标法域和评价时点。
+- 检索目标是可能覆盖实施方案的目标法域权利要求，不是一般技术相似性。
+- 重点核对有效或待审的适用权利要求、家族成员和文本版本；简单法律状态不足以支持复杂时点结论。
+- 对关键对象逐项比较权利要求要素与实施特征；摘要和说明书不能替代权利要求边界。
+- 说明书可用于理解术语和支持分析，但不能无说明地扩大或缩小权利要求。
+- “未发现风险”只能限定为已检索范围和时点下未识别到阻断性对象，不等于法律放行。
+- 入选文献核对目标地域、权利状态及其在报告中的用途。事实基础核对适用权项与真实产品事实；原文比对保留所有必要限定，不用某个说明书实施例的结构无依据地缩小权利要求。
 
-## EoU reports
+## EoU 报告
 
-Separate patent/product evidence. Verify applicable claims/version/needed legal context. Product evidence may be actual webpage text, manuals, images, tests, purchase/use records from user/available sources. Patent records do not prove implementation; URLs are not read text. Each claim element needs product evidence or an explicit gap, not overall similarity. Patent evidence alone leaves product side not_verifiable, not implemented/not implemented. Bind selected sources to product identity/time; similar marketing/function language does not prove claimed structure, relationships or values.
+- 分开核对专利侧和产品侧证据。
+- 专利侧至少核对适用权利要求、文本版本和必要法律背景。
+- 产品侧需要网页正文、手册、图片、测试、采购或其他实际使用证据，可从用户材料或可用来源取得。专利记录不能证明产品实际实施；仅有URL不等于已读取正文，缺少材料时标为待核实。
+- 每项权利要求要素应有对应产品证据或明确缺口；不得用总体相似替代逐项对应。
+- 若只有专利证据而缺少产品证据，结论应为产品侧 `not_verifiable`，不能推断已实施或未实施。
+- 入选材料核对专利与目标产品的标识及引用关系。事实基础核对资料与实际目标产品、时间的绑定；原文比对中，功能或宣传用语相近不能直接证明权项限定的结构、关系或数值已经满足。
 
-## Invalidity searches and other reports
+## 无效检索及其他报告
 
-Establish grounds, critical date, claims and evidence eligibility. Separately check date qualification, single-document disclosure, combination logic, authenticity and versions. Lifecycle clues to review/invalidation decisions are not complete decisions/reasoning. For other reports choose the closest rubric, stating inapplicable rules without changing the original purpose.
+- 无效检索先明确无效理由、关键日、适用权利要求及证据资格。
+- 时间资格、单篇公开、组合逻辑、证据真实性和权利要求版本分别核查。
+- 生命周期结果提供的复审无效程序与决定线索，不等于自动取得完整决定书或判例理由。
+- 其他报告选择最接近的场景规则，并明确哪些规则不适用；不要为了套模板改变报告原目的。
 
-## Severity
+## 严重性判定
 
-**Major:** can change core conclusions, use or sign-off, e.g. wrong jurisdiction/date/version, unsupported infringement/novelty, material numerical inconsistency or unverified→absent. Explain impact before tags.
+### 重大
 
-**Moderate:** weakens in-scope reliability/traceability without immediately overturning conclusions, e.g. synonym gaps, incomplete secondary citations or insufficient limitations. Screening process/exclusion reasons are not defects.
+足以改变核心结论、报告用途或签发决定，例如采用错误法域或时点的入选文献、错误权利要求版本、无证据的侵权或新颖性结论、重大数字不一致、把未验证写成不存在。正文优先解释影响，重要程度标签仅作辅助。
 
-**Advisory:** presentation/format/minor improvements without conclusion impact. Reasonable disagreement is not automatically major.
+### 一般
+
+不会立即推翻结论，但削弱本次范围内的可靠性或可追溯性，例如同义词覆盖不足、次要引文不完整、限制说明不足。筛选过程或排除理由不列为缺陷。
+
+### 提示
+
+表述、格式或低风险改进，不影响当前结论。不要把专业分歧一律升级为重大缺陷。

@@ -1,78 +1,99 @@
-# Structured IP review opinions and evidence records
+# IPR结构化审核意见与证据记录
 
-## Three-part report
+## 目录
 
-Use these three headings by default, in the requested file format or Markdown. Do not add duplicate overviews, workflow narration, dashboards or aggregate scores.
+- 三部分报告结构
+- 质量概览的维度
+- 检索专项的呈现
+- 表达要求
+- 入选结果与分析判断
+- 证据记录
+- 核验范围
+- 结论规则
+- 新创性报告示例
 
-### 1. Quality overview
+## 三部分报告结构
 
-One sentence gives the overall judgment and decisive reason: Pass / Conditional pass / Return for revision / Unable to complete review. One sentence states necessary scope, retaining only material object/version/jurisdiction/date information and noting screening-process exclusion. Do not add a separate conclusion heading. Follow with a compact **Dimension | Judgment | Brief basis** table, one sentence per row. Unreviewed dimensions cannot pass.
+默认只用以下三个标题。用户指定文件格式时保持同一结构，否则用Markdown。不重复概览与正文，不增加流程说明、仪表盘或综合分。
 
-### 2. Main issues
+### 一、质量概览
 
-Order by impact. Merge common-root-cause errors while retaining all affected locations/conclusions; do not force together different evidence or remedies. Each short paragraph identifies the problem, actual source location and impact, optionally Major/Moderate/Advisory. Add vocabulary/query fragments only when comparison benefits. Concision cannot omit major defects, decisive evidence or reasonable disagreements.
+用一句话给出总体判断及决定性原因，可采用`通过 / 有条件通过 / 退回修改 / 无法完成审核`。再用一句话交代必要范围；对象、版本、法域和时点只保留影响判断的信息，并简述筛选过程不在范围内。不单列“审核结论”或“IPR质量概览”。随后用短表列本次所审维度：**维度｜判断｜简要依据**，每行一句。不把未审维度写成通过。
 
-### 3. Revision recommendations
+### 二、主要问题
 
-Short action + completion-evidence list, linked to issue numbers where useful. Do not repeat issue prose. Retain evidence prerequisites for use/sign-off and human judgment items. If none, state “No revisions identified.” Never claim the author revised or IP reviewers approved.
+按影响排序，同一根因造成的多处错误合并为一项，保留全部受影响位置和结论；不同证据或不同修订动作的问题不强行合并；每项用一个短段落说明问题、实际来源位置和结论影响，必要时标注`重大 / 一般 / 提示`。只在便于比较时附词表或式片段，不机械增加子栏目。精简不能省略重大问题、决定性证据或合理分歧。
 
-## Overview dimensions
+### 三、修订建议
 
-| Dimension | Object | Question |
+用简短清单写“动作＋完成依据”，必要时对应问题序号；不重复问题原文。保留影响使用或签发的补证条件及待人工裁量事项。没有必要修订时写“未发现需修订事项”。不得声称作者已完成修订或IPR已批准。
+
+## 质量概览的维度
+
+| 专业维度 | 评价对象 | 概览要回答的问题 |
 |---|---|---|
-| Synonym expansion | Complete concepts, aliases/abbreviations/translations/candidates | Which terms are supported, missing, too broad or semantically shifted? |
-| Query reasonableness | Grouping/operators/fields/languages/boundaries | Does it express intended conditions with valid restrictions? |
-| Search derivation | Features→concepts→groups→branches→merge | Why this combination; any unsupported narrowing/expansion? |
-| Selected-reference applicability | Identity/version/time eligibility/geography/citation mapping | Can the references serve their assigned evidentiary role? |
-| Factual foundation | Patent/product facts and original sources | Are decisive facts reliable and unknowns preserved? |
-| Text comparison and conclusions | Limitation mapping, interpretation and scenario method | Do sources support novelty/inventive-step/coverage reasoning? |
-| Compliance/traceability | Scope/method/source/version/limits/consistency | Are use boundaries clear and judgments reproducible? |
+| 同义词拓展质量 | 完整技术概念、别称/缩写/译词及候选用词 | 哪些词有依据，哪些遗漏、宽泛或语义偏移？ |
+| 检索式合理性 | 分组、算符、字段、语言及边界 | 式是否表达预期条件，是否存在语法或限定问题？ |
+| 检索逻辑推导 | 特征到概念、词组、分支及合并的映射 | 为什么这样组合，是否有无依据的收窄或扩大？ |
+| 入选文献与证据适用性 | 身份、版本、时间资格、地域及引用对应 | 现有文献能否承担报告赋予的证据用途？ |
+| 分析的事实基础 | 专利事实、产品事实和原文来源 | 决定性事实是否可靠，未知是否被当成已知？ |
+| 原文比对与结论合理性 | 限定对应、技术解释及场景方法 | 原文是否支持推论；新颖性、创造性或权项覆盖的方法是否适用？ |
+| 合规与可追溯性 | 范围、方法、来源、版本、限制和一致性 | 意见的使用边界是否明确，关键判断是否能够复核？ |
 
-These expand four modules, not seven MCP scores or mandatory rows. Use Conforms / Needs revision / Pending verification; Not applicable only where genuinely inapplicable, Not reviewed for excluded/unchecked dimensions. Missing in-scope evidence is pending, not inapplicable. Keep detailed evidence in section 2.
+这是四模块的业务展开，不是七项MCP质量分数，也不强制每次列满七行。判断用`符合 / 需修订 / 待核实`；确实不适用写`不适用`，超出范围或尚未检查写`本次未审`，可合并说明。范围内材料缺失用`待核实`，不能用“不适用”掩盖。概览只留简要依据，详细证据放在第二部分。
 
-For novelty/inventive-step reports, assess each separately, not one patentability score. FTO focuses on applicable claims/necessary limitations/boundaries; EoU binds patent/product evidence. Single-issue review shows relevant dimensions only and notes the rest unreviewed; no forced synonym calls or query creation.
+新创性报告在“原文比对与结论合理性”下分别列新颖性、创造性，不能合成一个笼统“新创性得分”。FTO关注适用权项、必要限定及结论边界；EoU强调专利侧与产品侧证据绑定。单项分析任务仅展示相关维度，并说明其余未审，不强制调用同义词工具或补检索式。
 
-## Search-specific presentation
+## 检索专项的呈现
 
-For material terminology issues use **Concept | Report term | Action | Professional reason**. Distinguish keep/add/restrict/remove and synonym/broader/narrower/related relationships and combination constraints. Label terms extracted from queries as such, not an author's nonexistent vocabulary list. Tool candidates need not all be adopted; unused counts do not measure quality.
+同义词存在实质问题时，用短表呈现：**技术概念｜报告用词｜处理建议｜专业理由**。处理建议区分保留、补充、限用或删除，解释同义、上/下位或相关关系及组合限制。原词表不存在但能从式中提取时注明“从报告检索式提取”，不冒充作者另有词表。官方候选不必全部采用，不能以未采用数量评价质量。
 
-For query issues show:
-1. Original query/fragment verbatim with location.
-2. Intended vs actual complete-concept logic; reviewer-reconstructed derivation labeled.
-3. Necessary changes labeled conceptual illustration or proposed Patsnap query, with syntax-check and execution states separate. No unexecuted “verified” claims.
-4. Potential noise/omission/scope effect without unmeasured missed counts or accuracy claims.
+检索式问题依次说明：
 
-Example: if hinge concept (A or B) must coexist with positioning C, `A OR (B AND C)` allows A without C; `(A OR B) AND C` matches the stated relationship. This illustrates logic, not actual missing/excludable patents or unverified precedence rules.
+1. **报告原式或具体片段**：原样引用，保留位置。
+2. **技术逻辑**：以完整概念解释预期关系、实际关系及差异；重建的推导明确标注为审核者解释。
+3. **修订建议**：只给必要改动，注明“概念逻辑示意”或“智慧芽建议式”；分别说明是否完成语法校验和实际执行。未调用工具不得写“已验证”。
+4. **对报告的影响**：说明潜在噪声、遗漏路径或范围偏移。没有实证不能写成“已漏检N篇”或准确率结论。
 
-## Writing
+例如，给定报告明确要同时包含“铰链概念”和“定位概念”，原式的概念逻辑为 `A OR (B AND C)`，其中A、B是铰链替代表达、C是定位概念。当A成立而C不成立时，该式仍允许进入结果；`(A OR B) AND C`才符合给定的共同出现条件。该反例说明组合关系偏差，不证明某篇专利实际漏检或应被排除，也不依赖未核实的算符优先级。
 
-Use complete formal English by default, or the explicitly requested language, identifying actual documents/features/disputed conclusions. Use the output language for headings, table labels and prose. Keep search languages independent. Preserve labeled evidence originals with translations as needed.
+## 表达要求
 
-One issue per paragraph: judgment, basis and impact; concrete remedies go in section 3. Distinguish contradicted by source, insufficient support, not yet confirmable and reasonable interpretive disagreement. Formal tone must not soften confirmed errors into vague suggestions. Avoid colloquial verdicts and empty business jargon.
+- 默认使用完整、书面的中文。用户明确指定交付语种时优先。报告标题、表头及正文统一采用交付语种，直接指出具体文献、特征和争议结论。检索语言独立确定。
+- 每项意见围绕一个核心问题。问题段落只写判断、依据和影响，具体修订集中在第三部分；无需机械列标签或重复建议。
+- 根据证据区分“与原文不符”“现有依据不足”“尚不能确认”与“存在合理解释分歧”。表达书面化不意味着将确定错误弱化为一般建议。
+- 避免“踩雷”“硬凑”“打脸”“一票否决”“把结论打回”等口语化评价，也避免“赋能”“闭环”等无具体含义的表述。
+- 正文使用上述IPR维度名称，保留必要问题序号便于修订对应；默认不显示A1/A2等内部指标编号、英文状态码、JSON/YAML或MCP工具名。词表和检索式本身属于审核对象，可以在业务正文中展示。
+- 引用应便于核对，例如“D1说明书第[0021]段”“D2权利要求1”。编号只能来自实际文献；无段落编号时使用文献标题、章节和精确引文。保留标明来源的原文，必要时附译文。正文说明统一使用交付语种。
+- 保留必要专业术语并首次说明含义。新创性报告分别评价新颖性和创造性；不把“技术相近”直接表述为“不具备新创性”。
+- 建议应指向具体修订，例如补充某项区别特征的分析或核对某篇文献的公开时间，避免只写“进一步完善”。
+- 不因缺少筛选过程记录而建议补交日志、排除理由或候选全集；不在每个问题后重复范围或法律提示。
 
-Use business dimension names and helpful issue numbers; leave internal indicator IDs/status codes/JSON/YAML/MCP fields in evidence records unless requested. Terms/queries themselves may appear as reviewed material. Use real readable citations (“D1 description [0021],” “D2 claim 1”); without numbering use title/section/exact quote. Define necessary technical terms initially. Technical similarity alone is not lack of novelty/inventive step. Recommendations must name a concrete action, not “improve further.” Do not request screening logs/exclusion reasons/full pools or repeat legal/scope warnings after every issue.
+## 入选结果与分析判断
 
-## Selected results and analysis
+入选文献检查身份与适用性、内容相关性和引用对应关系。事实基础与原文比对合理性分别判断，但正文应以具体意见表达，例如：
 
-Check selected identities/applicability, relevance and citation mapping. Assess facts and inference separately in concrete prose, e.g. “D1's publication date and version are verified. The cited paragraph describes the structure, but the report does not explain its correspondence to the distinguishing feature, so it does not yet support the conclusion.”
+“D1的公开时间及文献版本已核对。报告引用的段落确有相关结构描述，但尚未说明其与区别特征之间的对应关系，因此目前不足以支持该项结论。”
 
-Internal indicators may use Met / Partly met / Not met / Unverifiable / Not applicable. Explicit source contradiction means evidence_status=contradicted and Not met. Successful fulltext retrieval is not valid comparison.
+内部指标可使用 `满足 / 部分满足 / 不满足 / 不可验证 / 不适用`。原文明确反驳报告时，证据为 `contradicted`、相应判断为不满足；成功获取全文本身不等于比对成立。
 
-Screening process is out of scope, not an unverifiable indicator or a score/gap/disposition factor. Final lists are normal input. Only necessary facts about selected objects may be pending. Do not calculate screening hit/overlap/AI-agreement rates or infer exhaustive coverage from reviewed examples.
+筛选过程属于范围外事项，不是“不可验证”的指标，不计入分数、缺口或总体结论。仅有最终清单不阻碍开始审核。入选文献自身的必要事实无法核实时，才说明该具体事实尚不能确认。
 
-## Internal evidence record
+不计算筛选命中率、重合率或 AI 一致率。只陈述实际已核查的文献和分析单元，不据此宣称已穷尽相关专利。
 
-Local structure, not MCP fields; expose only for machine processing or explicit requests. Do not invent or lose its facts in external prose.
+## 证据记录
+
+下列为本地记录结构，仅在需要机器处理或用户明确要求时展示；不是官方 MCP 参数或返回字段。内部保存内容不得在对外意见中被虚构或丢失。
 
 ```yaml
 finding_id: F-001
-module: Analysis quality
+module: 分析质量
 indicator_id: A2
-indicator_result: Not met
+indicator_result: 不满足
 report_location: null
 report_assertion: null
 review_conclusion: null
-severity: Major
+severity: 重大
 evidence_status: contradicted
 evidence:
   - source_tool: null
@@ -86,27 +107,37 @@ limitations: []
 human_disposition: pending
 ```
 
-This is an unfilled structure, not a completed finding. Actual records need report location/assertion/evidence/judgment/recommendation. MCP citations retain real tool/container-prefixed path/identity/quote/location; missing fields stay missing. Report/attachment contradictions use file locations directly without fake MCP provenance. These materials establish their own statements; patent-fact verification follows official Patsnap tool boundaries.
+这是结构示意，空值须由实际资料填入，不能将其作为完成的发现。正式记录应具备报告位置、准确主张、证据、判断及建议。
 
-Evidence states: verified / contradicted / partially_supported / not_verifiable / not_checked. In prose explain the specific object as verified, inconsistent with source, partly supported, insufficient evidence to confirm, or not checked. human_disposition stays pending until the user adopts a view.
+引用 MCP 回执时保存实际工具名、返回字段路径、对象身份、原文和定位。字段不存在则保持缺失并说明，不编造原生字段。依据报告或附件的前后矛盾时直接记录文件和位置，无需填 MCP 来源。报告和附件可证明其自身写了什么；专利事实核验仍遵守官方智慧芽 MCP 边界。
 
-## Verification scope
+证据状态使用 `verified / contradicted / partially_supported / not_verifiable / not_checked`。这些状态属于内部记录；正文分别写明“已核实”“与原文不符”“仅有部分依据”“依据不足，尚不能确认”或“本次未核查”，并说明对象。用户未表达采用意见前，`human_disposition` 保持 pending。
 
-Normally state reviewed key references and material gaps briefly, without a coverage dashboard. If requested, count supported, contradicted, partly supported, unverifiable and unchecked assertions separately. Coverage denominator is explicitly planned in-scope assertions; numerator is completed verification establishing support or contradiction. Exclude screening-process material entirely; do not rescreen/create logs to increase coverage. Coverage is not quality.
+## 核验范围
 
-## Disposition rules
+默认用简短文字说明已核查的关键文献及必要缺口，不强制生成覆盖率仪表盘。用户要求统计时，分开列出确认支持、明确反驳、部分支持、不可验证和未检查的关键主张。
 
-- Pass: explicitly bounded scope, no major in-scope defect and sufficient evidence for intended use; partial pass is not whole-report pass.
-- Conditional pass: no established blocking error, but specified non-decisive revisions/evidence are needed before use.
-- Return for revision: confirmed major defects can change core conclusions, method or use.
-- Unable to complete review: missing decisive in-scope material prevents reliable opinion.
+如需计算覆盖比例，分母只能是本次明确计划核查的范围内主张；分子为已完成核验且可确认支持或反驳的主张。筛选过程全部排除，不能为提高覆盖率重筛或补建过程记录。覆盖程度不代替报告质量判断。
 
-Absent excluded screening-process material never downgrades disposition. Explain recommendation/reason in full sentences. Major defects cannot be averaged away; user-requested scoring needs weights and unscorable items.
+## 结论规则
 
-## Synthetic novelty/inventive-step example
+- `通过`：标题或结论明确所审范围；局部通过不代表整份报告通过。本次范围内无重大缺陷，关键主张的证据足以支持报告用途。
+- `有条件通过`：不存在已确认的阻断性错误，但在使用前仍需完成明确的非决定性修订或补证。
+- `退回修改`：已确认的重大缺陷足以改变核心结论、方法或报告用途。
+- `无法完成审核`：范围内的决定性材料或事实证据缺失，无法形成可靠意见。
 
-Illustration only, not verified patent facts: section 4.2 combines D1 [0021] disclosing A and D2 [0018] disclosing B to deny novelty, without a single reference disclosing both.
+缺少已排除的筛选过程材料不触发任何降级。正文以完整句子说明上述建议及其原因。重大缺陷不能以平均分抵消；若用户要求评分，应另外说明权重和不可评分项。
 
-> The novelty conclusion needs revision. Section 4.2 relies on D1 and D2 for separate features, but the available evidence does not establish complete disclosure in either single reference. Their combination therefore does not support the current novelty objection. Check features against individual references and analyze the combination separately for inventive step, including distinguishing features, the technical problem and a reason to combine.
+## 新创性报告示例
 
-This does not prove novelty/inventive step or require screening logs. For a section-4.2-only review, recommend revision within that scope, list novelty/inventive-step judgments separately and mark other dimensions unreviewed. Recommend individual-reference mapping and separate inventive-step reasoning, without penalizing missing vocabulary outside scope.
+以下为合成示例，文献名称、定位和事实只用于示范表达，不是实际核验结果。
+
+报告以D1与D2的组合为依据，认定某项权利要求不具备新颖性。给定材料中，D1说明书第[0021]段仅公开特征甲，D2说明书第[0018]段仅公开特征乙；报告未提供同一文献同时公开两项特征的依据。
+
+第二部分可采用下列表述：
+
+> 该项新颖性结论需要修订。报告第4.2节分别引用D1和D2证明特征甲、乙，但现有材料尚不能证明任一单篇文献完整公开所评价的技术方案，因此两篇文献的组合不足以支持当前的新颖性否定结论。建议按单篇文献逐项核对技术特征，并将组合评价另列为创造性分析。对于创造性，还应说明区别特征、相应技术问题及组合依据。
+
+该表述保留判断及证据范围，不直接宣称该技术方案必然具备新颖性或创造性，也不要求提供筛选日志。
+
+若仅核查第4.2节，质量概览可写“建议退回修改：现有依据不足以支持该项新颖性和创造性结论”，短表分别列两项判断，其余未审合并说明。修订建议仅列“补充单篇文献特征对照；独立说明创造性及其依据”。不因没有词表而降低这一专项的评价。

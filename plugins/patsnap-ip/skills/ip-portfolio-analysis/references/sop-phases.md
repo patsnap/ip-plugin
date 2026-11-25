@@ -1,88 +1,388 @@
-# Ten-stage execution SOP
+# 十阶段 SOP 详细执行规范
 
-P1–P10 are workflow phases; Chapters 01–13 are report sections. Keep numbering distinct. Sequence: boundaries → strategy → retrieval → competitors → own portfolio → industry/literature → mining → design-around → matrix/clusters → HTML.
+> 本文档规定研发专利布局分析的十阶段执行流程。
+> 每个阶段包含：执行动作、输出物、质量门控自检项、常见错误防范。
+>
+> 📌 编号约定：本文档的 `P1—P10` 一律指十阶段 SOP 的**执行阶段**；报告的 13 个章节一律写作 `第01—13章`。两套编号语义独立，禁止混用。
 
-## P1 — Boundaries and decomposition
+---
 
-Retain the request verbatim. Define topic with broader/narrower concepts, evidenced application exclusions, target/confirmed affiliate names and relevant competitors/supply-chain roles. Build a topic-specific tree and Chinese/English/abbreviation/trade-name vocabulary. Use object, structure/material, mechanism, control, integration and validation only where relevant; no mandatory six modules, energy or drivetrain branches. Each node maps to a user objective/evidence.
+## 阶段总览
 
-Gate: engineering names without IPC; justified exclusions rather than count control; all known in-scope aliases; relevant roles/inapplicability explained; vocabulary coverage including broader/narrower terms. Avoid class codes as tree labels and missed confirmed subsidiaries/institutes, without claiming a complete group tree.
-
-## P2 — Strategy
-
-Read search-strategy-method.md. Build nine concept blocks with Chinese/English/abbreviation/trade terms and class anchors confined to query material. Identify at least five noise categories where supported, each with terms/treatment/N query; do not invent exclusions solely to fill categories. Construct S0 seed terminology checks (200–500 is an indicative planning range, not invented results), S1 direct-topic, S2 device/function and S3 class-anchor routes. Deliver FINAL_BALANCED_EXPANDED, NOISE_TOTAL_EXPANDED and FINAL_PRECISION_EXPANDED, with all concepts expanded and actual supported syntax.
-
-Illustrative structure only, requiring real terms and syntax checks:
-
-```text
-(topic_terms AND function_terms)
-OR (device_terms AND function_terms)
-OR ((IPC_LOW:verified_code_1 OR IPC_LOW:verified_code_2) AND constrained_terms)
+```
+P1 边界定义    →  P2 检索策略   →  P3 全量检索   →  P4 竞对分析
+      ↓                                                    ↓
+P10 HTML报告   ←  P9 布局矩阵   ←  P8 规避设计   ←  P5 自有画像
+                      ↑                                    ↑
+                  P7 挖掘创新点  ←  P6 行业动态+非专利文献
 ```
 
-Gate: object/function/mechanism/application/product/class dimensions covered; noise categories justified; no unresolved S1/N1/term placeholders in executable delivery; proximity such as $W/$SEN where needed, not flat AND; IPC_LOW for subgroup-inclusive intent. Do not label shorthand/pseudocode executable or omit the required expanded noise expression.
+---
 
-## P3 — Comprehensive retrieval
+## P1 · 边界定义与技术拆解
 
-Use search_patent for details and field_analysis for population totals under the canonical scope. Execute balanced query/global baseline, each adopted competitor/supplier assignee route, and target plus only confirmed affiliates. Save date/database version.
+### 执行动作
 
-Every table identifies publication/application unit; family relationships do not change counts. Separate global/CN. Note recent-two-year publication lag and possible incompleteness. Gate: date, adopted identities/affiliate gaps, geography and applicable roles recorded; partial-role rankings disclose included/excluded roles. Never call selected-company ranks industry-wide or compare mismatched geographies.
+1. 接收用户输入，原始请求逐字保留
+2. 定义技术边界：
+   - 核心技术主题（含上位/下位概念）
+   - 应用场景排除（非目标领域）
+   - 目标企业与关联公司全称（用于申请人检索）
+   - 竞对范围（按行业识别直接竞争者与相关产业链角色）
+3. 构建适用于该主题的技术分支树（见下）
+4. 建立关键词体系（中英文 + 缩写 + 商品名）
 
-## P4 — Competitive landscape
+### 技术树按行业生成
 
-Use field_analysis supported dimensions for trends/ranks/distributions; search/fetch representative records. Apply missing-capability rules. Produce project-scope filing trends (filing/grant dates distinct), Top 10–15 assignee bars sorted ascending programmatically, annual competitor comparison, per-company focus with representatives, and module comparison tied to the tree. Insufficient data means no density map.
+依据对象、结构／材料、工作机制、控制、集成及验证等适用角度拆解；不强制六模块，不把能源、电驱作为所有项目的必备分支。每个节点关联用户目标或已核实的技术依据。
 
-Identify direct competitors, suppliers, technology providers and relevant roles by evidence, not fixed OEM/Tier-1 quotas. Automotive may use those roles; other sectors use their own. Missing/inapplicable roles are disclosed, not fabricated.
+### 质量门控自检
 
-Gate: ascending bars, relevant supply-chain coverage, representative identities/status/evidence without padding. No recent records means “No recent filings found within this scope,” not business exit; consider publication lag/entity coverage. Activity needs comparable trends and is not automatically threat. Include evidenced early pioneers even when many older rights expired.
+- [ ] 技术树节点全部使用技术语言，**零IPC编号**
+- [ ] 排除边界有技术依据，不为数量添加排除条件
+- [ ] 目标企业别名已全部列出（用于后续申请人检索）
+- [ ] 竞对与产业链对象有相关性依据，不适用角色已说明
+- [ ] 关键词已覆盖：中文 + 英文 + 缩写 + 商品名 + 上下位概念
 
-## P5 — Own portfolio
+### 常见错误
 
-Search target/confirmed affiliates, then individually verify current status via fetch and relevant lifecycle events for changes/fees/lapse reasons; never estimate. Classify by adopted tree. Highlight active key patents with application/date/technical point and important inactive patents with evidenced reasons (fees/rejection/abandonment, otherwise unknown).
+- ❌ 技术树节点直接写"B60W20（混合动力控制）"——应写"混合动力控制策略"
+- ❌ 遗漏目标企业的子公司/关联公司名称，导致检索漏掉大量自有专利
 
-Status interpretation uses actual current definitions: active/granted with applicable term, pending/examination, inactive/expired/abandoned. Resolve contradictions with events/date; filing age or long examination does not prove withdrawal.
+---
 
-Gate: chosen unit, same-application-only publication merging, individual status verification, no zero pie slices, active/total rate reconciled, supported lapse reasons. CN/WO/US publications are three publications, not automatically three independent technical inventions.
+## P2 · 检索策略构建
 
-## P6 — Industry and literature
+### 执行动作（遵循内置方法论 `references/search-strategy-method.md`）
 
-Aim for at least four relevant policy/regulatory items and two applicable standards (ISO/GB/SAE as relevant), each with portfolio implications. Actual evidence controls counts; retain gaps rather than padding. Without original/version, mark standards unverified; article mentions do not prove currency.
+1. 构建技术要素表（9个概念块标准）：
+   - 每块：中文词 + 英文词 + 缩写商品名 + IPC锚点（仅在此表中出现）
+2. 构建噪音要素表（至少5类噪音）：
+   - 每类：代表词 + 处理策略 + 噪音检索式（N系列）
+3. 构建分层检索式：
+   - S0 种子窄式（术语校验，预期200—500件）
+   - S1 主题直连路
+   - S2 装置功能路
+   - S3 分类锚点补充路
+4. 合并为三条完整展开式（可直接粘贴到智慧芽执行）：
+   - `FINAL_BALANCED_EXPANDED`（平衡式）
+   - `NOISE_TOTAL_EXPANDED`（噪音排除式）
+   - `FINAL_PRECISION_EXPANDED`（精确式）
 
-Aim for six relevant articles through actual search_literature/fetch_literature; inspect schemas, no patent Boolean strategy. Actual data.docs[].id becomes paper_id. Use returned/verified title/year/authors/affiliations/journal/citations only; missing fields do not authorize invented tools/statistics. Each article gives title/year/core point/innovation implications, including existing public knowledge. Produce a known-directions list to prevent recommending already-known concepts as new.
+### 三条展开式格式要求
 
-Gate: policy/standard impacts, actual article sources and known directions, with count/data gaps explicit.
+```
+FINAL_BALANCED_EXPANDED =
 
-## P7 — Four-block/ten-step mining
+(
+  /* S1：主题直连路 */
+  TAC:("词1" OR "词2" OR ...) AND TAC:("功能词1" OR ...)
+)
+OR
+(
+  /* S2：装置功能路 */
+  TAC:(装置词1 OR 装置词2) AND TAC:(功能词1 OR 功能词2)
+)
+OR
+(
+  /* S3：分类锚点路 */
+  (IPC_LOW:<核心分类号1> OR IPC_LOW:<核心分类号2>) AND TAC:(...)
+)
+```
 
-Read mining-method.md. Show CP-0 type/mode/entity/bottlenecks/technical lines, reusing P1–P6 scope and continuous authorization; wait only for decisive missing choices. Blocks: decomposition (scan/decompose), concepts (prioritized problems/solutions), evaluation (prior art/differentiation/conditional risk/design-around/refinement), dispositions (roadmap only requested).
+> 展开式必须：无任何 S1/S2/N1 等占位符；所有概念块完整展开；可直接执行。
 
-Evaluate technical differentiation/overlap, legal scope/stability and market value/barriers. Dispositions: prepare filing only with reproducible design, prior-art comparison, evidenced differences/effects and no decisive gap; refine; incubate; trade secret; abandon. No grant guarantees.
+### 质量门控自检
 
-For P0, identify improving/worsening parameters among TRIZ's 39, consult the contradiction matrix, identify principles and convert to concrete domain solutions. Gate: CP-0 scope/authorization, no IPC in business prose, all P0 TRIZ work, every disposition, and nonpatent as well as patent evidence.
+- [ ] 技术要素表已覆盖：对象/功能/机制/应用/商品名/分类号五维
+- [ ] 噪音要素表包含至少5类
+- [ ] 三条展开式无占位符，零残留
+- [ ] 复合概念使用位置符（$W/$SEN）而非仅用 AND
+- [ ] IPC 使用 `IPC_LOW` 确保覆盖子分类
 
-## P8 — High-risk design-around
+### 常见错误
 
-Read design-around-method.md. For each evidence-confirmed blocker examine applicability of all four strategies: substitution (different implementation), combination (integrate features), decomposition (cooperating subfeatures), removal (transfer function elsewhere). Mark inapplicable strategies with reasons.
+- ❌ 提供伪代码检索式（`S1 = TAC:(A_CORE) AND TAC:(C_FUNC)`）——必须提供完整展开式
+- ❌ 遗漏 NOISE_TOTAL_EXPANDED，导致噪音干扰结果
+- ❌ 使用 `IPC:B60W20`（仅精确匹配）而非 `IPC_LOW:B60W20`（含子分类）
 
-Output patent/application/title/assignee/status, independent-claim core limitations, strategy alternatives/recommendation, original→new feature, expected effects and evidenced new-patent opportunity. State configuration/claims/effect-cost validation/unknowns. Without comparison/validation, say candidate design-around, not successfully avoided or superior.
+---
 
-Gate: four applicability checks per blocker, evidence for new opportunities without quotas, and permission to recommend redesign without filing, further evidence or abandonment based on performance/cost.
+## P3 · 全量专利检索
 
-## P9 — Matrix and clusters
+### 执行动作
 
-Use the single matrix definition in layout-report-method.md: technical category/direction, type, existing coverage, future actions, evidence status, strategy, verified existing and proposed filing regions. Symbols describe existing coverage only. Present all five spaces in order; unsupported spaces remain pending.
+通过 `search_patent` 获取明细，使用 `field_analysis` 获取全量计数；参数与计数口径遵循 `SKILL.md`「工具与数据要求」。
 
-Clusters follow cluster-spec.md: overall three-box/arrow overview distinguished by color; existing/proposed status tree; detailed patent cards with application/3–4 technical features/abstract drawing or labeled SVG. Adapt actual clusters to evidence rather than inventing them to fit layout.
+1. 执行 FINAL_BALANCED_EXPANDED，记录全球总量
+2. 执行申请人过滤检索，获取各竞对件数：
+   - 已采用的直接竞争者逐一过滤（`ANS:(企业名称 OR 别名1 OR 别名2)`）
+   - 已采用的关键供应商等角色逐一过滤
+3. 执行目标企业检索（仅合并用户已确认的关联公司范围，披露集团覆盖限制）
+4. 记录检索日期、数据库版本
 
-Gate: all five spaces, separate geographic columns, counts consistent with cover/conclusions, feature descriptions and appropriate figures; distinguish proposed/verified items.
+### 数据口径三原则
 
-## P10 — HTML and iteration
+| 原则 | 说明 |
+|------|------|
+| 单位明确 | 引用项目口径，每表注明公开号级或申请号级；同族关联不改变计数 |
+| 全球/CN分开 | 全球数字与中国境内数字分两列标注，不混用 |
+| 时滞说明 | 2年内的数据在图注中注明"近2年申请存在公开滞后，统计可能尚不完整" |
 
-Follow html-spec.md. Mandatory checks:
-1. Reconcile every repeated number across cover cards, conclusions, charts and detail tables.
-2. Every sidebar href has an actual section ID.
-3. IPC/CPC codes occur only in the search appendix.
-4. Fetch media clues, actually read/check image/document identity; use labeled analytical SVG if originals are unavailable, never a fake original.
-5. Trace every number/unit; estimates retain source/formula/assumptions/uncertainty. Unsupported numbers are removed or unavailable, not replaced with spurious precision. Verify statistics/individual/deep-reading coverage under layout-report-method.md; complete chapters are not complete work.
+### 质量门控自检
 
-Check used CSS and initial scroll-spy activation (`cur = sections[0]`). Render/inspect relevant layouts and iterate on actual defects.
+- [ ] 检索日期已记录
+- [ ] 用户已确认的目标企业及关联主体已纳入，未覆盖的集团成员已披露
+- [ ] 全球与CN数字分开标注
+- [ ] 按项目范围覆盖适用的竞争者和产业链角色
+- [ ] 排名只覆盖部分角色时，图注说明所含与未含角色
+
+### 常见错误
+
+- ❌ 排名只覆盖部分企业，却称为全行业排名
+- ❌ 不同企业使用不同地域范围的计数，却直接比较规模
+
+---
+
+## P4 · 竞对态势分析
+
+### 执行动作
+
+以下趋势、排名与分布统计统一调用 `field_analysis`，按实际 schema 选择支持的维度；代表专利用 `search_patent` / `fetch_patent` 补充。聚合能力缺失时遵循 `SKILL.md` 降级规则。
+
+1. 申请趋势图（使用项目口径的时间字段、起止年及地域，申请与授权分别标注）
+2. 申请人排名图（Top10—15，严格升序排列）
+3. 主要竞对年度申请对比折线图
+4. 各竞对技术聚焦方向分析（逐家，含代表专利）
+5. 技术模块竞对布局比较（维度随技术树，数据不足不画密度图）
+
+### 按行业建立竞对与产业链清单
+
+先识别直接竞争者、关键供应商、技术提供方及其他适用角色，记录入选依据。按用户范围及证据选择对象，不设整车厂或Tier-1固定数量。汽车项目可使用整车厂／Tier-1分层；其他行业使用相应角色。缺证或不适用须说明，不补造名单。
+
+### 质量门控自检
+
+- [ ] 排名图数据严格升序（使用排序函数，不手写）
+- [ ] 关键供应商与产业链分析按相关性展开，不适用时说明
+- [ ] 代表专利记录身份、状态与相关证据；未取得适用对象时标缺口，不凑件
+- [ ] 近期无记录仅写“当前口径未检出近期申请”；退出判断另需业务证据，考虑公开时滞和主体范围
+- [ ] 近期活跃度须有同口径趋势支持，不直接等同威胁程度
+
+### 常见错误
+
+- ❌ 排名图中出现数据倒序（如105件排在123件之上）
+- ❌ 遗漏早期技术先驱型供应商（历史专利多、但近年多已失效）的分析
+
+---
+
+## P5 · 自有专利画像
+
+### 执行动作
+
+1. 检索已确认的目标企业及关联公司专利（含用户已确认的子公司/研究院，不声称完整集团树）
+2. 使用 `fetch_patent` 逐件核查当前法律状态（有效/失效/审中）；需核实状态变更、年费或失效原因时调用 `fetch_patent_lifecycle`，不可估算
+3. 按已采用技术树分类统计
+4. 标注关键有效专利：申请号 + 申请日 + 技术要点
+5. 标注重要失效专利：失效原因（年费/驳回/主动放弃）
+
+### 逐件核查标准
+
+| 状态 | 判定依据 |
+|------|---------|
+| 授权有效 | 智慧芽 法律状态 = Active/Granted，且在保护期内 |
+| 审中 | 智慧芽 法律状态 = Pending/Examination |
+| 已失效 | 智慧芽 法律状态 = Inactive/Expired/Abandoned |
+
+> 状态有矛盾时核对事件与时点；申请年份和审查时长本身不能证明撤回或失效。
+
+### 质量门控自检
+
+- [ ] 件数符合项目口径；申请号级仅合并同一申请公开文本，不将同族跨国申请合并
+- [ ] 每件专利法律状态已在 智慧芽 逐件确认
+- [ ] 模块分布图无0值切片（饼图）
+- [ ] 有效率数字与有效件/总件相符
+- [ ] 失效专利注明失效原因（非仅标注"已失效"）
+
+### 常见错误
+
+- ❌ 将"公开号级"数字作为"技术件数"——同一专利CN/WO/US三件算三件，夸大布局实力
+- ❌ 仅凭审查时间长就推断申请已撤回
+
+---
+
+## P6 · 行业动态与非专利文献
+
+### 执行动作
+
+1. 基于用户材料和可核验来源梳理政策与法规（目标至少4条，含对专利布局的影响）；不足时如实列出并保留缺口，不为满足数量目标而凑数
+2. 分析可取得的相关技术标准（ISO/GB/SAE，目标至少2条）；未取得原文/版本时标为未核实，不把论文引用当现行性证明
+3. 学术论文检索（智慧芽论文库，至少6篇）：
+   - 使用实际暴露的论文检索与详情工具，核对参数和返回字段
+   - `search_literature`：检索论文；论文检索不支持专利使用的 Boolean 策略
+   - `fetch_literature`：将检索结果中的`data.docs[].id`作为`paper_id` 读取题录、摘要、作者、机构、期刊等信息
+   - 引证、机构与期刊分析仅基于实际返回并核实的数据；缺少字段时披露限制，不调用未暴露的工具或编造统计
+   - 每篇：标题 + 发表年 + 核心技术点 + 对创新方向的影响（是否已公知）
+4. 总结"已公知方向"清单（这些方向申请专利需要更高差异化）
+
+### 质量门控自检
+
+- [ ] 政策/标准条目均有"对专利布局的影响"说明
+- [ ] 学术论文来源已注明（不可凭记忆虚构论文标题）
+- [ ] 已公知方向清单已输出（防止后续挖掘创新点时建议申请已公知方案）
+
+---
+
+## P7 · 创新点挖掘（四块十步法）
+
+### 执行动作（遵循内置方法论 `references/mining-method.md`）
+
+**CP-0 输出挖掘前置确认卡，复用已确认范围与连续执行授权；仅决定性缺项停等，规则见 mining-method.md**
+
+```
+📋 挖掘前置确认卡
+挖掘类型：[类型]
+挖掘模式：[快速/深度]
+挖掘立足方：[企业名称]
+预判卡点：[布局卡/方向卡/竞争卡]
+拟挖掘技术主线：
+  - 主线1：...
+  - 主线N：...
+⏸ 以上信息是否准确？确认后进入技术拆解。
+```
+
+**Block 1：技术拆解**（专利扫描 + 技术分解）
+**Block 2：发明构思**（发现问题P0/P1/P2 + 解决构思）
+**Block 3：评价构思**（现有技术比对 + 侵权风险 + 规避设计 + 提炼创新点）
+**Block 4：确定去向**（五类去向；用户要求时附6个月路线图）
+
+### 创新点三维评估矩阵
+
+| 维度 | 评估项 |
+|------|--------|
+| 技术维度 | 差异化程度（高/中/低）+ 现有技术重合度（高/中/低）|
+| 法律维度 | 保护范围合理性 + 权利稳定性 |
+| 市场维度 | 商业价值 + 竞争壁垒强度 |
+
+### 创新点去向五分类
+
+| 去向 | 条件 |
+|------|------|
+| 立即申请 | 方案可复现、关键差异及必要效果有证据、已完成现有技术对照，无决定性缺口；不保证授权 |
+| 补充细化 | 方向正确但需补充实验数据或FTO先行 |
+| 储备孵化 | 方向正确但技术不成熟 |
+| 商业秘密 | 难以逆向工程的核心算法/工艺参数 |
+| 放弃 | 技术效果差或已为公知 |
+
+### TRIZ矛盾分析（P0级创新点必须执行）
+
+1. 确定欲改善参数（39个工程参数中选1）
+2. 确定恶化参数（39个工程参数中选1）
+3. 查矛盾矩阵，获得推荐发明原理
+4. 将发明原理具体化为技术方案
+
+### 质量门控自检
+
+- [ ] CP-0范围与授权已记录，决定性歧义已解决
+- [ ] 正文中零IPC编号（IPC仅在检索策略说明处）
+- [ ] P0级问题已全部完成TRIZ分析
+- [ ] 每个创新点已有明确去向分类
+- [ ] 非专利文献检索已执行（不可只检索专利）
+
+---
+
+## P8 · 高风险专利规避设计
+
+### 执行动作（遵循内置方法论 `references/design-around-method.md` 四策略规避）
+
+对每件高风险专利（risk_label = blocker）执行四策略规避：
+
+| 策略 | 适用条件 | 核心动作 |
+|------|---------|---------|
+| 替换法 | 存在技术等同替代方案 | 替换关键技术特征为不同实现方式 |
+| 组合法 | 多特征可合并 | 合并多个特征为新的组合特征 |
+| 分解法 | 某特征可拆分 | 将特征拆分为多个子特征协同实现 |
+| 裁剪法 | 某特征可由其他部件替代 | 删除该特征，功能转移至其他部件 |
+
+### 规避方案输出格式
+
+```
+专利：[申请号] [专利名称]（[申请人]，[法律状态]）
+独立权利要求核心特征：
+  - 特征1：...
+  - 特征2：...
+  - 特征N：...
+
+规避策略：[替换法/组合法/分解法/裁剪法]（推荐：[策略名]）
+
+规避方案：
+  [策略1]：将"[原特征]"替换为"[新特征]"
+    → 技术效果：[预期效果]
+    → 新专利机会：✅/❌ [说明]
+
+规避结论：候选[策略]，适用配置、权项依据、效果／成本验证及剩余未知分别说明；未完成比对与验证不称已规避或更先进。
+```
+
+### 质量门控自检
+
+- [ ] 每件已确认高风险对象已检查四策略的适用性，不适用说明原因
+- [ ] 新专利机会须有技术差异依据，不为数量强行产生
+- [ ] 可建议改产品不申请、继续补证或放弃，说明技术效果、成本和证据依据
+
+---
+
+## P9 · 布局矩阵与集群设计
+
+### 布局矩阵格式
+
+按 `layout-report-method.md` 的唯一矩阵定义生成：技术类别／方向、专利类型、已有覆盖、未来动作、证据状态、布局策略、已有保护地域和拟申请地域。符号只用于已有覆盖，不兼指申请计划。五类空间沿该方法规定的顺序呈现，尚无证据的空间写待核。
+
+### 集群设计三层结构
+
+详细规范见 `references/cluster-spec.md`。
+
+**三层递进：**
+1. 全局总览（三框横排+箭头，颜色区分集群）
+2. 集群框架树（现有+拟申请分层，颜色区分状态）
+3. 专利明细卡片（申请号+技术特征+摘要附图）
+
+### 质量门控自检
+
+- [ ] 布局矩阵覆盖五类技术空间（不可只覆盖2—3类）
+- [ ] 已有保护地域与拟申请地域分列，未核实状态明确
+- [ ] 集群件数与核心结论、封面指标一致
+- [ ] 每件专利有3—4条技术特征描述
+- [ ] 拟申请专利有SVG示意图（无法获取真实图时）
+
+---
+
+## P10 · HTML报告生成与迭代
+
+### 报告生成规范
+
+详细见 `references/html-spec.md`。
+
+### 生成后必须执行的五项检查
+
+**检查1：数字一致性扫描**
+在报告中搜索所有数字，确认以下四处完全一致：
+- 封面指标卡
+- 核心结论
+- 对应图表
+- 章节详情表格
+
+**检查2：锚点有效性检查**
+逐一确认侧边导航栏每个 `href` 对应的 `id` 在HTML中存在。
+
+**检查3：IPC编号位置检查**
+全文搜索 `IPC` / `CPC` 关键字，确认仅出现在附录检索式章节。
+
+**检查4：图片URL有效期检查**
+使用fetch_patent(include=["media"])取得媒体线索，读取后核对图像与文献身份。无法取得原图时使用注明性质的SVG，不冒充原始附图。
+
+**检查5：数字证据与完成范围检查**
+逐项回溯数字来源和单位；测算保留公式、假设与不确定性，无依据则删除数字或标未取得，不能机械替换成精确值。按 layout-report-method.md 核对统计、逐件核查和重点深读覆盖，章节齐全不等于完整业务交付。
+
+### 页面检查
+
+1. CSS类均有实际用途。
+2. 导航滚动高亮在首屏正确激活（`cur = sections[0]` 默认值）。

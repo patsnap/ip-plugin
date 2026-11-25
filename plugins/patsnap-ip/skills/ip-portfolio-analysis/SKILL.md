@@ -1,113 +1,216 @@
 ---
 name: ip-portfolio-analysis
-description: "Use when planning patent protection for a defined project. Analyze portfolios, competitors and technical spaces using explicit dates and jurisdictions; produce a layout matrix and evidence-backed recommendations. Proposed workflow; apply the local MC/Skill/ip-portfolio-analysis execution contract. Runtime binding and channel availability remain unverified."
+description: "结合企业自身专利覆盖和竞争态势，规划技术方向、专利组合、申请优先级及目标国家/地区，并生成 HTML 报告。"
 ---
 
-# Patent Portfolio Analysis
 
-## Overview, tools and language
+# 专利布局分析
 
-A complete SOP, quality gates, error prevention and output contract for HTML portfolio reports suitable for technical review. Four methods are provided by references within this directory. Use available patent/literature tools and disclose missing capabilities. Read [tool usage](references/tool-usage.md) for handoffs/counting/evidence; runtime schemas govern parameters/results. Verify company/product/industry/standards facts from user/available web material, not invented data, abstracts-as-fulltext, samples-as-populations or unread links.
+## 工具使用
 
-## Applicability
+按业务步骤选择工具；需要衔接查询、核对统计口径或处理证据限制时，阅读[工具使用要点](references/tool-usage.md)。完整参数和返回结构以运行时工具定义为准。公司、产品、产业和标准资料可结合用户材料及环境可用的网页检索/读取能力核实。能力或证据缺失时明确受限范围，不编造数据，不把摘要、样本或来源链接当作完整证据。
 
-**Objective:** Plan future portfolios for a target company or R&D project, using own coverage, competitive and industry evidence to determine technical gaps to strengthen, patent combinations, filing priorities and target countries, and deliver portfolio analysis with HTML.
 
-**Scenarios:** New R&D or annual portfolio planning; competitive landscape, threat and own-portfolio health analysis for portfolio decisions; invention mining, design-around, matrices and cluster design within that planning; and technical-review material based on these analyses.
+## 概述
 
-**Exclusions:** Only interpreting one competitor’s existing technology or producing standalone new technical proposals. Competitive research, mining and design-around serve portfolio decisions within this workflow and do not change its main deliverable.
+本 Skill 涵盖从零开始生成一份可直接提交技术评审的专利布局HTML报告的全套SOP、质量门控、常见错误防范与输出规范。
 
-| Input | Requirement/default |
-|---|---|
-| Technical topic | Required; ask once if absent. |
-| Target company | Required; ask once if absent. |
-| Competitors | Recommended; otherwise identify relevant direct competitors, key suppliers and other supply-chain roles for the industry. |
-| Objective | Portfolio advice + technical-review report. |
-| Time | All available data, emphasis on the last ten years. |
-| Geography | Global totals + detailed China analysis. |
+四套方法论均由本目录内的参考文档提供。专利与文献通过相应检索工具获取；数据能力缺失时说明影响范围。
 
-Once the technical topic and target company are known, organize requirements and technical boundaries. Do not require users to supply their own patent inventory, technical tree or portfolio matrix. Confirm scope and strategy at P2 before search; record extra monitoring or validation plans separately.
+## 适用范围
 
-**Confirmation rules:** Confirm P2 boundaries, decomposition, elements, noise, strategy and queries stage by stage under the built-in search method and report template. Apply the built-in mining method to P7 CP-0 and deep-mode key choices. A generic analysis/report request does not confirm these specific contents. Reuse explicit confirmations and applicable continuous authorization with their scope recorded; self-checks do not replace user confirmation, and pending contents are not approved execution inputs.
+**适用目标：** 为目标企业或研发项目规划未来专利布局，结合自有覆盖、竞对态势及行业证据，确定需补强的技术方向、专利组合、申请优先级和目标国家，形成布局分析与 HTML 报告。
 
-Default all authored dialogue, reports, templates, headings and chart labels to English; honor explicit output-language requests. Preserve source originals and verbatim user requirements with labeled translations where needed. Search languages, country scope and source identifiers remain independent; English localization does not change China/global scope. Set HTML lang accordingly.
+**适用场景：**
 
-## Principles
+- 新研发项目或年度专利布局规划；
+- 为布局决策服务的竞对态势分析、威胁评估和自有专利健康度诊断；
+- 布局过程中的创新点挖掘、规避设计、布局矩阵与集群设计；
+- 基于上述分析的技术评审材料准备。
 
-1. Trace every count to query/unit. Disclose population statistics, individual checks and deep-reading coverage separately. Estimates need sources/formula/assumptions; missing is unavailable, not fabricated precision.
-2. Lock conventions under references/layout-report-method.md. Every table states publication/application unit; comparisons share units/scope. Application deduplication is not family deduplication.
-3. Keep IPC/CPC codes out of business prose, trees and matrices; allow them only in the search appendix with meanings.
-4. Use built-in search-strategy-method, mining-method, design-around-method and layout-report-method, supported by ppt-output-spec/data-fields.
-5. Final HTML has no unresolved placeholders, example content or “to fill” text; genuine evidence gaps must be explicit findings, not unfilled templates.
+**不适用：** 仅解读单一竞争对手已有技术，或仅产出具体新技术提案的任务。竞对研究、创新点挖掘和规避设计是本流程服务于布局决策的组成部分，不因出现这些内容而改变主交付范围。
 
-## Ten-stage SOP
+**最小输入：**
+| 输入项 | 是否必须 | 缺省处理 |
+|--------|---------|---------|
+| 技术主题 | ✅ 必须 | 询问一次 |
+| 目标企业（分析主体）| ✅ 必须 | 询问一次 |
+| 主要竞对 | 建议提供 | 默认：按该行业选择直接竞争者、关键供应商及其他必要产业链角色 |
+| 分析目的 | 建议提供 | 默认：专利布局建议+技术评审报告 |
+| 时间范围 | 可选 | 默认：全量，重点近10年 |
+| 地域范围 | 可选 | 默认：全球总量+中国深度分析 |
 
-P1–P10 always mean execution phases; Chapters 01–13 mean report sections. Never interchange them. Details: references/sop-phases.md.
+技术主题和目标企业已知即可整理需求与技术边界，不将自有专利清单、技术树或布局矩阵当作必交输入。检索前按 P2 的确认检查点落实范围和策略；监测方案、验证计划等附加交付单独记录。
 
-| Phase | Work | Output / method |
+**确认规则**：P2 的技术边界、拆解、要素、噪声、策略和检索式按内置检索方法及报告模板逐阶段确认；P7 的 CP-0 与深度模式关键选择按内置挖掘方法执行。普通分析或报告请求不自动视为对这些具体内容的确认。复用已有明确确认和适用的连续执行授权，记录对应范围；自检不替代用户确认，待确认内容不作为已批准的执行依据。
+
+---
+
+## 交付语种
+
+对话、报告、模板标签默认用中文，用户明确指定交付语种时优先。按交付语种统一标题、表头、图例与正文，并设置 HTML 的 `lang`。原始证据及用户原话保留原文，必要时附标明来源的译文。检索语言、法域及证据编号独立于交付语种。
+
+## 核心原则
+
+1. **数字严格可溯**：专利件数保留可追溯的查询和统计单位；全量统计、逐件核查和重点深读分别披露，不能互相替代。测算须有来源、公式和假设；缺数据写未取得，不伪造精确值
+2. **口径严格统一**：执行前按 `references/layout-report-method.md` 锁定项目口径；每表注明公开号或申请号级单位，同一比较不混用。申请号去重不等于同族去重
+3. **IPC分类号隔离**：正文、技术树、布局矩阵等所有面向业务的章节禁止出现IPC编号；IPC仅在检索策略附录中出现，且必须加括号注释含义
+4. **四套内置方法论联动**：检索策略使用内置 `references/search-strategy-method.md`；创新点挖掘使用内置 `references/mining-method.md`（四块十步法）；规避设计使用内置 `references/design-around-method.md`（四策略）；报告规范遵循内置 `references/layout-report-method.md` + `ppt-output-spec.md` + `data-fields.md`
+5. **报告零占位符**：最终HTML报告中不得出现任何未替换的占位符（XXX/示例/待填写）
+
+---
+
+## 执行工作流（十阶段SOP）
+
+详细规范见 `references/sop-phases.md`。
+
+> 📌 编号约定：`P1—P10` 一律指本 SOP 的**执行阶段**；报告的 13 个交付章节一律写作 `第01—13章`。两套编号语义独立，禁止互相替代或混用。
+
+### 阶段概览
+
+| 阶段 | 名称 | 核心产出 | 内置方法论 |
+|------|------|---------|-----------|
+| P1 | 边界定义与技术拆解 | 技术树 + 关键词体系 + 排除边界 | layout-report-method |
+| P2 | 检索策略构建 | S0/S1/S2/S3 + NOISE + FINAL 展开式 | search-strategy-method |
+| P3 | 全量专利检索 | 全量数据集（公开号级）+ 竞对数字 | `search_patent` + `field_analysis` |
+| P4 | 竞对态势分析 | 申请趋势图 + 申请人排名 + 技术聚焦 | `field_analysis` |
+| P5 | 自有专利画像 | 逐件核查结果（模块分布+法律状态）| `fetch_patent` + `fetch_patent_lifecycle` |
+| P6 | 行业动态与非专利文献 | 政策/标准 + 学术论文影响分析 | `search_literature` + `fetch_literature`；政策/标准分析可用来源 |
+| P7 | 创新点挖掘（四块十步）| CP-0确认卡 + Block1-3输出 + 创新点清单 | mining-method |
+| P8 | 规避设计 | 高风险专利四策略规避方案 | design-around-method |
+| P9 | 布局矩阵与集群设计 | 布局矩阵（已有覆盖／计划／证据分列）+ 适用集群设计 | layout-report-method + cluster-spec |
+| P10 | HTML报告生成与迭代 | 纯净HTML报告（数据可溯/正文无IPC/无占位符）| html-spec |
+
+---
+
+## 输出合同
+
+### 必须包含的13个章节
+
+1. 封面 + 核心结论（3—5条）
+2. 技术主题拆解（技术树 + 关键词体系）
+3. 行业动态与非专利文献
+4. 竞对全量专利态势（申请趋势 + 申请人排名 + 聚焦方向）
+5. 关键供应商与产业链角色分析（按行业及证据选取，无相关对象时说明不适用）
+6. 目标企业自有专利画像（逐件核查，含模块分布+法律状态）
+7. 前沿高价值专利深度分析（3—5件关键专利）
+8. 五类技术空间分析（全5个空间，不可缺失）
+9. 高风险专利规避设计方案（四策略）
+10. 创新点完整清单（三维评估 + TRIZ分析 + 去向分类）
+11. 专利布局矩阵（技术类别／方向、专利类型、已有覆盖、未来动作、证据状态、布局策略、已有权利的已核验地域、拟申请地域八列）
+12. 专利集群设计（现有+拟申请，含摘要附图或SVG示意图）
+13. 附录：完整可执行检索式
+
+### 禁止出现的内容
+
+- ❌ 无来源的数字、将测算当实测、将未知填0或机械改成精确值
+- ❌ 正文中出现IPC/CPC分类编号（仅限附录）
+- ❌ 技术族口径（统一用公开号级或申请号级，不用"族"）
+- ❌ 未展开的检索式占位符（S1/N1等）
+- ❌ 默认强加行动计划/申请节奏章节（去向必须明确，路线图仅在用户要求时选加）
+- ❌ 数字前后不一致（同一数字在封面/结论/图表/详情四处必须完全一致）
+
+---
+
+## 常见错误防范
+
+详细规范见 `references/quality-gates.md`。
+
+### TOP 10 高频错误
+
+| 错误类型 | 发生阶段 | 预防措施 |
+|---------|---------|---------|
+| 多处数字不一致（最高频）| P10报告生成 | 生成后强制执行数字一致性扫描 |
+| 摘要附图URL签名过期 | P10报告生成 | 通过media取得图片线索，核对实际可读性；无原图时用注明性质的SVG示意图 |
+| IPC编号出现在正文技术树 | P1/P2 | 技术树节点强制使用技术语言，IPC单独维护 |
+| 饼图含0值切片 | P10图表 | 过滤0值项，改用柱状图或文字注释 |
+| 图表数据未排序 | P10图表 | 条形图严格使用升序排列 |
+| 同族重复计数混入单国统计 | P3检索 | 全球/CN/申请号级三类口径必须分开标注 |
+| 竞对分析遗漏相关产业链角色 | P4竞对分析 | 按主题核对相关竞争者、供应商及其他角色，披露未覆盖对象 |
+| 五类技术空间仅覆盖3/5 | P9布局矩阵 | 空间三（双方布局交集）和空间四（竞对拓展）最易遗漏 |
+| 未使用的CSS类 | P10报告生成 | 检查CSS类的实际引用 |
+| 导航死链 | P10报告生成 | 核对导航锚点与章节ID |
+
+---
+
+## 工具与数据要求
+
+| 阶段 | 工具 | 用途 |
 |---|---|---|
-| P1 | Boundaries/decomposition | Tree, keywords, exclusions; layout-report-method |
-| P2 | Search strategy | S0/S1/S2/S3, NOISE and expanded FINAL; search-strategy-method |
-| P3 | Comprehensive patent search | Publication-level data and competitor counts; search_patent/field_analysis |
-| P4 | Competitive landscape | Trends, assignee ranks, focus; field_analysis |
-| P5 | Own portfolio | Individual module/status checks; fetch_patent/lifecycle |
-| P6 | Industry/nonpatent evidence | Policies/standards and article influence; literature tools/available sources |
-| P7 | Invention mining | CP-0, Blocks 1–3, innovation list; mining-method |
-| P8 | Design-around | Four strategies for high-risk patents; design-around-method |
-| P9 | Matrix/clusters | Existing coverage, plans and evidence separate; layout-report-method/cluster-spec |
-| P10 | HTML and iteration | Traceable, code-free business prose, no placeholders; html-spec/quality-gates |
+| P3 全量专利检索 | `search_patent`、`field_analysis` | 分别获取明细与统计，核对范围与计数口径 |
+| P4 竞对态势 | `field_analysis` | 趋势、申请人排名、地域与技术分布 |
+| P5 自有画像 | `search_patent`、`fetch_patent`、`fetch_patent_lifecycle` | 逐件读取著录、原文与法律记录 |
+| P6 行业动态 | `search_literature`、`fetch_literature`及可用网页能力 | 论文、政策、标准与产业材料 |
 
-## Required 13 chapters
+工具衔接与口径规则见[工具使用要点](references/tool-usage.md)。分页明细不等于全量数据；统计结果不能替代逐件核查。文献详情使用搜索返回的`data.docs[].id`作为`paper_id`，摘要不等于全文。
 
-1. Cover and 3–5 key conclusions.
-2. Technical decomposition: tree/keywords.
-3. Industry developments/nonpatent literature.
-4. Comprehensive competitor landscape: trends/ranks/focus.
-5. Key suppliers/supply-chain roles chosen by relevance; explain inapplicability.
-6. Own portfolio: individually verified modules/status.
-7. Deep analysis of 3–5 key frontier/high-value patents where evidenced.
-8. All five technical spaces.
-9. High-risk design-around: four strategies.
-10. Complete innovation list: three-dimensional assessment, TRIZ and dispositions.
-11. Portfolio matrix: eight columns for category/direction, patent type, existing coverage, future action, evidence status, strategy, verified existing-rights regions and proposed filing regions.
-12. Existing/proposed clusters with original abstract drawings or labeled SVG illustrations.
-13. Appendix: complete executable queries.
+### 数据源缺失时的降级规则（强制执行）
 
-Prohibited: unsourced numbers, estimates-as-measurements, unknown-as-zero, IPC/CPC outside appendix, family counts replacing publication/application units, unresolved S1/N1 query shorthand, unsolicited action-plan/filing-cadence chapters (dispositions required; roadmap only on request), and inconsistent cover/conclusion/chart/detail numbers.
+若服务器或某项能力不可用，**必须显式声明降级，不得静默跳过或编造数据**：
 
-## Common errors
+| 缺失能力 | 降级处理 | 报告标注要求 |
+|-----------|---------|------------|
+| 专利检索或详情工具不可用 | 受影响的P3/P5先分析已有回执和用户材料；补充来源须核对文献身份、版本及覆盖，无数据时说明缺口 | 封面与第04、06章标注「本次未接入全量专利数据源，件数为样本级，不代表全量」；逐项披露缺失字段 |
+| `field_analysis` 不可用或不支持所需维度 | 受影响的 P3/P4 统计改由已取得的 P3 结果集自行聚合；未取回全量时只能报告样本统计，不得输出全量排名 | 第04章及相关图表注明缺失能力、统计范围及是否全量；不得将返回样本外推为全量 |
+| `search_literature` / `fetch_literature` 不可用，或缺少所需文献字段 | P6使用已有证据或可核验的补充来源；引证字段不足时保留分析栏目并标注未取得 | 第03章注明缺失能力、实际来源与覆盖限制 |
 
-See quality-gates.md. Prevent inconsistent repeated numbers; expired/unread media URLs; IPC in trees; zero pie slices; unsorted bars (sort ascending); mixed global/CN/application units; missing relevant supply-chain roles; omitted intersection/competitor-expansion spaces; unused CSS; broken navigation anchors. Verify actual media identity/readability and use labeled analytical SVG when originals are unavailable.
+> ⚠️ 核心原则 1「数字严格可溯」在降级场景下依然适用：降级不等于允许估算，只允许缩小口径并如实标注口径边界。
 
-## Data and degradation
+---
 
-P3: search_patent details + field_analysis totals. P4: field_analysis trends/ranks/geography/technology. P5: search/fetch/lifecycle for individual originals/status. P6: literature tools and available web material. Page samples are not full datasets and aggregate totals are not individual verification. Article id becomes paper_id; abstracts are not fulltext.
+## 内置方法论体系
 
-| Missing capability | Bounded fallback | Disclosure |
-|---|---|---|
-| Patent search/details | Analyze existing receipts/user material in affected P3/P5; verify supplemental identities/versions/coverage or retain gaps. | Cover and Chapters 04/06: no full patent source connected, counts are sample-level, not exhaustive; list missing fields. |
-| field_analysis/dimension | Aggregate actually acquired P3 records locally; without full retrieval, only sample statistics/ranks. | Chapter 04/charts: missing capability, actual scope and whether exhaustive; never extrapolate. |
-| Literature search/details/fields | Use existing/verifiable supplemental evidence; retain unavailable citation analysis. | Chapter 03: sources, missing fields and coverage. |
+按阶段读取对应方法：
 
-Degradation narrows disclosed scope; it never licenses invented estimates.
+| 内置方法论 | 覆盖阶段 | 核心内容 |
+|-----------|---------|---------|
+| `references/search-strategy-method.md` | P2 检索策略构建 | 七步检索流程、S0—S4分层检索式、多维术语扩展、邻近算符建模、噪声块构建、查全查准校验闸门 |
+| `references/mining-method.md` | P7 创新点挖掘 | 九类挖掘场景判定、七类卡点速查、CP-0强制确认卡、四块十步法、三维创新点评估、去向五分类 |
+| `references/design-around-method.md` | P8 规避设计 | 风险判定矩阵、四策略规避（裁剪/替换/组合/分解）、五向包绕、三维扩展、五维挖掘、TRIZ工具、专利地图工具 |
+| `references/layout-report-method.md` | P1 / P9 / P10 | 九项中间工作产物、十步执行流程、五类技术空间定义、布局矩阵格式、五类布局决策、常见错误纠正 |
 
-## Built-in methods and reading priorities
+配套支撑文档：`patsnap-query-rules.md`（字段与算符）、`searchable-fields.md`（可检索字段全表）、`tech-decomposition-method.md`（技术拆解与检索类型路由）、`search-report-template.md`（检索报告模板）、`search-validation-checklist.md`（查全查准校验）、`data-fields.md`（数据字段规则）、`ppt-output-spec.md`（报告版式规范）。
 
-- search-strategy-method: seven-step strategy, S0–S4, multidimensional terms, proximity, noise and recall/precision gates.
-- mining-method: nine scenarios/seven bottlenecks, CP-0, four blocks/ten steps, technical/legal/market evaluation and five dispositions.
-- design-around-method: risk matrix, removal/substitution/combination/decomposition, five surrounding directions, three-dimensional extension, five R&D dimensions, TRIZ/patent maps.
-- layout-report-method: nine intermediate assets, ten actions, five technical spaces, canonical matrix and five strategies.
+---
 
-Read the phase's primary entry first, not every reference:
+## 参考资料
 
-| Phase | Required | As needed |
-|---|---|---|
-| P1 | layout-report-method.md | tech-decomposition-method.md |
-| P2 | search-strategy-method.md | patsnap-query-rules.md for syntax, searchable-fields.md for codes, tech-decomposition-method.md for routing, search-report-template.md for delivery, search-validation-checklist.md for actual result validation |
-| P3–P6 | Corresponding sop-phases.md sections | data-fields.md |
-| P7 | mining-method.md | — |
-| P8 | design-around-method.md | — |
-| P9 | layout-report-method.md + cluster-spec.md | — |
-| P10 | html-spec.md + quality-gates.md | ppt-output-spec.md |
+**执行规范类**
+- 阅读 `references/sop-phases.md`：十阶段详细执行规范
+- 阅读 `references/quality-gates.md`：报告质量检查清单
+- 阅读 `references/html-spec.md`：HTML报告样式与结构规范
+- 阅读 `references/cluster-spec.md`：专利集群设计规范（三层递进展示）
 
-The six P2 support files are large; do not load all at startup. Field references govern syntax guidance, not output language or proof that a query executed. All report-language rules in this release follow the English-default policy above.
+**内置方法论类**
+- 阅读 `references/search-strategy-method.md`：P2 检索策略构建方法论
+- 阅读 `references/mining-method.md`：P7 创新点挖掘四块十步法
+- 阅读 `references/design-around-method.md`：P8 规避设计与包绕方法论
+- 阅读 `references/layout-report-method.md`：P1/P9/P10 布局分析与报告规范
+
+**方法论支撑类**
+- 阅读 `references/patsnap-query-rules.md`：智慧芽字段策略与算符用法
+- 阅读 `references/searchable-fields.md`：可检索字段缩写与类型全表
+- 阅读 `references/tech-decomposition-method.md`：技术拆解与检索类型路由
+- 阅读 `references/search-report-template.md`：检索报告交付结构
+- 阅读 `references/search-validation-checklist.md`：查全查准校验流程
+- 阅读 `references/data-fields.md`：检索结果与数据表字段规则
+- 阅读 `references/ppt-output-spec.md`：报告页面与版式规范
+
+
+### 阅读优先级（避免全量读取）
+
+工具调用要点见[工具使用要点](references/tool-usage.md)，业务执行按阶段**只读主入口，其余按需查阅**：
+
+| 阶段 | 主入口（必读） | 按需查阅 |
+|------|--------------|---------|
+| P1 | `layout-report-method.md` | `tech-decomposition-method.md` |
+| P2 | `search-strategy-method.md` | `patsnap-query-rules.md`（字段与算符不确定时）、`searchable-fields.md`（需精确字段码时）、`tech-decomposition-method.md`（检索类型路由）、`search-report-template.md`（需交付检索报告时）、`search-validation-checklist.md`（已有结果集需查全查准时） |
+| P3—P6 | `sop-phases.md` 对应阶段 | `data-fields.md` |
+| P7 | `mining-method.md` | — |
+| P8 | `design-around-method.md` | — |
+| P9 | `layout-report-method.md` + `cluster-spec.md` | — |
+| P10 | `html-spec.md` + `quality-gates.md` | `ppt-output-spec.md` |
+
+> P2 的 6 份文档合计体积占 references 过半，禁止在 P2 起步阶段全量读取，应先读 `search-strategy-method.md` 再按缺口取用。
+
+字段及版式参考文件用于核对检索语法与组件参数。报告语种按本页「交付语种」执行。

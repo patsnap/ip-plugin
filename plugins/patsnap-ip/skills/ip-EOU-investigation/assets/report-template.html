@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -258,90 +258,90 @@
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <div class="brand"><strong class="wordmark">Patsnap</strong><span class="brand-caption">EoU investigation report</span></div>
-      <div class="actions" aria-label="Report controls">
-        <button class="button" type="button" data-expand>Expand evidence</button>
-        <button class="button" type="button" data-collapse>Collapse evidence</button>
-        <button class="button primary" type="button" data-print>Print / Save PDF</button>
+      <div class="brand"><strong class="wordmark">智慧芽</strong><span class="brand-caption">EoU 调查报告</span></div>
+      <div class="actions" aria-label="报告阅读工具">
+        <button class="button" type="button" data-expand>展开依据</button>
+        <button class="button" type="button" data-collapse>收起依据</button>
+        <button class="button primary" type="button" data-print>打印 / 保存 PDF</button>
       </div>
     </div>
   </div>
   <div class="layout">
-    <nav class="contents" aria-label="Report contents">
-      <p class="contents-title">Report contents</p>
-      <a href="#overview"><span>01</span>Findings and scope</a>
-      <a href="#leads"><span>02</span>Lead matrix</a>
-      <a href="#portfolio"><span>03</span>Patent portfolios</a>
-      <a href="#core-points"><span>04</span>Key claim points</a>
-      <a href="#evidence"><span>05</span>Evidence and gaps</a>
-      <a href="#sources"><span>06</span>Sources and next steps</a>
+    <nav class="contents" aria-label="报告目录">
+      <p class="contents-title">报告目录</p>
+      <a href="#overview"><span>01</span>结论与范围</a>
+      <a href="#leads"><span>02</span>线索矩阵</a>
+      <a href="#portfolio"><span>03</span>专利组合</a>
+      <a href="#core-points"><span>04</span>核心保护点</a>
+      <a href="#evidence"><span>05</span>证据与缺口</a>
+      <a href="#sources"><span>06</span>来源与下一步</a>
     </nav>
     <main class="paper">
       <header class="cover">
         <div class="cover-meta"><span class="eyebrow">Evidence of Use</span><span class="badge">{{report_status}}</span><span class="meta">{{report_date}}</span></div>
         <h1>{{report_title}}</h1>
         <p class="subtitle">{{report_subtitle}}</p>
-        <div class="stats" aria-label="Report counts">
-          <div class="stat"><strong class="stat-value">{{lead_count}}</strong><span class="stat-label">Retained product leads</span></div>
-          <div class="stat"><strong class="stat-value">{{supported_count}}</strong><span class="stat-label">Evidence supported</span></div>
-          <div class="stat"><strong class="stat-value">{{pending_count}}</strong><span class="stat-label">Pending manual review</span></div>
-          <div class="stat"><strong class="stat-value">{{patent_count}}</strong><span class="stat-label">Selected patents</span></div>
+        <div class="stats" aria-label="当前报告统计">
+          <div class="stat"><strong class="stat-value">{{lead_count}}</strong><span class="stat-label">保留产品线索</span></div>
+          <div class="stat"><strong class="stat-value">{{supported_count}}</strong><span class="stat-label">有证据支持</span></div>
+          <div class="stat"><strong class="stat-value">{{pending_count}}</strong><span class="stat-label">待人工复核</span></div>
+          <div class="stat"><strong class="stat-value">{{patent_count}}</strong><span class="stat-label">选定专利</span></div>
         </div>
       </header>
       <section class="section" id="overview">
-        <div class="section-heading"><span class="section-number">01</span><h2>Findings and investigation scope</h2></div>
+        <div class="section-heading"><span class="section-number">01</span><h2>结论与调查范围</h2></div>
         <div class="finding">{{findings_summary}}</div>
-        <p class="next-step"><strong>Priority evidence to obtain</strong>{{priority_next_step}}</p>
-        <!-- Populate confirmed_scope with div elements containing dt and dd. Use class="full" for long product descriptions. -->
+        <p class="next-step"><strong>下一份最值得寻找的资料</strong>{{priority_next_step}}</p>
+        <!-- confirmed_scope 填充若干 div，每项包含 dt 和 dd；长产品描述可用 class="full"。 -->
         <dl class="scope">{{confirmed_scope}}</dl>
         <p class="meta scope-note">{{coverage_summary}}</p>
       </section>
       <section class="section" id="leads">
-        <div class="section-heading"><span class="section-number">02</span><h2>Product lead matrix</h2></div>
-        <p class="section-intro">Select a cell marker to review the evidence and uncovered conditions for that point.</p>
-        <div class="legend"><span><strong>✓</strong>Evidence supports the key point</span><span><strong>?</strong>Evidence insufficient, confirmation pending</span></div>
-        <div class="table-scroll" role="region" aria-label="Product and claim point comparison, scroll horizontally" tabindex="0">
+        <div class="section-heading"><span class="section-number">02</span><h2>产品线索矩阵</h2></div>
+        <p class="section-intro">先看哪些产品值得继续。点击格中的符号，查看该核心点的依据和未覆盖条件。</p>
+        <div class="legend"><span><strong>✓</strong>已有材料支持该核心点</span><span><strong>?</strong>证据不足，仍待确认</span></div>
+        <div class="table-scroll" role="region" aria-label="产品与核心保护点对照，可横向滚动" tabindex="0">
           <table class="matrix" id="lead-matrix">
-            <thead><tr><th scope="col">Company, product, and model</th>{{core_point_headers}}<th scope="col">Lead classification</th></tr></thead>
+            <thead><tr><th scope="col">公司、产品与型号</th>{{core_point_headers}}<th scope="col">线索分级</th></tr></thead>
             <tbody>{{product_rows}}</tbody>
           </table>
         </div>
-        <!-- Use one th.core-col per claim point and one row per product.
-             Use th.product-cell[scope=row] for the product and td.match-cell for each comparison.
-             Each a.mark shows only ? or ✓ and links to its evidence details by ID.
-             Use span.badge.pending or span.badge.supported for the final classification. -->
+        <!-- 每个核心点一列，表头用 th.core-col；每个产品只占一行。
+             产品格用 th.product-cell[scope=row]。对应格用 td.match-cell，内放 a.mark 或 a.mark.supported。
+             a.mark 只显示 ? 或 ✓，href 指向下方真实证据 details 的 id；完整理由放在详情。
+             每行末尾用 span.badge.pending 或 span.badge.supported 呈现固定分级。 -->
         <ul class="core-legend">{{core_point_legend}}</ul>
-        <p class="meta">Rows with at least one ✓ are classified as “Evidence supported.” All other rows are “Pending manual review.” Markers follow the confirmed key point definitions. Details document partial support, other claim limitations, and evidence gaps.</p>
+        <p class="meta">一行至少有一个 ✓，归为“有证据支持”；其余归为“待人工复核”。符号按本次已确认的核心点定义判断，局部支持、完整权利要求的其他限定及资料缺口在详情中记录。</p>
       </section>
       <section class="section" id="portfolio">
-        <div class="section-heading"><span class="section-number">03</span><h2>Selected patent portfolios</h2></div>
-        <!-- Use div.group for a portfolio and article.patent for each member.
-             Explain the protected subject, exact version, rationale, relationships, and any User specified label.
-             Reuse .item-heading, .patent-id, .tags, .badge, and .reading-notes.
-             Put original text and sources in details.evidence-detail and keep the summary readable. -->
+        <div class="section-heading"><span class="section-number">03</span><h2>本次采用的专利组合</h2></div>
+        <!-- 组合用 div.group，成员用 article.patent。
+             正文展示通俗保护主题、准确版本、保护什么、推荐理由、组合关系和用户指定标签。
+             可复用 .item-heading、.patent-id、.tags、.badge、.reading-notes 等样式。
+             原文与来源放入 details.evidence-detail，摘要必须直接可读。 -->
         {{portfolio_overview}}
       </section>
       <section class="section" id="core-points">
-        <div class="section-heading"><span class="section-number">04</span><h2>Key claim points for comparison</h2></div>
-        <!-- Use article.core-point with the ID referenced by the matrix header.
-             Show a stable ID, plain-language mechanism, and confirmation status, then publication, claim, and dependencies.
-             Expand full claim text and elements in details.evidence-detail and ol.elements. -->
+        <div class="section-heading"><span class="section-number">04</span><h2>用于比对的核心保护点</h2></div>
+        <!-- 每个核心点用 article.core-point，id 与矩阵表头链接一致。
+             先给唯一稳定编号、通俗机制和确认状态，再给公开号、权项与依赖。
+             完整原文及要素用 details.evidence-detail / ol.elements 展开。 -->
         {{confirmed_core_points}}
       </section>
       <section class="section" id="evidence">
-        <div class="section-heading"><span class="section-number">05</span><h2>Evidence by product and outstanding material</h2></div>
-        <p class="section-intro">Expand a product to see what was read, what it supports, and what is missing.</p>
-        <!-- Use article.lead per product and details.evidence-detail with a stable ID per comparison.
-             Use div.evidence-body for reasoning, blockquote for source text, and p.source-line for location.
-             State support, gaps, and which material was assessed, unassessed, or unread. -->
+        <div class="section-heading"><span class="section-number">05</span><h2>逐项证据与待补材料</h2></div>
+        <p class="section-intro">按具体产品展开，分别说明读到了什么、支持到哪一步、还缺什么。</p>
+        <!-- 产品用 article.lead。逐格依据用 details.evidence-detail，并提供稳定 id。
+             展开内容用 div.evidence-body，依次放判断、blockquote原文、p.source-line来源位置、支持范围和缺口。
+             已评、未评、未读范围分别交代。 -->
         {{evidence_details}}
       </section>
       <section class="section" id="sources">
-        <div class="section-heading"><span class="section-number">06</span><h2>Sources and next steps</h2></div>
-        <!-- List unique sources in ol.sources and follow-up actions in ol.next-actions. -->
+        <div class="section-heading"><span class="section-number">06</span><h2>来源与下一步</h2></div>
+        <!-- 以 ol.sources 列去重来源，以 ol.next-actions 列具体补查动作。 -->
         {{sources_and_next_steps}}
       </section>
-      <footer class="report-footer"><span>Patsnap · EoU investigation record</span><span>{{report_date}} · {{report_status}}</span></footer>
+      <footer class="report-footer"><span>智慧芽 · EoU 调查记录</span><span>{{report_date}} · {{report_status}}</span></footer>
     </main>
   </div>
   <script>

@@ -1,49 +1,64 @@
-# Search methods
+# 检索方法
 
-## Organize queries and converge
+## 目录
 
-Investigate decisive structures, connections, positions, action conditions and process relationships of the complete solution. Consider the primary combination, independent methods and valuable alternatives separately; verify disclosure assertions about existing art. Local queries may be compressed but do not represent the whole disclosure.
+- 组织查询与收敛
+- 语义＋关键词混合检索
+- 查询分工与检索层次
+- 通道记录与工具参数绑定
+- 字段、布尔式与引证扩展
+- 读文与过程记录
 
-Select semantic discovery, exact terms, field filters, Boolean queries, further original reading or citation expansion according to uncertainties, without fixed three-round or Top5 rules. If a leading conclusion depends on another document lacking a relationship, seek the counterexample most likely to change it. Do not add fixed recheck rounds once evidence is sufficient.
+## 组织查询与收敛
 
-Retrieval and reading are not limited to five documents. Rank strong candidates by decisive-relationship coverage, evidence adequacy, complementary differences and independent-method value; this order is not the service's original ranking. Check other strong candidates after identifying a source family. Converge when remaining uncertainties are unlikely to change the main judgment, without filling a quota.
+围绕完整方案的决定性结构、连接、位置、动作条件和工序关系查证。主组合、独立方法和有价值的替代实现分别考虑；核实交底对既有技术的断言。局部查询可压缩，不能把它当全部交底。
 
-Choose closest art as the most reasonable starting point for a complete modification, rather than the largest number of matching features. Compare documents with different purpose, overall layout or interfaces against candidates closer to the primary combination even if their local match counts are higher.
+按疑点选择语义发现、精确词、字段过滤、布尔式、原文补读或引证扩展，不固定三轮或 Top5。前列优势若依赖“另一篇没有某关系”，就找最可能改变判断的反例；证据已充分时不增加固定复查轮次。
 
-Group families and corresponding applications as one technical evidence group while retaining each jurisdiction’s exact publication identity. Count candidates separately from independent technical routes. Check core documents in a supplied prior report/list against the current pool; retrieve missing documents or give an evidenced exclusion reason instead of copying conclusions.
+检索和阅读不局限前五篇。强候选按决定性关系覆盖、证据充分性、互补区别和独立方法价值排序，顺序不等于服务原始排名。最接近技术应当是最合理的完整改造起点，不按“对应特征最多”机械决定；技术目的、整体布局或接口明显不同的文献，即使局部命中较多，也要与更接近主组合的候选并列比较。识别出来源同族后仍查其他强候选。剩余疑点不再有望改变主要判断时收敛，不凑篇数。
 
-Inventive-step supplementation seeks a complete Y-role teaching, rather than a missing part alone: a reason, functional link or problem-based teaching to adopt the difference under the target jurisdiction, compatible with the primary document’s structure and operating conditions. Search unresolved difference groups separately. Disconnected parts without combination teaching remain A background or Y candidates rather than accumulating document counts.
+同族或各国对应申请按“技术证据一组、法域身份分别记录”处理。报告同时保存精确公开号，但候选数量和独立技术路线数量分开统计；不能用同一核心披露的多个国家版本制造检索广度。若用户提供既有检索报告或候选清单，核对其核心文献是否已进入本次候选池；缺少时补查或给出有证据的排除理由，不照抄其结论。
 
-## Mixed semantic and keyword retrieval
+围绕创造性补检时，不只搜索“缺失部件”，而要搜索能够承担 Y 角色的完整教导：该文献应在目标国审查框架下给出采用该区别的原因、功能联系或问题导向，并与主文献的结构和运行条件兼容。对每个尚未闭环的区别组分别定点检索；找到零散部件但没有结合启示时，记录为背景 A 或 Y 候选，不继续用篇数堆叠。
 
-Use mixed retrieval to cover alternative expressions while retaining complete technical relationships; the channels are not a Boolean AND. A single request can enable `semantic` and `keyword`. Deduplicate exact publications and families while retaining channel provenance.
+## 语义＋关键词混合检索
 
-| Input | Content | Avoid |
+混合检索用于扩大表达覆盖并保留完整技术关系，不表示两个召回通道之间存在布尔 AND。一次请求可同时使用 `semantic` 与 `keyword`；工具可能分别召回，结果按公开号和同族去重，并记录命中来源。
+
+- `semantic_query`：使用一段自然语言，写技术对象、完整关系、问题或功能，不堆同义词，不写申请人、日期、IPC 等过滤条件。
+- `keywords`：每项保持一个完整技术概念或关系，优先使用行业惯用表达及中、英、日等价词；不要把每个部件拆成会独立产生大量噪声的单词。
+- `filters`：只放用户已经确定的日期、法域、申请人、状态等元数据；目标国审查不等于只检索目标国专利。
+- 混合命中排序仅用于发现候选。语义和关键词双命中可以提高阅读优先级，但不能替代全文证据，也不能直接决定 X/Y/A 角色。
+
+### 查询分工
+
+同一轮中的两种输入必须互补：
+
+| 输入 | 应承载的内容 | 避免 |
 | --- | --- | --- |
-| `semantic_query` | Technical object, complete component/step relationships, position/order, problem and overall function in natural language | Synonym piles, field codes, applicant/date/IPC conditions |
-| `keywords` | Complete precise mechanisms, material/parameter concepts, customary industry names, abbreviations and equivalent Chinese/English/Japanese relationship phrases | Independent generic words such as laser, lens or control |
-| `filters` | Confirmed dates, jurisdictions, assignees and statuses | Treating the assessment jurisdiction as an automatic national-only retrieval restriction |
+| `semantic_query` | 技术对象、关键部件/步骤关系、位置或顺序、要解决的问题及整体作用 | 同义词堆砌、字段代码、申请人或日期条件 |
+| `keywords` | 精确机构名称、材料/参数、行业惯用词、缩写及中英日等价关系短语 | 拆成“激光、透镜、控制”等可独立召回的泛词 |
 
-The inputs must complement each other. Semantic input is normally a coherent paragraph; keywords normally comprise 3–8 complete concepts or relationship phrases. Multilingual terms cover real expression differences rather than translating generic words to fill a quota. Dual-channel hits may receive reading priority, but do not establish disclosure or X/Y/A roles.
+语义查询通常是一段完整自然语言；关键词通常为 3—8 个完整概念或关系短语。多语言词项用于覆盖表达差异，不为凑数量逐字翻译所有泛词。
 
-### Retrieval levels
+### 检索层次
 
-Choose levels by actual uncertainty, without fixed rounds:
+按实际疑点选择层次，不固定轮数：
 
-1. **Complete primary combination:** express overall structure and purpose semantically, with 2–5 discriminating relationship groups as keywords to discover overall closest art.
-2. **Key subcombinations:** search independently expressible optical paths, mechanisms, control chains or method steps while retaining connections/order.
-3. **Decisive uncertainties:** pair function/problem semantics with precise structural keywords to seek counterexamples and secondary documents for differences affecting conclusions.
-4. **Terms and citations:** update keywords using actual strong-candidate terminology and extend citations when useful; citation counts do not establish relevance.
+1. **完整主组合**：语义写整体结构和技术目的，关键词写最有区分力的 2—5 组关系，用于发现整体最接近文献。
+2. **关键子组合**：对完整方案中可能独立表达的光路、机构、控制链或方法步骤分别检索；仍保留内部连接/顺序，不只列部件。
+3. **决定性疑点**：围绕可能改变新颖性或创造性判断的区别，用“功能/问题语义＋精确结构关键词”补检反例和辅文献。
+4. **术语与引证扩展**：从强候选正文提取真实术语更新关键词；必要时再作引证检索，不能用引证数量替代相关性。
 
-Iterate when strong candidates come only from one channel and the other channel’s terms are clearly mismatched, abstracts reveal missing synonyms, decisive relationships remain merely “not mentioned,” or new structures may change conclusions. Low counts, repeated candidates or an unmet round quota alone do not require further retrieval.
+当前一轮出现以下情况时再迭代：强候选只来自单一路且另一路术语明显不匹配；摘要显示同义表达遗漏；决定性关系仍只有“未提及”；或出现可能改变结论的新结构。仅因结果数量少、旧候选重复或未达到固定轮数，不自动追加检索。
 
-Basic request shape:
+基础请求形状：
 
 ```json
 {
   "search_strategy": ["semantic", "keyword", "filter"],
-  "semantic_query": "Complete technical intent, component relationships and problem",
-  "keywords": ["Complete concept in Chinese", "English technical relationship", "Equivalent Japanese technical relationship"],
+  "semantic_query": "完整技术意图、部件关系和要解决的问题",
+  "keywords": ["中文完整概念", "English technical relationship", "日本語の技術関係"],
   "filters": {"date_type": "publication", "date_to": 20201231},
   "limit": 20,
   "offset": 0,
@@ -51,30 +66,30 @@ Basic request shape:
 }
 ```
 
-If the date is unknown, omit `filter` and `filters`; do not substitute the test or search date.
+日期未知时去掉 `filter` 和 `filters`，不能填入测试日或检索日。
 
-### Channel records
+### 通道记录
 
-Record each candidate’s `semantic_hit`, `keyword_hit`, query IDs, original ranking, family group and formal reading status. A dual-channel hit is not “disclosed”; a decisive counterexample found by one channel must remain included.
+每轮为候选记录：`semantic_hit`、`keyword_hit`、使用的查询编号、原始排名、同族组、正式阅读状态。不得把双通道命中写成“已公开”，也不得因只被一路召回而排除决定性反例。
 
-## Key `search_patent` bindings
+## `search_patent` 的关键绑定
 
-| Value in `search_strategy` | Required parameter |
+| `search_strategy` 中的值 | 必须提供的参数 |
 | --- | --- |
 | `semantic` | `semantic_query` |
 | `keyword` | `keywords` |
-| `filter` | `filters` with at least one actual field, or supported `domain_filters` |
-| `boolean` | `boolean_query`, with strategy exactly `["boolean"]` |
+| `filter` | 至少有一个实际字段的 `filters` 或受支持的 `domain_filters` |
+| `boolean` | `boolean_query`，且策略只能为 `["boolean"]` |
 
-Do not pass parameters for unselected strategies. Boolean mode must not mix semantic, keyword, filter or domain parameters.
-For ordinary technical topics prefer semantic plus keyword retrieval: preserve complete intent in semantic text and complete concepts/necessary limitations in each keyword, rather than broad component words that retrieve independently. Without language restrictions, supply core-concept equivalents in Chinese, English and Japanese as the tool requires.
+未选策略不传对应参数。布尔模式不混入语义、关键词、过滤或专业域参数。
+普通技术主题优先结合语义与关键词：语义保留完整意图，关键词每项保留完整概念和必要限定，不拆成能各自独立召回的宽泛部件词。未限制语言时，按工具要求提供核心概念的中、英、日等价表达。
 
-Semantic and keyword routes may retrieve independently; one is not a hard constraint on the other. Put metadata restrictions in actual `filters`; assignee/date/IPC prose in semantic text is not a filter.
+语义与关键词可能分别召回，不能把其中一路当另一路的硬约束。元数据限定放进实际 `filters`；把申请人、日期或 IPC 写进语义文本不构成过滤。
 
 ```json
 {
   "search_strategy": ["semantic", "keyword", "filter"],
-  "semantic_query": "Brackets on the left and right sides of a tray jointly support an open lid to prevent it from sagging",
+  "semantic_query": "托盘左右两侧的托架共同承托开启的盖板，防止盖板下垂",
   "keywords": ["托架承托开启盖板", "brackets supporting an open lid", "開いた蓋を支持するブラケット"],
   "filters": {"date_type": "publication", "date_to": 20201231},
   "limit": 20,
@@ -83,37 +98,36 @@ Semantic and keyword routes may retrieve independently; one is not a hard constr
 }
 ```
 
-The example date illustrates a user-supplied cutoff, not a default. Paginate with `limit` and `offset` under the current definition and record actual returned scope; one page is not the full set. Normally rank by relevance; switch to dates/citation counts when requested.
+示例日期仅演示用户已给定截止日的情况，不是默认条件。按当前工具定义使用 `limit`、`offset` 分页，记录实际返回范围，不把一页当全量。一般按相关性排序；用户要求日期或引证数量顺序时再切换。
 
-## Fields and Boolean queries
+## 字段与布尔式
 
-Construct executable Patsnap expressions using current field documentation, without requiring another query-builder tool. Use verified fields/syntax only; preserve user-provided executable queries. Pass pregenerated opaque references completely unchanged, without parsing or concatenation.
+按当前工具字段说明构造可执行智慧芽表达式，不依赖额外构式工具。只用已核实字段和语法；用户给出的可执行式保持原样。预生成的不透明引用必须完整原样传入，不解析或拼接。
 
-- Use publication dates through `filters.date_type=publication` or Boolean `PBD`; filing/priority dates do not replace publication eligibility.
-- For unresolved names use supported name fields; do not invent `assignee_ids` or company trees.
-- `ANC` is current-assignee name; `ANCS` and `ANCS_ID` require resolved identities. Use supported `TREE@` only for confirmed group scope.
-- IPC and CPC differ. Use only allowed classification restrictions; do not narrow all retrieval independently.
-- For zero hits, first check terminology, entity scope and fields; do not silently drop hard restrictions.
-- If the current tool requires describing domain capabilities first but the target MCP exposes no corresponding tool, do not construct `domain_filters`. Use supported ordinary retrieval and disclose specialized-filter coverage limits.
+- 日期用公开日 `filters.date_type=publication`，布尔式用 `PBD`；申请日、优先权日不能代替公开资格。
+- 未知评价日时，可以按公开日排序和记录，但日期资格保持未决；不得用“检索日以前公开”替代相对于拟申请日或优先权日的在先技术判断。
+- 名字尚未标准化时用支持的名称字段，不猜造 `assignee_ids` 或公司树。
+- `ANC` 是当前归属名称，`ANCS`、`ANCS_ID` 要求已解析身份；仅确认集团范围时用支持的 `TREE@`。
+- `IPC` 与 `CPC` 不同，只用用户允许的分类范围，不自行收窄全部召回。
+- 零命中先查术语、实体口径和字段，不静默去掉硬限定。
+- 当前工具要求先描述专业能力、但目标 MCP 未暴露对应工具时，不构造 `domain_filters`；用已支持的普通检索并说明专业过滤覆盖限制。
 
-## Backward and forward citations
+## 引用与被引
 
-Use `search_patent` directly, with direction relative to the seed:
+引证扩展直接使用 `search_patent`，方向以种子文献为中心：
 
 ```json
 {"search_strategy":["boolean"],"boolean_query":"B_CITES:(US6394621B1)","limit":20,"offset":0,"collapse_family":false}
 ```
 
-`B_CITES` returns documents cited by the seed; `F_CITES` returns documents citing the seed. Put publication cutoffs in the same Boolean, e.g. `B_CITES:(US6394621B1) AND PBD:[* TO 20000101]`. Keep `*` unrestricted below, without inventing a lower date boundary.
+`B_CITES` 返回种子引用的文献；`F_CITES` 返回引用种子的文献。公开截止日放入同一布尔式，例如 `B_CITES:(US6394621B1) AND PBD:[* TO 20000101]`；`*` 保持下界不限，不另造用户未指定的下界。
 
-Save seed, direction, expression, date handling and pagination. Later forward citations are leads, not automatically prior evidence. Read candidates with `fetch_patent`; citation-count thresholds, topical similarity or shared assignees do not establish citation relationships. There is no need to obtain citation lists through `fetch_patent.relations`.
+保存种子、方向、表达式、日期处理及分页范围。后公开的被引文献只作线索，不直接作在先证据。取得候选后用 `fetch_patent` 读正文，不能用数量阈值、主题相近或共同申请人冒充引证关系。无需通过 `fetch_patent.relations` 获取引证列表。
 
-Field directions: [Patsnap Types of Citation](https://help.patsnap.com/hc/en-us/articles/12479407137949-Types-of-Citation).
+字段方向依据：[智慧芽 Types of Citation](https://help.patsnap.com/hc/en-us/articles/12479407137949-Types-of-Citation)。
 
-## Reading and process records
+## 读文与过程记录
 
-`fetch_patent` returns text/bibliography by default; include `media` only for original images/PDFs. Media URLs are source leads; obtain, read and save actual material before using it as visual evidence. Technical summaries are not originals; do not measure ratios from undimensioned schematic drawings.
+`fetch_patent` 默认返回正文和书目，需要原图/PDF时才包含 `media`。媒体 URL 是来源线索，实际取得、阅读并保存后才作图证；不把技术摘要当原文，不从无尺寸示意图测比例。
 
-Each round states “verification objective → actual retrieval/reading → findings and next step.” Preserve real requests, complete structured receipts and failures. Count total hits, current-page returns, deduplicated candidates and formal comparisons separately. Failure is not zero hits; unknown counts remain unknown.
-
-If the assessment date is unknown, publication dates can be recorded and sorted, but prior-art eligibility remains unresolved. Publication before the search date does not replace eligibility relative to intended filing or priority.
+每轮说明“查证目标 → 实际检索或阅读 → 发现和下一步”。保留真实请求、完整结构化回执和失败信息。命中总量、当前页返回、去重候选和正式比较分别计数。失败不等于零命中，数量未知不填零。

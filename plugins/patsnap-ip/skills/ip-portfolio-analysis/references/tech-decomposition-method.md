@@ -7,29 +7,29 @@ Use this reference to decompose technical topics, choose retrieval types, expres
 Patent retrieval follows the intelligence workflow:
 
 ```text
-Receive requirements
-→ Understand requirements
-→ Confirm requirements
-→ Prepare the topic
-→ Collect and process data
-→ Analyze patents
-→ Prepare the report
-→ Deliver and apply
-→ Manage and maintain results
+接收需求
+→ 理解需求
+→ 确认需求
+→ 课题准备
+→ 数据采集与处理
+→ 专利分析
+→ 报告形成
+→ 交付应用
+→ 成果管理与维护
 ```
 
 For search-skill work, focus on:
 
 ```text
-Understand requirements
-→ Decompose the technology
-→ Collect search elements
-→ Match search strategies
-→ Build queries
-→ Optimize and remove noise
-→ Validate recall and precision
-→ Import into a workspace and tag
-→ Support analysis and reporting
+需求理解
+→ 技术分解
+→ 检索要素采集
+→ 检索策略匹配
+→ 检索式构建
+→ 优化去噪
+→ 查全查准验证
+→ 数据入工作空间/标引
+→ 支撑分析与报告
 ```
 
 ## Requirement-To-Search Routing
@@ -38,10 +38,10 @@ Choose the retrieval type based on the business question:
 
 | Requirement type | Typical user goal | Search strategy |
 | --- | --- | --- |
-| Competitive situation / technology landscape | Understand industry development, hotspots, future directions, major competitors, and competitor selling points | Technology-topic search + applicant search |
-| Innovation / R&D problem solving | Determine R&D direction, key functions, technical problems, product selling points, and source of technology | Technology-topic search + problem-type search |
-| Risk monitoring | Identify risk sources, target markets, self-developed vs outsourced modules, and risk technology modules | Applicant search + technology-topic search |
-| Innovation portfolio planning | Identify core product technology, self-developed modules, advanced technology, and forward-looking directions | Technology-topic search |
+| 竞争现状/技术全景 | Understand industry development, hotspots, future directions, major competitors, and competitor selling points | Technology-topic search + applicant search |
+| 技术创新/研发攻关 | Determine R&D direction, key functions, technical problems, product selling points, and source of technology | Technology-topic search + problem-type search |
+| 风险预警 | Identify risk sources, target markets, self-developed vs outsourced modules, and risk technology modules | Applicant search + technology-topic search |
+| 创新布局 | Identify core product technology, self-developed modules, advanced technology, and forward-looking directions | Technology-topic search |
 
 Always collect search elements through RD+IP interaction before writing formulas.
 
@@ -134,11 +134,11 @@ Element table:
 
 | Element | Meaning |
 | --- | --- |
-| Technical problem / effect wording | direct problem, opposite expression, desired effect |
-| Solution methods | methods the industry uses or R&D plans to use |
-| Related modules | module where the problem occurs |
-| Application / context | scenario where the problem arises |
-| Applicants | competitors, suppliers, OEMs, or benchmark companies |
+| 技术问题/效果表达 | direct problem, opposite expression, desired effect |
+| 解决手段 | methods the industry uses or R&D plans to use |
+| 关联模块 | module where the problem occurs |
+| 应用领域/背景 | scenario where the problem arises |
+| 申请人 | competitors, suppliers, OEMs, or benchmark companies |
 
 Search routes:
 
@@ -194,7 +194,7 @@ Applicant field guidance:
 
 ## Patsnap Operation Lessons
 
-Choose retrieval operations according to the available tools (see [Tool usage](tool-usage.md)):
+Choose retrieval operations according to the available tools (see [工具使用要点](tool-usage.md)):
 
 - Expand natural-language concepts with build_patent_boolean_query when appropriate; do not send an existing executable query to the builder.
 - Read technical terms and classifications from actual search_patent/fetch_patent records and user-provided definitions; do not invent unavailable classification helpers.
@@ -216,9 +216,9 @@ Choose fields according to the role of the term:
 Training principle:
 
 ```text
-Object + core technical features: use precise fields for focus.
-Important technical features: balance recall and precision.
-Technical problems / effects / advantages: use broader fields for maximum recall, then validate and denoise.
+对象 + 核心技术特征: use precise fields for focus.
+重要技术特征: balance recall and precision.
+技术问题 / 效果 / 优点: use broader fields for maximum recall, then validate and denoise.
 ```
 
 ## Optimization And Denoising
@@ -251,13 +251,13 @@ Recommended validation:
 Recall result formula:
 
 ```text
-Seed coverage = retrieved records tagged as seeds / total seed records
+查全结果 = 检索结果中打上样本标签数 / 样本总数
 ```
 
 Precision result formula remains:
 
 ```text
-Sample precision = relevant sampled records / total sampled records
+查准率 = 抽样相关记录数 / 抽样总数
 ```
 
 ## Application Checklist

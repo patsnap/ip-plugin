@@ -1,3 +1,2 @@
 interface:
-  display_name: "Patent Portfolio Analysis"
-  short_description: "Use when planning patent protection for a defined project. Analyze portfolios, competitors and technical spaces using explicit dates and jurisdictions; produce a layout matrix and evidence-backed recommendations. Proposed workflow; apply the local MC/Skill/ip-portfolio-analysis execution contract. Runtime binding and channel availability remain unverified."
+  display_name: "专利布局分析"

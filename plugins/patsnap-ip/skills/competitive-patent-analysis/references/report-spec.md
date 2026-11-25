@@ -1,121 +1,143 @@
-# Report layout and representative-patent selection
+# 报告版式与代表专利选取规范
 
-## 1. Fixed section order
+## 一、章节顺序（固定）
 
-Header → company introduction → search baseline → confirmed number of technology sections → comparative assessment → search notes → footer.
+页眉 → 公司介绍 → 检索基线表 → 按已确认数量重复技术方向章节 → 综合研判 → 检索说明 → 页脚。
 
-The company introduction precedes all technical sections. Include three paragraphs: origins/technology path, product line/evidenced milestones, and competitive logic; add 6–8 `profile-grid` facts. Founding dates, certifications, orders and specifications need user material, actual responses or verifiable web evidence with dates. Mark facts not independently checked “Unverified.” Retain missing fields as “To be verified” and state verification scope.
+公司介绍必须置于所有技术章节之前，包含三段：出身与技术路径、产品线与实证里程碑、竞争逻辑判断；外加 6–8 项 `profile-grid` 档案卡。成立年份、认证进展、订单数量、规格参数据用户材料、实际工具返回或可核验网页整理，注明时点；不能独立核实则标注「未核实」，缺失时保留对应栏目并填「待核实」，注明核验范围。
 
-Default authored content and template labels to English, honoring explicit output-language requests. Preserve original evidence with translations as needed. Set HTML `lang` accordingly.
+## 二、检索基线表
 
-## 2. Search baseline
+第一行为已确认主体名称在`ALL_AN`范围的命中总量，注明单一公司或已核实的集团主体范围；该字段含当前、原始和历史申请人，不能标为当前持有专利总量。后续每行为一个技术方向的五项数量，展示名称及单位按下表统一。表下必须附口径说明：各方向为独立查询、结果集可能重叠，不能相加求公司总量。
 
-First row: hits for confirmed names in `ALL_AN`, identifying single-company or verified group scope. The field includes current, original and historical assignees, so this is not a current-ownership total. Following rows show five counts per technology area using these labels and units. Explain below that independent result sets may overlap and cannot be added into a company total.
-
-| Internal field | User-facing label and unit |
+| 内部字段 | 面向用户的标签及单位 |
 |---|---|
-| `matched_total` | Query hits: N publications |
-| `returned_count` | Actually retrieved: N publications |
-| `independent_family_count` | Simple-family deduplication: N families |
-| `eligible_family_count` | Relevance-qualified: N families |
-| `listed_count` | Listed here: N representative patents |
+| `matched_total` | 查询命中：N 件公开文献 |
+| `returned_count` | 实际取回：N 件公开文献 |
+| `independent_family_count` | 简单同族去重：N 个同族 |
+| `eligible_family_count` | 相关性合格：N 个同族 |
+| `listed_count` | 本表列出：N 件代表专利 |
 
-Without complete retrieval, label family counts “within the retrieved sample,” not vague “database-folded results.”
+未取回全量时，同族数标注为“已取回样本内”，不使用“数据库折叠结果”等含义不明的标签。
 
-Put the actually executed `ALL_AN` Boolean in `BASELINE_QUERY`, in collapsed search-note details. Preserve direct queries unchanged; for builder execution display the same response's `reference_query`, labeling it the reference expression corresponding to the execution reference. Save the actual `boolean_query` reference in work records rather than displaying it as a readable query. `BASELINE_SCOPE_NOTE` explains confirmed entities and assignee scope. Use readable company/standardized-assignee names in prose and charts; internal IDs belong in actual query records only. Match real tool/field execution; a single-company baseline is not a complete group total.
+模板的`BASELINE_QUERY`填本次实际执行、以`ALL_AN`限定申请人的布尔表达式，放在检索说明的折叠详情中。直接查询保留原式；通过构建工具执行时展示同次返回的`reference_query`，标明它是执行引用对应的参考表达式，实际传入的`boolean_query`引用另存工作记录，不当作用户可读的检索式。`BASELINE_SCOPE_NOTE`说明已确认主体与申请人口径。正文显示公司／标准申请人名称，内部 ID 仅在实际查询记录中保留，不作为公司名或图表标签。查询必须对应实际执行的工具和字段，不能将单一公司基线称为完整集团专利总量。
 
-Company, patent-details, search-result and SaaS destination links must come from actual responses or verified sources and match their objects. Fill `SOURCE_LINKS_OR_NOTE` with real links/readable names, or disclose absence. Do not substitute a homepage for an object-specific link or construct URLs.
+公司、专利详情、检索结果或 SaaS 落地页的链接来自实际工具返回或已核实来源，按对应对象提供，便于用户回到产品核验。模板的`SOURCE_LINKS_OR_NOTE`填真实链接及可读名称；未取得时注明缺失，不用主页替代特定对象，也不自行拼接链接。
 
-Never sum area hits or depict them as pies, stacked charts or shares.
+禁止把各方向 `matched_total` 相加、做饼图、堆叠图或占比图。
 
-## 3. Mandatory simple-family deduplication
+## 三、简单同族折叠（强制前置步骤）
 
-Search returns publications, not independent inventions. Multiple publications, jurisdictions and related filings can create false diversity if counted directly.
+检索接口返回的是**公开件**，不是独立发明。同一发明常有多个同族成员（同一国多次公开、多辖区布局、分案），若直接按公开件计数会产出虚假丰富度。
 
-Keep this order:
+执行顺序不可颠倒：
 
-1. Retrieve the pool with publication-level counts following [Step 3](../SKILL.md#step-3--search-patents-by-area). Respect runtime pagination limits and record actual coverage.
-2. Verify simple-family memberships individually through `fetch_patent` relations (search currently lacks `simple_family_id`). Reuse evidence and text obtained together; do not pass an array to the single-patent interface. Retain one representative per family, prioritizing granted over pending, broader over single-jurisdiction coverage, then newer publication date. Missing/empty/failed relationship evidence does not establish a singleton. List unknown membership separately and keep complete family counts pending.
-3. Compute raw `independent_family_count`, which is not the relevance-qualified count.
-4. Rank by relevance/value and select only within this deduplicated set.
+1. 按[分方向专利检索步骤](../SKILL.md#step-3--分方向专利检索)分页取回检索结果池，保留公开件口径；分页上限以运行时工具定义为准，记录实际取回范围。
+2. 逐件使用`fetch_patent`的`relations`核对简单同族成员关系（当前检索不返回`simple_family_id`），复用已有证据及同次取得的正文；不向单件接口传数组。每族只保留一件代表件。代表件优先级：已授权 > 审中；辖区覆盖广 > 单一辖区；公开日新 > 旧。关系缺失、为空或取证失败不能自动计作单件同族；未知归属单列，完整同族计数保持待核。
+3. 得到原始返回池的**独立同族数** `independent_family_count`；不是相关性合格数。
+4. 只在折叠后的代表件集合上做相关度与价值排序、筛选代表专利。
 
-Without valuations use `—`. Actual tool definitions determine document/family valuation scope; equal values are not family evidence. Unverifiable membership means unverified counts and limited delivery, not complete-count formulas.
+未取得估值时，填`—`；使用估值工具时以实际声明确认单件/族级口径，值相同不证明同族。同族关系不能核实时标为待核实，只交付有限结果，不套用完整数量公式。
 
-## 4. Selection after deduplication
+## 四、代表专利选取规则（折叠后执行）
 
-Use technical relevance as an entry criterion and patent value for ranking. High value cannot compensate for low relevance. If monetary valuation is unavailable, assess qualitative value from actual citations, rights status, coverage and text with reasons; keep the monetary column `—`, without simulated amounts/scores.
+在独立同族代表件集合中，按「技术相关度 + 专利价值」双维选取。相关度是准入门槛，价值是排序依据，不可用价值高来替代相关度不足。当前无金额估值时，可根据真实返回的被引、权利状态、布局和文本证据做定性价值判断，明确依据；“评估价值”金额列仍填`—`，不产生模拟金额或得分。
 
-When results suffice, aim for a balanced selection within the overall cap:
+结构建议（命中充足时）：
 
-- 3–4 core-family representatives directly matching the technical core.
-- 2–3 highly cited/valuable foundational records indicating technical origins.
-- 1–2 multi-jurisdiction examples with verified family links.
-- 2–3 recent records from the past three years indicating evolution.
+- 核心族代表件 3–4 件 —— 直接命中该技术内核
+- 高被引 / 高价值基础件 2–3 件 —— 体现技术源头地位
+- 多辖区布局件 1–2 件 —— 体现全球布局意图，须标注同族关系
+- 近三年最新件 2–3 件 —— 体现演进方向
 
-## 5. Mandatory count tiers
+## 五、代表专利数量分级处理规则（强制）
 
-Relevance precedes quantity; ten is the cap. Record raw family count, then assess relevance to derive `eligible_family_count`. Default `listed_count = min(eligible_family_count, 10)`; honor a smaller user cap and disclose it. Unknown relevance stays on a pending list, outside eligible counts. Four raw but ineligible families mean raw = 4, eligible = 0, listed = 0.
+**总原则：相关性先于数量，10 件是上限。** 先记录原始同族数，再审核相关性得到 `eligible_family_count`，默认 `listed_count = min(eligible_family_count, 10)`；用户另有更小列出上限时从其要求并披露。相关性未知的同族不计入合格数，保留待核清单。原始池有 4 族而均不合格时，原始数为 4、合格数和列出数均为 0。
 
-| Eligible families | Action |
+| 相关性合格同族数 | 处理方式 |
 |---|---|
-| ≥10 | Select ten using section 4. |
-| 5–9 | List all; state “All N relevance-qualified families in this area are included.” |
-| 1–4 | Perform the three expansion tiers, then list actual eligible results with hits and evidence-supported reasons. Low counts alone do not return to Gate A. |
-| 0 | Perform all expansion tiers. If still zero, retain the area and search scope, distinguishing no hits, irrelevant samples and unverified evidence. State supported reasons/next steps, not that the company has no such patents. Low counts alone do not return to Gate A. |
+| ≥10 | 按第四节结构选取 10 件 |
+| 5–9 | 全部列出，不做代表性筛选，表下标注「该方向已审核合格同族 N 件，已全部列入」 |
+| 1–4 | 先执行三级扩检；扩检后有多少列多少，表下如实说明实际命中数及有依据的原因。**不回退 Gate A 阻断** |
+| 0 | 先执行三级扩检；扩检后仍为 0 时保留该技术方向章节，写明检索口径，区分未检出、样本不相关和证据待核，只陈述有依据的原因或下一步，不推断该公司不存在此类专利。**不回退 Gate A 阻断** |
 
-### Three expansion tiers (0–4 eligible families, lowest cost first)
+### 三级扩检（合格同族数为 0–4 时触发，按代价从低到高）
 
-1. Expand synonyms: industry abbreviations, upstream/downstream process terms, parent-company terminology and original-language terms.
-2. Check constraints: remove only restrictions added by the analyst. Preserve user-defined jurisdictions, dates and identities; obtain authorization before changing scope.
-3. Check name variants and `ALL_AN`: add only identity-supported names belonging to the same confirmed entity and save before/after queries. Technical expansion preserves the entity restriction, without switching assignee fields or structured filters. New entities such as affiliates require consent when they expand scope. `ALL_AN` already includes original/historical assignees; its hits do not authorize expanding entity scope.
+1. 扩关键词同义面：加行业缩写、上下游工艺词、母公司惯用术语、外文原语表述。
+2. 检查约束：仅移除执行者自行附加的限制；用户指定的辖区、时间和主体边界必须保留，改变范围须先获得授权。
+3. 核对主体名称变体与`ALL_AN`限定：仅补入有身份依据、属于同一已确认主体的名称，并保存修订前后的查询。技术词扩展沿用原主体限定，不改用其他申请人字段或结构化过滤；关联公司等新主体属于范围扩展时，先征得用户同意。`ALL_AN`本身已涵盖原始／历史申请人，不能将其命中解释为已获准扩展主体范围。
 
-If still 0–4, present actual results. State only evidenced causes; otherwise give next verification steps. Possible explanations require specific evidence: trade-secret/data-based protection documented publicly; relevant patents held by an evidenced parent/affiliate; an early technology whose public timeline falls outside the available publication window; or terminology gaps demonstrated by new relevant expanded-search results. Do not present these hypotheses as established reasons.
+扩检后仍为 0–4 件，直接如实呈现。原因说明与 0 件规则相同：只写有依据的原因，没有依据时写下一步核查动作。以下是常见的候选原因，只有取得对应证据时才能写入报告：该技术以商业秘密或数据积累构成壁垒而非专利（如公开资料说明其保护方式）；由母公司或关联主体持有（如 `get_standard_assignee_name`／`get_corptree_hierarchy` 返回了关联主体且其名下有相关专利）；技术尚在早期未进入公开阶段（如产品公开时间晚于近期专利公开窗口）；关键词未能覆盖其表述习惯（如扩检词带来了新增相关件）。
 
-Never borrow patents across areas, loosen assignees to add other entities, count simple-family siblings as independent representatives, hide sparse areas or lower relevance to fill tables.
+### 硬性禁止项
 
-## 6. Required patent table
+- 不得跨技术方向借用专利填充表格
+- 不得放宽申请人限定、引入非目标主体专利来凑数
+- 不得把同一简单同族的多个成员当作多件独立代表专利
+- 不得因命中数不足而隐藏该技术方向不提
+- 不得为凑数而降低相关度门槛
 
-Fixed order: No. | Patent number (link) | Publication/grant date | Jurisdiction | Title | Legal status | **Assessed value** | **Jurisdictional coverage**.
+## 六、专利表字段规范
 
-Add a citation-count column only on explicit request, using returned values or `—` if unavailable. Missing required facts use `—`, never blanks, zeroes or guesses. Retain value/coverage columns even if entirely missing, explaining why in search notes. Every title requires an italic technical sentence with a fine left border; see [writing rules](description-writing.md).
+固定必备列：序号 | 专利号（可点击链接）| 公开/授权日 | 辖区 | 标题 | 法律状态 | **评估价值** | **布局国家**。
 
-| Column | Source | Missing handling |
+仅在用户明确要求展示被引次数时加列。该列同样按实际数据填写，缺失填 `—`。必备字段无数据填 `—`，不得留空、填 0 或猜测。即使某方向整列缺失，也不得取消“评估价值”或“布局国家”列，必须在检索说明中声明缺失原因。
+
+每件专利标题下方必须有一行技术描述句，写法见 `references/description-writing.md`。
+
+## 七、检索说明章节（强制）
+
+必须明示：各方向为独立查询、结果集可能重叠、`matched_total` 口径、同族折叠口径（统一表述为「简单同族去重」，不得出现 INPADOC 字样）、缺失字段说明、技术描述句为综合研判不构成权利要求解释。若使用了族级估值数据，须声明其族级性质。
+
+---
+
+## 代表专利表列结构（强制）
+
+每个技术方向的代表专利表必须包含以下列，顺序固定：
+
+| 列名 | 数据来源 | 缺失处理 |
 |---|---|---|
-| No. | Local sequence | — |
-| Patent number/link | Complete URL from search response | Number only if URL unavailable; never fabricate links. |
-| Publication/grant date | Search and verified fetch_patent bibliography for the same publication version | `—` |
-| Jurisdiction | Search and verified bibliography | `—` |
-| Title | Search and verified bibliography | Do not leave blank; use `—` if unavailable. |
-| Legal status | Search/details simple status; lifecycle evidence for specific legal events as needed | `—` |
-| Assessed value | Actual valuation source and units, if available | `—`; never zero for PCT-stage records. |
-| Jurisdictional coverage | Actual `response.relations.simple_family` members from `fetch_patent`; verified jurisdiction/publication codes | `—`; disclose partial membership. |
+| 序号 | — | — |
+| 专利号（可点击链接） | 检索工具返回的完整 URL | 无链接则仅列号，不得伪造 URL |
+| 公开/授权日 | 搜索及已核验的`fetch_patent`书目，绑定同一公开版本 | `—` |
+| 辖区 | 搜索及已核验书目 | `—` |
+| 标题 | 搜索及已核验书目 | `—` |
+| 法律状态 | 搜索／详情的简单状态；具体法律事件按需取生命周期证据 | `—` |
+| **评估价值** | 未取得估值时；按实际工具及单位核对 | `—`（PCT 阶段件禁止填 0） |
+| **布局国家** | `fetch_patent`返回的`response.relations.simple_family`成员，按成员文献号解析辖区代码；可附辖区数量 | `—` |
 
-Value requirements:
-- Without valuation capability, show `—` and explain; with values, show actual units.
-- One representative per simple family; show geographical breadth in coverage rather than extra sibling rows.
-- Label simple-family values only if the source establishes family-level scope; do not assume it for missing data.
+标题下方另起一行为技术描述句（斜体 + 左侧细边线样式），写法见 `references/description-writing.md`。
 
-Coverage requirements:
-- Use `fetch_patent(include=["relations"], format="json")` and actual simple-family members only; never extended families.
-- This plugin uses `fetch_patent` relations and does not assume an independently bound family service. Missing/authentication-required relationships mean `—`; partial returns state member scope without inferred complete coverage. Successful ordinary full-text retrieval does not establish successful relationship retrieval.
-- Prefer jurisdiction count (e.g. “4 jurisdictions”); for small families (≤6 members), codes such as US/EP/KR/WO may be listed directly. EP/WO are regional/international offices.
-- Member count differs from jurisdiction count: 23 members all in KR represent one jurisdiction, not 23.
+### 评估价值列的呈现要求
 
-## 7. Mandatory search notes
+- 当前无估值能力时填`—`并披露原因；取得数值时标注实际来源单位。
+- 每个简单同族只展示一件代表件；多辖区布局通过“布局国家”列呈现，不得另列同族成员凑数。
+- 仅在实际来源明确提供族级估值时，说明其为简单同族级别数值；不对缺失数据预设口径。
 
-Explain independent overlapping queries, `matched_total`, simple-family deduplication (do not use `INPADOC` in reports), missing fields, and that technical sentences are assessments rather than claim construction. Disclose family scope for actual family-level valuations.
+### 布局国家列的呈现要求
 
-## Five-count disclosure under every area table
+- 使用`fetch_patent(include=["relations"], format="json")`且只使用实际简单同族成员。不得用扩展同族或其他宽口径同族成员计算布局国家。
+- 本插件的同族链路使用`fetch_patent`的`relations`，不假设已绑定独立同族服务。同族字段不可用或需要认证时填`—`，部分返回则注明成员范围，不推测全量布局；普通全文读取成功不代表同族取证也成功。
+- 优先展示数量（如 `4 个辖区`）；同族规模较小（≤6 件）时可直接列出国别代码（如 `US/EP/KR/WO`）。
+- 同族规模与覆盖辖区数须区分：23 件同族全在 KR 时，布局国家为 `1`，不得写成 `23`。
 
-Read/calculate counts under [Step 3](../SKILL.md#step-3--search-patents-by-area). Missing is `—` with reasons; incomplete deduplication permits interim delivery only.
+---
+
+## 数量口径五项披露（强制）
+
+每方向表格下方必须出现如下句式（按[分方向专利检索步骤](../SKILL.md#step-3--分方向专利检索)读取或计算；缺失填`—`并说明，去重无法完成时仅交付阶段性结果）：
 
 ```text
-This area's query matched {matched_total} publications; {returned_count} were retrieved.
-Simple-family deduplication identified {independent_family_count} raw families,
-of which {eligible_family_count} passed relevance review. This table lists
-{listed_count} representatives, capped at ten by default without padding.
+该方向当次查询命中 {matched_total} 件公开件，实际返回 {returned_count} 件；按简单同族折叠后为
+{independent_family_count} 个原始同族，通过相关性审核的为 {eligible_family_count} 个，
+本表列出 {listed_count} 件代表专利。默认按合格同族数最多列出10件，不凑数。
 ```
 
-When `returned_count < matched_total`, label independent families as “within the returned sample.” Only complete pagination supports a full-query family count. If fewer than ten are eligible, disclose actual expansion steps/results under the tiers. Raw, eligible and listed counts are limited to the material retrieved and verified at each respective stage.
+若 `returned_count < matched_total`，必须注明 `independent_family_count` 是“返回样本内独立同族数”；只有完成全量分页后才可称为该查询的全量独立同族数。若合格同族数不足 10，说明按上述分级规则实际执行的扩检及结果；原始数、合格数和列出数均限定于已取得且完成相应核验的范围。
 
-Prohibited mistakes: using hits/publications as representative counts; selecting ten before deduplication; showing repeated sibling valuations as distinct valuable assets; or padding/hiding an area because fewer than ten families remain.
+### 常见错误（禁止）
+
+- 用 `matched_total` 或 `returned_count` 作为代表专利数量依据 → 会把同一发明的多个公开件当作多件专利。
+- 未做同族折叠即选 10 件 → 产出虚假技术丰富度。
+- 同族多成员各填相同估值且不标注 → 读者误认为存在多件高价值独立资产。
+- 因某方向折叠后不足 10 件而跨方向借用、放宽申请人限定或隐藏该方向。

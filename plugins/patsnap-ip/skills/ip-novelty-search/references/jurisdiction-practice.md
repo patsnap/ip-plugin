@@ -1,64 +1,64 @@
-# Target-jurisdiction practice and X/Y evidence audit
+# 目标国审查实践与 X/Y 文献审计
 
-Use this reference for inventive-step analysis; it does not replace current local law, examination guidelines or case law. Record the target jurisdiction and official rule version at the outset; verify current official-office texts when rules may have changed.
+本文件用于创造性分析，不替代目标国现行法律、审查指南或个案判例。开始分析时记录目标法域和采用的官方规则版本；规则可能更新时优先核对目标局官网的现行文本。
 
-## Shared X/Y roles
+## 共通的 X/Y 角色
 
-X/Y/A are search-evidence roles relative to the current solution and evidence path, rather than permanent document attributes.
+X/Y/A 是相对于“当前方案＋当前证据路径”的检索角色，不是专利文献的永久属性。
 
-1. Verify dates first. Ineligible documents remain technical leads or later-published explanatory material.
-2. Explain why an `X` document is sufficient alone; do not silently add cross-document knowledge.
-3. Each `Y` belongs to a numbered group, such as `Y1 = P1 + S1`. Identify primary P, secondary S, differences covered, teaching, compatibility, expectation of success and contrary teaching.
-4. Separate documents containing individual parts support `Y-candidate` only; use `Y-confirmed` after the complete group passes the jurisdiction’s standard.
-5. Treat families, corresponding applications and substantially identical disclosures as one technical evidence source; do not combine them with each other in a Y group.
+1. 先核实日期资格；不合格文献只能作技术线索或后公开解释材料。
+2. `X` 要说明为何单篇即可成立，不能用隐含的跨篇知识补足。
+3. `Y` 必须属于编号组合组，例如 `Y1 = P1 + S1`。逐项列出主文献 P、辅文献 S、覆盖区别、结合启示、兼容性、成功预期和反向教导。
+4. 仅能从多篇分别找到零件时，先标 `Y-candidate`；只有整组通过目标国标准才改为 `Y-confirmed`。
+5. 同族、对应申请或实质相同披露归为一个技术证据，不允许在同一 Y 组中互相组合。
 
-## CN: China
+## CN：中国
 
-Apply the current Patent Examination Guidelines’ three-step approach and requirements for combination inventions and common knowledge:
+采用现行《专利审查指南》关于创造性判断的“三步法”及组合发明、公知常识相关要求：
 
-1. Choose closest art by technical field, problem, effect/use and necessary features as a reasonable modification starting point, without mechanically counting features.
-2. Identify differences and the actual technical problem objectively from their effects, without embedding the difference or answer in the problem.
-3. Determine whether prior art as a whole provides technical teaching. Secondary means must perform the same function there, or common knowledge must be supported by verifiable evidence. Check structural conflicts, changed use, contrary teaching and unpredictable effects.
+1. 确定最接近的现有技术：优先考虑与发明技术领域、技术问题、技术效果或用途最接近，且公开必要技术特征较多、可作为合理改造起点的文献；不能只按特征数量机械选择。
+2. 确定区别特征及发明实际解决的技术问题：技术问题从区别带来的技术效果客观导出，不得写入区别特征本身或答案暗示。
+3. 判断现有技术整体是否给出技术启示：辅文献中的技术手段须在其中起相同作用，或公知常识须有可核实证据；同时审查是否存在结构冲突、用途变化、相反教导和效果不可预期。
 
-A CN-Y group records at least primary document, difference group, actual problem, secondary means and function, why a skilled person would adopt them, and whether the modified arrangement works. Three or more documents are not automatically forbidden, but more sources, distant fields and interface changes require a stronger independent, coherent teaching rather than hindsight assembly.
+CN-Y 组至少记录：主文献、区别组、实际技术问题、辅文献对应手段及其作用、为什么技术人员会把它用于主文献、改造后是否仍可工作。三篇以上组合不是当然禁止，但文献越多、跨领域越大、接口改动越多，越需要独立且连贯的技术启示；不能把多个独立来源拼成事后路线。
 
-Prefer textbooks, technical dictionaries, manuals and standards for decisive common knowledge. An analyst’s unsupported “routine design” remains unverified. Asserted unexpected effects must be comparable with closest art and supported by the disclosure.
+公知常识的决定性认定优先使用教科书、技术词典、技术手册、标准等；仅由分析者声称“常规设计”时保持未证实。申请人主张的预料不到效果需要与最接近技术可比并由交底支持。
 
-## EP: European Patent Office
+## EP：欧洲专利局
 
-Use the Problem-Solution Approach: choose realistic closest prior art/most promising starting points, determine differences and the objective technical problem, and apply the could-would approach. Ask whether a skilled person would, rather than merely could, adopt secondary teaching to solve the problem. Address multiple reasonable starting points and partial problems when appropriate, without embedding the invention in the problem. Mere combinability cannot establish `Y-confirmed`; give the would rationale and reasonable expectation of success.
+采用 Problem-Solution Approach：选择现实可行的 closest prior art / most promising starting point，确定区别和客观技术问题，再使用 could-would approach 判断技术人员不仅能够、而且是否会为解决该问题而采用辅文献教导。必要时处理多个合理起点和 partial problems，但避免把发明方案写入问题。辅文献仅“可以组合”不足以形成 `Y-confirmed`；须有 would 的理由及合理成功预期。
 
-## US: United States
+## US：美国
 
-Use the Graham factors and KSR framework: prior-art scope, claim differences, ordinary skill and objective evidence. Articulate combination reasons, such as known methods improving similar devices, predictable combinations, design needs or market pressure. Check analogous art, reasonable expectation of success, teaching away and secondary considerations. Conclusory common sense is insufficient.
+按 Graham 因素与 KSR 框架记录现有技术范围、权利要求差异、普通技术水平及客观证据。Y 组合须给出可阐明的组合理由，例如已知方法用于改进相似装置、可预见的已知要素组合、设计需求或市场压力等，并核对 analogous art、合理成功预期、teaching away 和 secondary considerations。不得只用结论式的“common sense”。
 
-## JP: Japan
+## JP：日本
 
-Starting from differences against the primary reference, examine combination motivation from technical field, problem, action/function or teaching, with obstacles and advantageous effects. Similar components alone do not establish motivation. Evaluate remarkably advantageous, unexpected effects separately.
+围绕主引用发明与请求方案的区别，审查辅引用是否因技术领域、问题、作用/功能或教导而具有组合动机，并核对阻碍因素及有利效果。仅有构件相似不自动形成动机；超出预期的显著效果应单独评价。
 
-## KR: Korea
+## KR：韩国
 
-Assess closest art, differences, problem and ease of combination, checking relationships in field, purpose and function/action, combination suggestions, technical obstacles and unexpected effects. Use verified current KIPO terminology; without a verified rule version, retain Y-candidate status.
+以最接近现有技术、区别、解决问题和技术人员是否容易结合为主线，核对技术领域、目的、功能/作用的关联、结合暗示、技术障碍和不可预期效果。报告使用已核实的 KIPO 现行指南表述；未核实具体规则版本时只标 Y 候选。
 
-## PCT/ISA or no specified country
+## PCT/ISA 或未指定国家
 
-Provide X/Y/A candidates by international-search-report relevance roles without extending them to a national final inventive-step conclusion. Y means particular relevance in combination with one or more other documents; specify actual groups rather than an isolated Y letter.
+按国际检索报告的文献相关性角色提供 X/Y/A 候选，但不把它扩展为某一国家的最终创造性结论。Y 表示与一篇或多篇其他文献结合时特别相关；报告仍须列出具体组合组，不能只在清单旁写字母 Y。
 
-## Output table
+## 输出表
 
-Each Y group contains at least:
+每个 Y 组合组至少包含：
 
-| Field | Content |
+| 字段 | 内容 |
 | --- | --- |
-| `path_id` | Y1, Y2, … |
-| `jurisdiction` | CN, EP, US, JP, KR or PCT/ISA |
-| `primary` | Primary document and date eligibility |
-| `differences` | Complete difference group against the primary |
-| `secondary` | Secondary documents and differences addressed, excluding family duplicates |
-| `teaching_or_motivation` | Jurisdiction-specific teaching/motivation with source locations |
-| `same_function` | Whether secondary means serve the same function in the source and target combination |
-| `compatibility` | Optical, mechanical, electrical, control, material or step interfaces |
-| `expectation` | Reasonable expectation of success |
-| `counter_indications` | Contrary teaching, changed use, structural conflicts, unexpected effects |
-| `role` | Y-candidate or Y-confirmed |
-| `conclusion` | Effect on inventive step and unresolved issues |
+| `path_id` | Y1、Y2…… |
+| `jurisdiction` | CN、EP、US、JP、KR 或 PCT/ISA |
+| `primary` | 主文献及其日期资格 |
+| `differences` | 相对主文献的完整区别组 |
+| `secondary` | 辅文献及其对应区别，不含同族重复 |
+| `teaching_or_motivation` | 目标国要求的结合启示/动机及原文位置 |
+| `same_function` | 辅文献手段在原文和目标组合中是否起相同作用 |
+| `compatibility` | 光学、机械、电气、控制、材料或步骤接口 |
+| `expectation` | 成功是否可合理预期 |
+| `counter_indications` | 相反教导、用途变化、结构冲突、不可预期效果 |
+| `role` | Y-candidate 或 Y-confirmed |
+| `conclusion` | 该路径对创造性的影响及未决事项 |

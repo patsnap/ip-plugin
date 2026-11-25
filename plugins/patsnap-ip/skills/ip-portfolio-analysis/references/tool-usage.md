@@ -1,34 +1,36 @@
-# Tool usage
+# 工具使用要点
 
-Runtime definitions govern full parameters, types, defaults, pagination and response structures. These notes retain consequential handoffs, parameter rules and evidence meanings.
+本参考只保留影响业务执行的工具衔接、关键参数规则和字段含义。调用时读取环境暴露的工具定义；完整参数、类型、默认值、分页限制和返回结构以运行时定义为准。
 
-## Search and evidence
+## 检索与证据衔接
 
-Keep complete technical concepts/qualifiers in keywords, not broad independent component terms. Semantic and keyword routes are independent; semantic_query does not necessarily constrain keyword hits. Without explicit language scope, prepare equivalent Chinese/English/Japanese expressions as current tool requirements indicate. Honor established languages and disclose gaps. Use supported semantic/keyword routes for ordinary topics, verified Boolean grouping for strict intersections.
+专利主题检索的关键词保留完整技术概念及必要限定，不拆成可独立召回的宽泛部件词；语义与关键词是独立召回路径，不能假定 semantic_query 会约束关键词命中。未明确检索语言时，按当前工具要求准备等义中、英、日表达；已有明确语言范围从其要求，披露未覆盖语种。普通主题按运行时策略选择语义／关键词，需严格概念交集时使用可核验的布尔分组。
 
-- search_patent searches patents; use build_patent_boolean_query only to construct from natural-language intent. Existing executable queries go directly to search. data.reference_query is readable; pass data.boolean_query unchanged without decoding/rebuilding references.
-- Boolean uses search_strategy=["boolean"] and boolean_query exclusively, without other strategies/filters/domains. Other strategies bind their declared parameters. Literature does not use patent Boolean parameters. Verify specialized fields through describe_search_capability first.
-- search_patent data.docs[].id can feed fetch_patent. Request relations/media only for needed family/citation/image evidence. Search text is a snippet/abstract; actual claims/descriptions support verification. Technical summaries are not originals and media links are not read images.
-- search_literature data.docs[].id becomes fetch_literature.paper_id. Bibliography/abstract is not full article text.
-- fetch_patent_lifecycle supplies legal records. Simple status/empty results cannot establish time-specific legal conclusions or absence of all past events. Verify actual records; missing stays pending.
-- Disambiguate with get_standard_assignee_name; use get_corptree_hierarchy only for needed relationships. Check company/assignee matches separately. resolved may include alternatives; ambiguous never defaults to first. company_id is for relationships, confirmed ans_id/direct ans_ids for patent-assignee filters. Do not interchange IDs. Relationships are not a full group tree, do not automatically expand identity scope, and patent_signal is not search total.
+- 专利检索用`search_patent`；需要从自然语言构建查询时才用`build_patent_boolean_query`。已有可执行式直接搜索，不经构建工具改写。构建结果的`data.reference_query`供阅读，`data.boolean_query`原样交给搜索，不解码或重建引用。
+- 布尔检索使用`search_strategy=["boolean"]`与`boolean_query`，不混入其他策略、过滤或专业领域条件。其他检索策略按工具定义绑定参数；论文不套用专利布尔检索参数。使用专业领域字段前，先通过`describe_search_capability`核对该领域能力。
+- `search_patent`返回的`data.docs[].id`可传给`fetch_patent`获取原文；同族、引证或原图需要时才请求`relations`或`media`。检索中的`text`只是摘要或片段；核验依据是实际权项与说明书，技术总结不等于原文，媒体链接不等于已读取内容。
+- 论文使用`search_literature`，将`data.docs[].id`作为`fetch_literature`的`paper_id`；详情中的著录与摘要不代表论文全文。
+- 法律记录使用`fetch_patent_lifecycle`。简单状态或正常空集合不能证明特定时点的法律状态或从未发生法律事件；按实际记录核验，缺失保持待核实。
+- 主体有歧义时用`get_standard_assignee_name`，需要公司关系时再用`get_corptree_hierarchy`。分别核对公司与申请人的匹配状态，`resolved`表示首项已识别且可有备选，`ambiguous`不能默认选首项；`company_id`用于公司关系，专利申请人筛选使用已确认的`ans_id`/直接关联`ans_ids`，两者不可互换。关系结果不是完整集团树，不能自动扩大主体范围，`patent_signal`也不是检索总量。
 
-## Scope and counts
+## 查询范围与数量口径
 
-- data.total_hits is query hits; data.returned_count is page count; matched_total is a local report mapping. Do not sum hits across queries/pages. Deduplicate merged details by real document identity and disclose paging-limited samples.
-- Publication-level counts explicitly use collapse_family=false. Folding changes both details/totals and is not automatically application-number or simple-family deduplication. Application deduplication requires actual application numbers; simple families require actual fetch_patent relations.simple_family membership with coverage limits.
-- Confirm IPC/date/jurisdiction/company scope under business rules; candidate conditions are not user choices. Field references help construct queries but do not prove tool acceptance; retain execution results/errors.
-- Use actual returned links tied to document identity. Otherwise show the number and “Link unavailable.” Do not claim online verification without reading content.
+- `data.total_hits`是查询命中总量，`data.returned_count`是本页返回数量；报告的`matched_total`是本地映射字段。跨查询或分页的命中数不能相加；合并明细须按真实文献身份去重。受分页限制未取回全量时披露样本覆盖。
+- 公开件口径显式使用`collapse_family=false`；启用折叠会同时改变明细和命中总量，不能直接称为申请号去重或简单同族口径。申请号去重只对实际具有申请号的记录计算，同族依据`fetch_patent`的`relations.simple_family`实际成员核对，并披露覆盖限制。
+- IPC、日期、辖区和公司范围按业务流程确认，不把候选条件当作用户已给条件。字段参考用于构式，不证明工具已接受该语法；执行时保留查询及结果或错误。
+- 文献链接只使用真实返回值并绑定文献身份；无链接时显示文献号及“未取得链接”，未实际读取时不声称已验证在线内容。
 
-## Population statistics and charts
+## 全量统计与图表
 
-- Use field_analysis for totals/trends/rankings/distributions. Combine requested dimensions for one dataset within runtime group limits; when splitting, preserve query/counting conventions. Use country for geography and authorize_year for grant year.
-- source.query takes confirmed natural-language scope or an executable query, not opaque builder references. Check source_resolution.query. Never guess Workspace sources without valid space/directory IDs.
-- Read total from source_resolution.matched_count and distribution from response.results[].display_rows or actual buckets; inspect warnings/errors/truncation. Bucket counts/sums are not deduplicated patent totals.
-- Multiple classes/assignees overlap; do not present them as mutually exclusive shares. Technical themes differ from effects/custom branches. If a dimension is unsupported, retain the report section with a limitation or classify retrieved records locally as a sample. For 20-year trends verify actual years/date bounds; missing years are not automatically zero.
+- 全量计数、趋势、排名和分布使用`field_analysis`；同一数据集的一次分析合并提交所需维度，按运行时维度组数上限组织，不逐维度重复调用；超限时分组合并需求并保持相同查询和口径。地域统计用 country，授权年份用 authorize_year，不混淆两者。
+- 查询来源的`source.query`使用已确认的自然语言范围或可执行式，不传构建工具的不透明引用。用返回的`source_resolution.query`核对统计范围；缺少有效空间与目录ID时不猜测Workspace来源。
+- 总量读取`source_resolution.matched_count`，分布读取`response.results[].display_rows`或实际桶，并检查警告、错误及截断。桶数或桶之和不是去重专利总量。
+- 多分类、多申请人可能重叠，不直接拼成互斥占比图。技术主题不等于技术功效或自定义分支；不支持对应维度时保留分析栏目并说明限制，或对已取得记录人工分类并明确样本口径。近20年趋势核对实际年份与查询时限，缺失年份不自动补零。
 
-## Missing capabilities/evidence
+## 能力与证据缺失处理
 
-These patent tools do not supply market size, policy/standards originals or monetary valuations. Use user material/available web sources with source/version/date; otherwise mark unavailable. Qualitative technical/legal/market assessment may use existing evidence, but no invented dollar values, five-axis scores, TRL evidence or current standard clauses. General industry knowledge supports general principles, not current company facts or document existence.
-
-Prefer local HTML resources for offline sharing. If original figures are unavailable, create SVG only from read text, labeled “Analytical illustration, not an original patent drawing.” Links do not verify image content. Tool availability does not expand tasks; risk/design-around/innovation require concrete evidence and relevant user decisions, not additional analyses as substitutes. Continue bounded analysis with existing material when tools are unavailable; samples/frameworks/pending evidence are not completed exhaustive searches.
+- 上述专利工具不提供市场规模、政策/标准原文或金额估值。公司、产业及标准调研可结合用户材料和可用的网页能力；记录来源、版本与时点。没有证据时明确未取得。
+- 定性技术/法律/市场价值评估可基于已有证据开展；不能伪造美元估值、五维得分、TRL证据或现行标准条文。行业公知仅用于一般原理，不证明特定公司的现状或某文献存在。
+- HTML优先使用本地资源以便离线分享。原图不可取得时，按已读文本生成注明“分析示意，非原始专利附图”的SVG；来源链接不等于已核实图像内容。
+- 工具可用不代表需要扩大任务；风险、规避与创新评估应依据具体文本和技术要素，不以额外分析工具替代证据对照或用户确认。
+- 工具不可用时继续已有材料分析，保留缺口及受影响阶段；不把样本统计、框架报告或待核实材料包装成已完成全量检索。

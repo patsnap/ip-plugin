@@ -1,38 +1,50 @@
-# Plain language for general readers in the target country
+# 目标国普通读者的平实表达
 
-Apply this to customer questions, updates, solution/feature descriptions, search logic, candidate reasons, itemwise opinions, HTML, reports, tables, captions, conclusions and disclaimers. Readers understand the product but need not know patent-search tools. Rewrite internal template terminology before delivery.
+面向客户的提问、阶段更新、技术方案描述、特征说明、检索逻辑、候选理由、逐项比对意见、HTML、报告、表格、图注、结论和免责声明均适用。目标是让不熟悉专利检索工具、但了解本产品的一般业务或技术读者能够一次读懂。模板中即使已有内部术语，生成时也必须先改成普通说法，不能原样照搬。
 
-## 1. Identify readers
+## 1. 先确定读者
 
-Record `reader_country | reader_language | reader_level=general | output_language` in the input card. Follow explicit delivery language. If a report is for target-country readers and language is unresolved, confirm once. For shared multi-country reports, use the client’s common language and explain necessary national terms at first mention.
+输入卡记录 `reader_country｜reader_language｜reader_level=general｜output_language`。用户已指定交付语言时遵从；报告明确供目标国读者阅读而语言未定时，只确认一次。多国共用报告则采用客户选择的共同语言，并在首次出现时补充各目标国必要术语。
 
-Use natural, polite local language with accurate patent terminology. Restructure sentences before checking meaning; do not mechanically transfer Chinese sentence structure into English, Japanese, German or French, or use unexplained internal mixed-language jargon.
+目标国语言不是逐字翻译。采用该国自然、日常、礼貌的表达，同时保留准确的专利术语。先按目标语言重新组织句子，再核对含义；不要把中文长句结构直接搬到日文、英文、德文或法文，也不要使用只在内部流程中才看得懂的中英混写。
 
-## 2. Body text
+## 2. 正文写法
 
-- Answer what was searched, what was found, what remains uncertain and what the reader must decide next.
-- Use one main idea per sentence, common verbs and active voice. Omit internal process names, codes and tool names that do not help decisions.
-- Explain what happened, its effect on this assessment and what is needed, rather than giving labels/scores/interface status alone.
-- Explain acronyms/technical terms on first use, then use a short plain name: FTO is patent freedom-to-operate assessment; Boolean is keyword search with logical combinations; Screening is candidate patent screening; Claim Chart is itemwise claim comparison; lifecycle means whether rights are pending or active; adopted text means the claim version actually compared.
-- Put internal fields/codes in parentheses, footnotes or audit appendices. Explain the business effect in the body, for example “this route failed to restrict results to Japan”; use `route_degraded` in the appendix.
-- Every number names its object/source: “The first Japanese-language batch returned 20 patents, of which 19 met Japan and active-status requirements.”
-- Condition risk conclusions on product, country, time and unknowns. Do not promise absolute safety or zero risk.
+- 先回答四件事：查了什么、发现什么、还有什么不确定、读者下一步要决定什么。
+- 一句话只表达一个主要意思；优先使用常用动词和主动语态。删除不影响决定的内部流程名、状态码和 Tool 名。
+- 描述一个结果时按“发生了什么—对本次分析有什么影响—还需要什么”来写。不要只给分数、标签、缩写或接口状态。
+- 每个缩写或专门术语首次出现时用普通语言解释，此后使用短名称。例如：
+  - `FTO` → “专利自由实施分析（FTO）”
+  - `Boolean` → “关键词逻辑检索（Boolean）”
+  - `Screening` → “候选专利筛选（Screening）”
+  - `Claim Chart` → “逐项权利要求对照表（Claim Chart）”
+  - `legal status／lifecycle` → “该专利目前是否仍在申请中或有效”
+  - `adopted text` → “本次实际用来比对的权利要求版本”
+- 正文使用读者能理解的名称，内部英文、字段名和状态码放在括号、脚注或审计附录。例如正文写“这条检索路线未能正确限定日本”，附录再写 `route_degraded`。
+- 数字必须带对象和来源，不写孤立的“20、13、50”。例如写“日文检索首批返回 20 件，其中 19 件符合日本和有效状态要求”。
+- 风险结论使用条件句，写清适用产品、国家、时间和未知；不写“绝对安全”“完全无风险”等绝对化表述。
 
-## 3. Preserve evidence
+## 3. 证据不能被简化掉
 
-Keep original text, complete claims, publication numbers, queries, legal events and raw tool labels intact. Add plain explanations separately without altering or impersonating originals.
+专利原文、完整权利要求、文献号、检索式、法律事件和工具原始标签保持原样。平实说明另列，不覆盖、删改或冒充原文。
 
-For foreign-language evidence show original → complete translation → plain explanation. Originals allow verification; translations preserve limitations, negations, quantities, relationships and conditions; explanations aid understanding and are clearly not claim text. If simplification changes meaning, retain the accurate term and explain it in a sentence.
+外文证据按“原文 → 完整译文 → 平实说明”三层呈现：
 
-## 4. Tables and pages
+1. 原文用于核证；
+2. 完整译文保持限定、否定、数量、关系和条件；
+3. 平实说明只帮助理解，并明确不是权利要求原文。
 
-- Use plain headers first, with necessary internal terms in parentheses.
-- Lead with short conclusions and unresolved issues; make technical detail, queries and evidence expandable.
-- Use full status text such as completed, needs confirmation, not obtained or outside scope; color alone is insufficient.
-- Explain why a candidate merits review and what is missing instead of unexplained scores/codes.
-- Use one consistent plain name per concept throughout.
-- Buttons/questions state consequences, such as “Read selected patents’ complete descriptions first,” rather than an internal “enable enhancement” label.
+如果简化会改变法律或技术含义，宁可保留术语并用一句话解释，不用近义改写替代。
 
-## 5. Pre-delivery review
+## 4. 表格与页面
 
-For each paragraph check relevance to the reader, first-use acronym explanations, decisions per sentence, business meaning of tool status, separation of originals/explanations, and conclusion scope/unknowns. Rewrite failed presentation checks without changing evidence.
+- 表头先写普通名称；必要的内部名放括号。例如“候选专利筛选状态（Screening）”。
+- 页面先给短结论和未决事项，再提供可展开的技术细节、检索式和证据。
+- 状态不能只靠颜色。使用“已完成、需要确认、未取得、范围外”等完整文字。
+- 候选目录说明“为什么值得看”和“还缺什么”，不向普通读者展示无解释的分数或状态码。
+- 同一概念在整份交付中使用同一个易懂名称，不在“筛选、过滤、Screening、初筛”之间无规则切换。
+- 客户可见的选择按钮和问题必须直接说明选择后的影响。例如写“先阅读所选专利的完整说明书”，不写“启用全文增强模式”。
+
+## 5. 交付前检查
+
+逐段检查：目标国一般读者是否能说明这段与自己有什么关系；首次出现的缩写是否解释；一句话是否塞入多个决定；工具状态是否已翻译成业务含义；原文与平实说明是否分开；结论是否写明范围和未知。任一项不通过就改写展示层，不改动底层证据。

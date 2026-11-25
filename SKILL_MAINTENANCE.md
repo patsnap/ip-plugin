@@ -1,106 +1,107 @@
-# Skill Maintenance
+# Skill 维护说明
 
-This guide is for maintainers of the repository’s plugin skills. See [README](README.md) for installation and client verification. Skills do not need to load this guide during business execution.
+本说明用于维护本仓库插件中的 Skills。安装与客户端验证见 [README](README.md)；本文件供维护者使用，无需让每个 Skill 在执行业务时加载。
 
-## Scope of changes
+## 修改范围
 
-- Identify whether a change concerns business behavior, tool adaptation, structure or presentation.
-- Tool adaptation changes tool selection, handoffs, essential parameter rules, result interpretation and missing-capability handling. Preserve capabilities, scenarios, business steps, confirmation points, methods and deliverables.
-- When a tool cannot provide evidence, disclose the gap and affected conclusions. Do not silently remove report sections or substitute samples, abstracts or model judgments for complete evidence.
-- Change capability descriptions, triggers and workflows only when the business scope actually changes.
+- 修改前明确是业务变更、工具适配、结构整理还是展示信息调整。
+- 工具适配仅调整工具选择、调用衔接、关键参数规则、返回结果解释及能力缺失处理。保留原有能力、适用场景、业务步骤、确认节点、分析方法和交付要求。
+- 工具无法直接提供某项证据时，说明缺口及受影响的结论；不因接口缺失而悄悄删去业务栏目，也不把样本、摘要或模型判断当作完整证据。
+- 只有业务范围确实改变时，才相应修改 Skill 的能力说明、触发描述和流程。
 
-## Directory and file responsibilities
+## 目录与文件职责
 
-Skills live in `plugins/<plugin-name>/skills/<skill-name>/`. The directory and `SKILL.md` name must match, using lowercase letters, digits and hyphens.
+Skill 存放在 `plugins/<plugin-name>/skills/<skill-name>/`。目录名与 `SKILL.md` 中的 `name` 保持一致，使用小写字母、数字和连字符。
 
-Prefer names describing business capabilities and explain responsibilities through concrete execution steps. Each skill is self-contained: its business steps, runtime references, templates and scripts live in its own directory. Its instructions and cases neither name another skill nor require delegation to or loading another skill. Describe compound-task steps and boundaries within the same workflow.
+名称优先描述业务能力，正文以业务职责和执行步骤说明其行为。每个 Skill 自包含：业务步骤和运行所需参考文档、模板及脚本均位于自身目录内；正文和用例不引用其他 Skill 的名称，也不要求转交或加载其他 Skill。复合任务在自身流程中写明执行步骤与边界。
 
-| File/directory | Responsibility | Retention rule |
-| --- | --- | --- |
-| `SKILL.md` | Name, triggers, inputs, workflow, key rules and deliverables | Required |
-| `references/` | Longer methods, output specifications or tool guidance | Link from relevant steps and explain when to read |
-| `assets/` | Report templates, styles and delivery resources | Keep when actually used |
-| `scripts/` | Local conversion or repeatable processing | State purpose, dependencies and invocation |
-| `agents/openai.yaml` | Client display name and optional invocation policy | Use the branch-language business name in `interface.display_name`; preserve policies and the invocation identifier in `SKILL.md` |
-| `evals/` | Business review and behavior cases | Keep useful cases; not routine business inputs |
+| 文件或目录 | 职责 | 保留条件 |
+|---|---|---|
+| `SKILL.md` | 名称、触发描述、输入、业务流程、关键规则和交付要求 | 必需 |
+| `references/` | 较长的方法、输出规范或工具使用要点 | 按需；从相关步骤引用并说明阅读时机 |
+| `assets/` | 报告模板、样式等交付资源 | 实际用于生成输出时保留 |
+| `scripts/` | 本地转换或稳定重复的处理程序 | 有明确用途，并注明依赖和调用方法 |
+| `agents/openai.yaml` | 客户端展示名称与可选调用策略 | `interface.display_name` 使用本分支语言的业务名称；保留已有调用策略，调用标识仍使用 `SKILL.md` 的 `name` |
+| `evals/` | 业务审核或行为验证用例 | 有维护价值时保留，不作为日常业务输入 |
 
-Maintain plugin configuration centrally:
+插件配置统一维护：
 
-- [Standard manifest](plugins/patsnap-ip/plugin.json) uses Agent Plugins 1.0 and discovers `skills/` and `mcp.json`. Keep version, description and display metadata aligned with compatibility manifests. The Codex compatibility format also remains supported; this repository packages both formats.
-- [WorkBuddy/CodeBuddy](plugins/patsnap-ip/.codebuddy-plugin/plugin.json), [Claude Code](plugins/patsnap-ip/.claude-plugin/plugin.json) and [Codex](plugins/patsnap-ip/.codex-plugin/plugin.json) manifests declare the same version, skills and MCP paths. Use `patsnap-ip-plugin` in the standard manifest, all three compatibility manifests and their marketplace entries. Client adapters coexist without duplicating business content.
-- [Standard MCP configuration](plugins/patsnap-ip/mcp.json) and [compatibility configuration](plugins/patsnap-ip/.mcp.json) use `streamable-http` and `http` respectively. Synchronize service names, endpoints and authentication policy. Default to host-managed OAuth; do not distribute API-key forms, static authentication headers or real credentials. For client-specific configurations, verify manifest precedence and same-name service merging. OAuth metadata must have a real source; do not guess endpoints or client IDs.
-- [WorkBuddy/CodeBuddy](.codebuddy-plugin/marketplace.json), [Claude Code](.claude-plugin/marketplace.json) and [Codex](.agents/plugins/marketplace.json) marketplace files register the same plugin directory and description in each client’s format.
+- 标准清单：[plugin.json](plugins/patsnap-ip/plugin.json)使用 Agent Plugins 1.0 schema，自动发现 `skills/` 和 `mcp.json`；与三份兼容清单保持版本、描述及展示信息一致。Codex 兼容格式仍受支持，并非所有 ZIP 都必须具有标准根清单；本仓库同时维护两种格式，打包时完整保留。
+- 三份兼容插件清单：[WorkBuddy / CodeBuddy](plugins/patsnap-ip/.codebuddy-plugin/plugin.json)、[Claude Code](plugins/patsnap-ip/.claude-plugin/plugin.json)、[Codex](plugins/patsnap-ip/.codex-plugin/plugin.json)保持版本、Skill 目录和 MCP 配置路径一致，共享 `./skills/` 与 `./.mcp.json`。标准清单、三份兼容清单及对应市场条目统一使用插件标识 `patsnap-ip-plugin`。
+- [标准 MCP 配置](plugins/patsnap-ip/mcp.json)与[兼容 MCP 配置](plugins/patsnap-ip/.mcp.json)分别使用 `streamable-http` 和 `http`，保持服务名称、地址和鉴权策略一致。默认通过宿主完成 OAuth，不分发 API Key 表单、静态鉴权请求头或真实凭据。新增客户端专用配置时须核对清单优先级和同名服务合并规则；服务要求的 OAuth 元数据须有真实依据，不能猜测端点或客户端 ID。
+- 三份市场清单：[WorkBuddy / CodeBuddy](.codebuddy-plugin/marketplace.json)、[Claude Code](.claude-plugin/marketplace.json)、[Codex](.agents/plugins/marketplace.json)登记同一插件目录与展示描述，按各自客户端格式维护。
 
-## Writing descriptions
+## 描述怎么写
 
-Plugin `description` states the audience, main capabilities and workflows. Keep manifests, marketplace entries and README consistent in scope; a low-level tool capability is not automatically a complete skill workflow.
+插件的 `description` 说明面向谁、提供哪些主要能力和工作流。插件清单、市场清单及 README 的介绍在能力范围上保持一致，避免将某个底层工具的能力表述为已提供完整 Skill 流程。
 
-Skill `description` explains what it does and when to use it. Put detailed methods and tool rules in the body or references. Tool adaptation should not incidentally change business positioning.
+Skill 的 `description` 说明该 Skill 做什么、何时使用；详细方法和调用规则放在正文或参考文件。工具适配不应顺带改写其业务定位。
 
-Configure display names through each Skill’s `agents/openai.yaml`: Chinese names in the Chinese branch and English names in the English branch. README shows business names/descriptions only in its branch language, with invocation identifiers where useful. Display names do not replace directories or `name`.
+展示名称通过各 Skill 的 `agents/openai.yaml` 配置：中文分支使用中文名，英文分支使用英文名。README 仅展示本分支语言的业务名称和简介，可保留调用标识；展示名称不替代目录名及 `name`。
 
-Avoid repeatedly stating the plugin name, service endpoint, MCP compatibility or “only use this MCP.” Describe the tools actually available; explain dependencies or limitations at the affected step.
+Skill 通常无需反复提及插件名称、服务地址、MCP 兼容性或“只能使用指定 MCP”。围绕实际可用工具编写执行规则即可；确有依赖或限制影响业务执行时，在相关步骤说明。
 
-### Language branches and delivery contract
+### 语言版本与交付契约
 
-Use “智慧芽” for Chinese brand text and “Patsnap” for English brand text. In bilingual documents, follow the language of each passage; in reports, follow the output language. Preserve plugin identifiers, directory names, tool names, URLs and connection parameters such as `APP_ID`.
+品牌展示按文本和交付语言统一：中文使用“智慧芽”，英文使用“Patsnap”；双语文档按段落语言处理，报告中的品牌文字随交付语言调整。插件标识、目录名、工具名、URL 和 `APP_ID` 等连接参数保留原值。
 
-Use the [listing document’s name and introduction table](https://xa3hdkuita.feishu.cn/wiki/PfiXw6a6TiXhMXkBCPFcDxMFnQg) for the official plugin display name and developer identity: “智慧芽 IP 专家套件” in Chinese, “Patsnap IP Plugin” as the English short name, and “Patsnap” for the developer/author. Keep marketplace names localized by branch and retain current plugin identifiers rather than adopting candidate identifiers.
+插件正式展示名与开发者身份以[上架资料的名称与介绍](https://xa3hdkuita.feishu.cn/wiki/PfiXw6a6TiXhMXkBCPFcDxMFnQg)为准：中文“智慧芽 IP 专家套件”，英文短名“Patsnap IP Plugin”，开发者／作者“Patsnap”。市场名继续按分支语言展示；候选标识不替代当前插件标识。
 
-`main` defaults to Chinese and `release-en` defaults to English. An explicit output-language request takes precedence. Use the adopted output language for dialogue, prose, templates, headers, chart labels and HTML `lang`. Determine search languages and jurisdictions independently. Preserve source originals and locations, with labeled translations where needed.
+`main` 默认中文，`release-en` 默认英文。用户明确指定的交付语种优先。对话、正文、模板标签、表头、图例与网页 `lang` 随交付语种调整。检索语种和法域独立确定，保留证据原文与定位，必要时标注译文。
 
-Keep capabilities, business rules, delivery formats, chapters, fields, template structure, styling, tool configuration and versions aligned. Branch differences concern default language, translation, localized copy and the MCP endpoint. Within each branch, the standard and compatibility configurations use the same endpoint. Apply shared changes to `main` and synchronize them to `release-en`. Verify both locales against the same evidence and review the complete branch diff before release. Maintain equivalent guidance in the README and maintenance notes with localized prose.
+两个分支的能力、执行规则、交付格式、章节、字段、模板结构、样式、工具配置及版本保持一致。分支差异限于默认语种、翻译、本地化文案和 MCP 服务地址。每个分支内的标准与兼容配置使用同一地址。共同改动先进入主版本，再同步英文分支。发布前用相同证据验证两个语种的章节、字段及文件清单，并逐项核对分支差异。README 和维护说明的规则同步，正文可按分支语种本地化。
 
-## Tool guidance depth
+## 工具使用说明保留到什么程度
 
-Before changing tool calls, inspect the target MCP’s current tool list and relevant definitions, including inputs, outputs and limits. Keep execution rules in each skill’s own references and synchronize affected embedded guidance when routing changes; execution must not depend on shared files outside that skill directory. Do not infer current capabilities from old tool names, historical receipts or another service. Execute a scoped search only when needed to validate specific behavior.
+修改工具调用前，读取目标 MCP 的当前工具列表和相关工具定义，核对输入、输出及限制。执行所需规则保存在各 Skill 自身的参考文档中；路由变更时同步相关内置文档，运行时不依赖目录外的公共文件。不要凭旧工具名、历史回执或其他服务的接口推断当前能力。仅在验证具体调用行为确有必要时执行范围明确的检索。
 
-Keep three types of guidance:
+Skill 中保留三类内容：
 
-1. Handoffs: when and in what order to call tools, and how results feed the next step.
-2. Essential parameter rules: combinations affecting results or prone to misuse, such as Boolean versus other strategies and publication versus family counting.
-3. Necessary field meanings: totals versus returned-page counts, company versus applicant identities, and reference expressions versus executable queries.
+1. **调用衔接**：何时调用、先后顺序，以及前一步的结果如何传给下一步。
+2. **关键参数规则**：会改变业务结果或容易误用的组合，例如布尔检索与其他策略不能混用、公开件与同族折叠口径的选择。
+3. **必要字段含义**：后续分析依赖的字段，例如命中总量与本页返回数量、公司身份与申请人身份、参考表达式与可执行查询的区别。
 
-Full parameter lists, types, defaults, pagination limits, language enums and result structures are governed by runtime definitions. Do not copy interface snapshots, obsolete fields or historical aliases into skills.
+完整参数列表、类型、默认值、分页上限、语言枚举和返回结构以运行时工具定义为准。无需将接口文档或工具列表快照复制进 Skill；也不维护不存在的旧字段或历史工具别名。
 
-Distinguish tool results, user materials and locally calculated report fields. Missing is not zero; a link is not proof of reading; tool success does not establish a conclusion.
+工具返回、用户材料和 Skill 自行计算的报告字段要明确区分。缺失字段不能当作零值；链接不等于已读内容；工具执行成功不等于分析结论成立。
 
-## Separate tool reference files
+## 是否需要独立工具参考文件
 
-A separate reference file is optional:
+独立工具参考文件不是必需配置。按内容决定：
 
-- Put short rules in the relevant `SKILL.md` step.
-- Put longer, independently useful rules spanning phases in `references/tool-usage.md`, linked as “Tool usage”.
-- Maintain a rule once where practical; keep the call purpose in the workflow and link to details.
-- Do not create identical files solely for uniformity or require every reference to be read at startup.
+- 规则简短或与主流程高度重复：直接放入 `SKILL.md` 对应步骤。
+- 规则较长、涉及多个阶段且有独立阅读价值：放入 `references/tool-usage.md`，链接名称使用“工具使用要点”。
+- 同一规则在一个 Skill 中尽量只维护一处；主流程保留调用目的，细节通过链接引用。
+- 不为统一目录而给所有 Skill 建立相同文件，也不要求执行时先读全部参考资料。
 
-For example, the [competitor report](plugins/patsnap-ip/skills/competitive-patent-analysis/SKILL.md) embeds tool rules in company confirmation and area searches; [report review tool guidance](plugins/patsnap-ip/skills/patent-search-report-reviewer/references/tool-usage.md) separately covers query verification and evidence handling.
+例如，[竞对报告](plugins/patsnap-ip/skills/competitive-patent-analysis/SKILL.md)将规则放在主体确认、分方向检索等步骤；[报告审核的工具使用要点](plugins/patsnap-ip/skills/patent-search-report-reviewer/references/tool-usage.md)独立保存查询复核与证据处理规则。
 
-## Adding, deleting and organizing
+## 新增、删除与整理
 
-Check business scope and resource purpose before adding a skill directory containing `SKILL.md`. Inspect imported `.skill` archives before extraction, avoid extra directory nesting, and remove caches, temporary outputs and unused attachments.
+新增 Skill 时，先核对业务范围和资源用途，再整理为包含 `SKILL.md` 的目录。导入的 `.skill` 文件如为压缩包，检查目录结构后解包，避免多套一层目录；清理缓存、临时产物和无实际用途的附带文件。
 
-Before deleting files, check Markdown links, prose paths, script dependencies, template references and evaluation inputs. Remove duplicate installation instructions, connection configurations or obsolete interface snapshots only after their purpose is covered elsewhere. Do not delete useful methods, templates, scripts or cases just because the main workflow does not link them directly.
+删除文件前检查 Markdown 链接、正文中的路径、脚本依赖、模板引用和用例输入。重复安装说明、独立连接配置、过期接口快照可在用途已由其他文件承接后删除；方法文档、模板、脚本和有效用例不能仅因不在主流程中直接引用就删除。
 
-When renaming/deleting a skill, update README structure, descriptions, verification examples and other references. Directory-based discovery does not require a separate per-skill registry.
+重命名或删除 Skill 时，同步更新 README 的目录、说明和验证示例，以及其他文件中的引用。插件已通过目录声明加载 Skills 时，无需另建逐个 Skill 的注册清单。
 
-Document current capabilities, usage and maintenance rules. Keep change histories, test execution logs and temporary troubleshooting notes in version control or task records.
+文档描述当前能力、使用方法和维护规则。详细提交历史、测试执行流水和临时排障记录由版本控制或任务记录保存。
 
-## Confirmation points and evaluation
+## 确认节点与评测
 
-User confirmation, human selection and professional review are business steps. Do not remove, move or replace them with agent self-checks to improve automated test pass rates, increase tool calls or finish in one turn. Changing these points requires an explicit business requirement.
+用户确认、人工选择和专业复核是业务流程的一部分。不得为提高自动化用例通过率、增加工具调用或实现单轮完成而取消、前移、后移或改为 Agent 自检。变更这些节点必须有明确的业务需求依据。
 
-Evaluate routing, awaiting confirmation, awaiting material, tool execution and final delivery separately. Waiting at a required user checkpoint after selecting the correct workflow is a valid stage result; lack of tool calls at that point is not itself failure. Tests of later tool calls must provide actual applicable prior confirmation or multiple turns. Do not fabricate approval, treat a general request as approval of every checkpoint, or treat silence/timeouts as consent. Record quotas, tool faults and business waiting separately.
+评测区分触发、等待确认、等待材料、工具执行和最终交付。命中正确流程后在规定节点等待用户，是有效的阶段结果；该阶段没有工具调用不能单独判为失败。需要验证后续工具调用的用例应提供真实可采用的前序确认或多轮交互，不让 Agent 代造确认、把普通任务请求当作所有节点已批准，或把沉默和超时视为同意。限额、工具故障与业务等待分别记录。
 
-## Checks after changes
+## 修改后的检查
 
-- Structure/references: parse YAML frontmatter with `name` and `description`; verify directory names, JSON, links, paths and resources.
-- Business scope: preserve scenarios, steps, confirmation points, methods and deliverables; never invent capabilities or evidence to fill tool gaps.
-- Tool usage: check names, handoffs and key combinations; distinguish hits, samples, families and local calculations.
-- Resources: run representative script inputs; inspect generated templates; use relevant business cases for rule changes.
-- Localization: check every distributed text file and DOCX XML. Classify remaining non-English text by purpose, verify English output defaults, and test English heading recognition, navigation, references and document layout.
-- Client verification: before release, verify discovery, tool loading and affected workflows per README. Documentation and format checks are not live business integration tests.
+按改动范围检查：
 
-Use available skill validators where appropriate and run `git diff --check`. Match verification to the changes; description/link edits alone do not require complete business searches.
+- **结构与引用**：`SKILL.md` 的 YAML 可解析且包含 `name`、`description`；目录与名称一致；JSON 配置有效；链接、路径和资源引用存在。
+- **业务范围**：工具适配前后，场景、业务步骤、确认节点、方法和交付要求保持一致；工具缺失的处理不虚构能力或证据。
+- **工具使用**：名称与衔接符合当前定义，关键参数组合有效，命中、样本、同族及本地计算口径区分清楚。
+- **资源改动**：修改脚本时运行代表性输入；修改模板时检查生成结果；修改审核规则时使用相关业务用例验证。
+- **客户端验证**：发布前按 README 检查 Skill 发现、工具加载及受影响流程。文档和格式检查通过不能表述为已完成真实业务联调。
 
-Update plugin versions for publication, verify marketplace/README/package agreement, then commit and distribute according to the release process. Routine local document edits do not require a version bump. Never commit real credentials or personal client configuration.
+可使用当前环境提供的 Skill 校验工具检查结构，并运行 `git diff --check` 检查补丁格式。验证应针对实际改动；仅修改描述或链接时，无需重跑全部业务检索。
+
+发布时更新插件版本，确认市场描述、README 和实际内容一致，再按仓库发布流程提交并分发。普通本地文档整理无需逐次递增版本；真实凭据和个人客户端配置不提交到仓库。

@@ -1,69 +1,69 @@
-# Tool meanings and input/output patterns
+# 工具含义与输入输出范式
 
-## Contents
+## 目录
 
-- General rules
+- 通用规则
 - `extract_technical_features`
 - `search_patent`
 - `fetch_patent`
 - `assess_feature_disclosure`
 
-## General rules
+## 通用规则
 
-This is the explicit contract used by this Skill. Current runtime schemas govern changes; update this reference accordingly. Use tool-returned patent search results, text, figures and PDFs. Local scripts organize records and generate reports only.
+以下是本 Skill 使用的明确契约；工具当前 Schema 更新时以实际 Schema 为准，并同步修订本文件。专利检索、正文、附图和 PDF 使用工具返回的材料；本地脚本只整理记录和生成报告。
 
-Identify the blocked step when a required tool is unavailable; do not invent legacy names or switch patent services. Tool failure is not zero hits; missing material is not nondisclosure.
+缺少所需工具时说明阻塞步骤，不猜造旧工具名、不切换其他专利服务。工具失败不是零命中，材料缺失不是未公开。
 
 ## `extract_technical_features`
 
-Purpose: extract the solution, complete technical relationships and sources from the disclosure for shared retrieval/comparison use. It does not search patents or decide novelty/inventive step.
+含义：只从交底中提取后续检索和比较共用的技术方案、完整技术关系及出处；不检索专利，不判断新颖性或创造性。
 
-Input:
+输入：
 
 ```json
 {
-  "disclosure_text": "Complete original user disclosure",
-  "language": "en-US",
+  "disclosure_text": "用户原始技术交底全文",
+  "language": "zh-CN",
   "disclosure_images": [{
-    "label": "Figure 1",
+    "label": "图1",
     "mime_type": "image/png",
-    "data_base64": "Base64 of complete image bytes",
-    "ref": "Image reference identifier",
+    "data_base64": "完整图片字节的Base64",
+    "ref": "图片引用标识",
     "pdf_page": 1,
-    "text_locations": ["Disclosure page 3"]
+    "text_locations": ["说明书第3页"]
   }]
 }
 ```
 
-`disclosure_images` may be omitted. Read output as follows:
+`disclosure_images` 可省略。输出读取：
 
 ```json
 {
   "status": "complete",
-  "technical_solution": "Solution overview",
-  "features": ["Complete feature relationship 1"],
+  "technical_solution": "方案概括",
+  "features": ["完整特征关系1"],
   "feature_evidence": [
-    {"feature": "Complete feature relationship 1", "source_quote": "Original disclosure sentence", "image_labels": []}
+    {"feature": "完整特征关系1", "source_quote": "交底原句", "image_labels": []}
   ],
   "questions": [],
-  "language": "en-US",
+  "language": "zh-CN",
   "audit": []
 }
 ```
 
-Handle unresolved `questions` that change the assessment subject under entry step 1. Do not replace the original disclosure with a summary or silently rewrite `features` locally.
+`questions` 有会改变评价对象的未决项时按入口第1步处理；不能用概括替代原始交底，也不能在本地静默改写 `features`。
 
 ## `search_patent`
 
-Purpose: discover candidate patents and bibliography through semantic, keyword, structured-filter and Boolean retrieval. Abstracts/snippets do not replace full text for comparison.
+含义：发现候选专利及书目信息。支持语义、关键词、结构化过滤和布尔检索；返回摘要或片段，不返回可替代全文比较的完整正文。
 
-Mixed semantic/keyword input:
+语义＋关键词混合输入：
 
 ```json
 {
   "search_strategy": ["semantic", "keyword", "filter"],
-  "semantic_query": "Complete technical intent, relationships and problem",
-  "keywords": ["Complete Chinese relationship phrase", "English technical relationship"],
+  "semantic_query": "完整技术意图、关系和问题",
+  "keywords": ["中文完整关系短语", "English technical relationship"],
   "filters": {"date_type": "publication", "date_to": 20201231},
   "limit": 20,
   "offset": 0,
@@ -72,9 +72,9 @@ Mixed semantic/keyword input:
 }
 ```
 
-Remove `filter` and `filters` when dates are unresolved. Available filters include `pn`, `apno`, `assignees`, `assignee_ids`, `inventors`, `ipc`, `jurisdiction`, `legal_status`, `date_type`, `date_from`, `date_to` and `cited_min`; use only user-confirmed or workflow-verified conditions.
+日期未确定时移除 `filter` 和 `filters`。可用 `filters` 包括 `pn`、`apno`、`assignees`、`assignee_ids`、`inventors`、`ipc`、`jurisdiction`、`legal_status`、`date_type`、`date_from`、`date_to`、`cited_min`；只设置用户已确定或本流程已核实的条件。
 
-Boolean input is mutually exclusive with other strategies:
+布尔输入与其他策略互斥：
 
 ```json
 {
@@ -86,7 +86,7 @@ Boolean input is mutually exclusive with other strategies:
 }
 ```
 
-Read output:
+输出读取：
 
 ```json
 {
@@ -98,8 +98,8 @@ Read output:
       "id": "patent_id",
       "patent_number": "US...A1",
       "pn": ["US...A1"],
-      "title": "Title",
-      "text": "Abstract or relevant snippet",
+      "title": "标题",
+      "text": "摘要或相关片段",
       "publication_date": 20200101,
       "priority_date": [20190101],
       "application_date": 20190101,
@@ -108,31 +108,31 @@ Read output:
       "ipc": "B23K...",
       "assignees": [],
       "inventors": [],
-      "url": "Source page",
-      "view_url": "View link"
+      "url": "来源页",
+      "view_url": "浏览链接"
     }]
   }
 }
 ```
 
-Record `total_hits`, returned page count, unique candidates and formal comparison count separately. `status=error` and tool failure are not zero hits.
+`total_hits`、本页返回、去重候选和正式比较数量分开记录。`status=error` 或工具失败不等于零命中。
 
 ## `fetch_patent`
 
-Purpose: read the exact publication version, bibliography, claims and description of a known patent, with families, citation relationships or actual media when needed.
+含义：读取一个已知专利的精确公开版本、书目信息、权利要求和说明书；需要时附加同族、引证关系或真实媒体。
 
-Input:
+输入：
 
 ```json
 {
-  "patent_id": "id returned by search_patent",
-  "language": "en-US",
+  "patent_id": "search_patent返回的id",
+  "language": "zh-CN",
   "format": "json",
   "include": ["relations", "media"]
 }
 ```
 
-`include` may be omitted; request `relations` or `media` only for needed families, citations or visual evidence. Output for `format=json`:
+`include` 可省略；只在需要同族、引证或图证时请求 `relations`、`media`。`format=json` 输出：
 
 ```json
 {
@@ -143,72 +143,72 @@ Input:
       "publication_number": "US...A1",
       "publication_date": "2020-01-01",
       "priority_dates": ["2019-01-01"],
-      "title": "Title"
+      "title": "标题"
     },
-    "claims": "Complete claims",
-    "description": "Complete description",
-    "technical_problem": "Optional high-value field",
-    "technical_solution": "Optional high-value field",
-    "technical_effect": "Optional high-value field",
+    "claims": "权利要求全文",
+    "description": "说明书全文",
+    "technical_problem": "可选高价值字段",
+    "technical_solution": "可选高价值字段",
+    "technical_effect": "可选高价值字段",
     "relations": {"simple_family": [], "cited_patents": [], "citing_patents": []},
     "media": {"figures": [], "pdf": []}
   },
-  "executed_at": "Timestamp"
+  "executed_at": "时间"
 }
 ```
 
-For `format=markdown`, read `response.markdown`. Media links become visual evidence only after the material is actually obtained and read.
+`format=markdown` 时读取 `response.markdown`。媒体链接只有实际取得并阅读后才能作为图证。
 
 ## `assess_feature_disclosure`
 
-Purpose: verify disclosure facts per patent using the same original disclosure and feature list. It returns feature judgments, quotations, reading scope and common technical arrangement, without replacing final legal conclusions.
+含义：以同一原始交底和同一特征清单逐篇核对专利公开事实；输出逐特征判断、引文、阅读范围和同一技术安排，不替代最终法律结论。
 
-Single-document input:
+单篇输入：
 
 ```json
 {
-  "disclosure_text": "Complete original disclosure",
-  "features": ["Complete feature relationship 1", "Complete feature relationship 2"],
-  "language": "en-US",
+  "disclosure_text": "原始交底全文",
+  "features": ["完整特征关系1", "完整特征关系2"],
+  "language": "zh-CN",
   "publication_number": "US...A1",
-  "patent_text": "Actually obtained complete claims and description"
+  "patent_text": "已取得的权利要求与说明书全文"
 }
 ```
 
-Without existing text, choose `publication_number` or `patent_id` for tool retrieval. With supplied text/images, use a publication number as label. Batch input uses `patents`, 1–10 documents per batch, mutually exclusive with top-level single-document fields:
+没有现成正文时，在 `publication_number` 与 `patent_id` 中选一种让工具取文；有正文或图片时用公开号标注。批量输入用 `patents`，每批 1—10 篇，与顶层单篇文献字段互斥：
 
 ```json
 {
-  "disclosure_text": "Complete original disclosure",
-  "features": ["Complete feature relationship 1"],
-  "language": "en-US",
+  "disclosure_text": "原始交底全文",
+  "features": ["完整特征关系1"],
+  "language": "zh-CN",
   "patents": [
     {"publication_number": "US...A1"},
-    {"publication_number": "CN...A", "patent_text": "Complete text"}
+    {"publication_number": "CN...A", "patent_text": "完整正文"}
   ]
 }
 ```
 
-Read single-document output:
+单篇输出读取：
 
 ```json
 {
   "status": "complete",
   "comparisons": [{
-    "feature": "Complete feature relationship 1",
+    "feature": "完整特征关系1",
     "judgment": "disclosed | not_disclosed | not_mentioned | null",
     "disclosure_type": "explicit | implicit | combined | null",
-    "evidence": [{"location": "[0020]", "quote": "Original text"}],
-    "reason": "Complete rationale"
+    "evidence": [{"location": "[0020]", "quote": "原文"}],
+    "reason": "完整理由"
   }],
-  "coverage": {"text_scope": "Actual reading scope", "images_read": [], "limitations": []},
+  "coverage": {"text_scope": "实际阅读范围", "images_read": [], "limitations": []},
   "arrangement": {
     "basis": "single_embodiment | linked_combination | incompatible_pieces | not_applicable",
-    "reason": "Common-arrangement rationale"
+    "reason": "同一安排理由"
   },
-  "language": "en-US",
+  "language": "zh-CN",
   "audit": []
 }
 ```
 
-For batches, read `status`, `total`, `succeeded`, `failed` and input-ordered `results[]`. Each item preserves its original `index`, publication number and `status`, with success in `result` and failure in `error`. Retry only failed items marked `retryable=true` or recoverable by supplying material. Do not discard successes and rerun the whole batch.
+批量输出读取 `status`、`total`、`succeeded`、`failed` 和按输入顺序保存的 `results[]`；每项包含原始 `index`、公开号、`status`，成功项在 `result`，失败项在 `error`。只重试 `retryable=true` 或材料可补足的失败项，不能丢弃成功项后整批重跑。

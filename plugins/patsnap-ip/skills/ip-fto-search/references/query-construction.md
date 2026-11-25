@@ -1,134 +1,140 @@
-# From features to FTO queries
+# 从特征到 FTO 检索式
 
-Read during Steps 2–4 for new queries or user-requested logic reconstruction. These are Skill orchestration rules from features/expanded terms to technical Boolean and structured scope, not additional tools.
+新建查询及用户要求重构查询逻辑时，Step 2–4 必读。这里定义从特征、扩展词到技术 Boolean 与结构化范围的 Skill 编排规则，不增加表外 Tool。
 
-## Contents
+## 目录
 
-- 1. Features to retrieval units
-- 2. Expanded terms to unit expressions
-- 3. Unit expressions to the combined query
-- 4. Builder requests and result checks
-- 5. Execution, diagnosis and candidate handoff
-- 6. Magnetic charging dock example
+- 1. 特征到检索单元
+- 2. 扩展词到单式
+- 3. 单式到聚合式
+- 4. 构式请求与返回核对
+- 5. 执行、诊断和候选交接
+- 6. 磁吸充电座示例
 
-## 1. Features to retrieval units
+## 1. 特征到检索单元
 
-FTO seeks claims potentially covering product components, relationships, methods or materials. Patents need not describe all additional product features; complete-product feature coverage cannot be a universal retrieval admission rule.
+FTO 需要找到可能覆盖产品部件、关系、方法或材料的权利要求。专利不必同时描述产品的全部附加特征；召回阶段不能以“完整产品所有特征出现”作统一准入条件。
 
-Preserve raw feature-tool receipts. Maintain a separate local mapping; these are audit fields, not MCP inputs/outputs:
+技术特征 Tool 的原始回执保留不动。Skill 另建本地映射；下表只定义本地审计记录，不是 MCP 输入或输出：
 
-| Field | Purpose |
+| 字段 | 用途 |
 |---|---|
-| unit_id, source_quote/location, feature_pointer | Map original product text to actual returned elements; use local IDs and array pointers when tool IDs are absent |
-| entity, relation/action, condition | Preserve entity roles, connections, direction, quantity and triggers, rather than a subjectless word bag |
-| source_type, dimension, configuration | Preserve original categories; check structure, algorithm, material, process and application dimensions; separate incompatible configurations |
-| linked_units, retrieval_role, reason | Mark domain background, independent risk direction, related implementation, supplementary retrieval or later verification with reasons |
-| keyword_pointer, groups, classifications | Link expansion provenance, root groups and IPC/CPC schemes; record gaps explicitly |
+| unit_id、source_quote/location、feature_pointer | 从产品原文定位到实际返回元素；无工具 ID 时本地编号并保留数组定位 |
+| entity、relation/action、condition | 保留实体角色、连接、方向、数量、触发条件，不把关系拆成无主语词袋 |
+| source_type、dimension、configuration | 保留原分类；逐维检查结构、算法、材料、工艺、应用；互斥配置分开 |
+| linked_units、retrieval_role、reason | 指定领域背景、独立风险方向、关联实现、补召回或后续核验；保留判断依据 |
+| keyword_pointer、groups、classifications | 连接扩词来源、根词组及 IPC/CPC 体系；缺口显式记录 |
 
-Normally form Ki from core features, also checking whether key implementations/support technologies contain independent protection directions, especially cross-domain materials, algorithms and processes. Do not drop dimensions by relevance thresholds or mechanically create a route for every trivial detail. Related implementations may complete one Ki's object/action/condition, preserving merged provenance.
+默认以核心特征建立 Ki，但同时核对关键实现和支撑技术是否包含独立保护方向，特别是跨领域材料、算法、工艺。不按相关度阈值删除维度；也不对每一个平凡细节机械开一条检索。关联实现可以补齐同一 Ki 的对象、动作或条件，记录合并来源。
 
-Retain numbers, sequence and entity roles in product records and Screening/CC inputs. Whether they become retrieval conditions depends on discrimination and indexed expression; neither discard all nor AND all. Unknown facts are not present elements; alternatives are not ANDed together. Correct missing dimensions against originals and re-extract.
+数值、顺序、实体角色等保留在产品记录和 Screening／CC 输入中；是否作为检索条件取决于区分作用和索引表达，不能全部丢弃或全部强制 AND。未知事实不作已存在要素，替代配置不互相 AND，缺失维度基于原文补正后重提取。
 
-## 2. Expanded terms to unit expressions
+## 2. 扩展词到单式
 
-Step 3 prioritizes direct runtime-compatible transfer of actual extracted elements. For string features and open downstream objects without internal required fields, preserve each original in the service-verifiable `element_description`, one-to-one in order, with mapping and both raw receipts saved separately. Do not guess `description` or invent types, levels, scores, classifications or facts. Stop if lossless transfer is impossible. Verify actual nonempty expansion by source index/text; success with all-empty terms or lost originals is `keyword_handoff_failed`, with at most one identical-map retry. Missing optional types/levels/scores remain unavailable and cannot drive logic. Read complete receipts rather than assuming old field names.
+Step 3 按当前 MCP 协议提交完整的特征映射内容。读取并冻结 `patsnap-ip:expand_patent_search_terms` 实际返回的中英文扩词回执，不凭 Skill 中的旧字段名猜结构，也不把本地翻译伪装成 Tool 输出。目标市场需要其他语言时，按主文 Step 3.5 另建本地翻译词表后再构式。
 
-1. A root term, synonyms and language equivalents form OR group Gi. Preserve language/provenance relationships; actual Q must cover adopted languages.
-2. AND distinct concepts needed for one unit, such as “conductive contact object AND floating/tilting relationship.” They are not synonyms to flatten into OR.
-3. OR alternative implementations/equivalent expressions within a unit; separately OR independent risk units Ki. Domain is not the sum of every component, action and effect.
-4. Established terms such as `pogo pin` may be phrases. Do not combine roots into a nonexistent exact long phrase; retain “floating AND probe holder,” without forcing “floating probe holder.”
-5. Effects such as error compensation/stability usually supplement expression or verification, without another mandatory effect gate. Trade names, narrow uses and AI-inferred terms are not automatic global constraints. Preserve explicit genuine material/object restrictions.
-6. Check meaning and entity roles. Broad terms such as “restoration,” “adsorption” or “base” cannot form isolated routes without unit context.
-7. After freezing the expansion receipt, perform Step 3.5 local translation using confirmed `target_markets/search_languages`. Save source element/term/language, target language, translation, back-translation, role and review state. Adopt only reviewed terms. Check roots, synonyms, broader terms and decisive relationships in each priority language, without context-free literal translation. OR language equivalents within concepts; do not require bilingual documents. For EP prioritize English/German/French, supplementing actual countries by local language and verified index coverage. Adopted translations must actually enter Boolean intent or independent target-language QuerySpecs, not only a report list.
+1. 单一根词的原词、同义词及不同语言表达组成 OR 组 Gi。保留 Tool 中英文与 AI 目标语言词的不同来源，实际 Q 需覆盖采用语种。
+2. 同一检索单元中构成技术含义的不同概念用 AND，例如“导电触点对象 AND 浮动/倾斜关系”。不能把这些概念当同义词全部 OR。
+3. 同一单元的不同实现或等价表述用 OR；产品的多个独立风险单元 Ki 之间另做 OR。领域不是每个部件、动作和效果的总和。
+4. 英文固定技术术语如 `pogo pin` 可以作为短语；不把多个独立根词拼成此前不存在的长精确短语。保留“浮动 AND 探针座”而不是强制“浮动探针座”。
+5. 效果词如“补偿误差”“提高稳定性”通常作补充表达或复核项；不能在结构词后再加一层必选效果条件。商品名、狭窄用途、AI 推断词不自动成为全局门槛；用户明确指定的真实材料或对象限制保持原意。
+6. 检查同义词的技术含义和实体角色。泛词如“恢复”“吸附”“base”不能脱离单元上下文单独形成召回分支。
+7. `patsnap-ip:expand_patent_search_terms` 回执冻结后，按输入卡的 `target_markets/search_languages` 执行 Step 3.5 本地定向翻译。每条 AI 译词保存源元素、源词／源语言、目标语言、译词、回译、技术角色和审核状态；未经技术语境、实体角色和歧义核对的逐字翻译或音译不得采用。多语表达在同一概念组内 OR，不要求一篇文献同时出现多种语言。EP 文献范围优先核对英／德／法；具体欧洲市场再按国家语言和已验证索引覆盖补充。译词必须实际写入 Boolean 意图或独立目标语言 QuerySpec，不能只列在报告中。
 
-For duplicates, blanks, nested results or multiple expression forms, map by element descriptions, technical meaning and originals rather than assumed array positions. An empty display layer does not delete a unit. Explain adopted paths for conflicting forms; record gaps or rerun expansion when unrecoverable. Local additions require sources and remain separate from raw receipts.
+扩词回执中出现重复项、空值、嵌套结果或多种表达形态时，按元素描述、技术含义及原文校核后再映射，不靠数组下标猜对应，也不因某一展示层为空就删除整个单元。不同表达形态冲突时列明采用路径与原因；无法恢复时记录缺口或重做扩词，本地补词必须有来源且与原始回执分开。
 
-Keep classification `code/scheme/associated unit/source/verification status`. A flat list without a declared scheme must not automatically be put into IPC. First check the returned scheme and current field capabilities. Related classes can guide supplementary retrieval; predicted classes are neither product facts nor exclusion rules.
+分类号保留 `code/scheme/对应单元/来源/核验状态`。扁平列表没有体系时不能一律填进 IPC；优先核对实际返回的分类体系与当前字段能力。相关类可以作为补召回线索，预测分类本身不是产品事实或排除规则。
 
-## 3. Unit expressions to the combined query
+## 3. 单式到聚合式
 
-First form local D (domain text), Ki (risk-unit text) and Ci (relevant classification expressions), retaining sources. Keep jurisdiction, legal status and dates separately in `SEARCH_FILTERS`; not every Ci needs a value. An abstract structure is `((S1 AND (S3 OR S5)) OR ((S2 OR S4 OR S6) AND (S1 OR S3 OR S5)))`, where S1 is domain terminology, S3/S5 core-feature terms and S2/S4/S6 related classifications. The default baseline is:
+先在本地形成 D（领域文本）、Ki（各风险单元文本）和 Ci（各相关分类单式），并记录来源。法域、法律状态和日期另存为 `SEARCH_FILTERS`；不要求每个 Ci 都有值。
+
+技术组合结构可抽象为：
 
 ```text
-D = domain background concepts (OR equivalents within groups, AND required concepts)
-Ki = one independent risk unit (AND necessary concepts, OR alternative implementations)
+((S1 AND (S3 OR S5)) OR ((S2 OR S4 OR S6) AND (S1 OR S3 OR S5)))
+```
+
+其中 S1 为领域词，S3/S5 为核心特征词，S2/S4/S6 为相关分类。默认基线为：
+
+```text
 K = K1 OR K2 OR ...
-C_cls = verified relevant classifications, with IPC/CPC distinguished
-B_text = D AND K
-B_class = C_cls AND (D OR K)
+C_cls = C0 OR C1 OR C2 OR ...
+文本召回 B_text = D AND K
+分类补召回 B_class = C_cls AND (D OR K)
 Q_tech = B_text OR B_class
-SEARCH_FILTERS = confirmed jurisdiction/date + default pending/active-rights structured scope
+SEARCH_FILTERS = 已确认的 jurisdiction/date＋FTO 默认 pending/active-rights 等结构化范围
 ```
 
-This is an evidenced baseline, not a fixed recipe or backend format. Independent implementation/support risks may join Ki or a separate contextual supplementary route. For multidimensional solutions, OR separate `Dj/Kj/Cj` routes rather than requiring hardware, algorithms and materials simultaneously. Reuse the same `SEARCH_FILTERS` only where runtime support and receipts permit verification; exclusive Boolean cannot be represented as scoped.
+这是有来源的构式基线，不是固定配方或新后端返回格式。关键实现／支撑项有独立风险时可加入 Ki 或单独有上下文的补召回分支。多维方案以各领域对应的 `Dj/Kj/Cj` 分路再 OR，不能强求硬件、算法与材料同时出现。每条路线只有在当前协议支持并且回执可核对时才使用同一组 `SEARCH_FILTERS`；Boolean 若是独占策略，则不得假装已复用范围。
 
-- **Domain fallback:** B_class admits relevant patents lacking a narrow product name through classifications and technical units. Do not AND D outside the entire query and defeat this branch.
-- **Classification is not a global gate:** OR related classifications and combine them with meaningful technical expressions. Do not AND C_cls to the whole Q or add a bare C_cls OR branch retrieving an entire class. For explicit classification-only scope, prefer supported structured classification capabilities, otherwise a verified technical classification expression.
-- **Do not AND everything:** `D AND K1 AND K2 AND implementation AND support AND classification` can be an explicit precision route, not the default sole route. A precision branch contained in a broad branch adds no union recall; do not claim new hits.
-- **No reliable classification:** mark classification supplementation not run. If D is too narrow, add a route grounded in original generic component/relationship context and explain differences. Do not invent classes or claim equivalent restoration of the missing route.
-- **No clear D:** use traceable components/technical context and record why. Clarify only gaps affecting direction; do not default to trade names or invention titles.
-- **Scope preserved:** set countries/dates from authorization; default FTO status is pending/active grants at the assessment date, using verified runtime enums and supported `SEARCH_FILTERS`. CN/patent-type defaults from examples or previous cases are not general defaults.
-- **No geography:** omit unconfirmed jurisdiction/authority/date restrictions but retain pending/active status gating where supported. Unsupported status permits technical exploration with status-unverified candidates and later verification. Input/output language, location, past queries, GT origin and initial-hit countries are not scope sources. Do not enumerate “global” as an unconfirmed finite country set.
-- **Europe:** Europe/EU/EP/EPO is not one executable market. For market FTO confirm actual countries, then plan EP and necessary national routes. Explicit EP-document-only requests remain document scope, without European-country clearance conclusions.
+- **领域兜底**：B_class 允许未出现狭窄产品名的相关专利经分类和技术单元被召回；不能把 D AND 到整式外层让该分支失效。
+- **分类非全局门槛**：相关分类 OR 成组，并与有含义的技术单式组合；不能将 C_cls 放在整个 Q 末尾 AND，也不能只用 C_cls 的裸 OR 分支引入整个大类。用户明确要求“仅某分类”时，优先使用当前检索协议支持的结构化分类能力，否则建立经核对的技术分类子式。
+- **不全量 AND**：`D AND K1 AND K2 AND 实现 AND 支撑 AND 分类` 仅可作明确的精查分支，不能作为默认唯一召回式。精查分支被宽式包含时，增加它不会提高并集召回，不伪报新增命中。
+- **没有可靠分类**：标记分类补召回未执行。若 D 过窄，使用原文支持的通用部件／关系场景另建补路线并说明差异；不能用未知分类凑兜底，也不能声称等价恢复了原分类路线。
+- **没有清晰 D**：用方案证据中可定位的部件或技术场景作为上下文，记录选择依据；信息不足影响方向时再补问。不默认套商品名或发明标题。
+- **范围不变**：国家和日期仅按已有授权设置；FTO 业务默认只召回评估时点的申请中和有效授权对象。先核对当前协议对状态枚举的定义，再通过同一组 `SEARCH_FILTERS` 作用于全部技术分支。默认 CN／专利类型不是新案件的通用范围，不从示例或既有案件复制这些值。
+- **地域为空**：用户未确认国家／受理局或日期时，省略这些结构化范围，但仍按当前协议能力保留申请中／有效授权状态门。输入语言、交付语言、用户所在地、历史查询、GT 来源和首批命中国家都不是地域来源。不把“全球”枚举成未经用户确认的有限国家。若运行时协议无法可靠表达该状态门，可执行无状态过滤的技术探索，但结果必须标“状态未核”并在后续门禁补核。
+- **欧洲范围**：“欧洲／欧盟／EP／EPO”不是可直接执行的单一市场。若用户要的是欧洲市场 FTO，先确认实际国家，再构建 EP 与必要国家途径的范围计划；若用户明确只要 EP 文献，交付必须标注这是文献范围，不是欧洲各国可实施性结论。
 
-Account for each adopted feature through a query unit, supplementary retrieval, Screening verification or explicit gap. Broad retrieval still requires the complete adopted P for Screening and CC.
+每个采用特征都要有去向：查询单式／补召回／Screening 核验／明确缺口。宽召回并不表示不需要完整产品方案；Screening 和 CC 仍接收采用的完整 P。
 
-## 4. Builder requests and result checks
+## 4. 构式请求与返回核对
 
-Local `query-plan.json` records at least solution/feature/expansion versions and receipt locations, Step 3.5 translated-lexicon version/review status, feature mappings, term/classification groups, `SEARCH_FILTERS` and sources, unit/combined logic, adopted/pending units, query version and execution/retrieval plan. Freeze before construction and record reasons for later changes.
+本地 `query-plan.json` 至少保存：方案、技术特征和关键词扩展的输入版本与回执定位、Step 3.5 目标语言词表版本及审核状态、特征映射、各词组／分类组、`SEARCH_FILTERS` 及来源、单式和聚合逻辑、采用／待核单元、查询版本、执行与取数计划。构式前先冻结，后续调整另记原因。
 
-Send the complete natural-language plan to `patsnap-ip:build_patent_boolean_query` under the current protocol. Logical group names may explain structure, but define every group in the same intent rather than saying “refer to the previous message.” Example:
+向 `patsnap-ip:build_patent_boolean_query` 提交完整自然语言计划，具体调用以当前 MCP 协议为准。可使用逻辑组名解释结构，但每个组必须在同一意图中完整定义，不能只说“参考上一条”。意图示例：
 
 ```text
-Build the technical Boolean for candidate retrieval. Jurisdiction, legal status and dates
-will be handled separately through structured search scope; add none to the Boolean.
-D: both [object group] and [application group], with alternatives within each group.
-K1: both [entity group] and [relationship group], synonyms as alternatives.
-K2: both [entity group] and [action group], synonyms as alternatives.
-C: any code in [verified IPC list] or [verified CPC list].
-Branch 1: D, and at least one of K1/K2.
-Branch 2: C, and at least one of D/K1/K2.
-Union the branches. Match text in titles, abstracts or claims; listed languages are alternatives; market-language terms come from the frozen, back-translation-reviewed local lexicon.
-Preserve this logic; do not require both K1 and K2, add classifications/product details,
-or join independent terms into long exact phrases.
+构建专利候选召回的技术 Boolean。法域、法律状态和日期另由检索阶段的结构化范围能力处理；请勿在 Boolean 中增加国家/受理局、状态或日期条件。
+领域组D：【对象组】与【应用组】同时满足；每个组内词语为任一关系。
+单元K1：【实体组】与【关系组】同时满足；组内同义词任选。
+单元K2：【实体组】与【动作组】同时满足；组内同义词任选。
+分类组C：【经核对的IPC列表】或【经核对的CPC列表】，各代码任一。
+技术分支一：D成立，并且K1或K2至少一个成立。
+技术分支二：C成立，并且D、K1、K2至少一个成立。
+两分支取并集。
+文本匹配标题、摘要或权利要求，列出的语种互为替代；目标市场语言词来自已冻结并通过回译核对的本地词表。
+保持上述组合；不要把K1和K2改为同时满足，不额外增加分类或产品细节，
+不要将不同词组合造成长精确短语。
 ```
 
-Check actual Boolean semantics through reviewable runtime content rather than formatting/string identity. Equivalent expansion is acceptable. At minimum:
+取得结果后，使用当前协议提供的可审阅内容检查**实际布尔语义**，不依赖排版或相同字符串。等价展开可接受。至少验证：
 
-| Scenario | Expected baseline |
+| 测试情形 | 基线应有行为 |
 |---|---|
-| D true, only K1 true, no classification | Text branch may admit |
-| D true, only K2 true, no classification | Text branch may admit |
-| D false, C true, K1 true | Classification branch may admit |
-| Only C true; D and K false | Classification alone cannot admit |
-| K1 has “floating” without required contact object; D/C/K2 false | Isolated action cannot admit |
+| D真，仅K1真且无分类 | 可以由文本分支进入 |
+| D真，仅K2真且无分类 | 可以由文本分支进入 |
+| D假、C真且K1真 | 可以由分类分支进入 |
+| 只有C真，D与K均假 | 不能只靠分类进入 |
+| K1只有“浮动”而没有规定的触点对象，D/C/K2也假 | 不能靠孤立动作词进入 |
 
-Also verify root phrases, languages, IPC/CPC fields, unauthorized geography/status/dates and missing dimensions. Adopted translated terms must actually occur in the correct concepts in the review expression; missing, role-shifted or explanation-only terms are drift. Reject intent drift, retain receipts and resubmit once with the complete plan and specific corrections. If still drifting, build frozen independent branches separately, completely defining each and using the same `SEARCH_FILTERS`; do not drop a route. Report remaining invalid branches without unlimited retries.
+同时核对根词短语、语种、IPC/CPC 字段、是否混入法域／状态／日期以及遗漏维度。已采用目标语言词必须在人工审阅式的正确概念组中真实出现；缺失、角色错位或仅出现在说明文字中均属意图漂移。发生意图漂移时拒绝采用该版本，保留回执，用完整计划加具体纠正重提一次。仍漂移时按已冻结的独立分支分别构建，每个请求都完整定义该技术分支，执行时复用同一组 `SEARCH_FILTERS`；不得借拆式丢掉某一路。分支仍不合格则报告具体节点，不做无上限重提。
 
-Check structured scope separately: omit geographical filters when unconfirmed. Any unauthorized country in builder output is intent drift. Expansion regional preferences do not authorize geography.
+结构化范围检查单独执行：未确认地域时必须省略地域过滤；构式结果出现任何未授权国家条件都属意图漂移。扩词的地区偏好不是地域过滤的授权来源。
 
-Use opaque execution references unchanged only through current-protocol paths, without editing, decoding or concatenation. Never append geography/status/date or other fields to `BOOLEAN_QUERY_ID`. If runtime makes Boolean exclusive and ignores filters, the reference executes unrestricted technical diagnosis only. Use supported semantic/keyword/filter routes for formal scope and record `boolean_scope_unsupported`. Execute existing executable queries directly; make a new plan/baseline only when reconstruction is requested.
+构式 Tool 产生的不透明执行引用仅按当前协议规定的路径原样使用；不手工修改、解析或拼接。尤其不得在 `BOOLEAN_QUERY_ID` 后追加国家、状态、日期或其他字段。若 `patsnap-ip:search_patent` 当前规定 Boolean 为独占策略并忽略 filters，该引用只执行未限定范围的技术诊断；正式法域召回改用支持 `SEARCH_FILTERS` 的语义／关键词／过滤路线，并把 Boolean 记为 `boolean_scope_unsupported`。已有可执行查询直接执行；用户要求重构时才建立新计划和基准。
 
-## 5. Execution, diagnosis and candidate handoff
+## 5. 执行、诊断和候选交接
 
-After combined-query checks, run a small-window execution check, then retrieve within actual capability. To compare breadth or diagnose zero hits, construct complete relevant unit/branch queries, reuse identical scope only when supported. Exclusive Boolean counts are unrestricted diagnostics, neither directly comparable with scoped routes nor merged into formal candidates. Record counts separately. Untested clauses are “not measured,” not zero.
+聚合式通过上述核对后，先按当前检索协议做小窗口执行检查，再按实际可达能力取数。需要比较分支宽窄或定位零命中时，为相关单式／分支构建完整技术查询；仅在协议支持时复用同一结构化范围。Boolean 独占时，该路计数只代表未限定范围的技术式，不能和带范围路线直接比较或并入正式池；未执行的单式计数为“未测”，不是0。
 
-Local record: `sequence | unit/combined/precision | source unit | complete intent | actual executable reference | real hit count | status | adoption reason`. These records are not tool receipts.
+维护本地检索记录：`序号｜单式/组合/精查｜来源单元｜完整意图｜实际执行引用｜真实命中量｜状态｜采用原因`。本地记录不冒充任何 Tool 回执。
 
-- Business-successful zero hits are normal. Check intent drift, then necessary branch counts to locate restrictions; without clause experiments, do not attribute zero solely to AND. Initially allow at most two evidenced semantic corrections per affected branch, one issue at a time with scope unchanged. Explicit deep optimization enters Step 5.
-- Call/business errors or missing counts are errors/unknown, not zero; follow main failure rules.
-- Nonzero but broad: inspect a few titles/abstracts and record noise sources. More hits do not prove better quality. Related precision routes may prioritize processing, while retaining broad results and unretrieved windows.
-- Oversized union: use adopted branch/shard/window or bounded-test plans, not all-feature AND to force counts within the window.
-- Separately executed branches deduplicate by actual PN/ID, retaining source, rank, page and unretrieved window. Merge identical PNs, not publication/grant versions or families automatically. Overlapping totals cannot be summed; union N requires actual combined-query returns or a complete result set.
+- 调用业务上成功且真实命中为零：视为正常零结果。先看组合是否漂移，再用必要的分支计数定位限制；未做子句实验不能把零值唯一归因于 AND。首轮每个受影响分支最多两次有依据的语义修正，一次只改变一个问题，范围保持不变；明确的深度优化转 Step 5。
+- Tool 调用错误、业务报错或缺失计数：错误或未知，不能写0；按主文失败规则处理。
+- 非零但过宽：抽看少量标题／摘要，记录噪声来自何处；不能把命中更多等同质量改善。与宽式同源的精查可帮助优先处理，但保留宽式及未取窗口。
+- 聚合结果过大：按既有窗口规则落实分路／分片或有限测试计划；不靠重新加回全部特征 AND 把数量压到窗口内。
+- 多分支可分别执行后按实际 PN／ID 去重，保存分支来源、排名、页码和未取得窗口。相同 PN 合并，A/B 与同族不自动合并。各分支总量有重叠，不能相加为并集总量；并集 N 需聚合查询真实返回或完整结果集合支持。
 
-Disclose retrieved, submitted, returned and CC counts separately. Screening uses actual PNs with identity reconciliation. Plan checks, initial execution and bounded correction are default Step 4; fixed samples and five-round coverage diagnostics remain optional Step 5.
+取数、送筛、返回、CC 数量分别披露；后续 Screening 用实际 PN，仍核对身份归并。Step 4 的计划核对、初次执行检查及有限纠错默认执行；固定样本与五轮覆盖诊断仍是按需 Step 5。
 
-## 6. Magnetic charging dock example
+## 6. 磁吸充电座示例
 
-- D: magnetic/magnet AND charging dock/charging-connection context, expanding each concept separately.
-- K1: contact bracket/probe holder AND floating/tilting; combine core and related implementation descriptions of the same object with provenance.
-- K2: conductive probe/pogo pin AND axial compression/extension.
-- Elastic connection/reset of the bracket: implementation linked to K1. Angular-error compensation is an effect for verification, not another global mandatory AND.
-- C_cls: verified connector, resilient-contact, self-alignment and charging classes in their actual IPC/CPC systems.
+- D：磁吸／磁体 AND 充电底座／充电连接场景（每一概念分别扩词）。
+- K1：触点支架／探针座 AND 浮动／倾斜；合并相同对象的核心描述与关联实现，保留来源。
+- K2：导电探针／弹簧针 AND 轴向压缩／伸缩。
+- 触点支架的弹性连接与复位：关联 K1 的实现信息；“补偿角度误差”作为效果用于核验，不再整体增加必选 AND。
+- C_cls：核对后的连接器、弹性触点、自对准和充电相关分类，按实际 IPC/CPC 体系表达。
 
-Combine under section 3. “Magnetic AND probe” alone does not validate the complete plan. Invented long exact phrases cannot be sole expressions. This synthetic solution tests construction handoffs; it has no GT, so hit counts cannot prove improved recall.
+按第3节聚合；不能只跑“磁吸 AND 探针”就宣布完整计划已验证，也不能把“浮动探针座”“弹簧支承触点组件”等合成长短语作为唯一表达。采用这一合成技术方案验证的是构式接力；它没有GT，不能用其命中数证明查全率改善。

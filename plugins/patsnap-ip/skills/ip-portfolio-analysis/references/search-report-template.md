@@ -1,194 +1,285 @@
 # Complete Search Report Template
 
-Use every section for a Patsnap technology-topic search report unless the user explicitly requests a formula-only answer. Default to English; preserve the original request and executable multilingual query terms.
+Use this template as the required output structure for a Patsnap technology-topic retrieval report. Do not deliver only a final formula unless the user explicitly asks for a formula-only answer.
 
-## 0. Execution and confirmation gates
+## 0. 执行方式与确认门
 
-`Pending user confirmation` is a workflow gate. Proceed after an explicit confirmation or confirmation-button action. Reuse authorization already provided in the session. A requested complete draft may include every section with unapproved gates marked pending; drafting does not itself authorize execution.
+`待用户确认` 是流程闸口，不是普通备注。每个确认门需要用户点击确认按钮或明确回复确认后，才进入下一环节执行。
 
-| Gate | Deliverable | Confirmation | Next step |
+| 阶段 | 输出内容 | 确认动作 | 确认后进入 |
 | --- | --- | --- | --- |
-| 1 | Original requirements and technical scope | Scope is correct | Technology decomposition |
-| 2 | Technology decomposition table | Decomposition is correct | Technical elements |
-| 3 | Technical and noise elements | Elements are correct | Search strategies |
-| 4 | Strategies, classifications and proximity | Strategies are correct | Individual queries |
-| 5 | Individual, noise and combined queries | Queries are correct | Patsnap execution and logging |
-| 6 | Results and recall/precision validation methods | Whether to start independent validation | Validation or finalization |
+| Gate 1 | 原始需求理解 + 技术边界 | 用户确认边界无误 | 技术拆解 |
+| Gate 2 | 技术拆解表 | 用户确认拆解无误 | 技术要素表 |
+| Gate 3 | 技术要素表 + 噪音要素表 | 用户确认要素无误 | 检索策略表 |
+| Gate 4 | 检索策略表 + 分类号/位置符策略 | 用户确认策略无误 | 逐条检索式 |
+| Gate 5 | 逐条检索式 + 噪音检索式 + 总检索式 | 用户确认检索式无误 | 智慧芽执行/结果记录 |
+| Gate 6 | 检索结果 + 查全查准校验方法 | 用户确认是否进入独立校验 | 后续查全查准校验/最终固化 |
 
-## 1. Technology topic
+If the user asks for a full draft in one pass, include every section but keep all gates marked `待用户确认`; do not treat the formulas as approved for execution.
 
-- Original user request (preserve verbatim):
-- Technology topic:
-- Search purpose:
-- Search type: Technology topic / Problem-oriented topic / Applicant / Mixed
-- Application and industry scope:
-- Database:
-- Countries/regions:
-- Date range:
-- Legal status:
-- Patent types:
-- Deduplication basis:
-- Search date:
-- User-provided seed evidence:
-- Requirement status: Confirmed / Pending user confirmation / Revised following feedback
+## 1. 技术主题
 
-### Understanding and execution assumptions
+- 用户原始检索需求（原文保留）:
 
-| Item | Current understanding | Source | Confirmation status |
+```text
+
+```
+
+- 技术主题:
+- 检索目的:
+- 检索类型: 技术主题检索 / 问题型技术主题检索 / 申请人检索 / 混合检索
+- 应用场景/产业边界:
+- 数据库:
+- 国家/地区:
+- 时间范围:
+- 法律状态:
+- 专利类型:
+- 去重口径:
+- 检索日期:
+- 用户提供的种子证据:
+- 原始需求确认状态: 已确认 / 待用户确认 / 已根据用户反馈修订
+
+### 需求理解与执行假设
+
+| 项目 | 当前理解 | 来源 | 用户确认状态 |
 | --- | --- | --- | --- |
-| Topic | | User wording / Agent inference | Pending |
-| Application | | User wording / Agent inference | Pending |
-| Search objective | | User wording / Agent inference | Pending |
-| Data scope | | User wording / Default assumption | Pending |
-| Deliverables | | User wording / Default complete report | Pending |
+| 技术主题 |  | 用户原文 / agent推断 | 待确认 |
+| 应用场景 |  | 用户原文 / agent推断 | 待确认 |
+| 检索目标 |  | 用户原文 / agent推断 | 待确认 |
+| 数据范围 |  | 用户原文 / 默认假设 | 待确认 |
+| 交付物 |  | 用户原文 / 默认完整报告 | 待确认 |
 
-## 1.1 Topic definition
+## 1.1 技术主题定义/概念说明
 
-Before setting boundaries, explain the topic, core technical features, included concepts, and easily confused concepts outside the core scope.
+在进入技术边界前，先用文字说明本次检索主题的定义、核心技术特征、应纳入的概念、容易混淆但不属于核心边界的概念。
 
-Confirmation status: Pending user confirmation
+```text
 
-## 2. Technical scope
+```
 
-### Included scope
+确认状态: 待用户确认
 
-| Item | Description | Source | Confirmation status |
+## 2. 技术边界
+
+### 纳入范围
+
+| 边界项 | 说明 | 来源 | 用户确认状态 |
 | --- | --- | --- | --- |
-| | | User wording / Agent inference / Example method | Pending |
+|  |  | 用户原文 / agent推断 / 样例方法 | 待确认 |
 
-### Excluded scope
+### 排除范围
 
-| Exclusion | Reason | Could it cause missed results? | Confirmation status |
+| 排除项 | 排除原因 | 是否可能造成漏检 | 用户确认状态 |
 | --- | --- | --- | --- |
-| | | Yes / No / To assess | Pending |
+|  |  | 是/否/待评估 | 待确认 |
 
-Explain boundary decisions. Ask whether inclusions/exclusions match the objective and whether any technology, product, company or date range must be added before execution.
+### 边界判断说明
 
-## 3. Technology decomposition
+-
 
-| Level 1 topic | Level 2 technology/module | Level 3 technology/element | Description | Search purpose | Strategy ID | Confirmation status |
+### 边界确认问题
+
+- 请确认上述纳入/排除范围是否符合本次检索目标。
+- 若有必须纳入或必须排除的技术场景、产品、企业、时间范围，请在执行检索前补充。
+
+## 3. 技术拆解表
+
+| 一级主题 | 二级技术/模块 | 三级技术/要素 | 技术描述 | 检索目的 | 对应策略编号 | 用户确认状态 |
 | --- | --- | --- | --- | --- | --- | --- |
-| | | | | | | Pending |
+|  |  |  |  |  |  | 待确认 |
 
-Confirm whether the hierarchy is too broad, too detailed or missing branches, and whether each branch should enter the query or only later tagging/analysis.
+### 技术拆解确认问题
 
-## 4. Technical elements
+- 请确认技术拆解层级是否过粗、过细或存在缺失分支。
+- 请确认每个分支是否都需要进入检索式，或仅用于后续标引/分析。
 
-| Element ID | Name | Chinese keywords | English keywords | Abbreviations/trade names/aliases | Classifications | Suggested fields | Notes | Confirmation status |
+## 4. 技术要素表
+
+| 要素编号 | 要素名称 | 中文关键词 | 英文关键词 | 缩写/商品名/别名 | 分类号 | 字段建议 | 备注 | 用户确认状态 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A | | | | | | | | Pending |
+| A |  |  |  |  |  |  |  | 待确认 |
 
-### Multidimensional expansion checklist
+### 核心主题多维扩展检查表
 
-| Dimension | Expansion | Evidence | Include in query? | Confirmation status |
+| 扩展维度 | 扩展内容 | 扩展依据 | 是否纳入检索式 | 用户确认状态 |
 | --- | --- | --- | --- | --- |
-| Direct terms/synonyms | | User wording / Keyword assistant / Sample patents | Yes / No / To validate | Pending |
-| Broader/narrower concepts | | Background research / Classifications / Expertise | Yes / No / To validate | Pending |
-| Objects/materials/components | | Definitions / Sample patents | Yes / No / To validate | Pending |
-| Functions/effects | | Problems / Effect wording | Yes / No / To validate | Pending |
-| Mechanisms/processes/methods | | Process chain / Description wording | Yes / No / To validate | Pending |
-| Applications/product modules | | User scope / Industry scenarios | Yes / No / To validate | Pending |
-| Trade names/commercial wording | | Product materials / Sample patents | Yes / No / To validate | Pending |
-| Abbreviations/formulas/short names | | Industry wording / Sample patents | Yes / No / To validate | Pending |
-| Classifications | | IPC/CPC assistant / Classification browser | Yes / No / To validate | Pending |
-| Foreign-language variants | | Translation fields / Family members | Yes / No / To validate | Pending |
-| Seed patent terms | | Seed records | Yes / No / To validate | Pending |
-| Applicant terminology | | Key applicant samples | Yes / No / To validate | Pending |
+| 直接术语/同义词 |  | 用户原文/关键词助手/样本专利 | 是/否/待验证 | 待确认 |
+| 上位/下位概念 |  | 背景调研/分类号/专家知识 | 是/否/待验证 | 待确认 |
+| 对象/材料/组件 |  | 技术定义/样本专利 | 是/否/待验证 | 待确认 |
+| 功能/效果 |  | 技术问题/功效表达 | 是/否/待验证 | 待确认 |
+| 机理/工艺/方法 |  | 工艺链/说明书表达 | 是/否/待验证 | 待确认 |
+| 应用场景/产品模块 |  | 用户边界/行业场景 | 是/否/待验证 | 待确认 |
+| 商品名/商业表达 |  | 产品资料/样本专利 | 是/否/待验证 | 待确认 |
+| 缩写/化学式/简称 |  | 行业表达/样本专利 | 是/否/待验证 | 待确认 |
+| 分类号 |  | IPC/CPC助手/分类浏览 | 是/否/待验证 | 待确认 |
+| 外文变体 |  | 翻译字段/同族专利 | 是/否/待验证 | 待确认 |
+| 种子专利术语 |  | 种子样本 | 是/否/待验证 | 待确认 |
+| 申请人术语线索 |  | 重点申请人样本 | 是/否/待验证 | 待确认 |
 
-For problem-oriented searches, add:
+For problem-type searches, add:
 
-| Problem element | Wording | Suggested fields | Notes | Confirmation status |
+| 问题型要素 | 表达 | 字段建议 | 备注 | 用户确认状态 |
 | --- | --- | --- | --- | --- |
-| Technical problem/effect | | | | Pending |
-| Solution method | | | | Pending |
-| Related module | | | | Pending |
-| Application/background | | | | Pending |
-| Applicant | | | | Pending |
+| 技术问题/效果 |  |  |  | 待确认 |
+| 解决手段 |  |  |  | 待确认 |
+| 关联模块 |  |  |  | 待确认 |
+| 应用领域/背景 |  |  |  | 待确认 |
+| 申请人 |  |  |  | 待确认 |
 
-Confirm missing or unsuitable keywords, synonyms, English terms, abbreviations and trade names; exact classification constraints versus descendant recall; known seeds, applicants and required terminology.
+### 检索要素确认问题
 
-## 5. Noise elements
+- 请确认关键词、同义词、英文词、缩写、商品名是否有遗漏或不应纳入项。
+- 请确认分类号是否用于精确限制还是下位组召回。
+- 请确认是否有已知种子专利、重点申请人或必须覆盖的技术术语。
 
-| Noise ID | Type | Keywords/classifications/fields | Cause | Removal method | Include in final query? | Confirmation status |
+## 5. 噪音要素表
+
+| 噪音编号 | 噪音类型 | 噪音关键词/分类号/字段 | 产生原因 | 去噪方式 | 是否直接加入最终式 | 用户确认状态 |
 | --- | --- | --- | --- | --- | --- | --- |
-| N1 | | | | | To validate / Yes / No | Pending |
+| N1 |  |  |  |  | 待验证/是/否 | 待确认 |
 
-### Noise feedback log
+### 结果反馈噪音记录
 
-Identify technical, keyword, field, parenthesis or classification causes; do not merely list applicants.
+Use this table when the user provides noisy hit samples. Do not only list applicants; identify the technical, keyword, field, bracket, or classification reason for the noise.
 
-| Feedback batch | Sample characteristics | Representative applicants/classes | Cause | Revision | General rule? |
+| 反馈批次 | 噪音样本特征 | 代表申请人/分类号 | 误命中原因 | 修订方式 | 是否固化为通用规则 |
 | --- | --- | --- | --- | --- | --- |
-| | | | Stable industry noise / Parenthesis issue / Broad synonym / Broad field | Add noise block / Tighten positive block / Fix parentheses | Yes / No / Topic-specific |
+|  |  |  | stable industry noise / bracket issue / broad synonym / field too broad | add noise block / tighten positive blocks / fix parentheses | 是/否/本主题专用 |
 
-Confirm that the proposed noise can be excluded and identify apparently noisy records that the business still requires.
+### 噪音要素确认问题
 
-## 6. Classification scope
+- 请确认这些噪音是否可以排除。
+- 请确认是否存在“看似噪音但业务上必须保留”的边界样本。
 
-| Classification | Meaning | Purpose | Field | Scope | Confirmation status |
+## 6. 分类号范围说明
+
+| 分类号 | 分类号含义 | 使用目的 | 字段 | 范围说明 | 用户确认状态 |
 | --- | --- | --- | --- | --- | --- |
-| | | Recall / Precise constraint / Noise removal | `IPC` / `IPC_LOW` / `CPC` / `CPC_LOW` | Exact code / Include descendants | Pending |
+|  |  | 召回/精确限制/去噪 | `IPC` / `IPC_LOW` / `CPC` / `CPC_LOW` | exact code only / include lower subgroups | 待确认 |
 
-Use `IPC_LOW`/`CPC_LOW` for all descendants, e.g. `IPC_LOW:C22B3/00`.
+Rule: use `IPC_LOW`/`CPC_LOW` when the intent is to retrieve all lower subgroups under a parent group, such as `IPC_LOW:C22B3/00`.
 
-## 7. Proximity strategy
+## 7. 位置符策略
 
-Explain where proximity replaces flat Boolean logic.
+Document where proximity operators are used instead of flat Boolean logic.
 
-| Relationship | Risk of AND/OR alone | Proximity expression | Initial window | Adjustment evidence | Confirmation status |
+| 关系类型 | 仅用 AND/OR 的风险 | 位置符表达 | 初始窗口 | 调整依据 | 用户确认状态 |
 | --- | --- | --- | --- | --- | --- |
-| Object + action | | | `$W5-$W9` | | Pending |
-| Element/material system | | | `$W3-$W5` | | Pending |
-| Method + equipment | | | `$W5` or `$SEN` | | Pending |
-| Effect + application | | | `$W5` or `$SEN` | | Pending |
+| 对象 + 动作 |  |  | `$W5-$W9` |  | 待确认 |
+| 元素/材料体系 |  |  | `$W3-$W5` |  | 待确认 |
+| 方法 + 设备 |  |  | `$W5` or `$SEN` |  | 待确认 |
+| 功效 + 应用 |  |  | `$W5` or `$SEN` |  | 待确认 |
 
-## 8. Search strategies
+## 8. 检索策略表
 
-| Strategy ID | Name | Logic | Elements | Fields | Expected role | Risk/noise | Include in combined query? | Confirmation status |
+| 策略编号 | 策略名称 | 检索逻辑 | 对应要素 | 字段选择 | 预期作用 | 风险/噪音 | 是否进入总式 | 用户确认状态 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| S0 | Narrow seed query | | | | Collect highly relevant samples | | No / Yes | Pending |
-| S1 | Core query | | | | | | Yes | Pending |
-| S2 | Recall expansion | | | | | | Yes | Pending |
-| S3 | Classification assistance | | | | | | Yes | Pending |
-| S_LANGUAGE_RECALL | Non-English/machine-translation recall | | | `TACD`, strict positive constraints | Recover language variants | Higher noise; sample separately | Subject to sample validation | Pending |
-| N1 | Noise query | | | | Remove noise | | Subject to validation | Pending |
-| N_STABLE_INDUSTRY_NOISE | Stable industry noise | Classification + keyword | | | Remove stable cross-domain noise | Excluding adjacent applications | Subject to sample validation | Pending |
+| S0 | 种子窄式 |  |  |  | 收集高相关样本 |  | 否/是 | 待确认 |
+| S1 | 核心主式 |  |  |  |  |  | 是 | 待确认 |
+| S2 | 召回扩展式 |  |  |  |  |  | 是 | 待确认 |
+| S3 | 分类号辅助式 |  |  |  |  |  | 是 | 待确认 |
+| S_LANGUAGE_RECALL | 小语种/机翻补漏式 |  |  | `TACD` with strict positive constraints | 补充非英语或机翻表达漏检 | 噪音较高，需单独抽样 | 视样本验证 | 待确认 |
+| N1 | 噪音式 |  |  |  | 去噪 |  | 视验证 | 待确认 |
+| N_STABLE_INDUSTRY_NOISE | 稳定行业噪音式 |  | classification + keyword | 去除稳定跨领域噪音 | 过度排除相邻应用 | 视样本验证 | 待确认 |
 
-Confirm fit to the objective, inclusion versus validation-only strategies, whether to execute balanced recall first, and whether feedback creates a general rule, a topic-specific rule or a disputed boundary case.
+### 检索策略确认问题
 
-## 9. Individual strategy queries
+- 请确认各策略是否符合检索目标。
+- 请确认哪些策略进入总式，哪些仅用于验证或补充。
+- 请确认是否先执行平衡召回式，再根据样本加入噪音式。
+- 若存在噪音/漏检反馈，请确认新增策略是通用规则、本主题专用规则，还是边界争议样本。
 
-Provide a purpose and complete query for every strategy in the table. Add/remove sections as needed.
+## 9. 检索策略对应的逐条检索式
+
+### S0 种子窄式
+
+用途:
 
 ```text
 S0 =
+```
+
+### S1 核心主式
+
+用途:
+
+```text
 S1 =
+```
+
+### S2 召回扩展式
+
+用途:
+
+```text
 S2 =
+```
+
+### S3 分类号辅助式
+
+用途:
+
+```text
 S3 =
+```
+
+Add or remove strategy sections as needed. Every strategy listed in the strategy table must have a corresponding formula.
+
+### S_LANGUAGE_RECALL 小语种/机翻补漏式
+
+用途: missed relevant samples show systematic non-English or machine-translation variants. Keep this branch tightly constrained; do not use broad translation terms alone.
+
+```text
 S_LANGUAGE_RECALL =
 ```
 
-Use language recall when missed relevant samples show systematic non-English or machine-translation variants. Constrain this branch tightly; never use broad translation terms alone.
+## 10. 噪音检索式
 
-## 10. Noise queries
+### 噪音总式
 
-State the target of each noise block. Include every used/proposed query and explain any exclusion from the final expression.
+```text
+NOISE_TOTAL =
+```
+
+### N1
+
+去噪对象:
 
 ```text
 N1 =
+```
+
+### N2
+
+去噪对象:
+
+```text
 N2 =
+```
+
+Add every noise formula used or proposed. If a noise formula is not added to the final formula, explain why.
+
+### N_STABLE_INDUSTRY_NOISE
+
+去噪对象: stable cross-domain noise confirmed by hit review, preferably using both classification and keyword/context terms.
+
+```text
 N_STABLE_INDUSTRY_NOISE =
-NOISE_TOTAL =
+```
+
+### 噪音完整展开式（必须提供）
+
+Provide an expanded noise expression without unresolved `N1/N2` placeholders. This is required even when the shorthand noise formula is also shown, because the user may need to paste it directly into Patsnap Expert Search.
+
+```text
 NOISE_TOTAL_EXPANDED =
 ```
 
-Stable industry noise must be supported by hit review, preferably using classification plus keywords/context. The expanded noise formula is mandatory and must contain no unresolved N1/N2 placeholders, even when shorthand is also shown.
+## 11. 总检索式
 
-## 11. Combined queries
+### 智慧芽可直接粘贴执行式（必须优先展示）
 
-### Directly executable Patsnap expressions (show first)
-
-Provide complete expanded formulas before execution notes. Never deliver only `S1 OR S2 OR S3` shorthand.
+The complete report must provide direct-execution expanded formulas. Do not provide only `S1 OR S2 OR S3` shorthand. Put these expanded formulas before downstream execution notes so they are easy to find.
 
 ```text
 FINAL_BALANCED_EXPANDED =
@@ -199,7 +290,9 @@ OR
 (
   [S2 full formula body]
 )
+```
 
+```text
 NOISE_TOTAL_EXPANDED =
 (
   [N1 full formula body]
@@ -208,7 +301,9 @@ OR
 (
   [N2 full formula body]
 )
+```
 
+```text
 FINAL_PRECISION_EXPANDED =
 (
   [FINAL_BALANCED expanded full formula body]
@@ -219,98 +314,145 @@ NOT
 )
 ```
 
-### Explanatory shorthand
+### 平衡召回式（简写版，用于解释）
 
 ```text
 FINAL_BALANCED =
+```
+
+确认状态: 待用户确认
+
+### 平衡召回完整展开式（必须提供）
+
+Provide a fully expanded expression without unresolved `S1/S2/S3` placeholders. If the expression is too long to maintain safely, still provide the complete expanded expression in an appendix or attachment, and additionally recommend saving each strategy formula in Expert Search and combining them.
+
+```text
+FINAL_BALANCED_EXPANDED =
+```
+
+### 高精度式（简写版，用于解释）
+
+```text
 FINAL_PRECISION =
 ```
 
-Confirmation status for each: Pending user confirmation
+确认状态: 待用户确认
 
-If too long to maintain safely, provide the entire expanded query in an appendix/attachment and additionally suggest saving individual strategies in Expert Search before combining them.
+### 高精度完整展开式
 
-### Expansion checks
+```text
+FINAL_PRECISION_EXPANDED =
+(
+  [FINAL_BALANCED expanded full formula body]
+)
+NOT
+(
+  [NOISE_TOTAL expanded full formula body]
+)
+```
 
-- Balanced query contains no unresolved S1/S2/S3 placeholders.
-- Noise query contains no unresolved N1/N2/N3 placeholders.
-- Precision query contains actual expanded positive and noise blocks, not references to their variable names.
-- Expanded formulas are visible beside the combined-query section, not hidden only after notes.
-- Check status:
+### 完整展开式检查
 
-## 12. Execution log
+Before delivering the report, verify:
 
-Fill after Patsnap execution; otherwise mark `Pending user execution in Patsnap`.
+- `FINAL_BALANCED_EXPANDED` contains no unresolved `S1/S2/S3` placeholders.
+- `NOISE_TOTAL_EXPANDED` contains no unresolved `N1/N2/N3` placeholders.
+- `FINAL_PRECISION_EXPANDED` contains the expanded positive block and expanded noise block, not only `(FINAL_BALANCED_EXPANDED) NOT (NOISE_TOTAL_EXPANDED)`.
+- The expanded formulas are visibly placed near the total-formula section, not only hidden after notes or appendices.
 
-| Query | Hits | Deduplication basis | Execution date | Notes |
+```text
+检查状态:
+```
+
+## 12. 检索结果记录
+
+Fill after running in Patsnap. If not executed, mark as `待用户在智慧芽执行`.
+
+| 检索式 | 命中量 | 去重口径 | 执行日期 | 备注 |
 | --- | ---: | --- | --- | --- |
-| S0 | | | | |
-| S1 | | | | |
-| FINAL_BALANCED | | | | |
+| S0 |  |  |  |  |
+| S1 |  |  |  |  |
+| FINAL_BALANCED |  |  |  |  |
 
-## 13. Recall and precision validation guidance
+## 13. 查全查准校验方法引导
 
-Provide methods only unless executed result sets, labeled samples and independent recall samples are available.
+This search skill only provides the checking method. Do not fill validation results unless the user provides executed result sets, labeled samples, and independent recall samples.
 
-### Precision
+### 查准校验方法
 
-1. Execute the balanced or individual queries.
-2. Stratify samples by strategy, year, applicant, classification and frequent keywords.
-3. Manually label Relevant / Borderline / Irrelevant.
-4. Count noise sources.
-5. Decide whether to add noise blocks or tighten fields/proximity windows.
+查准可以基于命中结果做。建议流程:
 
-`Precision = relevant samples / all sampled records`
+1. 执行 `FINAL_BALANCED` 或各策略式。
+2. 按策略来源、年份、申请人、分类号、高频关键词分层抽样。
+3. 人工标引: 相关 / 边界相关 / 不相关。
+4. 统计噪音来源。
+5. 决定是否加入噪音式或收紧字段/位置符窗口。
 
-| Sample scope | Sample count | Relevant | Borderline | Irrelevant | Precision | Main noise | Adjustment |
+```text
+查准率 = 相关样本数 / 抽样总数
+```
+
+建议记录表:
+
+| 抽样范围 | 抽样量 | 相关 | 边界相关 | 不相关 | 查准率 | 主要噪音 | 调整建议 |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| | | | | | | | |
+|  |  |  |  |  |  |  |  |
 
-### Recall
+### 查全校验方法
 
-Hits alone cannot establish recall. Build independent relevant samples from user seeds, manually screened full portfolios of key applicants, competitor/product/standard/paper reverse searches, broad/classification searches, and trade-name/material/process-route reverse searches.
+查全不能只基于命中结果做，必须构建独立相关样本。建议样本来源:
 
-`Recall against the independent sample = retrieved independent relevant samples / all independent relevant samples`
+- 用户提供的种子专利；
+- 重点申请人全量专利中人工筛选的相关样本；
+- 竞品/产品/标准/论文反查得到的样本；
+- 宽式检索或分类号检索中人工筛出的相关样本；
+- 已知商品名、材料名、关键工艺路线反查得到的样本。
 
-| Independent sample source | Sample count | Hits | Recall | Why missed | Revision |
+```text
+查全率 = 检索式命中的独立相关样本数 / 独立相关样本总数
+```
+
+建议记录表:
+
+| 独立样本来源 | 样本量 | 命中量 | 查全率 | 未命中原因 | 修订建议 |
 | --- | ---: | ---: | ---: | --- | --- |
-| | | | | | |
+|  |  |  |  |  |  |
 
-### Proximity adjustment
+### 位置符窗口调整
 
-| Concept block | Current operator/window | Observed problem | Adjustment |
+| 概念块 | 当前位置符/窗口 | 基于结果观察到的问题 | 调整 |
 | --- | --- | --- | --- |
-| | | Too noisy / Missed seed / Good balance | |
+|  |  | too noisy / missed known sample / good balance |  |
 
-## 14. Iteration log
+## 14. 迭代日志
 
-| Version | Change | Hit-count change | Recall effect | Precision effect | Decision |
+| 版本 | 修改内容 | 命中量变化 | 查全影响 | 查准影响 | 决策 |
 | --- | --- | ---: | --- | --- | --- |
-| S0 | | | | | |
+| S0 |  |  |  |  |  |
 
-### Noise/missed-result feedback
+### 噪音/漏检反馈迭代表
 
-| Feedback | Sample source | Observation | General issue? | Current revision | Suggested skill revision |
+| 反馈类型 | 样本来源 | 观察结论 | 是否通用问题 | 本次修订 | 对skill的修订建议 |
 | --- | --- | --- | --- | --- | --- |
-| Noise | | | Yes / No / To assess | | |
-| Missed result | | | Yes / No / To assess | | |
+| 噪音 |  |  | 是/否/待判断 |  |  |
+| 漏检 |  |  | 是/否/待判断 |  |  |
 
-## 15. Limitations and pending items
+## 15. 局限性与待确认项
 
-- Fields/syntax to verify in Patsnap:
-- Classifications to review:
-- Insufficient seed samples:
-- Noise removal awaiting sample validation:
-- Date/country/legal-status scope:
-- Recommended next steps:
+- 字段/语法待智慧芽确认:
+- 分类号待复核:
+- 种子样本不足:
+- 去噪待抽样验证:
+- 时间/地区/法律状态范围:
+- 后续建议:
 
-## 16. Confirmation checklist
+## 16. 用户确认清单
 
-| Gate | Checkpoint | Status | User action | Feedback/revision | Next step |
+| 确认门 | 确认节点 | 状态 | 用户确认动作 | 用户反馈/修订 | 下一步 |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Requirements and scope | Pending user confirmation | Confirm | | Decomposition |
-| 2 | Decomposition | Pending user confirmation | Confirm | | Technical elements |
-| 3 | Technical and noise elements | Pending user confirmation | Confirm | | Strategies |
-| 4 | Classification, proximity and strategies | Pending user confirmation | Confirm | | Individual queries |
-| 5 | Individual, noise and combined queries | Pending user confirmation | Confirm | | Patsnap execution |
-| 6 | Validation methods / Independent validation | Pending user confirmation | Confirm | | Validation or finalization |
+| Gate 1 | 原始需求理解 + 技术边界 | 待用户确认 | 点击确认/回复确认 |  | 进入技术拆解 |
+| Gate 2 | 技术拆解表 | 待用户确认 | 点击确认/回复确认 |  | 进入技术要素表 |
+| Gate 3 | 技术要素表 + 噪音要素表 | 待用户确认 | 点击确认/回复确认 |  | 进入检索策略表 |
+| Gate 4 | 分类号范围 + 位置符策略 + 检索策略表 | 待用户确认 | 点击确认/回复确认 |  | 进入逐条检索式 |
+| Gate 5 | 逐条检索式 + 噪音检索式 + 总检索式 | 待用户确认 | 点击确认/回复确认 |  | 进入智慧芽执行 |
+| Gate 6 | 查全查准校验方法/是否进入独立校验 | 待用户确认 | 点击确认/回复确认 |  | 后续校验或最终固化 |

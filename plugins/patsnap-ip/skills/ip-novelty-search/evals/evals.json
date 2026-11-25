@@ -5,81 +5,81 @@
     {
       "id": "explicit-new-plugin-name",
       "type": "discovery",
-      "prompt": "Use $ip-novelty-search to find the closest prior patents for this technical solution, compare features and assess novelty.",
+      "prompt": "使用 $ip-novelty-search 查找这个技术方案最接近的现有专利，逐特征比较并评估新颖性。",
       "expected_activation": true,
       "assertions": [
-        "Recognize the official ip-novelty-search identifier and enter novelty research",
-        "Do not guarantee patentability or a formal novelty-search opinion"
+        "识别正式技能名ip-novelty-search并进入查新流程",
+        "不承诺最终可专利或法定查新意见"
       ]
     },
     {
       "id": "normal-cn-complete-disclosure",
       "type": "behavior",
-      "prompt": "Conduct a China patent novelty search on the attached complete mechanical disclosure, using 2025-01-01 as assessment date, and deliver an HTML report.",
+      "prompt": "对所附完整机械结构交底做中国专利查新，评价日为2025-01-01，输出HTML报告。",
       "expected_activation": true,
       "assertions": [
-        "Preserve extracted source_features and use traceable comparison_units for formal comparison",
-        "Use mixed semantic/keyword recall and save actual requests and receipts",
-        "Show filing/publication dates per document and separate date eligibility from technical disclosure",
-        "Do not combine documents for novelty; audit numbered Y groups under the CN three-step approach"
+        "保存提取工具返回的source_features，正式比对使用可追溯comparison_units",
+        "使用语义与关键词混合召回并保存真实请求和回执",
+        "逐篇展示申请日和公开日，日期资格与技术公开分开判断",
+        "新颖性不跨篇拼接，创造性按CN三步法审计编号Y组合组"
       ]
     },
     {
       "id": "incomplete-target-date-and-jurisdiction",
       "type": "behavior",
-      "prompt": "Assess whether this optical solution has inventive step.",
+      "prompt": "帮我判断这个光学方案有没有创造性。",
       "expected_activation": true,
       "assertions": [
-        "With a concrete solution already supplied, ask together only for target jurisdiction and assessment date that affect conclusions",
-        "For an authorized test first, state its jurisdiction and limit conclusion strength",
-        "Do not give definite novelty/inventive-step conclusions while decisive text or dates remain unresolved"
+        "已有具体方案时只集中补问会改变结论的目标法域和评价日",
+        "用户允许先测试时明确测试法域并限制结论强度",
+        "关键正文或日期资格未解决时不输出确定的新颖性或创造性结论"
       ]
     },
     {
       "id": "step4-feedback-retrieval",
       "type": "behavior",
-      "prompt": "Continue existing novelty research: the strongest candidate\u2019s full text introduces new industry terminology but its key relationship remains not_mentioned.",
+      "prompt": "续跑已有查新：最强候选正文出现了新的行业术语，但关键关系仍是not_mentioned。",
       "expected_activation": true,
       "assertions": [
-        "Create feedback with source publication, affected features, triggering fact and new query",
-        "Return to step 3 for targeted mixed semantic/keyword retrieval",
-        "Compare only new documents or affected features and retain the previous judgment"
+        "形成含来源公开号、受影响特征、触发事实和新查询的反馈项",
+        "回退步骤3执行定点语义加关键词混合检索",
+        "只比较新增文献或受影响特征，并保留回退前判断"
       ]
     },
     {
       "id": "legacy-name-not-an-entrypoint",
       "type": "discovery",
-      "prompt": "Call $novelty-search.",
+      "prompt": "调用 $novelty-search。",
       "expected_activation": false,
       "assertions": [
-        "The legacy name is not an installed entry point; suggest ip-novelty-search or route by the actual request"
+        "旧技能名不再作为已安装入口；应提示使用ip-novelty-search或根据实际请求重新路由"
       ]
     },
     {
       "id": "fto-only-negative-routing",
       "type": "discovery",
-      "prompt": "Assess whether our product falls within the claims of these three active US patents.",
+      "prompt": "分析我们的产品是否落入这三件有效美国专利的权利要求保护范围。",
       "expected_activation": false,
       "assertions": [
-        "Route to FTO or claim comparison; do not reframe implementation risk as novelty research"
+        "应路由至FTO或权利要求比对能力，不将实施风险改写为查新任务"
       ]
     },
     {
       "id": "competitor-landscape-negative-routing",
       "type": "discovery",
-      "prompt": "Analyze a competitor\u2019s patent portfolio and technology evolution over the last five years.",
+      "prompt": "分析某竞争对手近五年的专利布局和技术路线演进。",
       "expected_activation": false,
       "assertions": [
-        "Do not start novelty or inventive-step assessment"
+        "不启动新颖性或创造性评价"
       ]
     },
     {
       "id": "ambiguous-search-report-review",
       "type": "discovery",
-      "prompt": "Review the attached novelty report for missed documents, wrong citations and overstated conclusions; do not search from scratch.",
+      "prompt": "审核附件中的查新报告是否漏检、错引或结论过强，不要从零检索。",
       "expected_activation": false,
       "assertions": [
-        "Prioritize report review unless the user subsequently requests new or continued novelty research"
+        "优先路由至检索报告审核能力；除非用户随后要求重新检索或续跑查新"
       ]
     }
   ]

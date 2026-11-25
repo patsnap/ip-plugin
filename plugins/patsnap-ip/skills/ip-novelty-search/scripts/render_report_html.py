@@ -495,7 +495,7 @@ class Report(_appendices_module.AppendicesPresentation, _comparison_module.Compa
         self._search_cache = {}
         self.search_records = []
         self.common_knowledge = {}
-        self.language = draft.get("language", "en-US")
+        self.language = draft.get("language", "zh-CN")
         if self.language not in LANGUAGES:
             raise ValueError("Unsupported report language")
         self.assets, self.library, self.comparisons = {}, {}, []

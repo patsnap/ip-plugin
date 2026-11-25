@@ -1,63 +1,122 @@
-# Built-in technical-topic search strategy — P2
+# 内置方法论：技术主题检索策略构建（P2 阶段）
 
-Build an auditable, defensible Patsnap strategy: why terms enter, which fields are searched, how recall/precision can be checked and remaining limits. User-supplied syntax/screenshots/examples/history govern the supplied context; verify actual execution against current capabilities. If exact syntax is unknown, use clearly labeled draft field placeholders and state validation is required before production; do not call that draft executable.
+> 执行 P2 阶段时直接依据本文档提供的内置方法论。
 
-## Seven steps
+## 目的
 
-### 1. Clarify only material gaps
+为技术主题构建可审计、可辩护的智慧芽专利检索策略。输出必须让检索逻辑可追溯：为何纳入某术语、检索了哪些字段、查全查准如何校验、遗留哪些局限。
 
-Preserve the original request verbatim before interpretation. Establish topic/boundaries, countries/types/status/date/languages, purpose (landscape/monitoring/invalidity/FTO/competition/report), precision/recall expectations, known seed patents/articles/products/standards/companies and whether queries, methodology report or both are required.
+若用户提供了智慧芽字段语法、截图、样例检索式或导出的检索历史，一律以用户材料为准。若无法确认精确语法，用字段占位符起草，并明确标注"该语法须在智慧芽中验证后方可投产"。
 
-### 2. Decompose the topic
+## 执行流程
 
-Give a concise concept definition and establish shared understanding before formal boundaries. Decompose object/material/component, function/effect/problem, mechanism/process/method, application/product and exclusions. Boundaries require confirmation before execution; a requested complete draft labels every unconfirmed item “Pending user confirmation.” General routing: tech-decomposition-method.md.
+### 1. 澄清缺失参数（仅问实质影响检索的项）
 
-### 3. Term matrix before queries
+- 逐字保留用户原始检索需求，再做任何解释
+- 技术主题与预期边界
+- 数据库范围：国家/地区、专利类型、法律状态、时间窗、语言
+- 检索目的：态势、监控、无效、FTO、竞对比较、报告输入
+- 要求的查准/查全标准；已知种子专利、论文、产品、标准、公司
+- 用户需要的是可执行检索式、方法论报告，还是两者都要
 
-Include Chinese/English, abbreviations, spelling variants, chemical/trade names, broader/narrower and adjacent concepts. Read patsnap-query-rules.md as needed. Expand multidimensionally across object/material, function/effect, mechanism/process, application, product/module, upstream/downstream terms, classes, trade names, abbreviations, foreign variants, seeds and known assignees—not literal synonyms alone.
+### 2. 技术主题拆解
 
-For chemistry, add representative members, salts/derivatives, structural/process-state terms and structure-related anchors. Broad noisy members require constrained branches. Every major decomposition/search/noise element records confirmation; unconfirmed elements are not final execution scope. Use searchable-fields.md for exact fields.
+先写一段简明的技术主题定义/概念说明，让用户确认核心概念的理解一致，再起草正式边界。
 
-Model compounds with appropriate proximity/order/sentence/paragraph relations ($Wn/$PREn/$SEN/$PARA), not default flat Boolean lists. Use IPC_LOW/CPC_LOW for subgroup-inclusive parent classes, exact fields only for exact-code intent. Identify cross-domain noise early; verified stable clusters use named class+keyword blocks, not assignee exclusions alone. If misses show systematic translation variants, create a separate strongly constrained language-recall branch; broad “extraction/material” terms cannot stand alone.
+拆解维度：
+- 对象/材料/部件
+- 功能/效果/所解决的问题
+- 机理/工艺/方法
+- 应用场景/终端产品
+- 排除边界
 
-### 4. Layered queries
+边界起草完成后，必须请用户确认才能视为可执行范围。若用户要求先出完整草稿，则把每一条边界项标注 `待用户确认`。
 
-Route as topic, problem-led, assignee or hybrid search. Layers: S0 narrow seed/terminology validation; S1 core title/abstract/claim concepts; S2 recall extensions (synonyms/species/classes/assignees/inventors/citations/seed-derived terms); S3 precision constraints/exclusions/proximity/field choice; S4 final balanced production query with explanation. The SOP's named direct-topic/device-function/class-anchor branches are local branch names; preserve each branch's stated purpose rather than relying on labels alone.
+检索类型路由与拆解维度的通用方法，见 `references/tech-decomposition-method.md`。
 
-### 5. Execute or prepare
+### 3. 构建术语矩阵（写检索式之前）
 
-Use search_patent for patent records, search_literature for articles and field_analysis for population statistics under main tool/degradation rules. If only drafting is possible, provide the user's execution checklist and clearly mark unexecuted status; do not simulate real hits.
+必须包含：中文、英文、缩写、拼写变体、化学名、商品名、上位/下位概念、邻近术语。字段与算符规则见 `references/patsnap-query-rules.md`。
 
-### 6. Recall/precision guidance
+核心主题必须做多维扩展，不得只做字面同义词扩展。扩展维度：对象/材料、功能/效果、机理/工艺、应用场景、产品/模块、上下游术语、分类号、商品名、缩写、外文变体、种子专利、已知申请人。
 
-Do not claim validated recall/precision without executed results, labeled samples and independent recall evidence. With supplied misses/samples, use search-validation-checklist.md. Before finalization, classify feedback as stable noise, grouping/logic error, field-scope issue, translation/language gap, classification gap or boundary disagreement; update decomposition/elements/noise/strategy tables and complete queries together.
+- 化学类主题：除类名外，还要扩展代表性下位成员、盐/衍生物、结构类术语、工艺状态术语、结构相关分类锚点。噪声风险高的宽泛下位成员，只放进强约束分支。
+- 每个主要拆解分支、检索要素、噪声要素都要带用户确认状态。执行级检索中，未确认要素不得视为最终。
+- 需要可执行字段代码时，查 `references/searchable-fields.md`，把每个概念映射到精确字段。
+- 复合概念不得默认用扁平 `AND`/`OR`。要判断术语是否需要邻近、有序、同句、同段，酌情使用 `$Wn`、`$PREn`、`$SEN`、`$PARA`。
+- IPC/CPC 母组召回用 `IPC_LOW`/`CPC_LOW` 而非精确 `IPC`/`CPC`。例如 `IPC_LOW:C22B3/00` 可涵盖 `C22B3/00` 下的全部下位小组。
+- 跨域主题要尽早识别稳定噪声分类与行业词汇。若结果复核确认了某噪声簇，用"分类字段 + 关键词"组合建立命名噪声块，不要只靠申请人排除。
+- 非英文或机翻记录：当漏检样本显示存在系统性措辞差异时，单独建一条译文变体召回分支。该分支必须被核心应用、工艺、对象块强约束，不允许 `提取`、`材料` 这类宽泛译词单独成立。
 
-### 7. Complete search report
+### 4. 分层检索式构建
 
-Use search-report-template.md: topic, decomposition, search elements, noise elements, strategy table, dedicated query per strategy/noise block, total noise, final combination and expanded executable queries, post-search validation guidance and limitations.
+| 层级 | 名称 | 作用 |
+|------|------|------|
+| S0 | 种子检索式 | 窄口径术语，用于收集种子专利、验证术语体系 |
+| S1 | 核心检索式 | 标题/摘要/权项中主技术概念的术语 |
+| S2 | 查全扩展 | 补同义词、下位概念、IPC/CPC、申请人、发明人、引证、从种子记录得到的语义邻近词 |
+| S3 | 查准过滤 | 加目的/功能/应用约束，剔除误检领域，酌情用邻近算符与字段加权 |
+| S4 | 投产检索式 | 最终平衡式，附注释或配套说明 |
 
-Deliver FINAL_BALANCED_EXPANDED and NOISE_TOTAL_EXPANDED plus FINAL_PRECISION_EXPANDED when exclusions are proposed. Expand every block; `S1 OR S2 OR S3` alone is not executable. Put copy-ready expanded expressions immediately before/after shorthand, not hidden beyond appendices. Only label copy-ready after syntax is established; placeholders remain drafts.
+先做检索式类型路由：技术主题检索、问题型技术检索、申请人检索，或混合策略。
 
-Confirmation checkpoints: original requirement, boundaries, decomposition, elements, noise, strategy, final query. Where execution depends on user approval, stop at the gate until confirmed. “Pending user confirmation” is actionable, not decorative. Explicit complete-draft requests permit all-draft delivery with every unresolved checkpoint labeled, not unapproved execution. Reuse applicable explicit user authorization rather than mechanically re-asking settled choices.
+### 5. 执行或模拟检索
 
-## Principles and final gates
+工具选择：专利记录调用 `search_patent`，论文调用 `search_literature`，专利全量统计与聚合分析调用 `field_analysis`。调用参数、可用性检查与降级方式遵循 `SKILL.md`「工具与数据要求」。若只能准备检索式，须给出用户在智慧芽内自行执行的操作清单。
 
-Prefer inspectable concept/proximity blocks over long flat lists. Core expansion must be multidimensional/auditable unless the user explicitly wants narrow quick search. Start high-signal fields and widen when recall evidence warrants. Combine terms/classes/seeds; emerging/cross-domain topics cannot rely solely on IPC/CPC. Assignee clues/filters cannot replace topic search unless competitor-specific scope is explicit.
+### 6. 查全/查准校验指引
 
-Preserve false-positive analysis and why exclusions exist. Maintain separate landscape/monitoring/evidence queries when one cannot satisfy all objectives. Name feedback branches such as S_LANGUAGE_RECALL and N_STABLE_INDUSTRY_NOISE. Record exact date/database/unit/manual exclusions.
+只给出事后校验方法，不得声称已"查全"或"查准"。除非用户提供了已执行的结果集、抽样标注与独立查全样本，否则不得呈现校验结果。
 
-Before finalization verify:
-- Known seeds have a planned/actually evidenced coverage check; no premature coverage claim.
-- Expansion dimensions used/skipped are documented.
-- Precision sampling method is provided; no rate before labeling.
-- Assignees/classes/terms/year patterns are plausible for the topic.
-- Frequent noise is addressed or consciously accepted; verified noise uses terms+classes where possible, with assignee exclusions supplemental.
-- Misses map to missing concept blocks before adding terms; broad translations stay constrained.
-- Final logic can be explained in ordinary language; compounds/relationships use appropriate proximity or an explicit reason not to.
-- Parent-class retrieval uses _LOW fields, exact codes use exact intent.
-- Full report, not just one query; expanded blocks contain no unresolved S1/S2/N1 symbols.
-- Original requirements remain verbatim; confirmed scope differs from inference/pending assumptions.
-- Boundary→decomposition→elements→strategy→execution gates are respected under actual authorization; draft permission is not execution permission.
-- Language/database/syntax/emerging-terminology limits are explicit.
+用户提供漏检记录或校验样本时，按 `references/search-validation-checklist.md` 给修订建议。
 
-Supporting files: patsnap-query-rules.md (syntax), searchable-fields.md (field codes/types/examples), tech-decomposition-method.md (routing), search-report-template.md (delivery), search-validation-checklist.md (sample/iteration checks).
+用户提供噪声命中或漏检记录时，定稿前先做一轮反馈迭代：把每个问题归类为稳定噪声、括号/逻辑错误、字段范围问题、译文/语言缺口、分类缺口，或边界分歧；然后同步更新拆解表、要素表、噪声表、策略表与完整检索式。
+
+### 7. 交付完整检索报告
+
+报告结构见 `references/search-report-template.md`。必须包含：技术主题、技术拆解表、检索要素表、噪声要素表、检索策略表、每条策略专属检索式、每条噪声式、噪声总式、最终组合式、完全展开的可执行总式、事后查全查准校验指引、局限说明。
+
+- 必须给出可直接执行的展开式，不能只给 `S1 OR S2 OR S3` 这类简写。必需的展开块：`FINAL_BALANCED_EXPANDED`、`NOISE_TOTAL_EXPANDED`，以及提出噪声排除时的 `FINAL_PRECISION_EXPANDED`。
+- 展开总式要放在简写总式之前或紧随其后，并标注"可直接复制进智慧芽高级检索"。不得只藏在附录之后。
+- 简写式可保留以便阅读，但不足以作为可执行交付物。
+- 报告全程设置确认检查点：原始需求确认、边界确认、拆解确认、要素确认、噪声确认、策略确认、最终检索式确认。
+- `待用户确认` 是流程闸门，不是被动文字。执行依赖用户批准时，每个主要检查点后必须停止等待，用户确认当前阶段无误后方可进入下一阶段。
+
+## 检索原则
+
+- 概念分组优于一长串关键词列表。每个技术侧面都要能独立检视。
+- 当术语构成短语、系统、应用场景或技术关系时，邻近建模的概念块优于扁平布尔列表。
+- 核心主题扩展必须多维且可审计。除用户明确要求窄口径快检，仅基于字面同义词的检索式视为不完整。
+- 先检高信号字段，仅当查全证据要求时才放宽。
+- 关键词检索要与分类号、种子专利挖掘结合；新兴或跨域主题不得只靠 IPC/CPC。
+- 申请人名称作为校验线索或可选过滤，除用户明确要求竞对检索，不得替代技术主题检索式。
+- 保留误检分析。好的最终式应能说明排除了什么、为什么排除。
+- 当单一检索式无法同时满足宽口径态势、精确监控与证据收集时，分别保留多条检索式。
+- 需要时保留反馈衍生分支，如小语种/机翻召回用 `S_LANGUAGE_RECALL`、已验证跨域噪声用 `N_STABLE_INDUSTRY_NOISE`，便于后续查准复核审计。
+- 记录检索确切日期、数据库范围、去重单位、全部人工排除项。
+
+## 定稿前质量门控
+
+- 若提供了已知种子专利，报告说明了如何用其做事后查全校验；在结果比对前不声称已覆盖种子。
+- 核心主题已做多维扩展，且报告记录了使用了哪些维度、有意跳过了哪些维度。
+- 报告给出了已执行结果集的查准抽样方法；用户标注样本前不声称查准率。
+- 主要申请人、IPC/CPC 组、关键词、年份分布对该主题看起来合理。
+- 高频噪声词要么已被排除式处理，要么已明确说明接受。
+- 从结果样本确认的稳定噪声簇，尽可能同时用关键词式与分类式表达；仅申请人排除视为补充手段而非主要手段。
+- 漏检的相关样本，先映射到缺失的概念块再补术语。宽泛译文变体只加在强约束召回分支内。
+- 最终式能按概念块用自然语言解释清楚。
+- 复合短语、要素体系、应用场景、对象-动作关系已用合适的邻近算符表达，而非只用 `AND`/`OR`；若有意不用，须记录理由。
+- IPC/CPC 式仅在精确码意图时用精确字段，母组加下位召回时用 `_LOW` 字段。
+- 输出是完整检索报告，而非仅一条最终式。
+- `FINAL_BALANCED_EXPANDED`、`NOISE_TOTAL_EXPANDED` 及任何 `FINAL_PRECISION_EXPANDED` 中不含未解析的 `S1/S2/N1` 占位符。
+- 报告逐字保留用户原始需求，并清晰区分用户已确认范围与 Agent 推断/待确认假设。
+- 确认检查点是可执行闸门：从边界到拆解、从拆解到要素、从要素到策略、从策略到执行，未经用户确认前一阶段不得推进，除非用户明确要求出全稿并把检查点全部标为待确认。
+- 已说明局限，尤其是语言、数据库覆盖、字段语法不确定性、新兴术语缺口。
+
+## 配套参考
+
+- `references/patsnap-query-rules.md`：智慧芽字段策略、算符用法、检索式构造规则
+- `references/searchable-fields.md`：可检索字段缩写、中文字段名、字段类型与示例
+- `references/tech-decomposition-method.md`：技术拆解、检索类型路由、关键词/分类扩展、高级检索、降噪、工作空间校验的标准流程
+- `references/search-report-template.md`：检索式与方法论报告的最终交付结构
+- `references/search-validation-checklist.md`：查全/查准校验流程、抽样标准、迭代日志要求

@@ -1,51 +1,51 @@
-# Intake and assessment subjects
+# 输入与评价对象
 
-## When to clarify
+## 何时补问
 
-Read all actually accessible disclosure first; do not ask for information already supplied. Understand the concrete implementation and either the problem or effect. Continue with stated boundaries when missing information does not affect scope or decisive technical relationships.
+先读实际可取得的全部交底，不要求重复已经提供的信息。至少要理解具体做法，以及问题或效果之一。缺失信息不影响范围和关键技术关系时，可以继续并说明边界。
 
-| Situation | Action |
+| 情形 | 处理 |
 | --- | --- |
-| Only a name, use or “improved efficiency” | Ask how components interact or the method operates; wait before retrieval |
-| An essential attachment is unreadable | Identify the missing content and request readable material |
-| Concrete solution but no dimensions, experiments or background | Do not block for that reason or invent quantitative benefits |
-| Concept only, with an explicit request to explore first | Conduct technical research, without a novelty/inventive-step conclusion for a complete solution |
-| Alternatives change the assessment subject | Clarify only ambiguities that change the subject; organize the rest independently |
-| Inventive-step conclusion requested without a target jurisdiction | Ask for the target jurisdiction and assessment cutoff together; if the user asks to test first, identify the test jurisdiction and limit conclusions |
+| 只有名称、用途或“提高效率” | 问部件如何配合或方法怎样执行，等待后再检索 |
+| 关键附件无法读取 | 说明缺少哪份内容，请补充可读材料 |
+| 有具体方案，缺尺寸、实验或背景 | 不因此阻塞，不补造量化收益 |
+| 用户仅提供概念，要求先探索 | 可作技术调研，不能给完整方案的新创性结论 |
+| 替代关系改变评价对象 | 只问会改变对象的歧义，其余自行整理 |
+| 用户要求创造性结论但未给目标国 | 将目标国与评价截止日合并为一次必要澄清；若用户要求先测试，明确测试法域并限制结论 |
 
-Ask necessary questions together, normally at most three. Wait for an actual response; silence is not confirmation. Once the solution is understood, proceed without another “shall I start?” question.
+必要问题一次集中提出，通常不超过三项。等待真实回复，不把沉默当作确认；已能理解时直接推进，不再问“是否开始”。
 
-## Natural-law check
+## 自然规律检查
 
-Assess the overall solution using operating conditions, inputs, outputs and asserted effects. Continue without a concrete inevitable conflict; clarify missing decisive conditions when there is a specific concern. Explain and stop for an inevitable conflict, then recheck a revised solution. Missing experiments, parameters, low efficiency or implementation difficulty do not establish a natural-law violation. Patent retrieval does not replace this check.
+结合运行条件、输入、输出和声称效果判断整体方案。没有具体必然冲突时继续；存在疑点且缺决定条件时澄清；确实必然冲突时指出冲突并停止，修订后重新检查。没有实验、参数不全、效率低或实现困难不是违反自然规律的依据，不以专利检索替代检查。
 
-## Which solution to assess
+## 评价什么方案
 
-Follow an explicitly selected subject. Otherwise reconstruct the complete combination supported by the original disclosure; patent input does not automatically mean assessing claim 1 only.
+用户明确指定的对象优先；未指定时恢复原交底支持的完整组合，不因输入是专利就自动只评权利要求 1。
 
-- Separate the base solution, optional improvements and alternatives; the word “may” and section position are not the only criteria.
-- When an optional implementation becomes a concrete additional subject, retain the base solution and explain the value of that assessment.
-- Treat alternatives in parallel. Assess products and methods separately, without assuming a broad/narrow dependency.
-- Account for every technical statement as a necessary relationship, background/effect, optional implementation not separately assessed, or ambiguity awaiting clarification.
-- Complete the primary solution first. Add subjects only for independent value, an effect on conclusions or a user request; do not exhaust parameter combinations.
-- Follow requests for every claim or variant and disclose actual completion scope.
+- 基础方案、可选改进和替代实现分别处理；“可”字和章节位置不是唯一标准。
+- 采用可选实现形成具体化方案时，保留基础方案并说明增加该评价的价值。
+- 替代实现并列；产品与方法分别评价，不默认互为宽窄从属。
+- 每条技术陈述都有去向：必要关系、背景或效果、未单独评价的可选实现、待澄清歧义。
+- 先完成主方案；仅在有独立价值、影响结论或用户要求时增加方案，不穷举参数组合。
+- 用户要求逐权项或全部变体时按要求执行，明确实际完成范围。
 
-Do not remove necessary limitations to manufacture a broad solution or add undisclosed requirements to manufacture differences. Disclose optional implementations not separately compared; do not hide counterexamples by narrowing scope.
+不能删必要限定制造宽方案，也不能加交底未记载的要求制造区别。未单独比较的可选实现如实说明，不通过缩小范围隐去反例。
 
-## Dates and search scope
+## 日期与检索范围
 
-Extract explicitly supplied cutoffs and scope. With no cutoff, leave it unrestricted and state this in the report; do not automatically use today, filing or priority dates. Clarify only conflicting dates.
+从现有材料取得用户明确的截止日和范围。未指定截止日时不限制，并在报告说明；不将今天、申请日或优先权日自动当作截止日。日期互相冲突时才澄清。
 
-“Including [date]” includes that day; “before [date]” ends the preceding day. Verify dates for exact publication versions. A later family grant cannot replace an earlier publication.
+“含某日”为当天上限；“某日之前”换算为前一天。精确公开版本仍须核实日期；同族晚公开授权版不能替代在先公开版。
 
-Distinguish “only” from “prioritize/reference.” Hard domain, IPC, assignee, country or status conditions must enter actual requests. For reference-only conditions retain retrieval unrestricted by that condition. Clarify material ambiguity about original/current ownership or group scope; do not invent standardized names, entity IDs or subsidiaries.
+区分“仅限”和“优先参考”。领域、IPC、申请人、国家和状态等硬条件必须进入实际请求；仅作参考时保留不限该项的检索。申请人原始归属、当前归属或集团范围有实质歧义时澄清，不猜造标准化名称、实体 ID 或子公司。
 
-For example, “check novelty of an intelligent tray improving sterilization efficiency” still lacks implementation. “To prevent tube movement, the tray has two brackets conforming to the coiled tube profile…” supports structural-relationship retrieval without a fixed scope form.
+例如“查新能提高消毒效率的智能托盘”还缺具体做法；“为防止管体移动，托盘设有两个与盘绕管体轮廓贴合的托架……”已能支持结构关系检索，无需再填固定范围表。
 
-## Target jurisdiction
+## 目标国
 
-Inventive step is not a jurisdiction-free score. Record the target office or examination system, such as CN, EP, US, JP, KR or PCT/ISA. For multiple jurisdictions give separate conclusions without substituting one system’s terminology for another’s tests.
+创造性不是脱离法域的统一打分。记录目标受理局或审查体系，例如 CN、EP、US、JP、KR 或 PCT/ISA；多国申请分别给结论，不用一个法域的术语替代另一个法域的判断。
 
-- The jurisdiction determines closest-art selection, formulation of the technical problem, combination teaching/motivation, common-knowledge evidence and weighting of advantageous effects.
-- A Y document has an evidence role in a search report, rather than being inherently Y. A document can play different roles for different solutions, combinations or jurisdictions.
-- Without a target jurisdiction, X/Y candidates may be listed, but do not confirm a Y combination or give a definitive inventive-step conclusion.
+- 目标国决定最接近技术的选法、技术问题的表述、结合启示/动机标准、公知常识证据和有利效果权重。
+- “Y 类文件”是检索报告中的证据角色，不等于文献天然属于 Y；同一文献可在不同方案、不同组合或不同法域下承担不同角色。
+- 未指定目标国时仍可列 X/Y 候选，但不确认 Y 组合成立，也不输出确定创造性结论。

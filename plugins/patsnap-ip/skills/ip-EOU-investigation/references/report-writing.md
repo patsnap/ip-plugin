@@ -1,48 +1,48 @@
-# Writing the report and filling the template
+# 报告写作与模板填充
 
-Before delivering HTML, read all of `assets/report-template.html`. Preserve its structure, styles, navigation, matrix skeleton, and reading scripts. If the file is truncated, continue to the end. Populate it with current case data and verify the actual output.
+交付HTML前完整读取 `assets/report-template.html`，保留其页面结构、样式、目录、矩阵骨架和阅读脚本。文件被截断时继续读到结尾。填充当前案件的真实数据，完成后逐项检查实际文件。
 
-Escape plain text fields, use actual source addresses, and handle layout HTML separately from original evidence. Use the host's available file processing capabilities to populate the template in bulk if useful. Reuse confirmed portfolios, key points, matrix entries, and material records, then verify the generated file.
+普通字段按文本转义，链接采用实际来源地址，排版HTML与材料原文分开处理。可以使用宿主现有文件处理能力批量填充模板，复用已确认的组合、核心点、矩阵和材料记录，生成后统一核对实际文件。
 
-## Reading order
+## 阅读顺序
 
-Start with two or three sentences covering what was found, how far the evidence supports it, and the most important gap. Follow with scope and the product matrix, then patents, key points, and evidence. Default to plain English and honor explicit output-language requests. Keep original titles and foreign-language evidence in the details. If the report language changes, localize template labels and set the HTML language accordingly, preserving original quotations.
+先用两三句话说明找到什么、支持到哪里及最重要的缺口。随后给出范围和产品矩阵，读者再向下展开专利、核心点与证据。正文使用通俗中文，原始标题和外文证据在详情中保留。
 
-For each patent, state in the body what it protects, why it was recommended, and how it relates to other portfolio members. Explain the specific mechanism and confirmation status of each key point. Replace placeholder instructions with case content. Use expandable details for original text, long element tables, and supporting detail.
+每件专利正文直接说明“保护什么、为什么推荐、与组合其他成员的关系”。每个核心点正文直接解释具体机制及确认状态。“保护说明见详情”等占位句需要用实际内容替换。原文、长要素表和补充细节适合折叠。
 
-## Header fields
+## 顶部字段
 
-- Fill `report_title`, `report_subtitle`, `report_date`, and `report_status` with the actual title, brief description, date, and confirmation status.
-- Use the current deduplicated retained product count for `lead_count`. Compute `supported_count` and `pending_count` from the matrix rows. Their sum equals `lead_count`.
-- Deduplicate the exact selected patent documents for `patent_count` and check against the portfolio, key points, and matrix.
-- Use `findings_summary` for findings and decisive gaps, and `priority_next_step` for the single highest-priority item to obtain or action to take.
-- Fill `confirmed_scope` with `div > dt + dd` for company, product, technology, competitor, user-specified patents, patent jurisdictions and statuses, product markets, and time constraints. Use “Unrestricted” for absent optional conditions and `div.full` for long descriptions.
-- Use `coverage_summary` to show what was read, assessed, and outside coverage. Mark a draft and specify gaps when confirmation is pending or material conflicts.
+- `report_title`、`report_subtitle`、`report_date`、`report_status`填写实际标题、简短说明、日期和当前确认状态。
+- `lead_count`为当前保留的去重产品数。`supported_count`及`pending_count`由当前矩阵逐行计算，两者之和等于`lead_count`。
+- `patent_count`按当前选定的准确专利文献去重计算，与组合、核心点和矩阵的专利清单核对。
+- `findings_summary`概括本次发现及决定性缺口，`priority_next_step`只写一项最值得补的资料或动作。
+- `confirmed_scope`填入`div > dt + dd`，分别写公司、产品、技术、竞品、用户指定专利、专利地区及状态、产品市场、时间条件。可选条件为空时写“未限定”。长描述可用`div.full`。
+- `coverage_summary`交代本轮已读、已评和未覆盖范围。确认待完成或材料冲突时明确标记草稿及具体缺口。
 
-## Matrix and IDs
+## 矩阵与编号
 
-Keep `table#lead-matrix`. Use one row per model, one column per confirmed key point, and a final classification column. In `core_point_headers`, use `th.core-col` with a stable point ID and short title linking to the point's explanation.
+保留`table#lead-matrix`。每个产品型号一行，每个已确认核心点一列，最后一列为固定分级。表头`core_point_headers`用`th.core-col`，给稳定核心点编号和简短标题，链接到核心点正文。
 
-In `product_rows`, use `th.product-cell[scope=row]` for the company, exact model, and source entry. Use `td.match-cell` for each comparison. Use `a.mark` for ? and `a.mark.supported` for ✓ and link each to an existing evidence detail. Keep cells brief and put extended reasoning, quotations, and uncovered conditions in the details.
+`product_rows`中的产品格使用`th.product-cell[scope=row]`，展示公司、准确型号和来源入口。对应格使用`td.match-cell`，其中`a.mark`显示?，`a.mark.supported`显示✓；链接到真实存在的逐格证据详情。格内保持简短，长理由、引文及未覆盖条件放到详情。
 
-Use `li` entries in `core_point_legend` to map each column ID to the exact publication number, claim, and plain-language mechanism. Use unique, consistent point IDs across the report, matrix, and evidence. List complete claim elements separately with element IDs.
+`core_point_legend`以`li`将每列编号映射到准确公开号、权利要求和通俗机制。核心点编号唯一，跨正文、矩阵和证据保持一致。完整权项的细分要素另用要素编号列出。
 
-For a product with at least one ✓, label the final cell “Evidence supported” using `span.badge.supported`. Use “Pending manual review” and `span.badge.pending` for all other products. Follow the confirmed point definitions and criteria. Put partial element support in the details. Keep ? when evidence is insufficient and verify the mechanism even when sources describe the same effect.
+每个产品至少一个✓时，末列使用`span.badge.supported`写“有证据支持”；其他产品使用`span.badge.pending`写“待人工复核”。矩阵沿用用户已确认的核心点定义和判定，局部要素支持放在详情中。资料不足保持?，有来源的相同效果仍需核查具体机制。
 
-## Portfolios, key points, and evidence
+## 组合、核心点与证据
 
-Use `div.group` for portfolios and `article.patent` for members in `portfolio_overview`. Use `div.item-heading`, `p.patent-id`, `div.tags`, and `dl.reading-notes` as needed for exact version, owner, status, protected subject matter, recommendation rationale, and relationships. Apply “User specified” where the inputs warrant it.
+`portfolio_overview`按`div.group`组织实际组合、`article.patent`组织成员。可用`div.item-heading`、`p.patent-id`、`div.tags`和`dl.reading-notes`呈现准确版本、权利人、状态、保护主题、推荐理由和关系；标签中的“用户指定”按实际输入保留。
 
-Use `article.core-point` for each entry in `confirmed_core_points`, with the same ID as its header link. Explain the mechanism, exact document and claim, necessary dependencies, and confirmation status. Use `details.evidence-detail` for the full claim and original-language element mappings.
+`confirmed_core_points`每项使用`article.core-point`，id与表头一致。写出通俗机制、准确文献与权项、必要依赖和确认状态。用`details.evidence-detail`保留完整权项及要素原文映射。
 
-Group `evidence_details` by product in `article.lead`. Match every `details.evidence-detail` ID to its matrix link. In `div.evidence-body`, give the reasoning, original product quotation, source and location, scope supported, missing conditions, and priority evidence. Specify the exact boundary of partial support.
+`evidence_details`以`article.lead`分产品组织。每格`details.evidence-detail`的id与矩阵链接一致，展开后使用`div.evidence-body`，写判断理由、产品原句、来源及位置、实际支持范围、缺失条件和优先补证。仅覆盖局部时明确具体范围。
 
-Use `ol.sources` and `ol.next-actions` for deduplicated sources and concrete follow-up actions in `sources_and_next_steps`. Cite original text on the mechanism for technical judgments and use quotes limited to number, owner, or status for their respective metadata. Keep original quotations separate from explanations. Use actual web URLs. For local-only evidence give the filename and location, and use relative links when the files are packaged with the report.
+`sources_and_next_steps`分别用`ol.sources`列去重来源、`ol.next-actions`列具体后续动作。技术判断引用实际机制原句，只有公开号、权利人或状态的引文用于相应元数据。原文引用与中文解释分开。网页来源采用实际取得的URL，只有本地材料时说明文件名和定位；随报告打包材料后再使用对应相对链接。
 
-Cite user material as a factual source within the verified scope. Verify companies, products, numbers, and technical judgments from reference reports before adopting them. Retain unresolved family status and explain supported technical roles and citations independently. State the subject and date of historical litigation or prior case conclusions. Compare current models using material applicable to those models.
+用户材料作为事实来源按已核实范围引用。参考报告中的公司、产品、号码及技术判断只有经过当前调查核实后才能进入报告。同族归属待核时沿用该状态，独立说明已有依据的技术分工与引证关系。历史诉讼或既有案件结论注明对象与时间，当前型号的对应判断使用适用于该型号的材料。
 
-## Verify delivery
+## 交付检查
 
-Read the populated HTML, remove all placeholders, and verify the current confirmed list, counts, matrix rows and columns, fixed labels, unique IDs, and anchors. If versions or members conflict between the portfolios, key points, and matrix, resolve them in the case record. Verify evidence for each product and model.
+读取填充后的HTML，清除所有模板占位符，核对当前确认清单、统计数、矩阵行列、固定分级、唯一编号和锚点。专利组合、核心点与矩阵出现不同版本或不同成员时回到案件记录处理冲突。产品与型号的证据分别核对。
 
-Check that each patent and key point has a readable explanation, long original passages are expandable, and missing evidence and pending items are marked accurately. Default to A4 portrait printing. For many claim points, switch to A4 landscape if needed and recheck widths. Where the host allows, check desktop and narrow layouts, expanding details, horizontal scrolling, and printing. Record the checks actually completed.
+检查每件专利和核心点都有可直接阅读的解释，长原文在详情中，缺证与待确认标记准确。默认使用A4纵向打印，核心点较多时可将模板的页面尺寸改为A4横向并复核列宽。可在当前宿主允许的环境中查看桌面和窄屏布局、详情展开、矩阵横向滚动及打印。实际未完成的检查如实记录。

@@ -18,31 +18,31 @@ def check_failure(value):
         or value.get("success") is False
         or value.get("status") == "error"
     ):
-        raise ValueError("The screening receipt contains a failure flag; a submittable CC list cannot be generated.")
+        raise ValueError("Screening 回执包含失败标志；不能生成可提交的 CC 名单。")
 
 
 def evidence_value(document, pointer):
     """Resolve a JSON Pointer without assuming a service output schema."""
     if not isinstance(pointer, str) or not pointer.startswith("/"):
-        raise ValueError("Evidence must reference a non-root JSON Pointer in the actual result.")
+        raise ValueError("证据须定位到实际结果中的非根 JSON Pointer。")
     value = document
     for token in pointer[1:].split("/"):
         if any(i + 1 == len(token) or token[i + 1] not in "01" for i, char in enumerate(token) if char == "~"):
-            raise ValueError("Invalid JSON Pointer escape.")
+            raise ValueError("JSON Pointer 转义无效。")
         token = token.replace("~1", "/").replace("~0", "~")
         if isinstance(value, list):
             if not token.isdigit() or str(int(token)) != token:
-                raise ValueError("Invalid JSON Pointer array index.")
+                raise ValueError("JSON Pointer 数组索引无效。")
             index = int(token)
             if index >= len(value):
-                raise ValueError("Evidence location is outside the result bounds.")
+                raise ValueError("证据定位超出结果范围。")
             value = value[index]
         elif isinstance(value, dict) and token in value:
             value = value[token]
         else:
-            raise ValueError("Evidence location does not exist.")
+            raise ValueError("证据定位不存在。")
     if value is None or value == "" or value == [] or value == {}:
-        raise ValueError("Evidence location points to empty content.")
+        raise ValueError("证据定位指向空内容。")
     return value
 
 
@@ -50,19 +50,19 @@ def screening_items(receipt):
     """Read a local, source-linked FTO Screening record without guessing service fields."""
     check_failure(receipt)
     if not isinstance(receipt, dict) or receipt.get("schema_version") != "fto-screening-evidence-2":
-        raise ValueError("Verify complete screen_patents_for_FTO receipts and create local screening records first.")
+        raise ValueError("须先核对完整 screen_patents_for_FTO 回执并建立本地筛选记录。")
     if receipt.get("results_complete") is not True:
-        raise ValueError("Task or result pagination is incomplete; the candidate catalog cannot be frozen.")
+        raise ValueError("任务或结果分页未完成，不能冻结候选目录。")
     sources = receipt.get("sources")
     if not isinstance(sources, list) or not sources:
-        raise ValueError("Original result sources are missing.")
+        raise ValueError("缺少原始结果来源。")
     documents, paths = [], set()
     for source in sources:
         if not isinstance(source, dict) or not isinstance(source.get("path"), str):
-            raise ValueError("Result sources require actual files and hashes.")
+            raise ValueError("结果来源须有真实文件与散列。")
         actual, raw = file_record(source["path"])
         if source != actual or actual["path"] in paths:
-            raise ValueError("Result sources have changed, do not match the record, or are duplicated.")
+            raise ValueError("结果来源已变更、记录不符或重复。")
         paths.add(actual["path"])
         value = json.loads(raw)
         check_failure(value)
@@ -71,56 +71,56 @@ def screening_items(receipt):
     remaps = receipt.get("identity_remaps")
     unresolved = receipt.get("unresolved_pns")
     nonreturned = receipt.get("nonreturned_pns")
-    for label, values in [("Submitted PNs", submitted), ("Unresolved PNs", unresolved), ("Nonreturned PNs", nonreturned)]:
+    for label, values in [("提交PN", submitted), ("未解析PN", unresolved), ("未返回PN", nonreturned)]:
         if not isinstance(values, list) or not all(isinstance(x, str) and x.strip() for x in values) or len(set(values)) != len(values):
-            raise ValueError(f"{label} must be a unique list of actual publication numbers.")
+            raise ValueError(f"{label}须为不重复的实际公开号列表。")
     if set(unresolved).intersection(nonreturned):
-        raise ValueError("A PN cannot be both unresolved and nonreturned.")
+        raise ValueError("同一PN不能同时标记未解析和未返回。")
     if not isinstance(remaps, list):
-        raise ValueError("identity_remaps must be an array, which may be empty.")
+        raise ValueError("identity_remaps须为数组，可为空。")
     remap_inputs, remap_outputs = set(), set()
     for item in remaps:
         if not isinstance(item, dict):
-            raise ValueError("Each identity_remaps entry must be an object.")
+            raise ValueError("identity_remaps条目须为对象。")
         input_pn, returned_pn, reason = item.get("input_pn"), item.get("returned_pn"), item.get("reason")
         if not all(isinstance(x, str) and x.strip() for x in [input_pn, returned_pn, reason]):
-            raise ValueError("Identity mappings require nonempty input_pn, returned_pn and a verification reason.")
+            raise ValueError("身份映射须包含非空input_pn、returned_pn和核验理由。")
         if input_pn in remap_inputs or input_pn not in submitted:
-            raise ValueError("A mapped input PN is duplicated or outside the submitted set.")
+            raise ValueError("身份映射输入PN重复或不属于提交集合。")
         remap_inputs.add(input_pn)
         remap_outputs.add(returned_pn)
     if remap_inputs.intersection(unresolved) or remap_inputs.intersection(nonreturned):
-        raise ValueError("Mapped input PNs cannot also be unresolved or nonreturned.")
+        raise ValueError("已映射输入PN不能同时标记未解析或未返回。")
     records = receipt.get("records")
     if not isinstance(records, list):
-        raise ValueError("Per-item screening records are missing.")
+        raise ValueError("缺少逐项筛选记录。")
     seen, selected = set(), []
     for position, item in enumerate(records, 1):
         if not isinstance(item, dict):
-            raise ValueError("A screening record must be an object.")
+            raise ValueError("筛选记录须为对象。")
         pid = item.get("patent_id")
         if not isinstance(pid, str) or not pid.strip() or pid in seen:
-            raise ValueError("A screening identity is missing or duplicated.")
+            raise ValueError("筛选身份缺失或重复。")
         seen.add(pid)
         if not isinstance(item.get("pn"), str):
-            raise ValueError("PN must be a verified string; an empty string is allowed.")
+            raise ValueError("PN 须为核对后的字符串，可为空。")
         refs = item.get("evidence_refs")
         if not isinstance(refs, list) or not refs:
-            raise ValueError("Each judgment requires a location in the actual results.")
+            raise ValueError("每项判断必须有实际结果定位。")
         for ref in refs:
             if not isinstance(ref, dict) or type(ref.get("source_index")) is not int or not 1 <= ref["source_index"] <= len(documents):
-                raise ValueError("Invalid evidence source index.")
+                raise ValueError("证据来源序号无效。")
             evidence_value(documents[ref["source_index"] - 1], ref.get("pointer"))
         selected.append({"patent_id": pid, "pn": item["pn"], "screening_decision": "returned_candidate", "source_position": position})
     returned_pns = {x["pn"] for x in selected}
     if "" in returned_pns or returned_pns.intersection(unresolved) or returned_pns.intersection(nonreturned):
-        raise ValueError("Returned candidate PNs conflict with unresolved/nonreturned sets.")
+        raise ValueError("返回候选PN与未解析／未返回集合冲突。")
     unexpected = returned_pns - set(submitted)
     if unexpected - remap_outputs:
-        raise ValueError("An out-of-input returned PN lacks a verified mapping.")
+        raise ValueError("存在未核验的输入外返回PN。")
     represented_inputs = (returned_pns & set(submitted)) | remap_inputs
     if represented_inputs | set(unresolved) | set(nonreturned) != set(submitted):
-        raise ValueError("Submitted PNs are not fully mapped to returned, unresolved or nonreturned sets.")
+        raise ValueError("提交PN没有完整映射到返回、未解析或未返回集合。")
     return selected
 
 
@@ -143,7 +143,7 @@ def collect_candidates(paths):
     for group, path in enumerate(paths, 1):
         source, raw = file_record(path)
         if any(x["path"] == source["path"] for x in sources):
-            raise ValueError("The same screening file cannot serve as two groups.")
+            raise ValueError("同一 Screening 文件不能作为两个分组。")
         items = screening_items(json.loads(raw))
         sources.append({**source, "returned_count": len(items)})
         for item in items:
@@ -152,7 +152,7 @@ def collect_candidates(paths):
             if pid in by_id:
                 row = by_id[pid]
                 if row["pn"] != pn:
-                    raise ValueError("The same ID has inconsistent PNs across receipts; verify identity first.")
+                    raise ValueError("跨回执同 ID 的 PN 不一致，先核对身份。")
                 row["origins"].append(origin)
             else:
                 row = {"row_id": f"S{len(candidates) + 1:03d}", "patent_id": pid,
@@ -162,23 +162,23 @@ def collect_candidates(paths):
     return sources, candidates
 
 
-def prepare_catalog(paths, case_id, input_version, scope, language="en", metadata=None):
+def prepare_catalog(paths, case_id, input_version, scope, language="zh", metadata=None):
     if language not in {"zh", "en"}:
-        raise ValueError("The page supports zh/en only; fully localize it before delivering in another language.")
+        raise ValueError("页面仅内置 zh/en；其他交付语言须先完整本地化。")
     if not all(isinstance(x, str) and x.strip() for x in [case_id, input_version, scope]):
-        raise ValueError("Case, input version and scope must be nonempty.")
+        raise ValueError("案件、输入版本和范围说明不能为空。")
     sources, candidates = collect_candidates(paths)
     if not sources:
-        raise ValueError("Provide local screening records backed by actual result sources.")
+        raise ValueError("必须提供有真实结果来源的本地筛选记录。")
     if metadata is not None:
         display = metadata.get("by_patent_id") if isinstance(metadata, dict) else None
         if not isinstance(display, dict):
-            raise ValueError("metadata must contain a by_patent_id object.")
+            raise ValueError("metadata 必须包含 by_patent_id 对象。")
         allowed = {"title", "assignees", "jurisdiction", "legal_status", "screening_reason", "completeness", "url", "source_ref"}
         for row in candidates:
             data = display.get(row["patent_id"], {})
             if not isinstance(data, dict):
-                raise ValueError("metadata entries must be objects.")
+                raise ValueError("metadata 条目必须为对象。")
             row["display"] = {k: v for k, v in data.items() if k in allowed}
     catalog = {
         "schema_version": "fto-cc-catalog-3", "case_id": case_id, "input_version": input_version,
@@ -193,31 +193,31 @@ def prepare_catalog(paths, case_id, input_version, scope, language="en", metadat
 
 def check_catalog(catalog):
     if not isinstance(catalog, dict) or catalog.get("schema_version") != "fto-cc-catalog-3":
-        raise ValueError("This is not a current-version candidate catalog.")
+        raise ValueError("不是当前版本的候选目录。")
     unhashed = {k: v for k, v in catalog.items() if k != "catalog_sha256"}
     if sha(canonical(unhashed)) != catalog.get("catalog_sha256"):
-        raise ValueError("The catalog has changed; old selections cannot be reused.")
+        raise ValueError("目录已改变；不能沿用旧选择。")
     sources, rows = collect_candidates([x["path"] for x in catalog["sources"]])
     if sources != catalog["sources"]:
-        raise ValueError("Source receipts have changed; rebuild the catalog and obtain a new user selection.")
+        raise ValueError("源回执已改变；须重建目录并由用户重新选择。")
     identities = [{k: v for k, v in x.items() if k != "display"} for x in catalog["candidates"]]
     if rows != identities or catalog["candidate_count"] != len(rows):
-        raise ValueError("The catalog does not match the source-backed screening records.")
+        raise ValueError("目录与有来源的筛选记录不符。")
     if catalog.get("batch_limit") != 10:
-        raise ValueError("The local verification batch size is 10.")
+        raise ValueError("本地核验批次大小为 10。")
     expected = "awaiting_user_strategy" if rows else "no_candidates"
     if catalog.get("status") != expected:
-        raise ValueError("Invalid catalog status.")
+        raise ValueError("目录状态无效。")
 
 
 def filtered_candidates(catalog, criteria):
     """Exact metadata matching; unknowns remain eligible until explicitly reviewed."""
     allowed = {"assignees", "legal_status", "jurisdiction"}
     if not isinstance(criteria, dict) or not criteria or not set(criteria) <= allowed:
-        raise ValueError("Filters must be a nonempty object containing supported fields.")
+        raise ValueError("过滤条件必须为已支持的非空字段对象。")
     for values in criteria.values():
         if not isinstance(values, list) or not values or not all(isinstance(x, str) and x.strip() for x in values) or len(values) != len(set(values)):
-            raise ValueError("Each filter field requires a nonempty list of unique strings.")
+            raise ValueError("每个过滤字段须为非空、不重复的字符串值列表。")
     eligible, unknown = [], []
     for row in catalog["candidates"]:
         display = row.get("display", {})
@@ -242,40 +242,40 @@ def confirm_selection(catalog, choice_path, user_action_path):
     choice_record, raw = file_record(choice_path)
     choice = json.loads(raw)
     if not isinstance(choice, dict) or choice.get("schema_version") != "fto-cc-choice-3":
-        raise ValueError("The selection record must use a valid structure and specify all/subset scope and full-text strategy.")
+        raise ValueError("选择记录须使用有效结构并明确全部／部分及全文策略。")
     if choice.get("catalog_sha256") != catalog["catalog_sha256"]:
-        raise ValueError("The user selection belongs to another catalog or version.")
+        raise ValueError("用户选择属于其他目录或版本。")
     ids = choice.get("selected_patent_ids")
     if not isinstance(ids, list) or not all(isinstance(x, str) and x.strip() for x in ids):
-        raise ValueError("The user selection must be a valid ID array.")
+        raise ValueError("用户选择须为合法 ID 数组。")
     if not ids:
-        raise ValueError("No items selected; submittable CC batches cannot be generated.")
+        raise ValueError("未选择对象；不能生成可提交 CC 批次。")
     if len(set(ids)) != len(ids):
-        raise ValueError("The selection contains duplicate IDs.")
+        raise ValueError("选择包含重复 ID。")
     known = {x["patent_id"] for x in catalog["candidates"]}
     if not set(ids) <= known:
-        raise ValueError("The selection contains items outside the final screening catalog.")
+        raise ValueError("用户选择包含最终 Screening 目录之外的对象。")
     strategy, evidence_mode = choice.get("strategy"), choice.get("evidence_mode")
     if strategy not in {"all", "subset"} or evidence_mode not in {"claims", "fulltext"}:
-        raise ValueError("All/subset scope and description full-text options must be explicit and independent; no defaults are allowed.")
+        raise ValueError("全部／部分及说明书全文选项必须分别明确，不能使用默认值。")
     method, criteria, unknown = None, {}, []
     if strategy == "all":
         if set(ids) != known:
-            raise ValueError("The all-items strategy must include the complete catalog, not a search/filter view subset.")
+            raise ValueError("全部策略必须包含完整目录，不能被搜索或过滤视图截断。")
         if choice.get("filters") or choice.get("subset_method"):
-            raise ValueError("The all-items strategy cannot include subset filters.")
+            raise ValueError("全部策略不能同时带部分筛选条件。")
     else:
         method = choice.get("subset_method")
         if method not in {"manual", "filters"}:
-            raise ValueError("A subset strategy must specify manual selection or field filtering.")
+            raise ValueError("部分策略须标明手动选择或字段过滤。")
         criteria = choice.get("filters", {})
         if criteria or method == "filters":
             eligible, unknown = filtered_candidates(catalog, criteria)
             if method == "filters" and set(ids) != set(eligible):
-                raise ValueError("Field-filter results do not match the IDs; never silently remove unknown items. Mark manual adjustments as manual.")
+                raise ValueError("字段筛选结果与 IDs 不符；未知项不得静默删去，手动调整应标 manual。")
     action_record, action_raw = file_record(user_action_path)
     if not action_raw.strip():
-        raise ValueError("The actual user reply/action record must be nonempty; this script cannot authenticate human origin.")
+        raise ValueError("实际用户回复／动作记录不能为空；脚本不能认证真人来源。")
     chosen = set(ids)
     # Preserve catalogue order, never infer selection from position or metadata.
     selected = [{k: v for k, v in row.items() if k != "display"}
@@ -300,26 +300,26 @@ def confirm_selection(catalog, choice_path, user_action_path):
 
 def validate_selection(catalog, selection):
     if not isinstance(selection, dict) or selection.get("schema_version") != "fto-cc-selection-3" or selection.get("status") != "user_confirmed":
-        raise ValueError("No current-version user-confirmed list exists; CC cannot be called.")
+        raise ValueError("没有当前版本的用户确认名单；不能调用 CC。")
     expected = confirm_selection(catalog, selection["choice_record"]["path"], selection["user_action_record"]["path"])
     if selection != expected:
-        raise ValueError("The frozen list or user selection has changed; verify versions first.")
+        raise ValueError("冻结名单或用户选择记录已改变；先核对版本。")
     return selection["patent_ids"]
 
 
 def lifecycle_ready(selection, lifecycle, ids):
     if not isinstance(lifecycle, dict) or lifecycle.get("schema_version") != "fto-lifecycle-gate-1":
-        raise ValueError("Lifecycle and adopted-text gate records are required before CC.")
+        raise ValueError("CC 前缺少生命周期与采用文本门记录。")
     if lifecycle.get("selection_sha256") != sha(canonical(selection)):
-        raise ValueError("Lifecycle gate records do not match the current client selection version.")
+        raise ValueError("生命周期门记录与当前客户选择版本不一致。")
     if not isinstance(lifecycle.get("assessment_date"), str) or not lifecycle["assessment_date"].strip():
-        raise ValueError("The lifecycle gate requires an assessment date.")
+        raise ValueError("生命周期门缺少评估时点。")
     reviews = lifecycle.get("reviews")
     if not isinstance(reviews, list) or not all(isinstance(r, dict) and isinstance(r.get("patent_id"), str) for r in reviews):
-        raise ValueError("Invalid per-patent lifecycle gate records.")
+        raise ValueError("生命周期门逐件记录结构不符。")
     indexed = {r["patent_id"]: r for r in reviews}
     if len(indexed) != len(reviews) or not set(indexed) <= set(selection["patent_ids"]):
-        raise ValueError("The lifecycle gate contains duplicate patents or patents outside the selection.")
+        raise ValueError("生命周期门存在重复或名单外对象。")
     allowed_text = {
         "active_grant": {"current_grant_claims", "current_post_grant_claims"},
         "pending_application": {"current_pending_claims", "published_pending_claims"},
@@ -328,24 +328,24 @@ def lifecycle_ready(selection, lifecycle, ids):
     for pid in ids:
         review = indexed.get(pid)
         if not review:
-            raise ValueError(f"Missing lifecycle and adopted-text verification for this batch: {pid}")
+            raise ValueError(f"本批缺少生命周期与采用文本核验：{pid}")
         eligibility = review.get("eligibility")
         if eligibility not in allowed_text:
             label = review.get("status_label") or eligibility or "unknown"
-            raise ValueError(f"This batch patent cannot enter CC; exclude it or complete verification first: {pid} ({label})")
+            raise ValueError(f"本批对象不得进入 CC，须先排除或补核：{pid} ({label})")
         if review.get("text_basis") not in allowed_text[eligibility]:
-            raise ValueError(f"Adopted text does not match the current rights status: {pid}")
+            raise ValueError(f"采用文本与当前权利状态不匹配：{pid}")
         if not isinstance(review.get("adopted_pn"), str) or not review["adopted_pn"].strip():
-            raise ValueError(f"Missing adopted CC publication number: {pid}")
+            raise ValueError(f"缺少 CC 采用文献号：{pid}")
         if not isinstance(review.get("status_label"), str) or not review["status_label"].strip():
-            raise ValueError(f"Missing a source-backed status description: {pid}")
+            raise ValueError(f"缺少有来源的状态说明：{pid}")
         for field in ["lifecycle_record", "text_record"]:
             record = review.get(field)
             if not isinstance(record, dict) or not record.get("path"):
-                raise ValueError(f"Missing {field}: {pid}")
+                raise ValueError(f"缺少 {field}：{pid}")
             actual, raw = file_record(record["path"])
             if not raw.strip() or actual != record:
-                raise ValueError(f"Lifecycle or adopted-text source is empty or has changed: {pid}")
+                raise ValueError(f"生命周期或采用文本来源为空／已变更：{pid}")
         ready.append({"patent_id": pid, "adopted_pn": review["adopted_pn"],
                       "eligibility": eligibility, "text_basis": review["text_basis"]})
     return ready
@@ -353,31 +353,31 @@ def lifecycle_ready(selection, lifecycle, ids):
 
 def ready_batch(selection, batch_number, lifecycle=None, evidence=None):
     if type(batch_number) is not int or not 1 <= batch_number <= len(selection["batches"]):
-        raise ValueError("Batch does not exist.")
+        raise ValueError("批次不存在。")
     ids = selection["batches"][batch_number - 1]["patent_ids"]
     if not 0 < len(ids) <= 10:
-        raise ValueError("Each local verification batch must contain 1–10 patents.")
+        raise ValueError("本流程每个核验批次须为 1–10 篇。")
     ready = lifecycle_ready(selection, lifecycle, ids)
     if selection["evidence_mode"] == "fulltext":
         if not isinstance(evidence, dict) or evidence.get("schema_version") != "fto-fulltext-review-1" or evidence.get("selection_sha256") != sha(canonical(selection)):
-            raise ValueError("Full-text mode requires evidence/analysis records matching this selection version.")
+            raise ValueError("全文模式需要与本次选择版本一致的取证／分析记录。")
         reviews = evidence.get("reviews")
         if not isinstance(reviews, list) or not all(isinstance(r, dict) and isinstance(r.get("patent_id"), str) for r in reviews):
-            raise ValueError("Invalid full-text analysis record structure.")
+            raise ValueError("全文分析记录结构不符。")
         indexed = {r["patent_id"]: r for r in reviews}
         if len(indexed) != len(reviews) or not set(indexed) <= set(selection["patent_ids"]):
-            raise ValueError("Full-text analysis contains duplicate or out-of-list items.")
+            raise ValueError("全文分析记录存在重复或名单外对象。")
         for pid in ids:
             review = indexed.get(pid, {})
             if review.get("status") != "complete":
-                raise ValueError(f"Full-text retrieval/analysis is incomplete for this batch: {pid}")
+                raise ValueError(f"本批全文取得／分析未完成：{pid}")
             for field in ["source_record", "analysis_record"]:
                 record = review.get(field)
                 if not isinstance(record, dict) or not record.get("path"):
-                    raise ValueError(f"Missing {field}: {pid}")
+                    raise ValueError(f"缺少 {field}：{pid}")
                 actual, raw = file_record(record["path"])
                 if not raw.strip() or actual != record:
-                    raise ValueError(f"Full-text source or analysis file is empty or has changed: {pid}")
+                    raise ValueError(f"全文来源或分析文件为空／已变更：{pid}")
     return ready
 
 
@@ -385,7 +385,7 @@ def save_new(path, content):
     path = Path(path)
     if path.exists():
         if path.read_text(encoding="utf-8") != content:
-            raise ValueError(f"Output already exists with different content; create a new version: {path}")
+            raise ValueError(f"输出已存在且不同；请另建版本：{path}")
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -411,7 +411,7 @@ def main():
     prep.add_argument("--case-id", required=True)
     prep.add_argument("--input-version", required=True)
     prep.add_argument("--scope", required=True)
-    prep.add_argument("--language", choices=["zh", "en"], default="en")
+    prep.add_argument("--language", choices=["zh", "en"], default="zh")
     prep.add_argument("--metadata", type=Path)
     prep.add_argument("--out", type=Path, required=True)
     prep.add_argument("--html", type=Path, required=True)

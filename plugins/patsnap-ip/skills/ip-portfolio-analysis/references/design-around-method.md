@@ -1,60 +1,136 @@
-# Built-in high-risk design-around and surrounding strategy — P8
+# 内置方法论：高风险专利规避设计与包绕（P8 阶段）
 
-Use the specialized three-block/ten-step underlying approach alongside mining-method.md's four-block/ten-step process. Match scenarios, prefer TRIZ/patent maps, consider novelty/inventive step/industrial applicability, and deliver structured actionable work for engineers/IP staff.
+> 执行 P8 阶段时直接依据本文档提供的内置方法论。
 
-## Risk matrix
+## 工作原则
 
-Before design-around, separately compare prior art for grant-related differentiation and implementation against competitor claims for infringement. Table: Solution | Evidence-based grant prospects/differentiation | Infringement risk High/Medium/Low | File/refine/design-around recommendation. Follow mining evidence limits; no unsupported grant forecasts. Apply the four strategies only to supported high-risk designs.
+1. 严格遵循三块十步法作为底层流程（与 `references/mining-method.md` 的四块十步法互补，本文档聚焦规避与包绕专项）
+2. 根据场景自动匹配挖掘类型
+3. 优先使用 TRIZ 或专利地图工具辅助创新
+4. 所有技术方案必须考虑可专利性（新颖性、创造性、实用性）
+5. 输出必须结构化、可执行、可直接交付给专利工程师或研发人员
 
-## Four strategies
+## 风险判定矩阵
 
-| Strategy | Applicable situation | Actions | Example |
-|---|---|---|---|
-| Removal | Another component can perform a feature's function | Identify removable feature, transfer function, verify system integrity | A+B+C+D → A+B+C; enhanced B performs D's function |
-| Substitution | Alternative technical implementation exists | Identify limitation, find alternative, verify effect and residual claim/equivalence risk | Mechanical connection → magnetic connection |
-| Combination | Features can be integrated | Identify integration, design structure, verify preserved function | A+B+C+D → A+E integrating B/C/D |
-| Decomposition | One feature can become cooperating subfeatures | Identify split, design substeps, verify cooperation | D → D1+D2 in separate stages |
+进入规避设计前，先完成风险判定：
 
-Output original-claim analysis, strategy choice, proposed design and evidence-qualified filing advice. If performance degrades materially or cost is excessive, recommend redesign without filing; do not force an application to complete a process.
+- **授权风险**：对比现有技术，评估创造性高度
+- **侵权风险**：将技术方案与竞对专利权利要求逐项比对
 
-## Five surrounding directions
+| 技术方案 | 授权可能性 | 侵权风险 | 建议 |
+|:---|:---|:---|:---|
+| 方案A | 高/中/低 | 高/中/低 | 直接申请 / 改进后申请 / 规避设计 |
 
-| Direction | Questions | Candidate protection |
-|---|---|---|
-| Upstream | Alternative raw/intermediate materials or preparation? | Materials/preparation methods |
-| Downstream | New uses, processing or modification? | Application products/processes |
-| Engineering implementation | Manufacturing or inspection gaps? | Manufacturing/testing methods/equipment |
-| Components | Structures, functions, tooling improvements? | Components/functions/molds |
-| Performance | Different routes achieving comparable/better performance? | Alternative solutions |
+仅对侵权风险判定为「高」的方案执行下述四策略规避。
 
-Deliver competitor-core analysis, evidence-qualified ideas across applicable directions and conditional cross-licensing strategy, not assumed leverage.
+## 规避设计四策略（核心工具）
 
-## Three-dimensional expansion
+| 策略 | 适用条件 | 操作步骤 | 示例 |
+|:---|:---|:---|:---|
+| **裁剪法** | 某特征可被系统其他组件替代 | 1. 识别可裁剪特征 2. 分析功能转移路径 3. 验证系统完整性 | A+B+C+D → A+B+C（D 功能由 B 增强实现） |
+| **替换法** | 存在技术等同替代方案 | 1. 识别关键特征 2. 寻找替代技术 3. 验证等同效果 | 机械连接 → 磁吸连接 |
+| **组合法** | 多个特征可合并简化 | 1. 识别可合并特征 2. 设计新组合结构 3. 验证功能保持 | A+B+C+D → A+E（E 为 B+C+D 的集成） |
+| **分解法** | 某特征可拆分为多个独立特征 | 1. 识别可分解特征 2. 设计拆分方案 3. 验证协同效果 | D → D1+D2（分步执行） |
 
-| Innovation | Horizontal | Upstream | Downstream |
-|---|---|---|---|
-| Structure | Variants/alternative materials | Manufacturing methods/equipment | Use methods/equipment/applications |
-| Method | Replaced/omitted steps | Implementing apparatus | Resulting products/uses |
-| Substance | Derivatives/analogues/intermediates | Preparation/equipment | Testing/storage/processing/uses/new products |
+**输出模板**：原专利权利要求分析 + 规避策略选择 + 规避后技术方案 + 新专利申请建议
 
-## Five R&D mining dimensions
+**重要约束**：若规避后技术效果显著变差或成本过高，允许并鼓励输出「建议直接改产品设计，不申请」，不得为完成流程强行推进到申请。
 
-Structure: new shapes/materials/processes/assembly from drawings/BOM/process records. Function: algorithms/interaction/workflows/performance from specifications/software/tests. Application: cross-domain adaptation/new uses/derivatives from market/customer/competitor evidence. Testing: equipment/methods/metrics from test specifications/issues. Production: processes/fixtures/quality control from production/improvement records.
+## 五向包绕检查清单（竞对核心专利构成障碍时）
 
-## TRIZ
+| 方向 | 挖掘问题 | 专利类型 |
+|:---|:---|:---|
+| **上游** | 核心专利依赖的原材料/初级产品是否有替代方案？制备方法是否有专利空间？ | 材料专利、制备方法专利 |
+| **下游** | 核心专利产品的应用领域有哪些？深加工/改性方向？ | 应用产品专利、加工方法专利 |
+| **工程实现** | 制造该产品的最优方法是否已被专利覆盖？检测设备/方法？ | 制造方法专利、检测专利 |
+| **零部件** | 产品核心零部件是否有改进空间？功能延伸？制造模具？ | 零部件结构专利、功能专利、模具专利 |
+| **性能优化** | 不同技术路线达到相同/更优性能？ | 替代技术方案专利 |
 
-For a clear technical contradiction: describe problem plainly → identify improving/worsening parameters among 39 → consult contradiction matrix → obtain principles → turn them into domain-specific designs → test whether the problem is solved.
+**输出模板**：竞对核心专利分析 + 五方向包绕专利清单 + 交叉许可策略建议
 
-Common principles: 1 Segmentation (independently protectable components); 2 Taking out (isolate a key feature); 4 Asymmetry; 5 Merging (functional modules); 7 Nested doll (modular/telescopic structure); 15 Dynamics (adaptive/adjustable design); 17 Another dimension (2D→3D); 24 Intermediary (buffer/conversion layer); 35 Parameter changes (materials/processes). Do not invent matrix results; record basis where used.
+## 围绕创新点的三维扩展清单
 
-## Patent maps
+| 创新点类型 | 横向扩展 | 纵向上游延伸 | 纵向下游延伸 |
+|:---|:---|:---|:---|
+| **新结构** | 相似结构变体、替代材料结构 | 制造方法、制造设备 | 使用方法、使用设备、应用领域 |
+| **新方法** | 衍生方法（替换/省略步骤） | 实施装置结构 | 方法产生的产品、产品应用 |
+| **新物质** | 衍生物、类似物、中间产物 | 制备方法、制备设备 | 检测/保存/加工/应用、新产品 |
 
-For direction/gaps/core tracking: build technology-effect matrix → assess lifecycle (emerging/growing/mature/declining) → use actual citation evidence to identify influential groups → examine claims for design-around/surrounding. Dense regions suggest design-around/research niches, sparse regions improvement opportunities, empty regions exploration with feasibility checks. Empty bubbles are not proof of patentability or no risk.
+## 基于研发项目的五维挖掘清单
 
-## Protection choices
+| 维度 | 检查项 | 创新点来源 |
+|:---|:---|:---|
+| **产品结构** | 新结构？新材料？新制造工艺？组装方式创新？ | 设计图纸、BOM 清单、工艺文件 |
+| **产品功能** | 新算法？新交互方式？新处理流程？性能优化方法？ | 功能规格书、软件架构、测试报告 |
+| **产品应用** | 可跨领域应用？新场景适配方案？衍生产品可能性？ | 市场调研、客户反馈、竞品应用 |
+| **产品测试** | 新测试设备？新测试方法？新评价指标？ | 测试规范、测试问题记录 |
+| **产品生产** | 新生产工艺？新工装夹具？新质量控制方法？ | 生产流程、工艺改进记录 |
 
-Consider invention patents for complex technical solutions, utility models for qualifying structural improvements and designs for appearance, subject to target-jurisdiction rules. Easily reverse-engineered work may favor patents; difficult-to-copy algorithms/process parameters may favor secrets or a combined strategy. Independent claims seek the broadest reasonable support; dependent claims layer fallback positions; parallel independent claims cover distinct perspectives.
+## 工具 A：TRIZ 理论应用
 
-Avoid simple aggregation without inventive contribution. Balance scope against easy avoidance/invalidity risk. Assess disclosure/filing timing before sales/publications and choose markets/priority strategy from actual business plans. No alternative is proven non-infringing merely because its engineering form differs; verify claims, effects, cost and remaining equivalence uncertainty.
+**使用条件**：技术矛盾明确、需要突破性创新方案
 
-Method source: 《专利挖掘》 (Patent mining), edited by Ma Tianqi, Intellectual Property Publishing House, 2016; original title retained for identification.
+**操作流程**：
+1. 确定技术问题 → 用通俗语言描述
+2. 提取通用工程参数 → 从 39 个参数中选择欲改善的参数与可能恶化的参数
+3. 查技术矛盾矩阵 → 获得推荐发明原理编号
+4. 发明原理具体化 → 结合领域知识转化为技术方案
+5. 筛选可行方案 → 验证是否解决原问题
+
+**常用发明原理速查（专利挖掘高频）**：
+
+| 原理 | 名称 | 专利挖掘应用 |
+|:---|:---|:---|
+| 1 | 分割 | 将产品拆分为多个可独立保护的部件 |
+| 2 | 抽取 | 抽取关键特征形成独立权利要求 |
+| 4 | 增加不对称性 | 非对称结构设计 |
+| 5 | 组合 | 功能模块组合专利 |
+| 7 | 嵌套 | 模块化/可伸缩结构设计 |
+| 15 | 动态特性 | 自适应/可调节结构 |
+| 17 | 空间维数变化 | 2D→3D 结构扩展 |
+| 24 | 借助中介物 | 引入缓冲/转换层 |
+| 35 | 物理/化学参数改变 | 材料/工艺参数优化 |
+
+## 工具 B：专利地图应用
+
+**使用条件**：需要确定挖掘方向、识别技术空白、追踪核心专利
+
+**操作流程**：
+1. 绘制技术功效矩阵 → 识别密集区/稀疏区/空白区
+2. 判断技术生命周期 → 确定萌芽期/成长期/成熟期/衰退期
+3. 追踪核心专利 → 引证分析确定高被引专利群
+4. 权利要求分析 → 识别关键技术特征，制定规避/包绕策略
+
+**挖掘策略矩阵**：
+
+| 区域类型 | 特征 | 挖掘策略 |
+|:---|:---|:---|
+| 技术密集区 | 气泡大、专利多 | 规避设计为主，寻找研究空间 |
+| 技术稀疏区 | 气泡小、专利少 | 改进现有专利，积极创新占位 |
+| 技术空白区 | 无气泡或极小 | 大胆尝试，充分评估可行性 |
+
+## 保护方式选择
+
+**专利类型选择**：
+- 发明：技术方案复杂、保护期长、审查周期长
+- 实用新型：结构改进、快速授权、保护期短
+- 外观设计：造型/图案/色彩创新
+
+**保密策略**：易逆向工程 → 专利保护；难复制 → 技术秘密
+
+**权利要求布局建议**：
+- 独立权利要求：最大合理保护范围
+- 从属权利要求：层层递进的保护层次
+- 多项并列独立权利要求：多角度保护
+
+## 注意事项
+
+1. **创造性高度**：所有创新点必须满足"突出的实质性特点 + 显著的进步"，避免简单拼凑
+2. **保护范围**：独立权利要求范围要合理，既不过窄（易被规避）也不过宽（易被无效）
+3. **技术秘密**：难以逆向工程的核心算法/工艺参数，建议专利 + 商业秘密组合保护
+4. **时效性**：关注申请时机，避免公开销售/论文发表导致丧失新颖性
+5. **地域性**：根据市场布局选择申请国家/地区，利用优先权策略
+
+## 方法论溯源
+
+《专利挖掘》马天旗主编（知识产权出版社，2016）系统方法论

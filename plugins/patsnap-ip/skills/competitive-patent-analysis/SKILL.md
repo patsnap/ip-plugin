@@ -1,137 +1,147 @@
 ---
 name: competitive-patent-analysis
-description: "Use when analyzing one company’s strongest technology directions and representative patents. Confirm directions and assignee scope, verify family identities where data permits, explain selected patents and disclose missing valuation or legal data. This does not replace FTO research. Proposed workflow; apply the local MC/Skill/competitive-patent-analysis execution contract. Runtime binding and channel availability remain unverified."
+description: "分析单一企业或集团的优势技术、技术路线及专利布局演进，解读代表专利并生成 HTML 研判报告。"
 ---
 
-# Competitive Patent Analysis
+# 竞对专利分析
 
-Turn company and technology clues into a shareable technology/patent assessment. Follow the six-step workflow and its gates for technical-area confirmation and counting checks.
+把公司及技术线索转化为一份可分享的技术专利研判报告。全流程六步，按执行门落实技术方向确认与统计口径检查。
 
-## Applicability
+## 适用范围
 
-**Objective:** Research one company or group’s existing technical strengths, technology routes and portfolio evolution, explaining links between platforms, product improvements and representative patents. Input may be a company name with optional product/technology clues; display and confirm the specific areas at Gate A.
+**适用目标：** 研究单一公司或集团主体已有的优势技术、技术路线与布局演进，解释平台、产品改进及代表专利之间的关系。输入可以是公司名称及可选的产品、技术线索；具体方向按 Gate A 展示并确认。
 
-**Deliverables:** Representative patents organized by area, individual interpretations and an integrated HTML assessment. The user need not explicitly request HTML.
+**交付范围：** 按技术方向组织代表专利、逐件技术解读与综合研判，交付 HTML 报告。用户无需明确指定 HTML 才能使用本流程。
 
-**Exclusions:** Tasks primarily planning our future filing portfolio or designing new technical proposals, novelty/patentability judgments, FTO infringement analysis, office-action responses and multi-company patent-metric comparisons.
+**不适用：** 以我方未来申请组合规划或新技术提案设计为主要目标，以及新颖性／可专利性判断、FTO 侵权分析、审查意见答复、多公司横向专利计量对比。
 
-Decide by the actual research objective when users mention “our R&D” or “portfolio”; researching one company’s existing technologies remains in scope. Separately address additional purchase-value, training or product-benchmarking requests using evidence, without changing the main deliverable or its confirmation requirements.
+用户提到“我们在研发”或“布局”时，仍按实际研究目标判断；对单一公司已有技术的研究属于本范围。购买价值、培训、产品对标等附加需求按证据另列，不改变主交付及其确认要求。
 
-## Tools and language
+## 工具使用与交付语种
 
-Choose and connect tools by the steps below; runtime definitions govern full parameters and response structures. Verify company, product, industry and standards information using user material and available web search/read capabilities. Disclose capability/evidence limits; do not fabricate data or treat abstracts, samples or links as full evidence.
+按下述业务步骤选择和衔接工具。完整参数和返回结构以运行时工具定义为准。公司、产品、产业和标准资料可结合用户材料及环境可用的网页检索/读取能力核实。能力或证据缺失时明确受限范围，不编造数据，不把摘要、样本或来源链接当作完整证据。
 
-Default to English for dialogue, reports, templates and labels; honor an explicit requested output language. Preserve original evidence with translations as needed. Search language is independent of output language; keep useful Chinese/original-language search terms. Set HTML `lang` to the actual output language.
+对话、报告、模板标签默认用中文。用户明确指定交付语种时优先，统一标题、表头、图例与正文并设置 HTML 的 `lang`。原始证据保留原文，必要时附标明来源的译文。检索语言和法域按任务独立确定。
 
-## Gates
+## 执行门（Gates）
 
-### Gate A — Confirm technical strengths (blocking)
+### Gate A — 优势技术方向确认（阻断）
 
-After identifying candidate areas, show the list and obtain confirmation before any patent search:
+提炼出候选技术方向后，**必须**先向用户展示方向清单并取得确认，再进入专利检索。展示格式：
 
 ```text
-Based on your input and public information, I propose these N technical strengths:
-1. {Area} ({one-sentence technical core}) — strategic role: {physical foundation / licensing barrier / commercial moat}
+基于你的提示与公开信息，我提炼出以下 N 个候选优势技术方向：
+1. {方向名}（{一句话技术内核}）— 战略地位：{物理基础 / 许可壁垒 / 商业护城河}
 2. ...
-{Where evidence for a layer is insufficient: name the gap and the second area from another layer used instead.}
-Shall I search patents for this list? You can add, remove or adjust areas.
+（某层证据不足时注明：“{层名}：证据不足，由{另一层}第二个方向替代”）
+是否按此清单进行专利检索？可增删或调整。
 ```
 
-Do not call patent search before confirmation. If the initial prompt names areas A/B/C, present those as the candidate list for confirmation; do not omit the display.
+用户未确认前不得调用专利检索工具。若用户在初始提示中已明确点名技术方向（如"典型技术是 A、B、C"），可将其直接作为候选清单展示确认，不得跳过展示。
 
-### Gate B — Integrity of counting conventions (blocking)
+### Gate B — 统计口径诚信门（阻断）
 
-- Technology areas use independent Boolean queries whose result sets may overlap.
-- Never sum area `matched_total` values or turn them into pies, stacked charts, shares or a “technology distribution.”
-- Distribution charts may use only IPC/CPC facets over the same result set, or deduplicated manually classified results; state the convention in the caption.
-- For trends, rankings or classification aggregation use `field_analysis`. Pass the already executed, scope-verified Boolean expression in `source.query`, retaining `ALL_AN`; opaque builder references are not aggregation inputs. Combine required supported dimensions in one `dimensions` request for the same dataset, rather than calling separately for each dimension. Present returned `display_rows` before interpretation. Check `source_resolution.query`, hit scope and `warnings`, disclose truncation/classification overlap, and do not sum buckets as a deduplicated total. Explain unsupported dimensions rather than guessing fields. Internal tool labels in responses are not new callable names.
-- End with “Search notes” explaining independent overlapping queries, `matched_total` as hits within that query's scope rather than deduplicated classes, and technical descriptions as assessments rather than claim construction.
+- 各技术方向的检索是**独立布尔查询**，结果集可能重叠。
+- **禁止**把各方向的 `matched_total` 做饼图、堆叠图、占比图或相加求和，**禁止**表述为"技术分布比例"。
+- 若确需分布图，唯一允许的数据源是同一结果集上的 IPC/CPC 分类 facet 统计，或去重后人工标注分类，且须在图注标明口径。
+- 需要趋势、排名或分类聚合时使用`field_analysis`，将已执行且范围核对一致的布尔表达式传入`source.query`，保留`ALL_AN`限定；构建工具的不透明引用不能作为聚合输入。同一数据集的一次分析将所需且受支持的维度合并到`dimensions`中，不逐维重复调用；按返回的`display_rows`呈现表格后再解释。核对`source_resolution.query`、命中口径及`warnings`，披露截断和多分类重叠，不把桶数相加当作去重总量。未支持的维度说明缺口，不猜测字段；返回体中的内部工具标签不作为新的可调用工具名。
+- 报告末尾**必须**包含"检索说明"章节，明示：各方向为独立查询、可能重叠、matched_total 为当次查询范围内命中数而非去重分类数、技术描述句为综合研判不构成权利要求解释。
 
-### Gate C — Delivery completeness
+### Gate C — 交付完整性门
 
-Do not claim completion without a company introduction, a technical card and patent table for each area, a technical description per patent, a comparative assessment table and search notes. Every representative table must retain “Assessed value” and “Jurisdictional coverage,” with `matched_total`, `returned_count`, `independent_family_count`, `eligible_family_count` and `listed_count` disclosed below it.
+HTML 报告缺少以下任一项即不得声明完成：公司介绍章节、每个技术方向的技术卡片 + 专利表、每件专利的技术描述句、综合研判对比表、检索说明章节。每张代表专利表还必须固定包含“评估价值”和“布局国家”两列，并在表下披露 `matched_total`、`returned_count`、`independent_family_count`、`eligible_family_count` 与 `listed_count`。
 
-## Step 1 — Research the company and technical domain
+## Step 1 — 公司与技术域调研
 
-1. Read supplied background/product/technical material first. If identity is unresolved, use `get_standard_assignee_name(query=company_name)`; use `get_corptree_hierarchy(company_id=confirmed_id)` only when parent/root relationships are needed. Actual responses support names, aliases and directly linked assignees, not a complete company profile, product specifications, certifications or full group membership. Extract founding year, headquarters, technology origins, models, milestones and specifications from materials with provenance/verification status. Check official/authoritative web sources when available, recording dates; otherwise mark not independently verified.
-2. Use the user's product names and technical clues as search anchors; do not replace them with guesses.
-3. Prepare 6–8 company `profile-grid` key/value facts. Retain company and product/milestone fields; missing data is “To be verified” with source limits, never invented to fill cards. User material is evidence of its statements, not independent patent-tool verification.
-4. If only a company name is available and no areas can be supported, ask for product/technology clues or necessary material while continuing identity checks. Do not infer strengths from the name or bypass Gate A through patent search, aggregation or FTO tools.
+1. 先读取用户已提供的公司背景、产品/技术资料；主体未确认时使用专利工具的`get_standard_assignee_name(query=公司名)`消歧，需要母公司/根公司关系时才使用`get_corptree_hierarchy(company_id=已确认ID)`。名称、别名及直接关联申请人可据真实返回整理；这些工具不提供完整公司档案、产品规格或认证事实，也不返回完整集团成员。成立年份、总部、技术来源、产品型号、认证里程碑与规格参数从已有材料提取并标注来源及核验状态，网页能力可用时核对官网与权威资料，记录来源和日期；不可用时注明未独立核实。
+2. 采信用户提示中的产品名与技术线索作为检索锚点，不要用自己的猜测替换。
+3. 产出**公司档案卡数据**（6–8 项键值），供报告 `profile-grid` 使用。保留公司介绍和产品/里程碑栏目；缺少数据填“待核实”并说明来源限制，不为凑齐档案编造。已有材料只能证明材料中的陈述，不能冒充专利工具独立核验。
+4. 仅有公司名且无法据已有材料提炼技术方向时，补问产品/技术线索或必要资料内容，继续可完成的主体确认；不能从公司名称猜出优势技术，也不能在Gate A确认前用专利搜索、聚合或FTO工具绕过方向确认。
 
-Check company and assignee match states separately and retain evidence. `resolved` identifies the first match and may still include alternatives; `ambiguous` does not authorize selecting the first. Use `company_id` for corporate relationships and confirmed `ans_id`/directly linked `ans_ids` to verify assignee identity; do not interchange them or automatically include group assignees. Build the search restriction with verified assignee names in `ALL_AN`, following Step 3. Relationship-tool `patent_signal.patent_count` is not the search baseline.
+主体工具分别核对公司与申请人的匹配状态并保留依据；`resolved`表示首项已识别且可有备选，`ambiguous`不能默认选首项。`company_id`用于公司关系，`ans_id`及直接关联`ans_ids`用于核对申请人身份，不可互换或自动并入集团申请人；检索使用已核实申请人名称构造`ALL_AN`限定，具体规则见 Step 3。关系工具的`patent_signal.patent_count`不是检索基线命中数。
 
-Before company analysis, establish whether the subject is a single company or a group. Reuse explicit scope; confirm ambiguity together with Gate A. List actually included standardized assignee names and entities, checking user-named subsidiaries. Relationship tools do not return a complete subsidiary list; roots/directly linked assignees are not the whole group. Disclose covered entities and gaps when incomplete, without calling a single-company search a group total.
+开展公司分析前明确本次对象是单一公司还是集团；用户已明确的范围直接采用，存在歧义时与 Gate A 的方向清单一并确认。列出实际纳入的标准申请人名称及对应主体，核对用户已指出的子公司是否覆盖；集团关系工具不提供完整子公司清单，不能把返回的根公司或直接关联申请人当作集团全集。未核全时披露已覆盖主体与缺口，不将单体检索结果标为集团总量。
 
-## Step 2 — Identify technical strengths
+## Step 2 — 优势技术方向提炼
 
-1. Default to three areas, or the user's requested count. Each must map to concrete engineering, be searchable by patent keywords, and differ in mechanism or product role.
-2. Default narrative uses one area from each strategic layer:
-   - Physical/manufacturing foundation: the structure/process enabling the product.
-   - Regulatory licensing/certification barrier: differentiated conditions for lawful commercial use. In less-regulated sectors, standards, compulsory certification, market-entry qualifications or customer certification may apply, with evidence.
-   - Commercial moat: product families, application coupling and system integration.
-   Mark unsupported layers “Not applicable” or “Insufficient evidence,” replacing them with another area from a supported layer and labeling that layer. Do not invent barriers/moats to fill the structure. Classify user-specified areas by evidence without changing them.
-3. For each area, state technical core, product role, candidate evidence and strength assessment. Identify whether it came from the user, public evidence or this analysis. Support strength with technical differences, product role or sustained investment. Representative patents alone establish relevance, not leadership, licensing barriers or moats.
-4. Proceed to Gate A.
+1. 提炼 **3 个**（默认；用户指定则从其数量）技术方向。每个方向须满足：可对应到具体工程实现、可被专利关键词捕获、方向之间在工程机制或产品作用上可区分。
+2. 默认按**战略地位三层**组织，每层对应一个方向，这是本技能的核心叙事骨架：
+   - **物理与制造基础层** — 产品之所以成立的结构/工艺内核
+   - **监管许可 / 认证壁垒层** — 决定能否合法商用的差异化项；非强监管行业可对应标准、强制认证、准入资质或客户认证体系，须有证据
+   - **商业化护城河层** — 产品系列化、场景耦合、系统集成
 
-## Step 3 — Search patents by area
+   某层缺少证据时，标明该层“不适用”或“证据不足”，由其他层的第二个方向替代并标注所属层级；不为凑齐三层而虚构许可壁垒或护城河。用户已指定方向时，按证据归层，不改动用户的方向。
+3. 每方向写：技术内核、产品作用、候选证据及优势判断。标明方向来源是用户指定、公开资料支持或本次分析提出；优势判断须关联技术差异、产品作用或持续投入等证据。仅有代表专利时只说明技术关联，不自动称领先、许可壁垒或商业护城河。
+4. **进入 Gate A**。
 
-Run an independent search for each confirmed area:
+## Step 3 — 分方向专利检索
 
-1. Use Boolean search for baseline, area and expansion queries: `search_patent` with `search_strategy=["boolean"]`, `boolean_query` and explicit `ALL_AN` assignee scope. Do not mix strategies or supply `semantic_query`, `keywords`, `filters`, `domain_filters`, or a non-general domain. Execute existing executable queries directly. For construction, term expansion or translation, send complete natural-language intent to `build_patent_boolean_query`, specifying `ALL_AN` and confirmed scope. Check fields, phrases and logic in `data.reference_query`; pass the returned opaque `data.boolean_query` unchanged to search. Save both, without decoding, concatenating or editing the reference. Correct mismatched intent and regenerate; the builder is not a validator for existing queries. Do not add unconfirmed dates, jurisdictions or statuses; implement explicit restrictions in the Boolean.
-2. First obtain a baseline for the confirmed entity scope as the first “Search baseline” row. Use `ALL_AN:("Verified assignee name A" OR "Verified assignee name B")` (illustrative; substitute actual names within the confirmed scope). Do not substitute company names in technical keywords or put internal company/assignee IDs in place of names. Retain the executed query and identity evidence; keep the same `ALL_AN` scope across the baseline, area queries and expansions. Similar names alone do not justify including another company. Confirm only actual identity ambiguity, not merely because a parameter needs an explicit value.
-   `ALL_AN` covers current, original and historical assignee fields; hits do not establish current ownership or complete group coverage. Label the baseline as hits within that assignee-query scope. For representatives, reuse current/original assignees from `fetch_patent` to verify association; resolve differences rather than excluding solely because search summaries show a different current assignee. For current holding, transfers or legal-status conclusions, supplement with `fetch_patent_lifecycle` as needed and disclose unverified gaps.
-3. Query structure: `ALL_AN:(confirmed assignee name group) AND area keyword group` (OR-expanded Chinese/English terms, abbreviations and synonyms), covering components, mechanisms, industry abbreviations and upstream/downstream processes. Technical fields and the complete expression must follow runtime Boolean syntax. Preserve the original `ALL_AN` restriction when expanding technical terms.
-4. Retrieve the pool within runtime pagination limits with explicit `collapse_family=false`; search folding is not verified simple-family deduplication. Check `status`, errors and notices before reading documents, `data.total_hits` and `data.returned_count`; failure is not zero hits. Merge pages by exact document identity and record actual windows. If limits prevent complete retrieval, label family counts “independent families within the returned sample,” never full-query family totals. Ten is a listing cap per area; see `references/report-spec.md`.
-5. **Deduplicate simple families before representative selection.** Search currently has no directly usable simple-family identifier. For missing relationship evidence call `fetch_patent(patent_id=returned_id, include=["relations"], format="json")` individually; it accepts one patent per call, not an ID array. Group actual members from `response.relations.simple_family`, retaining one representative, preferably granted with broad jurisdictional coverage. Save document-to-family evidence and reuse bibliography, claims and descriptions returned together. Empty relationship arrays or arrays without declared completeness do not establish singleton families. Do not request members again when existing evidence suffices. On relationship failure/authentication requirements retain retrieved documents/errors and stop family-dependent complete counts/final selection. Ordinary full text may be read independently but cannot replace relationships. Mark unverified identities pending and deliver interim results only; titles, equal valuations and shared assignees do not establish families.
-6. Review relevance within independent families, then select up to ten eligible representatives under the count tiers in `references/report-spec.md`. Never borrow across areas, relax assignees, lower relevance or add family siblings to meet a count.
-7. Distinguish all five counts. Read `matched_total` from that area query’s `data.total_hits`, meaning query hits only. Report `returned_count` as that query’s actually retrieved, document-deduplicated pool, retaining each page’s `data.returned_count`. The last three counts are local calculations from actual records. After expansion retain hits/provenance per query; for a unified hit total execute a scope-consistent merged Boolean. Do not mix one round’s total with a multi-round union or sum page/expansion totals. Missing values are `—`.
-8. Preserve raw `independent_family_count`, relevance-qualified `eligible_family_count` and actual `listed_count`. Unknown/weak relevance is not eligible; raw hits/families cannot force table filling. Follow the reference for zero results.
-9. Collect value and jurisdiction data before writing tables:
-   - `search_patent` and `fetch_patent` do not return monetary valuations. If another discovered, available valuation tool exists, first verify its definition, exact identity, units and valuation scope before using it as a supplementary source; another connection does not prove this plugin has bound that capability. Without an actual source use `—` and disclose the gap, never zero or an inferred amount.
-   - Reuse actual `response.relations.simple_family` members from `fetch_patent`. Inspect actual member structures/completeness rather than assuming fields. Count genuine jurisdictions/publication prefixes; simple families only. Extended families and member counts cannot substitute for jurisdiction counts. Label EP/WO as regional/international offices.
-   - Disclose partial/missing membership; unverifiable coverage is `—`. If deduplication cannot be completed, mark counts unverified and deliver a bounded interim report, without complete-count formulas, false zeroes or completion claims.
-   - If valuations exist, verify units and document/family scope; do not assume batch capability or five-dimensional scores.
+对每个已确认方向执行一次独立检索：
 
-## Step 4 — Write individual technical descriptions
+1. 基线检索、分方向检索及扩检均使用`search_patent`的 Boolean 检索：`search_strategy=["boolean"]`，查询写入`boolean_query`，申请人限定明确使用`ALL_AN`字段。不得混用其他策略或传入`semantic_query`、`keywords`、`filters`、`domain_filters`，不启用非 general 领域。已有可执行查询直接使用；需要构建、扩词或翻译时，将完整自然语言意图交给`build_patent_boolean_query`，明确`ALL_AN`及已确认范围。核对`data.reference_query`中的字段、词组和逻辑，再把`data.boolean_query`返回的不透明引用原样传给搜索；两者同时保存，不解析、拼接或修改引用。参考式不符时修订构建意图后重新生成，不把构建工具当成已有查询的校验器。不增加未确认的时间、辖区或状态限制；已有明确限制应在布尔表达式中落实。
+2. 先跑一次已确认主体范围的基线计数，作为报告"检索基线"表第一行。申请人限定使用`ALL_AN:("已核实申请人名称A" OR "已核实申请人名称B")`（示意；实际名称按已确认范围填写），不把公司名放入技术关键词代替申请人限定，也不把公司或申请人内部 ID 当作名称填入。保留实际执行式及名称对应的主体依据，公司基线、各方向和扩检沿用同一`ALL_AN`主体范围；不得仅凭名称相似并入其他公司。主体有歧义时才确认，不仅因参数需显式填写而追问。
+   `ALL_AN`覆盖当前、原始和历史申请人相关字段，命中不等于当前权属或完整集团覆盖。报告将基线标为该申请人查询范围的命中数；对拟列代表件，复用`fetch_patent`的当前／原始申请人核对主体关联，名称不符时查明对应关系，不能只因搜索摘要中的当前申请人不同就排除。涉及当前持有、转让或法律状态结论时，按需以`fetch_patent_lifecycle`补证；无法核实时披露缺口。
+3. 每方向查询构造：`ALL_AN:(已确认申请人名称组) AND 方向关键词组（OR 展开，中英双语 + 缩写 + 同义表述）`。关键词组须覆盖：核心构件名、核心机制名、行业惯用缩写、上下游工艺词；技术字段和完整表达式遵循运行时布尔语法。扩检调整技术词时保留原`ALL_AN`限定。
+4. 每方向按运行时分页限制取回结果池，显式用`collapse_family=false`，不把检索折叠当作已核实的简单同族去重。每次先检查`status`、错误和提示，再读取文献、`data.total_hits`及`data.returned_count`；失败不是零命中。按准确文献身份合并分页，记录实际取回窗口。若接口分页或返回上限导致无法覆盖全部命中，必须将同族数标记为“返回样本内独立同族数”，不得冒充全量同族数。10 件只是每方向的列出上限，选取规则见 `references/report-spec.md`。
+5. **简单同族折叠（强制，先于代表专利筛选）**：当前搜索结果没有可直接使用的简单同族标识。对尚缺关系证据的文献，逐件调用`fetch_patent(patent_id=检索返回的id, include=["relations"], format="json")`；接口每次接收一件，不传 ID 数组。按`response.relations.simple_family`的真实成员身份归组，每族保留一件代表件（优先已授权、辖区覆盖广者）。保存文献到同族的对应依据，并复用同时返回的书目、权项和说明书，避免后续重复取全文。关系数组未声明完整性或为空时，不能直接推定为单件同族；已取得证据足以核对的成员不重复请求。关系取证失败或要求认证时，保留已取回文献与错误，停止依赖同族的完整计数／代表件定稿；普通全文可以独立读取，但不能替代同族关系。未核验项标为待核，只交付阶段结果，不按标题相似、估值相同或同一申请人推定同族。
+6. **数量按相关性合格的独立同族数呈现**：见 `references/report-spec.md`“代表专利数量分级处理规则”。独立同族中先审核相关性，再按合格同族数选取，最多列出 10 件；数量定义以 `references/report-spec.md` 为准。禁止跨方向借用、放宽申请人限定、降低相关度门槛或用同族件凑数。
+7. 记录每方向的 `matched_total`、`returned_count`、`independent_family_count`、`eligible_family_count` 与 `listed_count`，严格区分五者。`matched_total`读取该方向实际查询的`data.total_hits`，仅表示查询命中；报告的`returned_count`为对应查询实际取回并按文献身份去重的结果池大小，同时保留各页`data.returned_count`。后三项是本地按真实记录计算的报告字段。扩检后逐查询保留命中数与结果来源；需要统一命中总量时执行范围一致的合并布尔查询，不能把某一轮的命中数与多轮并集混作同一口径。分页或扩检的命中总量不能相加，缺失填`—`。
 
-Reuse bibliography, claims and descriptions obtained in Step 3 first. Record actual source locations for each description and assessment. Check relevant claims/descriptions for protected objects, component relationships and mechanisms; limit statements and disclose gaps when evidence is insufficient. `technical_problem`, `technical_solution` and `technical_effect` are analytical aids, not source quotations. Abstracts/summaries are not claim-scope interpretation.
 
-Below every title, add one italic technical sentence, normally 20–50 English words or 12–60 Chinese characters (use comparable information density for other requested languages). Never omit it or use generic filler. It must include:
+8. **相关性先于列出数量**：保存原始独立同族数 `independent_family_count`、相关性审核合格同族数 `eligible_family_count` 和实际列出数 `listed_count`。合格数不得包含未知或弱相关对象；不以命中总数或原始同族数强制填表。统计及零结果处理遵循 `references/report-spec.md`。
 
-1. Protected object: specific structure, mechanism or system level.
-2. Technical feature: concrete operating principle/construction, e.g. gravity, density difference, membrane separation or grid topology.
-3. Technical relevance: role in the area's strength, commercialization scenario or certification step.
+9. **价值与布局国家数据采集（强制，先于表格撰写）**：
+   - **评估价值**：`search_patent`和`fetch_patent`不返回金额估值。环境另有已发现且可用的估值工具时，先核对其定义、准确文献身份、单位和估值口径，再作为补充来源；不能因其他连接存在该能力就假定本插件已绑定。没有实际估值来源时该列填`—`，说明缺失；不得填0或由其他指标推算。
+   - **布局国家**：复用`fetch_patent`返回的`response.relations.simple_family`成员，成员对象按实际回执识别，不预设字段名或完整性，再按真实辖区或公开号统计；仅使用简单同族，不能用扩展同族或同族件数替代辖区数。EP/WO按地区/组织标注。
+   - 同族数据缺失或不完整时，注明已返回成员范围；无法核实布局时填`—`。无法完成去重时将独立同族数标为待核实，只交付阶段性结果，不套用完整数量公式，不把未知当0或宣称完整报告完成。
+   - 取得估值数据时核对单位及单件/同族口径，不默认支持批量或五维得分。
 
-Read `references/description-writing.md` before drafting for templates, layer-specific examples and prohibited claims.
+## Step 4 — 逐件技术描述句撰写
 
-## Step 5 — Comparative assessment
+优先复用 Step 3 已取得的书目、权项和说明书。每条技术描述和综合研判记录其真实来源位置；涉及保护对象、构件关系或实现机制时核对相应权项／说明书，材料不足则限定表述并说明缺口。`technical_problem`、`technical_solution`、`technical_effect`是分析辅助字段，不能作为原文引句；摘要与技术总结不等于权利要求范围解释。
 
-1. Compare: Technology area | Strategic role | Core representative families | Patent date span.
-2. Create evidence-based conclusion cards, e.g. most active area over the last three application years, competitive benchmarks from highly cited foundational patents, and product-family signals from families directly linked to models.
-3. Anchor every conclusion in specific patent numbers or family names; avoid generalities.
-4. Explain each area’s technical implementation and significance from obtained patent evidence. The integrated assessment explains observed portfolio characteristics or changes, rather than only charts or one or two generic sentences. Disclose insufficient evidence instead of inventing causes to add length.
+每件专利在标题下方补一句斜体技术描述。中文通常 12–60 字，英文通常 20–50 词，其他语种按同等信息密度调整。**这是本报告最高价值的部分，不得省略、不得套话。**
 
-## Step 6 — Generate HTML
+写作三要素（必须同时具备）：
 
-1. Read/reuse `assets/report_template.html`. Materialize it into the task's `reports/` folder if supported, otherwise copy/edit it with available tools.
-2. Fill its structure using native patch or incremental writing tools. Localize fixed labels for the requested output language while preserving sections, columns and styles. Do not create a temporary Python/JavaScript program embedding the entire HTML merely to generate the report. Verify all placeholders are replaced and each patent row matches its header cell count.
-3. Save `reports/{company_slug}_patent_report.html`, unless the task specifies another output directory.
-4. Fixed order: header → company introduction → search baseline → confirmed number of technology sections → comparative assessment → search notes → footer.
-5. Deliver a host-supported clickable file link or actual returned artifact handle plus a section-structure table; never invent a handle.
-6. Check entity names, count labels and source navigation. Use readable company/assignee names rather than internal IDs. State whether counts represent publications, simple families or representative patents, and identify sample scope separately. Provide actual source links for company, patent, search-result or SaaS destination pages when available; otherwise disclose absence rather than constructing URLs. See `references/report-spec.md`.
+1. **保护对象** — 这件专利具体保护什么结构/机制/系统层级
+2. **技术特征** — 它靠什么原理或构造实现（重力/密度差/膜分离/电网拓扑等具体机制）
+3. **技术关联** — 它在对应优势技术中承担什么角色，或对应到哪个商业化场景/认证环节
+
+详细模板、分层句式与反例见 `references/description-writing.md`。**撰写描述句前必须读取该 reference。**
+
+## Step 5 — 综合研判
+
+1. 各技术方向对比总结表：技术方向 | 战略地位 | 代表专利核心族 | 专利时间跨度。
+2. 按实际证据生成结论卡片，建议维度：近期最活跃方向（看近 3 年申请）、竞对对标点（看高被引基础专利）、产品系列化信号（看直接对应产品型号的专利族）。
+3. 每条结论须落到具体专利号或专利族名，禁止泛泛而谈。
+4. 每个技术方向须结合已取得的专利证据解释技术做法及其意义，综合研判须说明所观察到的布局特点或变化，不能仅罗列统计图表或以一两句泛泛描述代替分析。现有证据不足以解释时说明不足，不为增加篇幅编造原因。
+
+## Step 6 — 生成 HTML 报告
+
+1. 读取并复用 `assets/report_template.html`。若环境提供资源物化能力，可将模板物化到当前任务的 `reports/` 目录；否则直接复制模板或用可用的文件编辑工具生成目标文件。
+2. 按模板结构填充内容。 模板的固定标签也按交付语种本地化，保持章节、表列及样式。优先使用当前环境原生的补丁或分段写入工具；不得为了生成 HTML 而临时编写包含整份 HTML 字符串的 Python/JavaScript 脚本。写入后必须检查占位符是否清零、专利表表头与每行单元格数量是否一致。
+3. 文件名：`reports/{company_slug}_patent_report.html`；若当前任务有约定的输出目录，则服从该目录。
+4. 章节顺序固定：页眉 → 公司介绍 → 检索基线表 → 按已确认数量重复技术方向章节 → 综合研判 → 检索说明 → 页脚。
+5. 交付时给出宿主支持的可点击文件链接（或已返回的artifact handle）+ 一张章节结构说明表；不得伪造handle。
+6. 生成报告时核对主体名称、数量标签与来源入口：正文用可读的公司／申请人名称，不用内部 ID 代替名称；每项数量注明公开文献、简单同族或代表专利单位，样本口径单独说明。公司、专利详情、检索结果或 SaaS 落地页有真实来源链接时提供对应入口；没有取得链接时注明，不自行拼接。具体展示要求见 `references/report-spec.md`。
 
 ## Guardrails
 
-- Query hits and aggregation counts come from actual receipts; document deduplication, simple/eligible-family and listing counts are local calculations over sourced records. Preserve calculation evidence; never estimate or add cross-query hit totals.
-- Copy publication numbers, publication dates and legal status from responses; missing values are `—`, never blank/guessed. Citation counts are not default table fields unless requested.
-- Use complete traceable URLs returned by tools, never constructed links. Without a URL, show the number and “Details link unavailable.”
-- State that technical descriptions are assessments, not conclusions about claim scope.
-- Company certifications/milestones/specifications need sources and dates. Label unverified user assertions “According to user materials; not independently verified.” Patent disclosure does not prove product launch/certification.
-- Preserve the user's removal of any chart/section across revisions.
-- Use “simple-family deduplication” in reports; do not use the label `INPADOC`.
-- Ten representatives is a cap, not a completion threshold. If fewer eligible families remain after expansion, list the actual number, even one. Never lower relevance, borrow across areas, broaden assignees, list siblings or hide an area to pad results.
-- For 0–4 eligible families, perform the three expansion tiers, then report honestly without returning to Gate A merely because the count is low. Retain zero-result sections and explain evidence gaps; return to Gate A only to change confirmed areas/scope.
-- Retain value and coverage columns even if entirely missing. Missing tools/data mean `—` with reasons; PCT-stage records are not zero-valued.
-- Label values as simple-family level only when the actual source confirms that scope. Equal values do not prove family identity.
-- Never rank/select solely by valuation. Family size may inflate market-related value without technical influence. Relevance is the entry criterion; use available citations, rights status, family coverage and text for disclosed qualitative value assessment when monetary data is absent. Do not convert these to money or invented scores.
-- Below each table disclose all five counts, marking unknowns `—` with reasons. Limit family counts to retrieved samples unless all results were fetched; disclose expansion and outcomes when fewer than ten are eligible.
+- 查询命中与聚合计数来自实际回执；文献去重、简单同族、合格同族及列出数由有来源的记录本地计算。保留计算依据，禁止估算或跨查询相加命中总量。
+- 专利号、公开日、法律状态一律照抄工具返回；无数据填 `—`，不得留空或猜测。被引次数不是默认表格字段，除非用户明确要求展示。
+- 专利链接使用工具返回的完整可溯源 URL，不自行拼接；无链接时只列专利号并注明“未取得详情链接”。
+- 技术描述句是研判性表述，须在检索说明中声明其性质，不得写成权利要求范围结论。
+- 公司介绍中的认证/里程碑/规格类事实必须注明来源与时点；未核验的用户陈述标为“用户材料所述／未独立核实”。不能将专利中的技术公开当作产品已上市或已获认证的证据。
+- 用户明确说"不需要某个图/章节"后，后续所有版本均不得回退添加。
+- 报告中不得出现 `INPADOC` 字样；同族口径统一表述为"简单同族去重"。
+
+- 代表专利数量不足 10 件时，必须走 `references/report-spec.md` 的分级处理规则并在报告中披露实际命中数；禁止跨方向借用专利、放宽申请人限定凑数、用同一简单同族的多个同族件充作多件代表专利，或因命中数不足而隐藏该技术方向。
+- **数量真实优先原则**：10 件是上限参考值，不是达标线。扩检后合格同族不足 10 个时按合格数量列出，1 件也照实列 1 件，并在表下说明实际命中情况。禁止为凑数而降低相关度门槛——列入一件与该技术方向弱相关的专利，比少列一件的伤害更大。
+- 合格同族数为 0–4 件时，先执行三级扩检；扩检后仍少，直接如实呈现，只说明有依据的原因，无需回退 Gate A 阻断。扩检后仍为 0 时保留章节并说明缺口，只有需要改变已确认方向或范围时才回到 Gate A。
+
+
+- **代表专利表必含“评估价值”与“布局国家”两列（强制）**：两列不得因全列缺失而删除。数据来自当次可用的价值评估与同族工具，禁止手写、估算或跨专利推断；工具无返回或不可用时填 `—` 并披露原因，PCT 阶段件不得填 0。
+- **估值口径依实际工具确认**：无估值来源时填`—`；取得估值时，只有来源明确为简单同族级别才标注「族级数值」；数值相同不证明同族，须用实际同族关系确认。
+- **禁止按估值单一维度排序选件**：高估值可能仅由同族规模推高市场维度得分产生，与实际技术影响力无关。筛选保留「技术相关度 × 专利价值」双维，技术相关度为一级门槛；无金额估值时，按实际可得的被引、权利状态、简单同族布局及文本证据作定性价值研判并说明依据，不将其折算成金额或五维分数。
+- **数量口径披露**：每个技术方向的表格下方必须写明 `matched_total`、`returned_count`、`independent_family_count`、`eligible_family_count` 与 `listed_count` 五项口径（未知填`—`并说明）。若未取回全量结果，须将同族数标明为返回样本内口径；合格同族数不足10时，按选取规范披露扩检动作和结果。

@@ -1,6 +1,6 @@
 # Patsnap Query Rules
 
-> Use these fields and syntax to construct queries; actual calls must follow the tool schema. Mark unexecuted syntax as pending validation. See [Tool usage](tool-usage.md).
+> 字段和语法用于构建检索式；实际调用以工具schema为准，未执行的语法需标明待验证。参见[工具使用要点](tool-usage.md)。
 
 Use this reference when converting a technical theme into a Patsnap search formula. If the user provides Patsnap's exact field names or examples, follow those over this generic guidance.
 
@@ -71,7 +71,7 @@ Be explicit about classification field scope. In Patsnap, `IPC:C22B3/00` is not 
 | Retrieve a broad technology branch from a known parent group | Prefer `_LOW` fields | Prevent missing records classified only in subgroups |
 | Use classification as a precision filter for a specific subgroup | Use exact `IPC/CPC` or the exact lower subgroup | Avoid over-broad main-group recall |
 
-Rule: if the intent is "all subgroups under main group C22B3/00", use `IPC_LOW:C22B3/00`, not `IPC:C22B3/00`. Apply the same logic to `CPC_LOW`.
+Rule: if the intent is "C22B3/00大组下的所有小组", use `IPC_LOW:C22B3/00`, not `IPC:C22B3/00`. Apply the same logic to `CPC_LOW`.
 
 ### Classification-Based Noise Blocks
 
@@ -151,12 +151,12 @@ Use these patterns to avoid flat `AND`/`OR` formulas that are either too noisy o
 
 | Pattern | When to use | Preferred expression |
 | --- | --- | --- |
-| Fixed phrase with minor inserted words | Chinese/English compound scenario terms such as 锂电池回收, 废旧动力电池回收, cathode material recycling | `(object $W5-9 action)` |
+| Fixed phrase with minor inserted words | Chinese/English compound scenario terms such as 锂电池回收, 废旧动力电池回收, cathode material recycling | `(对象 $W5-9 动作)` |
 | Ordered technical relation | A must appear before B, such as precursor -> product, process -> output, or modifier -> object | `(A $PREn B)` |
 | Element/material system | Several materials/elements must co-occur as one system, such as Ni-Co-Mn | `((A $Wn B) $Wn C)` plus order variants |
-| Object-action relation | High-frequency object terms need to be tied to operations, such as metal + separation/recovery | `(object $Wn action)` |
-| Effect/application relation | A function or effect applies to a product/application | `(object $SEN effect)` or `(object $Wn effect)` |
-| Method-equipment relation | A process is carried out in/on an apparatus | `(method $SEN equipment)` or `(method $Wn equipment)` |
+| Object-action relation | High-frequency object terms need to be tied to operations, such as metal + separation/recovery | `(对象 $Wn 动作)` |
+| Effect/application relation | A function or effect applies to a product/application | `(对象 $SEN 功效)` or `(对象 $Wn 功效)` |
+| Method-equipment relation | A process is carried out in/on an apparatus | `(方法 $SEN 设备)` or `(方法 $Wn 设备)` |
 | Description-only background | Relationship may span longer text but should remain related | `$PARA`, or a broader field with later denoising |
 
 Recommended starting windows:

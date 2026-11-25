@@ -1,128 +1,145 @@
 ---
 name: ip-novelty-search
-description: "Assess a complete technical disclosure against prior patents, compare its features, verify decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Supports continuation of an existing search."
+description: "检索已有技术，梳理差异、趋势与证据，形成可复核的立项审查参考。"
 ---
 
-# Novelty Search
+# 查新检索
 
-Start with complete technical relationships, find the most useful prior documents, verify differences, and then form conclusions.
-Use the user's requested language for conversation and reports; default to English. Preserve evidence quotations in their original language.
-This Skill provides prior-art and patentability research, without guaranteeing patentability or replacing a formal novelty-search opinion.
+用户要求 prior art search、专利查新、新颖性／创造性分析、X/Y 文献审计或续跑已有查新任务时使用本技能。不用于最终“可专利”保证、法定查新意见、FTO 侵权风险、竞对分析或专利布局。
 
-## Tools and materials
+从完整技术关系出发，找到最值得比较的在先文献，核实区别，再形成结论。
+对话与报告使用用户指定的语言；未指定时使用中文，证据引句保留原语言。
+本 Skill 提供 prior art search and patentability check 的研究参考，不承诺方案最终“可专利”，也不替代法定查新意见。
 
-Use these four tools. Their current definitions govern parameters. Before calling them, read [Tool meanings and input/output patterns](references/tools.md), the explicit tool contract for this Skill.
+## 工具与材料
 
-| Tool | Purpose |
+使用以下四个工具，参数以当前工具定义为准。调用前读取 [工具含义与输入输出范式](references/tools.md)；该文件是本 Skill 的明确工具契约。
+
+| 工具短名 | 用途 |
 | --- | --- |
-| `extract_technical_features` | Extract features and source locations from the original disclosure |
-| `search_patent` | Semantic, keyword, filter, Boolean and citation retrieval |
-| `fetch_patent` | Read bibliography, full text and media as needed for known patents |
-| `assess_feature_disclosure` | Compare individually or in batches using the same disclosure and features |
+| `extract_technical_features` | 从原始交底提取特征及出处 |
+| `search_patent` | 语义、关键词、过滤、布尔及引证检索 |
+| `fetch_patent` | 读取已知专利的书目信息、正文及按需媒体 |
+| `assess_feature_disclosure` | 用同一交底和特征逐篇或批量对比 |
 
-Use materials returned by these tools for patent searches, text, drawings and PDFs. Local scripts only organize records and generate reports.
-If a required tool is unavailable, identify the blocked step. Do not invent legacy tool names or switch to another patent service.
+专利检索、正文、附图和 PDF 均使用上述工具返回的材料；本地脚本仅整理记录和生成报告。
+缺少所需工具时说明阻塞步骤，不猜造旧工具名、不切换其他专利服务。
 
-## 1. Understand the disclosure and assessment boundary
+## 1. 理解交底与评价边界
 
-Read current and earlier messages, accessible attachments and existing task records to identify:
+读取本次及此前消息、实际可读的附件和已有任务记录，明确：
 
-- Components, positions, connections and interactions, or method actions, sequence and conditions.
-- The problem or technical effect; either is sufficient, without requiring quantitative experiments.
-- The solution to assess, publication cutoff and explicit search scope; also record any known intended filing date or effective priority date to identify earlier-filed, later-published applications under the target jurisdiction.
-- Intended filing or examination jurisdictions. Inventive-step conclusions must follow their examination framework. A technical search and comparison may proceed without a target jurisdiction, but cannot yield a definitive jurisdiction-specific inventive-step conclusion.
+- 具体部件、位置、连接与配合关系，或方法的动作、顺序和条件。
+- 要解决的问题或技术效果，二者有一项即可，不要求量化实验。
+- 用户要评价的方案、公开截止日和明确的检索范围；拟申请日或有效优先权日已知时一并记录，用于识别目标法域中的抵触申请候选。
+- 拟申请或审查的目标国家/地区；创造性结论必须使用该法域的审查框架。用户只要求技术查新且未指定目标国时，可以检索和比较，但不得输出法域化的创造性定论。
 
-Extract information already supplied. Do not always display scope selectors or require internal forms.
-Ask the necessary questions together and wait before dependent steps only when implementation details are missing, attachments cannot be read, or ambiguity changes the assessment subject. A name, use or expected effect alone cannot support a complete novelty search.
+已有信息直接提取，不固定弹出范围选择窗口，不要求填写内部表单。
+仅当缺关键做法、附件不可读或歧义会改变评价对象时，一次补问必要问题，等待回复后继续依赖步骤。
+名称、用途或预期效果不足以支持完整查新。
 
-Check for a concrete, inevitable conflict with established natural laws. Explain and stop if one exists; if a decisive condition is missing, clarify only that condition. Incomplete parameters, missing experiments and engineering difficulty alone are not conflicts.
-If no cutoff was set, state that no publication cutoff applies; do not substitute today, a filing date or a priority date. Technical retrieval and structural comparison may proceed, but documents with unresolved date eligibility cannot be treated as qualifying prior art. Mark novelty and inventive-step conclusions as provisional and distinguish publication dates from prior-art eligibility. If inventive step is requested without a target jurisdiction, clarify jurisdiction and assessment cutoff together. If the user permits a test first, identify its test jurisdiction without assuming a universal worldwide standard.
-For insufficient input or multiple solutions, read [Intake and assessment subjects](references/intake.md).
+理解后检查方案是否存在与已确立自然规律的具体必然冲突；确有冲突时说明并停止，缺决定条件时仅澄清该项。
+参数不全、缺实验、工程困难本身不构成冲突。
+用户未设截止日时说明本次不限定公开截止日，不自行填今天、申请日或优先权日。此时可以完成技术检索和结构比较，但不得把日期资格未核实的文献直接定性为在先技术；报告中的新颖性、创造性结论须标为阶段性，并把文献公开日与“能否作为在先技术”分开列示。用户要求创造性判断但未给目标国时，将目标国与日期作为一次必要澄清；若用户允许先行测试，则明确采用的测试法域，不默认全球通用标准。
+遇到输入不足或多方案时，读取 [输入与评价对象](references/intake.md)。
 
-## 2. Organize technical features
+## 2. 整理技术特征
 
-When extraction is needed, call `extract_technical_features` with the original disclosure and actual drawings. Read the complete structured result and address clarification questions. An existing valid feature list may be reused.
+需要提取时调用 `extract_technical_features`，传入原始交底与实际附图。
+读取完整结构化结果，处理返回的澄清问题；已有有效特征清单可以复用。
 
-- Treat the extraction receipt’s complete relationships as `source_features`, preserving text and order exactly. Do not merge, rewrite, delete or split the original receipt. Save raw source features and their evidence in the feature plan.
-- After preserving the source relationships, a host-owned `comparison_units` list must split a relationship when a document could expressly disclose one independently judgeable limitation without disclosing another; retain an indivisible relationship as one unit. Every unit remains a complete local relationship with objects, connection/action and condition; never use isolated parts, effect words or disconnected phrases.
-- Each unit maps to exactly one `source_feature_number` and quotes the actual original disclosure sentence for that source. Do not recombine relationships across sources. Every source relationship has at least one unit.
-- Derive formal `features` verbatim from `comparison_units[].feature`; this is the sole feature list passed to every formal comparison. `groups` aggregate units by source relationship without overriding unit facts.
-- Update extracted features only when a user correction, scope change or a tool clarification changes the assessment subject. Re-extract and retain the new receipt instead of silently editing the old one.
-- Separate the primary solution, optional improvements and alternative implementations; assess products and methods separately.
-- Check for omitted necessary limitations, optional conditions mixed in, or requirements absent from the disclosure.
-- Use the same list throughout retrieval, comparison, verification and reporting; revise only when understanding or scope changes.
+- 每条特征保留完整技术关系及交底出处，不为评分或计数细拆。
+- `extract_technical_features` 返回的 `features` 及顺序是不可覆盖的源关系清单，保存为 `source_features`。Agent 不得合并、改写、删除或重排源关系。
+- 正式比对使用可追溯的 `comparison_units`。若一条源关系包含多个可独立成立或不成立的限定，将其拆为多个比对单元；若不可分，保留为一个单元。判断标准是：文献是否可能明确公开前一部分而不公开后一部分；如果可能，应拆分。
+- 每个比对单元仍须是可判断的完整技术关系，至少保留相关的主体、动作/配合和对象或条件；不拆成孤立部件名、效果词或失去连接的短语。
+- 每个 `comparison_unit` 只能映射一条 `source_feature_number`，并引用该源关系的真实交底原句；不得跨源关系重组。每条源关系至少有一个比对单元。
+- 特征计划中的 `features` 由 `comparison_units[].feature` 原样生成，并作为每次正式比对的唯一输入清单。`groups` 按源关系聚合其比对单元；分组只负责汇总，不覆盖单元事实。
+- 只有用户纠正、范围变化或工具返回的澄清问题确实改变评价对象时，才能更新特征。此时重新调用提取工具并使用新回执，不在本地静默改写旧结果。
+- 区分主方案、可选改进和替代实现；产品与方法分别评价。
+- 核对是否遗漏必要限定、混入可选条件或增加交底没有的要求。
+- 同一清单贯穿检索、对比、核查和报告；理解纠正或范围变化时才更新。
 
-Do not require itemwise confirmation of an unambiguous list. Save the original disclosure, features, sources and solution scope for later checks.
+无需让用户逐项确认没有歧义的清单。保存原始交底、特征、出处及方案范围，供后续核对。
 
-## 3. Search and select
+## 3. 检索与筛选
 
-Read [Search methods](references/search.md) before retrieval. Organize queries around decisive relationships and uncertainties that could change the judgment, without fixed rounds, tool ratios or candidate counts.
+检索前读取 [检索方法](references/search.md)。围绕决定性关系和可能改变判断的疑点组织查询，不固定轮数、工具比例或候选篇数。
 
-- Discover candidates with `search_patent`; semantic queries express complete technical intent and keywords preserve complete concepts.
-- Default to mixed semantic and keyword recall in the same request using `semantic` and `keyword`. Semantic input carries complete intent, relationships and the problem; keywords carry precise structures, industry terminology and multilingual variants. The two inputs complement each other instead of repeating the same string.
-- Mixed recall is not a mandatory AND. Merge by exact publication identity and family; retain semantic, keyword or dual-channel provenance. Channel matches determine reading priority, not disclosure facts.
-- Search the complete primary combination first, then decisive differences or unresolved relationships. Targeted rounds still pair natural-language relationships with grouped concepts rather than broad OR lists of isolated parts.
-- Apply user-specified scope and dates in actual requests; reference fields or IPC codes do not automatically become hard filters.
-- For strong candidates, use `fetch_patent` to verify text, exact publication number, application date and publication date; request `media` only when visual evidence is needed.
-- Extend citations through `search_patent`: `B_CITES:(publication number)` for backward citations and `F_CITES:(publication number)` for forward citations.
-- Retain complementary strong candidates based on evidence actually read; explain relevance, key differences and reading depth.
-- Select closest art by the complete relationships, modification starting point and technical purpose, rather than keyword counts, raw ranking or isolated-feature coverage. A document clearly closer to the complete primary combination must enter formal comparison or receive a reasoned exclusion.
-- Group families, corresponding national applications and equivalent core-claim routes. Preserve national publication identities, but do not count them as independent technical evidence. A later-published member may assist reading without acquiring prior-art eligibility.
+- 用 `search_patent` 发现候选；语义表达完整技术意图，关键词保留完整概念。
+- 默认采用语义＋关键词混合召回：在同一次 `search_patent` 请求中启用 `semantic` 和 `keyword`。语义查询承载完整技术意图、部件/步骤关系及问题，关键词承载精确结构、行业术语和多语言变体；两路互补，不用相同词串机械重复。
+- 混合检索是两路并行召回，不是硬性 AND。合并结果后按精确公开号和同族去重，保留语义命中、关键词命中或双通道命中的来源；命中通道只决定阅读优先级，不替代正文证据。
+- 首轮围绕完整主组合检索；后续按决定性区别或未决关系定点检索。定点轮仍同时提供自然语言关系和成组关键词，不退化为若干部件单词的宽泛 OR。
+- 用户明确的范围与日期在实际请求中生效；参考领域或 IPC 不自动变成硬过滤。
+- 对强候选用 `fetch_patent` 核实正文、精确公开号、申请日及公开日；需要图证时才请求 `media`。
+- 引证扩展仍用 `search_patent`：`B_CITES:(公开号)` 查引用，`F_CITES:(公开号)` 查被引。
+- 根据已读证据保留互补强候选，说明相关性、关键区别和阅读深度。
+- 识别最接近技术时优先比较完整关系、改造起点和技术目的，不以关键词命中数、原始排名或单篇局部覆盖数量替代；若检索到明显更接近完整主组合的文献，必须进入正式比较或说明排除理由。
+- 对同族、各国对应申请和相同核心权利要求路线做归并记录：各法域公开号可分别保留，但不能把它们计作多项独立技术证据；后公开成员只能辅助读文，不能因此获得在先资格。
 
-One successful call, an absent word in an abstract, or repeated old candidates does not establish completion. Converge when remaining uncertainties are unlikely to change the main judgment; retain decisive counterexamples.
-Normally select no more than 10 documents for formal comparison, without filling a quota. Explain and batch any justified larger set.
-Briefly state each round's verification objective, findings and next action. Save actual requests and receipts; tool failures are not zero hits.
+一次调用成功、摘要缺词或重复出现旧候选都不代表检索完成。
+剩余疑点不再有望改变主要判断时收敛；发现决定性反例必须保留。
+正式对比通常精选不超过 10 篇，不凑数；确需更多时说明理由并分批。
+每轮简述查证目标、发现及下一步，保存真实请求和回执；工具失败不作零命中。
 
-## 4. Formal comparison
+## 4. 正式对比
 
-First read [Disclosure judgments and fact verification](references/comparison.md).
-Call `assess_feature_disclosure` with the original disclosure and the same features. Reuse actual text/drawings already obtained; otherwise provide a patent ID or complete publication number as the tool defines.
-Batch 1–10 documents, associate requests/results by original index, retain successful items and recover only failures.
-Before a formal call, verify both levels: `source_features` must match the valid extraction receipt in content and order, and request `features` must exactly match validated `comparison_units[].feature`. Stop comparison if either check fails.
+正式对比前读取 [公开判断与事实核查](references/comparison.md)。
+调用 `assess_feature_disclosure`，沿用原交底和同一份特征。
+已有正文或附图时复用实际材料；否则按工具定义提供专利 ID 或完整公开号。
+批量每次 1–10 篇，按原始索引关联请求与结果；保存成功项，只恢复失败项。
+正式调用前做两级核对：`source_features` 与提取工具有效回执在内容和顺序上完全一致；请求中的 `features` 与已校验的 `comparison_units[].feature` 完全一致。任一不一致时停止比较。
 
-Check each relationship's status, reason, quotation, figure number, reading scope and overall arrangement. Distinguish explicit disclosure, necessary inherency, explicit differences and silence in the material read; keep evidence gaps unresolved. Show both comparison-unit statuses and source-relationship aggregates. A group’s incomplete disclosure must not override its disclosed units. Retrieval-stage relevance analysis is not complete comparison. Do not repeat the whole comparison without cause after formal results are available.
+核对每条关系的状态、理由、引文、图号、阅读范围和整体技术安排。
+区分明确公开、必要隐含、明确不同及已读材料未提及；材料不足保持缺口。
+页面同时展示比对单元状态和源关系汇总，不得用关系组的“未完整公开”覆盖其中已公开的单元。
+检索阶段的相关性分析不冒充完整对比；取得正式结果后不无故重复整套比较。
 
-### Return from step 4 to step 3
+### 从第4步回退到第3步
 
-Formal comparison feeds retrieval. Create a concrete feedback item and return to targeted retrieval when:
+正式对比是检索反馈入口。出现下列任一情形时，形成具体反馈项并回到第3步定点检索：
 
-- Every decisive relationship in the strongest candidate is `not_mentioned`, possibly because terminology, synonyms or classification routes were missed.
-- Full text reveals new industry terminology, alternative structures, citation seeds or earlier family publications.
-- A difference intended to support novelty has not undergone counterexample retrieval, or a proposed Y combination lacks a secondary document providing the decisive bridge.
-- New candidates or facts may change closest art, difference groups, complete single-document disclosure or combination paths.
+- 最强候选的决定性关系均为 `not_mentioned`，且可能源于检索术语、同义表达或分类路线遗漏；
+- 正文揭示了此前未知的行业术语、替代结构、引证种子或同族早期公开版本；
+- 拟肯定新颖性的关键区别尚未经过反例检索，或拟形成的 Y 组合缺少能承担决定性桥梁的辅文献；
+- 新候选或新事实可能改变最接近技术、区别组、单篇完整公开或组合路径。
 
-Each item records at least `feedback_id`, source publication number, affected features, triggering fact, verification question, new `semantic_query`, `keywords`, and retained dates/scope. Then:
+每个反馈项至少记录：`feedback_id`、来源公开号、受影响特征、触发事实、需查证的问题、新的 `semantic_query`、`keywords` 和沿用的日期/范围。回到第3步后：
 
-1. Run mixed semantic/keyword retrieval only for the feedback item, preserving previous receipts.
-2. Fetch new candidates first, then compare only new documents or affected features.
-3. Update candidates, differences and conclusions while retaining the pre-feedback judgment.
-4. Converge when new retrieval no longer yields documents or relationships likely to change the principal judgment.
+1. 只围绕反馈项运行语义＋关键词混合检索，保留原检索回执；
+2. 对新增候选先取文，再只比较新增文献或受影响特征；
+3. 更新候选、区别和结论，同时保留回退前判断；
+4. 新检索不再产生可能改变主要判断的文献或关系时收敛。
 
-Do not return directly to retrieval for missing text/figures: obtain them through `fetch_patent` first. Recover only failed items for retryable comparison errors. Reuse an already executed query when there are no new terms, scope or seeds; do not loop.
+以下情况不直接回退检索：正文或附图未取得时先用 `fetch_patent` 补材料；比较工具出现可重试校验错误时仅恢复失败项；同一查询已执行且没有新术语、范围或种子时复用结果，不循环重跑。
 
-## 5. Verify decisive facts and form conclusions
+## 5. 核查决定性事实并形成结论
 
-Separately verify “not mentioned” findings decisive to a positive novelty conclusion and “necessarily inherent” findings decisive to a negative one.
-The Agent actually rereads originals/drawings or recalculates derivations. Save the original judgment, material, rationale and outcome with `method: agent`. Obtain more material, run targeted retrieval or call the existing comparison tool again as needed; this is not an independent review tool.
-When facts or evidence change, update affected differences, overall arrangements and conclusions, preserving the original record.
+对决定肯定新颖性的“未提及”和决定否定新颖性的“必要隐含”单独核查。
+Agent 实际重读原文、附图或复算推导，保存原判断、材料、理由和结果，标记 `method: agent`。
+必要时补取材料、定点检索或再次调用现有对比工具；这不等同于独立复核工具。
+事实或依据改变后，更新受影响的区别、整体安排和结论，保留原记录。
 
-Read [Analysis and reporting requirements](references/report.md) before concluding:
+形成结论前读取 [分析与报告要求](references/report.md)：
 
-- For inventive step, also read [Target-jurisdiction practice and X/Y evidence audit](references/jurisdiction-practice.md); determine jurisdiction before assigning evidence roles and combination paths.
-- For novelty, check whether one date-eligible document completely corresponds to the solution in one arrangement; do not combine documents.
-- For inventive step, analyze closest art, actual differences, effects, the objective problem and a complete modification or combination path.
-- Ease of modification is not disclosure; a partial teaching does not make the complete solution obvious.
-- Label every inventive-step difference as document teaching, evidence-supported common knowledge or engineering inference. Unverified assertions of routine practice/common knowledge cannot provide a decisive bridge to a definite lack-of-inventive-step conclusion.
-- A set of documents separately containing parts is not Y evidence. Each numbered Y group identifies primary/secondary documents, differences addressed, jurisdiction-specific teaching/motivation, reasonable expectation of success and obstacles. Incomplete groups remain Y candidates.
-- Keep novelty research separate from FTO: date-eligible disclosure affects patentability; claim coverage, validity, jurisdiction and implementation barriers are FTO matters. Unless also requested, record only risk leads without infringement conclusions.
-- If decisive evidence remains unresolved, state that assessment of the solution is incomplete. Hit ratios or missing material cannot replace judgment.
+- 涉及创造性时同时读取 [目标国审查实践与 X/Y 文献审计](references/jurisdiction-practice.md)，先确定法域，再给文献分配角色和组合路径。
 
-## 6. Generate the report and continue existing work
+- 新颖性核对单篇日期合格文献是否在同一安排中完整对应方案，不拼接多篇。
+- 创造性围绕最接近技术、真实区别、效果、实际问题和完整改造或结合路径分析。
+- 容易改造不等于已公开，局部有启示不等于完整方案显而易见。
+- 每项创造性区别标明依据属于文献教导、已有证据支持的公知常识，还是工程推断；决定性区别若只能靠未核实的“常规、公知、可能存在”补齐，不得给出确定的不具创造性结论。
+- 不把“差异分别能在若干篇文献中找到”直接写成 Y 类证据。Y 类必须属于一个明确组合组：写明主文献、辅文献、各自解决的区别、目标国要求的结合启示/动机、成功预期及障碍；未闭环时只标记为 Y 候选。
+- 查新与 FTO 分开：查新只评价日期合格现有技术及可专利性风险；权利要求是否覆盖、法域、有效性和实施障碍属于 FTO，除非用户同时要求，否则只作风险线索，不输出侵权结论。
+- 决定性证据未解决时明确该方案尚未完成，不用命中比例或材料缺失代替判断。
 
-Read [Report data and commands](references/report-data.md) and use the existing template to generate a standalone HTML report.
-Retain the complete matrix, originals, actual drawings, Agent checks and search appendices. User templates must retain the same evidence and judgments.
-The report scripts require Python 3, `markdown-it-py` and `Pillow`; check dependencies first.
+## 6. 生成报告与续跑
 
-Open the finished report and check conclusions, dates, counts, evidence navigation, images and unresolved issues. Deliver an accessible report file. Briefly state the principal conclusions and decisive evidence in conversation rather than pasting the HTML.
+生成报告时读取 [报告数据与命令](references/report-data.md)，按既有模板生成单文件 HTML。
+保留完整矩阵、原文、真实附图、Agent 核查及检索附录；用户模板沿用相同证据和判断。
+报告脚本需要 Python 3、`markdown-it-py`、`Pillow`，运行前检查依赖。
 
-For continuation, first read saved disclosure, features, requests, receipts, checks and reports. Reuse unchanged evidence; update only parts affected by changed input, scope, material or judgment. Distinguish reused work from new work. A previous check cannot be reused when it no longer matches current facts.
+打开成品，核对结论、日期、数量、证据跳转、图片和未决事项，交付可打开的报告文件。
+对话简述主要结论及决定性依据，不粘贴整份 HTML。
+
+续跑先读取已有原始交底、特征、请求、回执、核查和报告。
+未改变的证据直接复用；输入、范围、材料或判断改变时只更新受影响部分。
+复用与本次新增工作分别说明，旧核查与当前事实不匹配时不能沿用。

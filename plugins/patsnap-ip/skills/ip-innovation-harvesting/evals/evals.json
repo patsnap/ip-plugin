@@ -3,48 +3,48 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "We make freezers and want a removable, washable drip tray with no more than CNY 20 extra cost. Give me the report directly.",
-      "expected_output": "Respect existing continuous authorization; do not force repeated confirmation for report format. Propose concrete connection/sealing concepts and treat CNY 20 as a constraint. Without differentiation and experimental evidence, do not recommend immediate filing; include validation conditions in the roadmap.",
+      "prompt": "我们做冷柜，想把接水槽做成可拆洗的，增加成本不能超过20元。直接给我报告。",
+      "expected_output": "记录已有连续授权，不因报告格式强制多轮确认；提出具体连接与密封构思，成本20元是约束；缺差异和实验依据则不建议立即申请，路线图有验证条件。",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Choose either motor-driven or mechanical valve opening. The goal is one year without battery replacement, but we have no experiments yet. Organize innovation directions first.",
-      "expected_output": "Keep the alternatives as separate branches. Do not call one-year battery life measured or require both drive types simultaneously. Without implementation structure, label research directions and propose validation.",
+      "prompt": "电机开阀和机械开阀二选一，目标一年不用换电池，还没做实验。先帮我整理创新方向。",
+      "expected_output": "两方案分支，不把一年续航写实测，不强制将电机与机械同时满足；缺实现结构只能列研究方向，并提出相应验证。",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "I found a very old drainage-channel patent. Does it affect our current idea?",
-      "expected_output": "Prior-art comparison is not restricted by the recent-trend window. Distinguish the existing guide channel from added interface/cleaning structures. Without traceable comparison evidence, keep the assessment pending.",
+      "prompt": "我找到一篇很早的排水槽专利，这会影响我们现在的想法吗？",
+      "expected_output": "现有技术对照不受近期趋势窗口限制；区分已有导流槽与新增接口／清洗结构，无法定位对照证据则评价待核。",
       "files": [],
       "fixture": {
-        "notice": "Offline synthetic abstract",
-        "material": "A 2004 document describes a cabinet-opening collection tray and drainage channel. The new concept only adds a detachable guide channel, without connection details."
+        "notice": "离线合成摘要",
+        "材料": "2004年的文献描述柜口集水槽及排水通道；新构思仅说明增加可拆卸导流槽，未说明连接关系。"
       }
     },
     {
       "id": 4,
-      "prompt": "I am Inovance’s IPR manager. Deeply explore servo vibration suppression under changing loads. First study Yaskawa patents, then develop surrounding proposals for vibration identification, parameter adjustment and control compensation; also give a 30-minute training outline.",
-      "expected_output": "Use harvesting, display the CP-0 card and wait for scope confirmation. Without continuous-execution authorization, confirm key choices by Block in deep mode. Training/report requests do not remove checkpoints. After confirmation scan within adopted scope, support proposal differences with evidence and present training separately.",
+      "prompt": "我是汇川IPR，围绕负载变化时的伺服振动抑制做深度挖掘。先研究安川专利，再从振动识别、参数调整和控制补偿做包绕提案；另给30分钟培训提纲。",
+      "expected_output": "采用挖掘流程，展示 CP-0 确认卡并等待范围确认；未获连续执行授权时，深度模式按 Block 确认关键选择，不以培训或报告需求取消检查点。确认后在采用范围内扫描，提案区别须有证据，培训单列。",
       "files": []
     },
     {
       "id": 5,
-      "prompt": "I am Mindray’s IPR manager. Identify promising portable-ultrasound directions in miniaturization, power efficiency, imaging and user experience, combining our public patents with industry practice into proposals.",
-      "expected_output": "Organize CP-0 harvesting type, mode, technical focus and gaps from supplied subjects. Wait for scope confirmation before public-material scanning. Missing internal parameters remain pending; candidate differences do not establish grant prospects.",
+      "prompt": "我是迈瑞IPR，围绕便携式超声的小型化、省电、成像和体验找值得继续做的方向，结合我方公开专利和行业做法整理提案。",
+      "expected_output": "从已有对象整理 CP-0 的挖掘类型、模式、技术主线及缺口，等待范围确认后开展公开资料扫描；内部参数不足时保留待核，不把候选差异说成已具备授权前景。",
       "files": []
     },
     {
       "id": 6,
-      "prompt": "Review an oil-leak maintenance solution for converter transformers using the disclosure, R&D notes and existing literature. Select improvements to retain or validate further, with technical proposals and a novelty-comparison table.",
-      "expected_output": "Use harvesting for the objective of selecting and improving proposals from existing materials. Read actual materials; disclose missing attachments and ask for decisive missing inputs without claiming they were read. Confirm scope under CP-0, then proceed with sourced proposals and comparisons.",
+      "prompt": "请评审换流变压器渗油检修方案，结合交底书、研发笔记和已有文献，筛选值得保留或继续验证的改进点，给技术提案和查新对比表。",
+      "expected_output": "按已有材料筛选和改进提案的目标采用挖掘；先读取实际材料，缺附件须披露并补问关键缺项，不能声称读过。按 CP-0 确认规则落实范围后再推进，提案和对比均有来源。",
       "files": []
     },
     {
       "id": 7,
-      "prompt": "Check whether this already-defined device was disclosed before 2018. Give only the closest patents and comparison; no new concepts are needed.",
-      "expected_output": "The primary objective is disclosure assessment of an existing solution, outside proposal harvesting. Do not initiate four blocks/ten steps or create unsolicited concepts.",
+      "prompt": "查一下这套已确定的装置在2018年前是否被公开，只给最接近专利和对比，不需要新构思。",
+      "expected_output": "主要目标是判断既有方案是否公开，不适用提案挖掘；不启动四块十步或擅自产出新构思。",
       "files": []
     }
   ]

@@ -1,15 +1,15 @@
 {
   "name": "patsnap-ip-plugin",
   "version": "0.10.3",
-  "description": "Patent search, analytics and IP intelligence in your AI assistant, for prior art, FTO, landscapes and more. Every finding traceable to its source.",
+  "description": "帮助知识产权与研发团队检索专利和论文，围绕确认的技术范围比对证据，形成带来源和缺口说明的研究底稿。",
   "author": {
     "name": "Patsnap"
   },
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Patsnap IP Plugin",
-    "shortDescription": "Patent & literature research",
+    "displayName": "智慧芽 IP 专家套件",
+    "shortDescription": "专利与文献研究",
     "developerName": "Patsnap",
     "category": "Productivity"
   }

@@ -3,65 +3,65 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Plan a patent portfolio for our drinking-cup lid. Start with a phase report based on the attachment.",
-      "expected_output": "Decompose cup-lid technology and analyze supply-chain roles. Do not force automotive/e-drive topics or four suppliers. Three samples are not the full population; mark unfinished risk and cluster analysis pending.",
+      "prompt": "帮我们做饮水杯盖的专利布局，先根据附件给一份阶段报告。",
+      "expected_output": "按杯盖技术拆解和供应链角色分析，不强制汽车、电驱或4家供应商；三件样本不称全量，未完成风险和集群明确待核。",
       "files": [],
       "fixture": {
-        "notice": "Offline synthetic abstract; do not query real services.",
-        "entity": "Test Drinkware Team",
-        "evidence": "Three temperature-display samples, without competitor statistics or claim comparison."
+        "notice": "离线合成摘要，不查询真实服务。",
+        "主体": "测试杯具团队",
+        "证据": "三件温度显示相关样本，无竞对统计或权项比对。"
       }
     },
     {
       "id": 2,
-      "prompt": "Both companies have temperature-control patents, but one has no visible new applications in two years. Can we say it exited and this area has no portfolio value?",
-      "expected_output": "No retrieved filings does not prove exit; overlapping technology areas do not establish that a particular solution is known or low-value. Request actual disclosures, differences and evidence of business exit.",
+      "prompt": "两家都有温控专利，一家近两年没看到新申请，可以说它退出了，这块也没布局价值了吗？",
+      "expected_output": "分别指出未检出不证明退出、技术领域交集不证明具体方案公知或低价值；提出具体公开内容、差异与业务退出证据需求。",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "Organize this portfolio table and preserve missing data.",
-      "expected_output": "Merge A/B publications of the same application at application level; do not merge cross-country applications merely because they share a family. Use consistent dates/geographies for comparisons. Separate unknown coverage from planned filings; do not turn approximate values into false precision.",
+      "prompt": "把这份布局表整理清楚，缺的数据保留。",
+      "expected_output": "申请号级合并同一申请的A/B文本，跨国申请不因同族合并；同一比较统一时间及地域；未知覆盖与未来拟申请分列，不将约数机械改精确数。",
       "files": [],
       "fixture": {
-        "notice": "Offline synthetic table, not real patents.",
+        "notice": "离线合成表，不是真实专利。",
         "rows": [
           {
-            "application": "Application A",
-            "publications": [
-              "A publication A",
-              "A publication B"
+            "申请": "申请甲",
+            "公开文本": [
+              "甲A",
+              "甲B"
             ],
-            "jurisdiction": "CN"
+            "地域": "CN"
           },
           {
-            "application": "Application B",
-            "publications": [
-              "B publication A"
+            "申请": "申请乙",
+            "公开文本": [
+              "乙A"
             ],
-            "jurisdiction": "US",
-            "family_link": "Application A"
+            "地域": "US",
+            "同族关联": "申请甲"
           }
         ],
-        "other": "Market size approximately CNY 100 million without a source. Existing mechanical pressure-relief coverage unknown, but filing planned. Two trend charts use five-year and ten-year windows respectively."
+        "其他": "市场规模约1亿元无来源；机械泄压已有覆盖未知，但计划申请；两张趋势图分别近5年和近10年。"
       }
     },
     {
       "id": 4,
-      "prompt": "I lead IP at Dameng and need a 2027 HTAP patent plan. Benchmark OceanBase, PingCAP and Huawei on resource isolation, data synchronization and query scheduling. Combine our existing patents with filing priorities for China and the US; also provide a quarterly competitor-monitoring plan.",
-      "expected_output": "Use portfolio planning. Reuse supplied technologies, entities, countries and objectives to organize boundaries. Progress through P2 checkpoints for boundaries, decomposition, elements, noise, strategy and queries; do not search before confirmation. Monitoring is an additional deliverable, not authorization to create automation.",
+      "prompt": "我是达梦的知识产权负责人，规划2027年HTAP专利。参考OceanBase、PingCAP和华为，研究资源隔离、数据同步和查询调度，结合达梦已有专利给中国和美国的申请优先级；另做季度竞对监测方案。",
+      "expected_output": "采用布局流程；复用技术、主体、国家和目标整理边界，依 P2 的边界、拆解、要素、噪声、策略和检索式确认检查点逐阶段推进，未确认不直接执行检索。监测方案作为附加交付，不直接创建自动化。",
       "files": []
     },
     {
       "id": 5,
-      "prompt": "I am Midea’s IPR manager. Revisit our smart-air-conditioner portfolio across energy saving, comfort and intelligent control, referring to Gree and Haier. Give a plan suitable for R&D discussion.",
-      "expected_output": "Organize entities, topics and defaults, then present a technical definition and boundary for confirmation. Follow P2 checkpoints without requiring an initial owned-patent list. An ordinary planning request or default scope is not confirmed fact.",
+      "prompt": "我是美的IPR，想重新梳理智能空调布局，节能、舒适性和智能控制都看一下，参考格力、海尔，给能与研发讨论的方案。",
+      "expected_output": "整理主体、主题及默认口径，先给技术定义与边界供用户确认；按 P2 检查点推进，不要求用户先给自有专利清单，不把普通方案请求或默认口径当作已确认事实。",
       "files": []
     },
     {
       "id": 6,
-      "prompt": "Plan our solid-state-battery portfolio. First draft the technical boundary and wait for my confirmation before searching; I will provide company identity later.",
-      "expected_output": "Deliver the boundary draft and identify missing target-company information. Respect the pre-search wait. Do not assume an entity, claim retrieval or override the requested single step with complete-report defaults.",
+      "prompt": "请规划我方固态电池布局。先给技术边界草稿，等我确认后再检索；公司身份稍后提供。",
+      "expected_output": "交付边界草稿及目标主体缺项，遵守检索前停等要求；不冒认主体，不声称已检索或把完整报告默认规则覆盖用户单步要求。",
       "files": []
     }
   ]

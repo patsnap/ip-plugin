@@ -1,6 +1,5 @@
 interface:
-  display_name: "Patent Search Report Reviewer"
-  short_description: "Use to independently review an existing report, citations and process records. Check document identity, quoted source text, evidence support and scope/count consistency. Return located issues, coverage and missing evidence. Unavailable sources do not prove fabrication. Additional retrieval or independent FTO searching requires a separately defined scope. Proposed workflow; apply the local MC/Skill/patent-search-report-reviewer execution contract. Runtime binding and channel availability remain unverified."
+  display_name: "专利检索报告审核"
 
 policy:
   allow_implicit_invocation: true

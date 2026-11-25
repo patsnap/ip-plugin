@@ -1,75 +1,75 @@
-# Customer questions and supplementation points
+# 关键提问与补充节点
 
-Ask one combined question only when its answer changes the next step. Reuse prior answers. Follow the main Skill’s plain-language rules and the reader’s natural language. Replace brackets with actual case facts; never show placeholders to customers.
+仅在答案会改变下一步时显示一条合并问题；用户已回答的内容直接复用。按主文直达的平实表达规则翻译为目标读者的自然语言。方括号内容由当前案件事实替换，不向客户展示占位符。
 
-## 1. Scope and activities
+## 1. 范围与行为
 
-First show a scope card:
+先显示范围确认卡：
 
-> Product/configuration: [known facts]  
-> Manufacturing, import, sales or use countries: [known/unconfirmed]  
-> Search authorities: [known/unconfirmed]  
-> Assessment date: [known date / proposed current date, awaiting confirmation]  
-> Evidence cutoff: [known date / last evidence-collection date, awaiting confirmation]
+> 产品／配置：【已知内容】  
+> 制造、进口、销售或使用国家：【已知内容／待确认】  
+> 检索受理局：【已知内容／待确认】  
+> 评估日期：【已知日期／建议采用当前日期，待确认】  
+> 资料截止日：【已知日期／将以本次最后取证日记录，待确认】
 
-For missing items, ask together:
+仍有缺项时使用一条合并问题：
 
-> I understand this assessment concerns [product/configuration] during [activities] in [known countries]. Please confirm any other countries where these activities occur and the assessment date. May I record the evidence cutoff as the last date on which search and patent-status evidence is obtained for this report?
+> 我理解本次要评估【产品／配置】在【制造、销售、进口或使用行为】中的专利风险，目前涉及【已知国家】。请确认是否还有其他实际实施国家，并确认本报告采用的评估日期；资料截止日我将记录为本次最后一次取得检索和专利状态证据的日期，是否可以？
 
-For Europe/EP only:
+用户只写欧洲／EP 时改问：
 
-> Do you want EP documents only, or coverage of specific European markets? For market coverage, please identify manufacturing, import, sales or use countries and confirm the assessment date. May I use the final evidence-collection date as the evidence cutoff?
+> 本次是只检索 EP 文献，还是要覆盖具体欧洲市场？如果是后者，请告诉我实际制造、进口、销售或使用的国家；同时请确认评估日期。资料截止日将记录为本次最后一次取得检索和专利状态证据的日期，是否可以？
 
-Assessment/evidence dates are not filing/publication filters. Do not add a last-ten/twenty-years restriction without a client request.
+评估日期与资料截止日不是专利申请／公开日期过滤。客户没有要求日期过滤时不另加“近十年”“近二十年”等条件。
 
-## 1.5. Execution mode
+## 1.5 执行方式
 
-After scope confirmation, before the first formal business call:
+范围确认后、首次正式业务调用前显示：
 
-> Choose how to proceed:  
-> **Continuous AI execution (recommended):** I will optimize inputs and advance within confirmed scope, pausing for changes, missing decisive facts, candidate selection, full-text strategy and other decisions that require you.  
-> **Stage-by-stage confirmation:** Before each main stage I will show adopted inputs, adjustment reasons and expected effects, then wait for confirmation.
+> 请选择本次执行方式：  
+> **AI 连续执行（推荐）**：我会在已确认范围内自主优化并连续完成各阶段，只在范围变化、关键事实缺失、候选专利选择和全文策略等必须由你决定的节点暂停。  
+> **分阶段确认**：我会在每个主要阶段开始前展示采用输入、调整理由和预期影响，等你确认后再继续。
 
-Continuous execution does not repeatedly confirm pagination, same-stage wording adjustments or harmless reads. Mandatory gates remain. For stage confirmation use business stages, reusing decisions rather than asking about each tool:
+客户选择连续执行时，不再为普通分页、同阶段内词语微调或无副作用读取反复确认；强制门禁仍按主文执行。客户选择分阶段确认时，使用以下阶段名称并复用已有决定，不逐个 Tool 名提问：
 
-1. Features and retrieval units;
-2. Keywords, target languages and search plan;
-3. Retrieval, semantic recall and candidate pool;
-4. Candidate patent screening;
-5. CC scope and full-text strategy;
-6. Itemwise claim comparison;
-7. HTML report preview.
+1. 技术特征与检索单元；
+2. 关键词、目标语言和检索计划；
+3. 检索、语义召回与候选池；
+4. 候选专利筛选；
+5. CC 范围与全文策略；
+6. 逐项权利要求对照；
+7. HTML 报告预览。
 
-The client may switch modes at any time. Record it at the current safe stopping point and apply it prospectively without redoing completed work.
+客户可随时说“后续连续执行”或“后续每阶段确认”；在当前安全断点记录切换并应用于后续阶段，不重做已完成步骤。
 
-## 2. Technical gaps affecting retrieval units
+## 2. 会改变检索单元的技术缺口
 
-> The material establishes [known relationship], but [decisive material/connection/action/configuration] remains unclear. Is the actual product closer to [A], [B], or currently unknown? I will preserve unknown facts rather than treating them as absent.
+> 现有材料已确认【已知关系】，但【决定性材料／连接／动作／配置】仍不明确。实际产品更接近【A】、【B】，还是目前无法确认？我会把“无法确认”保留为未知，不当作不存在。
 
-Do not separately ask about ordinary synonyms, formatting or details that do not affect risk directions.
+普通同义词、报告格式或不影响风险方向的细节不单独追问。
 
-## 3. Rights types
+## 3. 权利类型
 
-> The candidates include design rights. Should this assessment cover invention/utility-model claims only, or also a separate design-risk review? These rights require separate analysis and will not share one technical claim comparison table.
+> 当前候选中有外观设计／意匠文献。你希望本次只看发明和实用新型，还是也单独检查外观设计风险？这两类权利会分开分析，不会放在同一张逐项权利要求对照表中。
 
-## 4. Degraded recall route
+## 4. 召回路线降级
 
-> [Boolean/other route] did not correctly restrict [countries/statuses], so those results were removed from the formal pool. Semantic searches in [languages] cover [key directions] and have [eligible count] qualifying candidates. Should I continue screening these results and disclose the missing route, or wait for that route to be repaired?
+> 【关键词逻辑检索／其他检索方式】没有正确限定【国家／专利状态】，这部分结果已移出正式候选。中文、英文和【目标市场语言】的语义检索已经覆盖【关键技术方向】，并找到【合格候选数】件符合范围的候选专利。是否先用这些结果继续做候选专利筛选，并在报告中说明缺少的检索方式？如果不接受，我会暂停并等待该检索方式修复。
 
-Do not repeat this question if semantic replacement passes the sufficiency gate and the client already accepted semantic-first execution; record the decision source.
+语义路线已经满足替代充分性门，且客户此前已明确接受语义优先时，不重复询问，只记录决定来源。
 
-## 5. Screening did not return every object
+## 5. 候选专利筛选没有返回全部对象
 
-> Screening received [S] patents and returned [R]; [U] numbers could not be resolved. After version reconciliation and one recovery attempt, [G] still lack explicit processing results. Would you prefer to select from returned candidates while listing these as pending, or wait for the missing results?
+> 候选专利筛选共提交【S】件，返回【R】件，另有【U】件专利号无法识别。核对版本并补查一次后，仍有【G】件没有明确处理结果。你希望先从已返回的候选中选择，并把这【G】件列为待处理，还是等结果补齐后再选？
 
-## 6. Detailed-review scope and evidence depth
+## 6. 逐项检查范围与材料深度
 
-> [M] candidates are available. Please confirm both: (1) review all or a subset; (2) read the selected patents’ complete descriptions before itemwise comparison? In either case, I will verify pending/active rights and the actual claim version used first.
+> 目前有【M】件候选专利可供选择。请一次确认两点：①全部逐项检查，还是只选一部分；②检查前是否需要阅读所选专利的完整说明书？无论怎样选择，我都会先确认这些专利目前是否仍在申请中或有效，并确认本次实际用来比对的权利要求版本。
 
-## 7. Current status or claims not verified
+## 7. 当前专利状态或权利要求版本还不能确认
 
-> For your selected [PN], [current target-country rights / applicable claim version] is still unverified, so formal itemwise comparison must wait. Should I analyze the other patents and list this one as pending, or wait to analyze them together?
+> 你选中的【PN】目前还不能确认【在目标国是否仍然有效／本次应使用哪一版权利要求】。因此暂时不能做正式的逐项对照。你希望先继续分析其他专利，把它列为待确认，还是等资料补齐后一起分析？
 
-## 8. Report confirmation
+## 8. 报告确认
 
-> The HTML preview reflects the agreed scope. Please confirm whether its content can be finalized and choose HTML, Word, PDF, Markdown or a combination. Format-only changes do not repeat searches. Product, country or candidate-scope changes update the affected steps.
+> 网页预览稿已经按本次范围生成。请确认内容是否可以定稿，并选择最终文件格式：网页、Word、PDF、Markdown，或你需要的组合。只改变文件格式不会重新检索；如果修改产品方案、目标国家或候选专利范围，我会从受影响的步骤更新。

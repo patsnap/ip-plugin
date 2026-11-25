@@ -1,90 +1,90 @@
 {
-  "notice": "All materials are synthetic tests, not real patents, reports or MCP receipts. Mock objects use only fields observed in runtime declarations or actual receipts; local rules and stipulated facts are for testing only. Never send test objects to real MCP services.",
+  "notice": "以下全部为合成测试材料，不是真实专利、真实报告或真实MCP回执。mock对象仅使用运行时声明或实际回执中已观察到的字段；本地规则与预设事实只为测试使用。不得将测试对象传给真实MCP。",
   "fixtures": [
     {
       "id": "screening-records",
       "report_type": "FTO",
-      "scope": "Review only final candidate C. Four historical process records are supplied; R2 and R4 have issues, but those processes are outside this review.",
-      "criteria": "US in-force or pending patents potentially corresponding to the target structure enter analysis. Insufficient materials remain pending review; substantive exclusions require reasons.",
+      "scope": "仅检查最终入选丙的结果；附件提供4条历史过程记录，其中R2与R4存在问题，但本次不审核这些过程。",
+      "criteria": "美国有效或待审且与目标结构存在可能对应的专利进入分析；材料不足列为待复核；实质排除应写理由。",
       "records": [
         {
           "id": "R1",
-          "document": "Candidate A",
-          "facts": "Outside the target geography with no target-country family members; the report appendix provides evidence.",
-          "decision": "Exclude",
-          "reason": "Outside US scope; appendix page 1."
+          "document": "候选甲",
+          "facts": "非目标地域且无目标地域家族成员，报告附件提供依据",
+          "decision": "排除",
+          "reason": "不在美国范围，附件第1页"
         },
         {
           "id": "R2",
-          "document": "Candidate B",
-          "facts": "In force in the US; structure X may correspond. Recorded screening conditions match candidate C.",
-          "decision": "Exclude",
-          "reason": "Irrelevant"
+          "document": "候选乙",
+          "facts": "美国有效，报告记载结构X可能对应；已记录筛选条件与候选丙相同",
+          "decision": "排除",
+          "reason": "不相关"
         },
         {
           "id": "R3",
-          "document": "Candidate C",
-          "facts": "In force in the US; structure X may correspond. Recorded screening conditions match candidate B.",
-          "decision": "Include",
-          "reason": "Meets possible-coverage condition."
+          "document": "候选丙",
+          "facts": "美国有效，报告记载结构X可能对应；已记录筛选条件与候选乙相同",
+          "decision": "纳入",
+          "reason": "符合可能覆盖条件"
         },
         {
           "id": "R4",
-          "document": "Candidate D",
-          "facts": "Number unresolved; technical content unavailable.",
-          "decision": "Exclude",
-          "reason": "No data, low risk."
+          "document": "候选丁",
+          "facts": "号码尚未解析，未取得技术内容",
+          "decision": "排除",
+          "reason": "无数据，低风险"
         }
       ],
-      "report_summary": "Final selection: candidate C only. Report section 6 cites only candidate C when discussing structure X.",
+      "report_summary": "最终入选1篇：候选丙。报告第6节仅引用候选丙讨论结构X。",
       "selected_documents": [
         {
-          "id": "Candidate C",
+          "id": "候选丙",
           "reference": "D1",
-          "reported_identity": "US target document; version and current rights status checked.",
-          "confirmed_facts": "Test premise: US target jurisdiction, currently applicable version, and original text includes structure X. This is not a live MCP verification.",
-          "use": "Technical comparison of structure X",
-          "citations": "Final list, table and section 6 all refer to candidate C."
+          "reported_identity": "美国目标文献，已核对版本和当前权利状态",
+          "confirmed_facts": "测试前提确认：美国目标法域、现行适用版本，原文确有结构X；不是本次真实MCP核验",
+          "use": "结构X的技术比对",
+          "citations": "最终清单、表格和第6节均指向候选丙"
         }
       ]
     },
     {
       "id": "final-list-only",
-      "report_type": "Novelty and inventive step",
-      "criteria": "This test checks result applicability only under a public-before-critical-date rule, excluding process review. Critical date: 2024-06-01.",
-      "provided_records": "The complete final list contains D1 and D2, with body citations but no candidate pool or exclusion log.",
-      "engagement": "Evaluate selected results only, not the document screening process.",
-      "request": "Verify applicability and citation mapping of two documents; do not perform a complete patentability search.",
+      "report_type": "新创性",
+      "criteria": "本测试仅按关键日前公开的技术资料检查结果适用性，不评价过程；关键日为2024-06-01。",
+      "provided_records": "完整最终清单有D1和D2共2篇；提供正文引用，无候选池或排除日志。",
+      "engagement": "只评价入选结果，不评价文献筛选过程。",
+      "request": "核查两篇文献的结果适用性及引用对应，不做完整专利性检索。",
       "selected_documents": [
         {
           "id": "D1",
-          "report_title": "Connecting device with structure A",
+          "report_title": "结构甲的连接装置",
           "report_publication_date": "2023-05-01",
-          "report_content": "Includes structure A and is cited against feature A.",
-          "report_location": "Report Table 1 and section 4.1",
+          "report_content": "具有结构甲，作为特征甲的对比资料",
+          "report_location": "报告表1及第4.1节",
           "mock_mcp_response": {
             "response": {
               "bibliography": {
-                "title": "Connecting device with structure A",
+                "title": "结构甲的连接装置",
                 "publication_date": "2023-05-01"
               },
-              "description": "[0010] The device includes structure A."
+              "description": "[0010] 本装置设有结构甲。"
             }
           }
         },
         {
           "id": "D2",
-          "report_title": "Connection method using structure B",
+          "report_title": "采用结构乙的连接方法",
           "report_publication_date": "2023-10-01",
-          "report_content": "Uses structure B and is cited against feature B.",
-          "report_location": "Report Table 1 and section 4.2",
+          "report_content": "采用结构乙，作为特征乙的对比资料",
+          "report_location": "报告表1及第4.2节",
           "mock_mcp_response": {
             "response": {
               "bibliography": {
-                "title": "Connection method using structure B",
+                "title": "采用结构乙的连接方法",
                 "publication_date": "2023-10-01"
               },
-              "description": "[0012] The method uses structure B."
+              "description": "[0012] 本方法采用结构乙。"
             }
           }
         }
@@ -93,90 +93,90 @@
     {
       "id": "analysis-omitted-limitation",
       "report_type": "FTO",
-      "report_location": "Report section 6.2, table row 3",
-      "report_assertion": "Claim 1 only requires clamping force. The target product has clamping force, so every claim element is met.",
-      "scope": "This test covers only that literal comparison. Patent identity, target country, version and date are stipulated, not verified live in this run.",
+      "report_location": "报告6.2节表格第3行",
+      "report_assertion": "权利要求1只要求有夹持力；目标产品有夹持力，所以该权项全部要素满足。",
+      "scope": "仅测试该项字面比对；专利对象、目标国、采用版本和时点已在测试输入中确认，非本次真实核验。",
       "product_evidence": {
-        "location": "Model P2 test report, page 5",
-        "quote": "Clamping force is 20 newtons under the specified operating conditions.",
-        "binding": "The test-report model matches the target configuration."
+        "location": "型号P2测试报告第5页",
+        "quote": "在规定工况下夹持力为20牛顿。",
+        "binding": "测试报告型号与目标配置一致"
       },
       "mock_mcp_response": {
         "response": {
-          "claims": "1. A clamping device comprising jaws, wherein the jaws exert a clamping force of 30 to 40 newtons under the specified operating conditions.",
-          "description": "Embodiment: measure the jaws’ clamping force on the workpiece under the specified operating conditions."
+          "claims": "1. 一种夹持装置，包括夹爪；在规定工况下，所述夹爪的夹持力为30至40牛顿。",
+          "description": "实施方式：在规定工况下测量夹爪对工件的夹持力。"
         }
       }
     },
     {
       "id": "eou-missing-product-fact",
       "report_type": "EoU",
-      "report_location": "Report section 4.3",
-      "report_assertion": "The manual does not mention a temperature sensor, proving the product lacks that component.",
+      "report_location": "报告4.3节",
+      "report_assertion": "手册没有提到温度传感器，证明产品不具备该元件。",
       "product_evidence": {
-        "location": "Model P3 user manual, page 2",
-        "quote": "The device provides automatic temperature control.",
-        "limitation": "No internal drawing, bill of materials, teardown or test data."
+        "location": "型号P3使用手册第2页",
+        "quote": "设备具有自动控温功能。",
+        "limitation": "无内部结构图、物料表、拆解或检测数据"
       },
       "mock_mcp_response": {
         "response": {
-          "claims": "1. A temperature-control device comprising a temperature sensor and a controller connected to it.",
-          "description": "The temperature sensor supplies a temperature signal to the controller."
+          "claims": "1. 一种控温装置，包括温度传感器和与其连接的控制器。",
+          "description": "温度传感器向控制器提供温度信号。"
         }
       }
     },
     {
       "id": "supported-analysis",
       "report_type": "FTO",
-      "report_location": "Report section 6.2, table row 3",
-      "report_assertion": "For the clamping-force limitation only, model P2’s measured 35 newtons lies within claim 1’s 30–40 newton range. That limitation is supported; other elements require separate analysis.",
-      "scope": "Test premises confirm identity, version, jurisdiction and date. Only the force limitation is evaluated, with matching operating conditions.",
+      "report_location": "报告6.2节表格第3行",
+      "report_assertion": "仅对夹持力数值限定，型号P2的35牛顿测量结果落入权利要求1规定的30至40牛顿，故该限定有对应依据；其他要素另行分析。",
+      "scope": "测试输入确认对象、版本、法域与时点适用；只评价夹持力限定，测试工况一致。",
       "product_evidence": {
-        "location": "Model P2 test report, page 5",
-        "quote": "Clamping force is 35 newtons under the specified operating conditions."
+        "location": "型号P2测试报告第5页",
+        "quote": "在规定工况下夹持力为35牛顿。"
       },
       "mock_mcp_response": {
         "response": {
-          "claims": "1. A clamping device comprising jaws, wherein the jaws exert a clamping force of 30 to 40 newtons under the specified operating conditions.",
-          "description": "Embodiment: measure the jaws’ clamping force on the workpiece under the specified operating conditions."
+          "claims": "1. 一种夹持装置，包括夹爪；在规定工况下，所述夹爪的夹持力为30至40牛顿。",
+          "description": "实施方式：在规定工况下测量夹爪对工件的夹持力。"
         }
       }
     },
     {
       "id": "novelty-selected-late-document",
-      "report_type": "Novelty and inventive step",
-      "scope": "Critical date: 2024-06-01. This test uses only publicly available prior art before that date and excludes conflicting applications or other temporal-eligibility exceptions.",
-      "report_location": "Report section 4.2",
-      "report_assertion": "D2 was published before the critical date and can therefore negate novelty as an earlier public document.",
+      "report_type": "新创性",
+      "scope": "关键日为2024-06-01；本测试仅依关键日前已公开现有技术评价，不涉及抵触申请或其他时间资格例外。",
+      "report_location": "报告第4.2节",
+      "report_assertion": "D2已于关键日前公开，因此可作为否定新颖性的在先公开文献。",
       "selected_documents": [
         {
           "id": "D2",
-          "report_title": "Device with structure B",
+          "report_title": "具有结构乙的装置",
           "mock_mcp_response": {
             "response": {
               "bibliography": {
-                "title": "Device with structure B",
+                "title": "具有结构乙的装置",
                 "publication_date": "2025-02-01"
               },
-              "description": "[0018] This device includes structure B."
+              "description": "[0018] 本装置具有结构乙。"
             }
           }
         }
       ],
-      "missing_process": "No exclusion log attached; it is not required within this scope."
+      "missing_process": "未附排除日志，本次范围不要求。"
     },
     {
       "id": "novelty-combination-writing",
-      "report_type": "Novelty and inventive step",
-      "report_location": "Report section 4.2",
-      "report_assertion": "The claim requires features A and B in combination. D1 description [0021] discloses A and D2 description [0018] discloses B; therefore the claim lacks novelty and inventive step.",
-      "scope": "Identity and temporal eligibility are stipulated. Review the supplied excerpts and conclusions; excerpts alone cannot establish that the full texts contain no other disclosures.",
+      "report_type": "新创性",
+      "report_location": "报告第4.2节",
+      "report_assertion": "权利要求要求特征甲与特征乙的组合。D1说明书第[0021]段公开特征甲，D2说明书第[0018]段公开特征乙，因此权利要求不具备新颖性和创造性。",
+      "scope": "对象及时间资格已由测试前提确认。本次核对报告提供的原文片段和结论；不能从片段推断全文绝无其他公开。",
       "selected_documents": [
         {
           "id": "D1",
           "mock_mcp_response": {
             "response": {
-              "description": "[0021] The device includes feature A."
+              "description": "[0021] 装置包括特征甲。"
             }
           }
         },
@@ -184,39 +184,39 @@
           "id": "D2",
           "mock_mcp_response": {
             "response": {
-              "description": "[0018] The device includes feature B."
+              "description": "[0018] 装置包括特征乙。"
             }
           }
         }
       ],
-      "report_analysis": "No specific mapping shows one document fully disclosing A+B; distinguishing features, the corresponding technical problem and motivation to combine are not explained.",
-      "missing_process": "Screening logic and exclusion records are not supplied and are outside review scope."
+      "report_analysis": "没有单篇文献完整公开甲乙组合的具体对应，没有说明区别特征、相应技术问题或组合启示。",
+      "missing_process": "不提供筛选逻辑和排除记录，这些不属于本次审核范围。"
     },
     {
       "id": "synonym-group-flattening",
-      "report_type": "Patent search",
-      "scope": "Review only complete-concept wording and conceptual Boolean relationships, not database syntax or actual hits.",
-      "technical_proposal": "A positioning mechanism using a flexure hinge to guide micro-displacement. Preserve the complete flexure-hinge concept in retrieval.",
+      "report_type": "专利检索",
+      "scope": "仅审核完整概念的用词与概念布尔关系；不评价数据库语法和实际命中。",
+      "technical_proposal": "用柔性铰链引导微位移的定位机构，检索需保留柔性铰链完整概念。",
       "search_elements": [
-        "flexure hinge"
+        "柔性铰链"
       ],
-      "report_location": "Report Appendix A term table and concept logic diagram",
+      "report_location": "报告附录A词表与概念逻辑图",
       "report_terms": [
-        "flexible",
-        "hinge",
-        "articulation",
+        "柔性",
+        "铰链",
+        "关节",
         "joint"
       ],
-      "report_logic": "flexible OR hinge OR articulation OR joint",
-      "report_assertion": "All expanded terms are equivalent; any match satisfies the flexure-hinge concept. The tool’s 0.9 is used as the report’s search-quality score.",
+      "report_logic": "柔性 OR 铰链 OR 关节 OR joint",
+      "report_assertion": "扩展词全部等义，任一命中即可满足柔性铰链概念；采用工具0.9作为本报告检索质量分。",
       "mock_keyword_response": {
         "structuredContent": {
           "search_elements": [
             {
-              "element_description": "flexure hinge",
+              "element_description": "柔性铰链",
               "chinese_keywords": [
-                "flexible",
-                "hinge"
+                "柔性",
+                "铰链"
               ],
               "english_keywords": [
                 "flexible",
@@ -224,12 +224,12 @@
               ],
               "chinese_synonyms": [
                 [
-                  "elastic",
-                  "flexural"
+                  "弹性",
+                  "挠性"
                 ],
                 [
-                  "hinged",
-                  "articulation"
+                  "铰接",
+                  "关节"
                 ]
               ],
               "english_synonyms": [
@@ -256,10 +256,10 @@
     },
     {
       "id": "query-branch-leak",
-      "report_type": "Patent search",
-      "scope": "Review only the supplied conceptual logic diagram. No database execution records exist; do not claim measured validation.",
-      "report_location": "Report Appendix B",
-      "report_intent": "A and B both represent the hinge concept in this test; C represents positioning. Every branch must require positioning.",
+      "report_type": "专利检索",
+      "scope": "只审已提供的概念逻辑图；无数据库执行记录，禁止宣称已实测。",
+      "report_location": "报告附录B",
+      "report_intent": "A和B在本测试语境中均表示铰链概念，C表示定位概念；每个分支都要求定位。",
       "report_logic": "A OR (B AND C)",
       "expected_logic": "(A OR B) AND C",
       "witness": {
@@ -267,46 +267,46 @@
         "B": false,
         "C": false
       },
-      "author_derivation": "No separate derivation chapter exists, but the explicit objective and logic diagram permit reconstruction.",
-      "keyword_receipt": "Test premise: applicable expansion receipts have already been supplied and checked. Do not call again."
+      "author_derivation": "未单列推导章节，可根据明确的目的和逻辑图解释。",
+      "keyword_receipt": "测试前提确认：同语境的扩展回执已提供并核对，本例不重复调用。"
     },
     {
       "id": "query-valid-alternatives",
-      "report_type": "Patent search",
-      "scope": "Review only concept combinations; meanings are stipulated. Exclude database syntax and performance.",
-      "report_location": "Report Appendix C",
-      "report_intent": "A and B are alternative expressions for one clamping concept. C is pneumatic drive and D is electric drive; either implementation should be covered.",
+      "report_type": "专利检索",
+      "scope": "只核对概念组合，词义由测试前提确认；不评数据库语法及效果。",
+      "report_location": "报告附录C",
+      "report_intent": "A和B为同一夹持概念的替代表达。C为气动驱动，D为电动驱动，二者为可替代实现，检索覆盖任一路线。",
       "report_logic": "(A OR B) AND (C OR D)",
-      "report_note": "No separate term table; actual terms can be extracted from the query. No separate derivation chapter.",
-      "keyword_receipt": "An expansion receipt matching the current technology and language is supplied; no repeated call is needed."
+      "report_note": "没有独立词表，从式中可识别实际用词；没有另写推导章节。",
+      "keyword_receipt": "已提供且与当前技术和语言相符的测试拓展回执，不必重复调用。"
     },
     {
       "id": "keyword-tool-failure",
-      "report_type": "Patent search",
-      "scope": "Review terminology and conceptual logic; key concepts are already defined.",
-      "technical_proposal": "A pneumatic or electric actuator with a clamping component.",
+      "report_type": "专利检索",
+      "scope": "审核词表和概念逻辑；关键概念定义已明确。",
+      "technical_proposal": "具有夹持部件的气动或电动执行机构。",
       "search_elements": [
-        "clamping component",
-        "pneumatic drive",
-        "electric drive"
+        "夹持部件",
+        "气动驱动",
+        "电动驱动"
       ],
-      "report_location": "Report Appendix D",
-      "report_intent": "The clamping component is required; pneumatic and electric drives are alternatives.",
-      "report_logic": "\"clamping component\" AND \"pneumatic drive\" AND \"electric drive\"",
+      "report_location": "报告附录D",
+      "report_intent": "夹持部件必须存在，气动和电动是替代路线。",
+      "report_logic": "夹持部件 AND 气动驱动 AND 电动驱动",
       "mock_keyword_response": {
         "isError": true,
         "content": [
           {
             "type": "text",
-            "text": "Simulated keyword-expansion service unavailable."
+            "text": "模拟：关键词扩展服务不可用"
           }
         ]
       },
-      "effect": "Tool failure prevents verification of extra candidate terms but does not prevent identifying that alternatives are incorrectly required simultaneously."
+      "effect": "工具失败不能验证额外候选词，但不影响识别已明确替代路线被同时强制要求。"
     },
     {
       "id": "validator-fixed-field-violation",
-      "scope": "Review only the interface receipt for a query rewrite.",
+      "scope": "只审核检索式改写的接口回执",
       "original_query": "TAC_ALL:(\"flexure hinge\") AND AUTHORITY:(US)",
       "new_query": "TAC_ALL:(\"flexure hinge\") AND AUTHORITY:(CN)",
       "mock_mcp_response": {
@@ -322,7 +322,7 @@
     },
     {
       "id": "cross-tool-counts",
-      "scope": "Compare two interfaces’ counting bases for the same query. No evidence establishes consistent family consolidation or underlying defaults.",
+      "scope": "复核两接口对相同查询的计数口径，未提供同族合并及底层默认值的一致性证据。",
       "query": "TAC_ALL:(\"flexure hinge\")",
       "validator_count": 1316,
       "search_response": {
@@ -333,7 +333,7 @@
           "results": []
         }
       },
-      "notice": "Counts derive from earlier interface measurements but are independent synthetic inputs here. Evaluate count meanings only; do not verify actual retrieved identities from them."
+      "notice": "数量取自先前接口实测，此处是独立合成测试输入；仅评计数含义，不据此核验实际命中对象。"
     }
   ]
 }

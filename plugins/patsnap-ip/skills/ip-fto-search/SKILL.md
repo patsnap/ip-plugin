@@ -1,219 +1,223 @@
 ---
 name: ip-fto-search
-description: "Use for FTO research on a single confirmed product configuration and specified manufacturing, sales or use countries. Bind the separate fto-search service, run official screening, preserve client-selected claim-analysis scope and produce the actual official report plus evidence review. Disclose coverage and product gaps; do not guarantee non-infringement or exhaustive retrieval. Proposed workflow; apply the local MC/Skill/ip-fto-search execution contract. Runtime binding and channel availability remain unverified."
+description: "围绕产品或技术方案检索潜在专利风险，开展初筛、权项比对和报告分析。"
 metadata:
-  version: "2.0.0"
+  version: "1.0.0"
 ---
 
-# FTO Search
+# 防侵权检索
 
-## MCP protocol boundary
+用户提出“FTO、自由实施、侵权风险、上市前专利风险、设计规避前检索、供应链 FTO”时使用本技能。不用于单篇专利摘要、纯统计、查新或最终法律意见。
 
-The runtime MCP protocol is the sole source of truth for inputs, outputs, enums, limits and response structure. This Skill defines business orchestration, decision rules, evidence boundaries and each tool’s indispensable business inputs and handoff sources. It does not duplicate complete schemas, list optional parameters, assume response paths or turn current limits into permanent rules.
+## MCP 协议边界
 
-Read the current protocol before each call and use only declared inputs. Save complete raw receipts and verify completion, object coverage and evidence identity against the actual response structure. Follow runtime changes; parameter changes alone do not require rewriting the Skill unless business semantics also change.
+MCP Tool 的运行时协议是输入、输出、枚举、上限和返回结构的唯一事实源。本 Skill 只定义业务编排、决策规则、证据边界，以及各 Tool 当前不可缺少的业务输入与接力来源；不复制完整 Tool schema、不罗列可选参数、不预设返回路径，不把当前能力上限写成永久规则。
 
-The target server is `patsnap-ip`. Claude uses fully qualified `patsnap-ip:tool_name`; Codex uses the exposed equivalent `mcp__patsnap_ip__tool_name`. Tables below use Claude notation. Do not call same-named tools on other servers.
+每次调用前读取当前 MCP 协议，只使用它声明的输入。调用后保存完整原始回执，按当前返回结构核对完成状态、对象覆盖和证据身份。协议变化时以运行时为准；除非业务语义也变化，不因参数调整改写 Skill。
 
-## Tool routing
+本 Skill 的目标 MCP Server 为 `patsnap-ip`。Claude 使用完全限定名 `patsnap-ip:tool_name`；Codex 使用运行时暴露的等价标识 `mcp__patsnap_ip__tool_name`。下文表格采用 Claude 形式；不得调用其他 Server 上的同名 Tool。
 
-| Stage | A1 tool | Responsibility |
+## Tool 路由
+
+| 阶段 | A1 Tool | 业务职责 |
 |---|---|---|
-| Technical features | `patsnap-ip:extract_technical_features` | Extract traceable technical features |
-| Keyword expansion | `patsnap-ip:expand_patent_search_terms` | Expand Chinese/English keywords, synonyms, related terms and broader terms |
-| Boolean construction | `patsnap-ip:build_patent_boolean_query` | Convert frozen concepts and combination logic into a patent query |
-| Patent retrieval | `patsnap-ip:search_patent` | Execute Boolean, semantic, keyword and structured-scope searches |
-| Patent full text | `patsnap-ip:fetch_patent` | Obtain originals, bibliography and relationship evidence |
-| Lifecycle | `patsnap-ip:fetch_patent_lifecycle` | Verify current claim versions, legal events and ownership records |
-| Screening | `patsnap-ip:screen_patents_for_FTO` | Use the filtering tool for batch screening by technical relevance and possible claim coverage |
-| Claim Chart | `patsnap-ip:build_claim_chart` | Compare claim limitations with target-solution facts item by item |
+| 技术特征 | `patsnap-ip:extract_technical_features` | 从技术方案中提取可追溯的技术特征 |
+| 关键词扩展 | `patsnap-ip:expand_patent_search_terms` | 基于特征元素扩展中英文关键词、同义词、相关术语和上位词 |
+| Boolean 构式 | `patsnap-ip:build_patent_boolean_query` | 将 Skill 冻结的技术概念和组合逻辑转换为专利查询 |
+| 专利检索 | `patsnap-ip:search_patent` | 执行 Boolean、语义、关键词及结构化范围检索 |
+| 专利全文 | `patsnap-ip:fetch_patent` | 取得专利原文、书目和关系证据 |
+| 生命周期 | `patsnap-ip:fetch_patent_lifecycle` | 核对当前权项版本、法律事件及权属相关记录 |
+| Screening | `patsnap-ip:screen_patents_for_FTO` | 使用过滤工具，按技术相关性和权利要求可能覆盖性批量筛选候选 |
+| Claim Chart | `patsnap-ip:build_claim_chart` | 对权利要求限定与目标方案事实做逐项覆盖比对 |
 
-When a required tool is absent or its protocol cannot support a step, record the specific gap and stop the affected dependency chain. Do not guess or fabricate results with another tool. See [Tool usage](references/tool-usage.md).
+缺少某个必要 Tool 或其当前协议无法支持本步业务目标时，记录具体缺口并停止受影响的依赖链，不用其他 Tool 猜测或伪造结果。工具调用与数据接力原则见[工具使用要点](references/tool-usage.md)。
 
-## Required business inputs
+## 每个 Tool 的必要输入
 
-These are indispensable business materials, not a schema. Read the current protocol before calling; map renamed fields to the same materials without inventing undeclared parameters.
+下表只列完成本工作流不可缺的输入。实际调用前仍须读取当前 MCP 协议；参数名变化时按运行时协议映射相同业务材料，不从本表补造未声明参数。
 
-| Tool | Required input | Source and non-substitution rule |
+| Tool | 必要输入 | 来源与不可替代规则 |
 |---|---|---|
-| `patsnap-ip:extract_technical_features` | Complete solution and traceable attachment facts | The input card’s frozen single product/configuration; not an abstract, keywords or query |
-| `patsnap-ip:expand_patent_search_terms` | Same solution and verified original features | Prefer a runtime-compatible direct handoff, preserving one-to-one identity, order and evidence; invent no types, levels, scores or facts. Stop if lossless transfer is impossible |
-| `patsnap-ip:build_patent_boolean_query` | Complete natural-language search intent | Define concept groups, intra/intergroup logic, text fields, languages and classification systems; not an executable field query or jurisdiction/status/date conditions |
-| `patsnap-ip:search_patent` | Defined strategy, corresponding query and frozen scope | Supply only the strategy’s inputs. Pass the builder’s original opaque Boolean reference without adding countries/statuses |
-| `patsnap-ip:fetch_patent` | One identity-verified patent | From real search/Screening receipts with version verification; not a title, snippet or local index |
-| `patsnap-ip:fetch_patent_lifecycle` | Verified identity matching the adopted publication | Not a simplified status, applicant name or another family member |
-| `patsnap-ip:screen_patents_for_FTO` | Frozen solution, actual candidate entry and screening mode | Only retrieved, identity-verified candidates passing the status gate; no fabricated references, hit counts or unretrieved patents |
-| `patsnap-ip:build_claim_chart` | Frozen solution and patents passing client selection, lifecycle and adopted-text gates | Batch in frozen order. No unselected, inactive, withdrawn, status-unknown or text-missing objects; preserve the case chain across batches |
+| `patsnap-ip:extract_technical_features` | 完整技术方案及可追溯附件事实 | 使用输入卡冻结的单一产品／配置；不能只传摘要、关键词或检索式。 |
+| `patsnap-ip:expand_patent_search_terms` | 同一技术方案及上一步经核对的特征原文 | 优先直接接力运行时兼容结构，保持一一对应、原顺序和证据；不补造类型、等级、分数或新技术事实。无法无损接力时停止。 |
+| `patsnap-ip:build_patent_boolean_query` | 完整自然语言检索意图 | 写明概念组、组内／组间逻辑、目标文本字段、语种和分类体系；不传已可执行的字段查询，也不混入法域、状态或日期。 |
+| `patsnap-ip:search_patent` | 明确的检索策略、与之对应的查询内容及冻结范围 | 各路线只提供当前策略需要的内容。Boolean 使用构式 Tool 的原始不透明引用；不能手改引用补国家或状态。 |
+| `patsnap-ip:fetch_patent` | 已核对身份的单件专利 | 身份来自真实检索或 Screening 回执并完成版本核对；标题、片段或本地序号不能替代。 |
+| `patsnap-ip:fetch_patent_lifecycle` | 与采用文献一致且已核对的专利身份 | 不以简化状态、申请人名称或另一同族文献替代。 |
+| `patsnap-ip:screen_patents_for_FTO` | 冻结技术方案、真实候选入口及本次筛选模式 | 候选只来自已取得、核对身份并通过状态门的对象；不传人工拼造的引用、命中数或未取得专利。 |
+| `patsnap-ip:build_claim_chart` | 冻结技术方案及通过客户选择、生命周期和采用文本门的专利名单 | 按冻结顺序分批；不得传未选择、失效、撤回、状态未知或采用文本未取得的对象。多批次保持同一案件链路。 |
 
-Parameter acceptance, tool success and business-stage completion are distinct. See [Tool usage](references/tool-usage.md) for completion criteria and facts each tool cannot replace.
+“参数已接受”“Tool 调用成功”和“本阶段业务完成”必须分开。各 Tool 的完成判据及其不能替代的事实见[工具使用要点](references/tool-usage.md)。
 
-## Scope and entry points
+## 适用范围与接入点
 
-Default path: **input card → features/retrieval units → Chinese/English keyword groups → target-market language supplementation → independent Boolean and semantic recall → keyword convergence within the semantic pool → candidate union → FTO Screening → client chooses CC scope/full-text strategy → Claim Chart → local report.**
+默认链路：**输入卡 → 技术特征与检索单元 → 中英文关键词分组 → 目标市场语言补充 → Boolean 与语义独立召回 → 语义候选池内关键词收敛 → 候选并集 → FTO Screening → 客户确定 CC 范围与全文策略 → Claim Chart → 本地报告。**
 
-| Existing material / objective | Entry |
+| 已有资料／目标 | 接入方式 |
 |---|---|
-| Technical solution | Feature extraction and search planning |
-| Executable query | Verify technical logic/scope, then execute and retrieve |
-| Client patent/application-number list | Exact OR query from original numbers, then identity verification; fetch originals when requested, or enter Screening for FTO |
-| Direct comparison of specified patents | Verify identities/originals, then Claim Chart; disclose Screening was not run |
-| Existing CC | Verify solution, identities, versions and evidence; redo missing/changed objects only |
-| Existing FTO report | List assertions and evidence first; review alone does not authorize a fresh search |
+| 技术方案 | 从特征提取和检索计划开始 |
+| 可执行查询 | 核对技术逻辑与范围后直接执行和取数 |
+| 客户专利号／申请号列表 | 先按原号码建立精确 OR 查询并核对身份；要原文则继续取得全文，要 FTO 则进入 Screening |
+| 指定专利直接比对 | 核对身份与原文后进入 Claim Chart，明示 Screening 未执行 |
+| 已有 CC | 核对方案、专利身份、版本和证据，只重做缺失或变更对象 |
+| 已有 FTO 报告 | 先列主张和证据；纯审核不自动扩大为重检 |
 
-Preserve client-list rows, column names, order and file version. OR numbers without keyword expansion, default family substitution or unauthorized jurisdiction/status/date/assignee/technical restrictions. Count only actually returned, identity-verified objects as imported. Separately disclose blanks, malformed entries, duplicates, unresolved identities, version mappings and out-of-input objects. Original-text delivery comes from the full-text tool, not search abstracts/snippets.
+客户列表导入时，保存原始行、列名、顺序和文件版本。号码之间使用 OR，不扩词、不默认替换同族、不增加用户未授权的地域、状态、日期、申请人或技术条件。只把检索实际返回并完成身份核对的对象记为导入成功；空值、格式异常、重复、未解析、版本映射和输入外对象分别披露。原文交付必须来自全文 Tool，搜索摘要或命中片段不是原文。
 
-## Stage 0: Input card and scope
+## 阶段 0：输入卡与范围
 
-Read the [input card](references/input.md). Fix one product/configuration, assessed activities, manufacturing/sales/use countries, search authorities, assessment date, input/output/search languages, existing assets, CC scope and full-text strategy status.
+先读[输入卡](references/input.md)。锁定单一产品／配置、被评估行为、制造／销售／使用国家、检索受理局、评估时点、输入／交付／检索语言、已有资产、CC 范围和全文策略状态。
 
-Before the first formal business tool call, show a plain-language scope card with product/configuration, manufacturing/import/sales/use activities and respective countries, search authorities, assessment date, evidence cutoff and unresolved items. Reuse supplied answers. Ask one combined question from [Customer prompts](references/customer-prompts.md) for missing items affecting jurisdiction or current rights. The assessment date determines pending/active rights; the evidence cutoff states how current retrieval/evidence is. Do not confuse these dates or automatically use the evidence cutoff as a filing/publication-date filter. Unconfirmed scope permits explicitly labeled geographically unrestricted technical exploration only, without formal jurisdiction searches, Screening or Claim Chart.
+在首次正式业务 Tool 调用前，向客户显示一张平实语言的范围确认卡，至少列出：产品／配置、制造／进口／销售／使用行为及对应国家、检索受理局、评估日期、资料截止日和仍待确认项。已有答案直接填入，不重复询问；缺少会改变法域或当前权利状态的项目时，用[关键提问与补充节点](references/customer-prompts.md)的一条合并问题补齐。评估日期决定在哪个时点判断权利是否仍在申请中或有效；资料截止日说明本报告采用的检索与证据更新到哪一天，两者不得混用，也不得用资料截止日自动限制专利申请／公开日期。范围未确认时只能做明确标注的不限地域技术探索，不进入正式法域检索、Screening 或 Claim Chart。
 
-For referenced attachments, verify actual readability, page/figure locations and consistency with the input card before the first business call. A filename/path/list is not proof of reading. Name missing, undecodable or unmounted attachments and stop dependent feature extraction/formal retrieval. Do not invent attachment facts from summaries or general knowledge. Continue independent work with explicit limited scope.
+输入引用附件时，首次业务 Tool 调用前逐件核对文件实际可读、页／图可定位且提交内容与输入卡一致。只看到文件名、路径或材料清单不等于已读附件；附件缺失、解码失败或内容未挂载时列出具体对象，停止依赖该材料的特征提取和正式检索，不用用户摘要或模型常识补造附件事实。可继续不依赖缺失附件的独立工作，并把范围明确标为有限。
 
-After scope confirmation and before the first formal business call, ask the client to choose **continuous AI execution** or **stage-by-stage confirmation**. Continuous execution advances autonomously within frozen scope, pausing at mandatory gates, scope/product changes, consequential gaps, and client-owned CC-list/full-text decisions. Stage confirmation presents adopted input, adjustment reasons, expected effects and unresolved items before each major next stage: features/units → keywords/plan → retrieval/pool → Screening → CC scope/full-text strategy → Claim Chart → HTML preview. Await actual confirmation; do not create repeated gates for pagination, harmless reads or same-stage protocol retries. Record the mode in the input card. A later switch changes subsequent orchestration without rewriting frozen receipts/evidence.
+范围确认后、首次正式业务 Tool 调用前，再让客户选择执行方式：**AI 连续执行**或**分阶段确认**。AI 连续执行时，在已冻结范围内自主整理和优化各阶段输入，并连续推进；只在现有强制门禁、范围或产品事实将发生变化、关键缺口会改变结果、以及 Screening 后 CC 名单／全文策略等必须由客户决定的节点暂停。分阶段确认时，按“技术特征与检索单元 → 关键词与检索计划 → 检索与候选池 → Screening → CC 范围与全文策略 → Claim Chart → HTML 预览”这些主要阶段，在执行下一阶段前显示采用输入、调整理由、预期影响和仍待确认项，收到客户确认后再继续；不把每次分页、无副作用读取或同阶段内的协议重试拆成重复确认。执行方式写入输入卡，客户可随时切换，切换只影响后续编排，不改写已经冻结的回执和证据。
 
-Ask only at decisions affecting later execution and reuse answers. Rewrite all customer questions, updates, technical/search explanations, candidate reasons, itemwise opinions, conclusions, headers, captions and page text under [Plain language](references/plain-language.md), ahead of internal template terminology. Explain the business meaning in the adopted language first; introduce technical terms parenthetically when needed. [Customer prompts](references/customer-prompts.md) covers scope, technical gaps, degraded routes, rights types, missing screening objects, CC scope and final format.
+只在会改变后续执行的节点提问，并复用用户已经回答的决定。所有面向客户的提问、进度说明、技术描述、检索说明、候选理由、逐项比对意见、结论、表头、图注和页面文案，都按[目标国普通读者的平实表达](references/plain-language.md)重写；这项规则优先于模板中的内部术语。先用目标国语言说清业务含义，必要时再在首次出现处括注专业词。范围、技术缺口、路线降级、权利类型、候选专利筛选缺件、逐项权利要求对照范围和最终格式的用户可见话术见[关键提问与补充节点](references/customer-prompts.md)。
 
-For “Europe/EU/EP/EPO,” distinguish operating countries from document authorities. EP-only retrieval does not cover every European market or replace national-route, unitary-effect or UPC checks. Input language, user location, earlier cases and initial hits do not default scope to CN.
+用户只写“欧洲／欧盟／EP／EPO”时，先区分实际实施国家与文献受理局。仅检索 EP 文献不等于覆盖全部欧洲市场，也不替代国家途径、单一效力或 UPC 状态核验。中文输入、用户所在地、历史案例和首批命中都不能默认为 CN 范围。
 
-Create a local case ID and associate complete requests, receipts, input versions and identities. It is for audit, not automatically an MCP input.
+生成本地案件 ID，将各步完整请求、回执、输入版本和对象身份与该 ID 关联。本地案件 ID 只用于审计，不自动成为 MCP 输入。
 
-## Rules throughout
+## 全流程硬约束
 
-- Version solution, query, scope, candidate window and selections; downstream uses frozen versions only.
-- Separate language from geography; synonym regional preferences do not define patent scope.
-- Execute Boolean, semantic and keyword routes according to their meanings, without score fusion. Use current structured jurisdiction/status/date capabilities outside technical Boolean. Exclusive Boolean that ignores filters is unrestricted technical diagnosis only, excluded from the formal jurisdiction pool; do not edit opaque references to add scope.
-- Default FTO candidates are pending applications and active grants at the assessment date. Expired, terminated, withdrawn, abandoned, rejected, revoked/invalidated rights enter a status-exclusion list, not blocking Claim Charts. Verify unknown status first.
-- Search status filtering reduces noise; it does not replace lifecycle review. Before CC, every selected object requires `patsnap-ip:fetch_patent_lifecycle` for current status and `patsnap-ip:fetch_patent` for adopted text.
-- Establish units/logic before new queries; do not AND every product feature or flatten distinct concepts into OR.
-- Count search hits, retrieved patents, Screening returns and CC selections separately.
-- Identity matched, request submitted, batch success, claims obtained per object, screening processed per object and candidate returned are six distinct states. Successful batches do not prove every input was screened when receipts list candidates only.
-- Nonreturned, unresolved, failed or unselected objects are not low risk.
-- CC covers every client-adopted object. Local verification batches do not authorize a top-N cutoff.
-- Tool judgments are not final legal opinions; verify claims, product facts, versions and lifecycle.
-- Stop affected dependencies for errors, business failures, partial returns or unparseable structures; failure is not an empty result.
+- 保存方案、查询、范围、候选窗口和客户选择的版本；下游只使用已冻结版本。
+- 语言与地域分开。同义词扩展的地区偏好不能代替专利检索范围。
+- Boolean、语义和关键词路线按其业务含义独立执行，不融合分数。法域、法律状态和日期优先使用检索 Tool 当前协议的结构化范围能力，不写入技术 Boolean；若协议规定 Boolean 独占并忽略结构化范围，该 Boolean 路线只能标为未限定范围的技术诊断，不能进入正式法域候选池，也不能手工修改不透明引用补范围。
+- FTO 候选默认只保留评估时点的申请中对象和有效授权权利。失效、届满、终止、撤回、放弃、驳回、被撤销／无效的对象只进入状态排除清单，不进入阻断性 Claim Chart；状态未知先核实，不当作有效。
+- 检索阶段的状态筛选是候选减噪，不代替生命周期复核。客户选中对象在 CC 前必须用 `patsnap-ip:fetch_patent_lifecycle` 确认当前权利状态，并用 `patsnap-ip:fetch_patent` 确认采用文本。
+- 新建查询先确定检索单元与组合逻辑；不把整个产品的全部特征 AND，也不把不同概念全部摊成 OR。
+- 搜索命中数、已取得专利数、Screening 返回数和 CC 采用数分别记录，不互相推算。
+- 专利身份已匹配、请求已提交、批次调用成功、逐件权项已取得、逐件筛选已处理和候选已返回是六种不同状态。批次均有成功回执只证明调用完成；若回执只列候选，不能表述全部输入已筛完。
+- Screening 未返回、未解析、处理失败和用户未选对象不能标为低风险。
+- CC 覆盖客户采用的全部对象；可本地分批便于核验，但不默认只做前若干件。
+- Tool 返回的比对结论不是最终法律意见；必须核对权项原文、产品事实、采用版本和生命周期。
+- Tool 错误、业务失败、部分返回或结构无法解析时停止依赖链，不把失败当空结果。
 
-## Step 1: Organize the solution (local, as needed)
+## Step 1：方案整理（按需，本地）
 
-For difficult materials, images or multiple configurations, organize “use/object—components/relationships—operation/conditions—problem/effect—unknowns/alternatives.” Preserve originals, locations and fact nature. Image interpretation is not verbatim evidence. Use clear text directly without a polishing tool.
+材料难读、有图或存在多个配置时，整理为“用途与对象—组成及关系—工作过程／条件—问题／效果—未知与备选”。保留原件、位置和事实性质；图像解释不冒充原文。清晰文本直接采用，不单设润色 Tool。
 
-## Step 2: Extract features
+## Step 2：技术特征提取
 
-Call `patsnap-ip:extract_technical_features`. Check objects, actions/relationships, conditions, configurations, structures, algorithms, materials, processes and applications against the original. Every adopted feature traces to text or attachment locations. Resolve gaps without inventing features.
+调用 `patsnap-ip:extract_technical_features`。按原方案核对对象、动作／关系、条件、配置、结构、算法、材料、工艺和应用维度。每个采用特征必须能回到方案原文或附件位置；无法追溯、分析未完成或关键维度缺失时先处理缺口，不补造特征。
 
-Do not repeat ordinary cases to obtain identical wording. For release acceptance, regression testing or omission of explicit source facts, rerun exactly the same input at most once and retain both receipts. Select by source-fact coverage, evidence locations and complete entity relationships, not feature count; do not merge strings into fabricated tool output. If no single receipt covers decisive facts, stop and disclose instability.
+普通案件不为追求相同字数而重复调用。发布验收、回归测试，或实际回执遗漏明确原文事实时，用完全相同输入最多复跑一次并保存两份回执。若两次特征数量或拆分不同，按原文事实覆盖、证据定位和实体关系完整性选择采用版本，不按数量多者胜出，也不把两份字符串本地拼成伪 Tool 输出；没有单一回执完整覆盖关键事实时，停在该节点并提出一条具体补充问题或记录 Tool 缺陷。
 
-Maintain `unit ID | source location | feature pointer | object/relationship/condition | domain/core/implementation/support | linked units/incompatible configurations | retrieval purpose`. Independently protectable components, relationships, methods, materials and algorithms are independent risk directions; scores do not determine globally mandatory features.
+另建本地检索单元表：`单元ID｜原文位置｜技术特征定位｜对象/关系/条件｜领域/核心/实现/支撑｜关联单元/互斥配置｜检索用途`。可独立保护的部件、关系、方法、材料或算法分成独立风险方向，不以工具分数自动判定全局必选特征。
 
-## Step 3: Expand keywords
+## Step 3：关键词扩展
 
-Call `patsnap-ip:expand_patent_search_terms`. Prefer direct, runtime-compatible transfer of actual extracted elements. If upstream returns strings and downstream declares open objects without internal required fields, use a **lossless handoff mapping**: put each original feature in the service-verifiable minimal key `element_description`, preserving one-to-one identity, order and source evidence. Save mapping separately from both raw receipts. Do not guess a generic `description` key or invent element types, keyword levels, relevance, classes or technical facts. Future explicit runtime fields govern; stop if no field can carry original text.
+调用 `patsnap-ip:expand_patent_search_terms`。优先将 `patsnap-ip:extract_technical_features` 实际返回且与当前下游协议兼容的特征元素直接接力。若上游只返回字符串特征、下游协议将元素声明为开放对象且未列内部必填字段，可使用**无损握手映射**：逐项以当前服务可验证识别的最小键 `element_description` 承载上游特征原文，保持一一对应、原顺序和原文证据，映射记录与两端原始回执分存。不得改用泛化的 `description` 猜键，也不得在握手层补写元素类型、关键词等级、相关度、分类号或新技术事实。若协议以后明确声明元素内部字段，则以新协议为准；没有可承载原文的字段时仍停止本链路。
 
-Verify each input yields nonempty keywords/synonyms aligned to its original index. `success=true` with entirely empty expansion or lost element descriptions is `keyword_handoff_failed`, not completion. Retry the same lossless mapping at most once. Missing optional element/keyword types or relevance are “not provided”; do not use them to delete, weight or construct queries. Their absence alone does not fail an otherwise complete original-text/term handoff.
+调用成功后必须核对每个输入元素是否返回非空关键词或同义表达，并按上游索引对回。`success=true` 但全部扩展为空，或元素描述在接力中丢失，均记为 `keyword_handoff_failed`，不是可继续使用的扩词完成结果；同一无损映射最多重试一次。元素类型、关键词类型或相关度为空时记为“未提供”，不得用于类型驱动删词、加权或构式，但只要原文身份和实际词表完整，不再把这些可选分析字段的空值单独当作整步失败。
 
-Check meanings, roles and provenance. Expanded terms do not become product facts. OR synonyms inside one concept, AND distinct concepts necessary to a retrieval unit, and normally OR independent risk directions. Do not combine independent roots into invented exact long phrases.
+核对扩展词与原特征的含义、实体角色和来源对应；扩展词不写回产品事实。同义词在同一概念内 OR，同一检索单元中构成技术含义的不同概念才 AND，独立风险方向之间默认 OR。不把独立根词合造为原文不存在的精确长短语。
 
-## Step 3.5: Target-market language supplementation (local)
+## Step 3.5：目标市场语言补充（本地）
 
-After freezing the expansion receipt, localize adopted roots, synonyms, broader terms, decisive objects/actions/relationships and semantic centers only for confirmed markets and search languages. EP routes prioritize English/German/French; supplement actual countries using local languages and verified index coverage. Do not infer geography or generate regional language sets before confirmation.
+`patsnap-ip:expand_patent_search_terms` 完成并冻结原始回执后，若已确认目标市场和优先检索语言，再由 AI 对采用的根词、同义词、上位词、决定性对象／动作／关系及语义中心句做目标语言本地化。EP 文献路线优先核对英／德／法表达，具体目标国再按本国语言和可验证的索引覆盖补充；未确认地域时不推断或批量生成地区语言。
 
-Save translations separately as `source_element | source_term | source_language | target_language | translated_term | back_translation | technical_role | review_status`; do not overwrite receipts/product facts. Check back-translation, roles, inflections, patent usage and ambiguity. Unchecked literal translations, transliterations or ambiguous terms cannot enter formal queries. OR multilingual variants within a concept; AND distinct relationship concepts.
+目标语言词另存 `source_element｜source_term｜source_language｜target_language｜translated_term｜back_translation｜technical_role｜review_status`，不写回 Tool 原始回执或产品事实。逐项检查回译、实体角色、单复数／词形、专利常用表达和歧义；逐字翻译、音译或多义词未经核对不得进入正式查询。同一概念的多语表达在组内 OR，构成技术关系的不同概念仍按检索单元 AND。
 
-Freeze the adopted translated lexicon, include it in the Boolean builder’s natural-language intent and create independent target-language semantic QuerySpecs from the same facts. Record languages actually executed; a report-only translated list is insufficient. See [Query construction](references/query-construction.md).
+冻结采用的目标语言词表后，将其合入 `patsnap-ip:build_patent_boolean_query` 的自然语言意图，并为语义路线生成相同事实基础上的独立目标语言 QuerySpec。记录 Boolean 与各语义路线实际采用的语言，不能只在报告中列出译词却未执行对应检索。
 
-## Step 4: Boolean and semantic retrieval
+具体从特征到检索式的规则见[构式规则](references/query-construction.md)。
 
-Freeze a search plan. Technical baseline:
+## Step 4：Boolean 与语义检索
+
+先冻结本地检索计划。技术基线为：
 
 ```text
-K = K1 OR K2 OR ... (independent risk directions)
+K = K1 OR K2 OR ...（独立风险方向）
 Q_tech = (D AND K) OR (C_cls AND (D OR K))
-SCOPE = confirmed jurisdictions/dates + default pending/active-grant rights
+SCOPE = 已确认的法域和日期＋FTO 默认申请中／有效授权状态范围
 ```
 
-With unconfirmed scope, run technical exploration only; do not default to CN or replace “global” with a finite country list. Classification is a technically constrained supplementary branch, not a global AND gate or bare classification route.
+未确认范围时只执行技术查询，不默认 CN，也不把“全球”改写成有限国家。分类号是受技术词约束的补召回分支，不是全局 AND 门槛或裸分类召回。
 
-Send frozen terms, intra/intergroup logic, text fields and classification systems to `patsnap-ip:build_patent_boolean_query`, excluding jurisdictions/statuses/dates from technical Boolean. Verify generated logic, phrases, classifications and languages. Correct drift through natural-language intent, without editing opaque references.
+将冻结计划中的词组、组内／组间逻辑、文本字段和分类体系交给 `patsnap-ip:build_patent_boolean_query`；法域、法律状态和日期不交给构式 Tool 编入技术 Boolean。核对工具实际生成的布尔语义、短语、分类体系和语种；意图漂移时修订自然语言意图，不手改不透明引用。
 
-Read strategy binding before `patsnap-ip:search_patent`. Submit confirmed authorities and pending/active-grant scope with Boolean only if runtime supports that combination. If Boolean is exclusive, filters are ignored or receipts do not prove filtering, execute the technical reference unchanged and mark `boolean_scope_unsupported`. Use it for expression diagnosis/terms only; unrestricted results cannot enter the formal jurisdiction pool. Never append authority/status/date fields to `BOOLEAN_QUERY_ID` or infer scope from `success`. Build the formal pool through routes actually supporting structured scope; enable combined Boolean/scope only after verifiable runtime support returns.
+使用 `patsnap-ip:search_patent` 前先读取当前策略绑定规则。若协议允许 Boolean 与结构化范围组合，才把已确认受理局、申请中和有效授权范围随该路线提交；若 Boolean 是独占策略、过滤参数会被忽略或回执未证明过滤生效，则只按协议原样执行技术 Boolean，并立即标为 `boolean_scope_unsupported`。该回执可用于检查技术式和发现术语，但其全球／未限定范围结果不得并入正式法域候选池。不得向不透明 `BOOLEAN_QUERY_ID` 追加 `AUTHORITY`、状态或日期字段，也不得因调用返回 `success` 就认为范围已落实。正式法域候选池须由当前协议实际支持结构化范围的语义、关键词或过滤路线形成；以后协议若恢复可核验的 Boolean＋范围组合，再按新协议启用。
 
-For scoped routes, verify actual `jurisdiction` and `legal_status` for every returned object on every page. A requested filter alone proves nothing. Exclude `jurisdiction_filter_leak` and `status_filter_leak`; missing/unknown fields await verification.
+对任何声称已带范围的路线，不能仅凭请求中出现过滤字段宣称范围生效：逐页核对每个返回对象的实际 `jurisdiction` 和 `legal_status`。目标受理局之外的对象记为 `jurisdiction_filter_leak`，不属于申请中／有效授权的对象记为 `status_filter_leak`，两者均排除出正式召回池；字段缺失或含义未知的对象记为待核。
 
-Leaks do not consume the frozen eligible-candidate window. Continue paging until exhaustion, runtime boundary or the frozen eligible count. If any nonempty page consists entirely of out-of-jurisdiction objects, mark `route_degraded`, save the page and stop blind expansion; enlarging windows cannot mask systematic leaks. Disclose an incomplete eligible window at the boundary. Unsupported filters, unclear enums or missing scope fields permit technical exploration only; mark candidates “scope unverified” and exclude them from formal recall/Screening until verified. Distinguish zero hits, syntax errors and failures; do not remove scope or OR everything to force hits. Deduplicate identities across branches, preserving sources, ranks and actual windows; overlapping counts are not additive union totals.
+泄漏件不计入既定候选窗口。出现少量泄漏时继续分页，直至原始结果耗尽、达到运行时可达边界或取得已冻结数量的合格对象；若任一非空页全部落在目标受理局之外，说明该路线的地域过滤没有实际生效，立即把该路线标为 `route_degraded`，保存该页后停止盲目扩页，不用扩大窗口掩盖系统性泄漏。边界内仍不足时披露合格候选窗口未完成。协议不支持、枚举含义不明或返回范围字段缺失时，允许技术探索继续，但候选标“范围未核”，核实前不进入正式 FTO 召回池和 Screening。正常零命中、语法错误和服务失败分开；不靠删除范围或把所有词改为 OR 凑非零。分支独立执行时，按完整专利身份去重并保留来源、原始排名和实际可达窗口；不把重叠分支的命中数相加当作并集总数。
 
-Use [Semantic retrieval](references/semantic-retrieval.md) for independent single-center natural-language routes. Union with Boolean by identity only. Generate from product facts, features and receipted public-patent probes, never GT, missed titles, target patent numbers or client conclusions. Runtime governs windows/paging.
+语义路线按[语义召回策略](references/semantic-retrieval.md)生成单中心自然语言查询，逐条独立执行，与 Boolean 只做身份并集。查询只能由方案事实、特征和有回执的公开专利探针生成；GT、漏检标题、目标专利号和客户结论不参与生成。取数窗口和分页能力以当前 MCP 协议为准。
 
-Only after broad semantic recall and pool freezing, softly converge inside that fixed pool using object + decisive relationship + context phrases. New whole-database `semantic+keyword` hits are not convergence. Use `patsnap-ip:search_patent` for reranking only when PN/ID constraints verifiably restrict the original pool; otherwise locally tier traceable titles/abstracts/claim snippets. Missing words mean unknown/lower priority, not deletion based on abstract silence. Preserve original per-route ranks, resulting tiers and unsubmitted remainder. For resource-limited screening, use frozen tiers and round-robin routes within tiers.
+语义宽召回完成并冻结候选池后，才在该固定池内使用“对象＋决定性关系＋场景”的关系短语做软收敛。不得把全库 `semantic+keyword` 的新增结果称为收敛；运行时协议能以 PN／ID 明确约束到原池时，才可用 `patsnap-ip:search_patent` 对固定池重排，否则在本地按可回查的标题、摘要或权项片段分层。缺词只记未知或降低优先级，不因摘要未写某词就删除候选；保留每条语义路线的原始排名、收敛后层级和未送筛余集。实际并集超过送筛资源时，按已冻结的层级和同层路线轮转形成送筛池。
 
-Before convergence, show actual broad semantic sentences, relationship phrases by language, pool count/version, scope, convergence method and retention rules. Hashes/opaque references alone are insufficient. Provide a downloadable long PN/ID list with count/version/link. This is reviewable disclosure, without a repeated confirmation gate when scope is already decided.
+执行收敛前向客户显示明文输入：宽召回语义原句、按语言分组的关系短语、输入候选池数量与版本、适用范围、收敛方法及保留规则。正文不只显示散列、不透明引用或内部字段；完整 PN／ID 清单过长时提供可下载清单并在正文显示数量、版本和链接。该展示用于核对，不在客户已确定范围时新增重复确认门。
 
-Boolean, semantic and independent keyword searches are recall routes; within-pool keyword convergence is fixed-pool reranking. Routes need not all succeed. Degrade routes with failed jurisdiction/status filtering, zero eligible objects or service errors and exclude their ineligible results completely. Continue to pooling/Screening only if semantic routes pass the [replacement-sufficiency gate](references/semantic-retrieval.md), disclosing the missing route without claiming equivalent Boolean coverage from semantic counts. If the gate fails and continuation materially narrows scope, ask the client via [Customer prompts](references/customer-prompts.md) to continue limited routes or wait.
+Boolean、语义和独立关键词查询是召回路线；语义池内关键词收敛只是固定池重排，两者不能混称。各召回路线不要求全部成功才能继续。某一路出现地域／状态过滤失效、零合格对象或服务失败时，将该路线标为 `route_degraded` 并完全排除其不合格结果。若语义路线已通过[语义召回策略](references/semantic-retrieval.md)的替代充分性门，可继续形成候选池和 Screening，同时披露缺失路线；不能把语义命中数反推 Boolean 已被等价替代。未通过充分性门且继续会实质缩小客户范围时，使用[关键提问与补充节点](references/customer-prompts.md)让客户选择继续有限路线或等待补齐。
 
-Read [Query iteration](references/query-iteration.md) only when optimization is requested. Fixed-sample metrics are local diagnostics, not database recall.
+用户明确要求调优时再读[查询迭代规则](references/query-iteration.md)。固定样本指标是本地诊断，不是数据库真实查全率。
 
-## Step 5.5: Status gate and other field filters
+## Step 5.5：状态门与其他字段初筛
 
-Before Screening, reconcile requested status-filter count / raw returned count / pending-or-active passes / `status_filter_leak` / status-unknown count. Move evidenced expired, withdrawn, abandoned, rejected, revoked/invalidated objects to status exclusions. Unknowns await verification and do not enter formal Screening or become low risk. Other assignee/classification/authority/date conditions follow confirmed client scope only. Distinguish hard restrictions from priority groups; retain the remainder and do not treat missing metadata/inference as nonqualification. Use current supported structured capabilities. See [Scope and selection](references/screening-selection.md).
+送入 Screening 前先对账“状态过滤请求数／原始返回数／申请中或有效授权通过数／`status_filter_leak` 数／状态待核数”，再执行申请中／有效授权状态门：有据失效、撤回、放弃、驳回、被撤销／无效或届满的对象移入状态排除清单；状态未知保留待核，核实前不送入正式 Screening，也不标低风险。其他申请人、分类、受理局或日期条件仍只按客户已明确的范围执行。区分硬限定与优先分组；优先分组不删除余集，元数据缺失和 AI 推断不自动判为不符合。条件仅通过当前检索协议明确支持的结构化能力落实。详见[范围与选择](references/screening-selection.md)。
 
-## Step 6: FTO Screening
+## Step 6：FTO Screening
 
-Submit retrieved, identity-verified, status-gate-passing search/list candidates to `patsnap-ip:screen_patents_for_FTO` under current runtime protocol. This workflow uses that filtering tool, without switching to other same-named services or substituting `field_analysis`, search ranks or local relevance scores. PN-list inputs do not inherit previous country/status/date filters; exclude inactive objects beforehand. Do not pass builder references as raw screening queries or fabricate absent fields.
+将检索或客户列表导入实际取得、核对身份并通过状态门的候选交给 `patsnap-ip:screen_patents_for_FTO`，调用方式以当前 MCP 协议为准。本 Skill 的 Screening 只使用该过滤工具，不因环境中存在其他同名入口而切换，也不以 `field_analysis`、搜索排序或本地相关性打分替代。PN 列表入口不继承检索阶段的国家、状态或日期条件，不能依赖 Screening 再剔除失效对象。不把构式 Tool 的不透明引用冒充筛选所需的原始查询，也不补造协议未返回的字段。
 
-After Skill/tool/service changes, run controlled [Screening acceptance](references/screening-acceptance.md). Correct binding alone does not verify useful ranking: a frozen graded list must show relevant items before noise, with invalid numbers, version mappings, mode confirmation and processing evidence checked separately. Small-list ordering does not establish production recall or legal risk.
+Skill 安装、Tool 协议或服务版本变化后，先按[Screening 绑定与测试列表验收](references/screening-acceptance.md)完成一次受控验收。绑定通过只证明调用到了正确 Tool；还须用冻结的分级列表验证相关对象前置、噪音后置，并分别核对无效号、版本映射、模式确认和处理证据。排序通过只证明该小列表存在正确重排，不等于生产查全率或法律风险判断已验证。
 
-### Fixed endpoint and mode handshake
+### Screening 固定端点与模式握手
 
-On first use/protocol change, record protocol confirmation, request acceptance, server mode evidence and processing reconciliation under [Tool usage](references/tool-usage.md), then controlled acceptance. Acceptance is not actual-mode confirmation. Without server evidence, mark mode unconfirmed; an explicit mismatch stops the dependent chain. Timing, count and shape cannot establish mode.
+首次调用或协议变化后，按[工具使用要点](references/tool-usage.md)记录协议确认、请求接受、服务端模式凭据和对象处理对账，并按[Screening 绑定与测试列表验收](references/screening-acceptance.md)做受控验证。请求被接受不等于实际模式已确认；无服务端凭据时标为模式未确认，明确模式不符时停止依赖链。不得用耗时、返回数量或结果形状推断实际模式。
 
-Separate batch-call status from object-processing completeness. Reconcile submitted, explicitly processed, returned, unresolved, nonreturned, out-of-input, substituted and many-input-collapsed objects. Only explicit per-object statuses or verifiable equivalent details prove processing. If only candidates are returned, the input-minus-returned difference is “processing status not obtained,” not unavailable patent, screened out, irrelevant or low risk.
+将批次调用状态与对象处理完整性分列。核对实际提交对象、明确已处理对象、返回候选、未解析、未返回、输入外对象、版本替换和多输入折叠。只有当前回执明确提供逐件状态或可核验的等价处理明细时，才称相应输入已完成 Screening；仅返回候选清单时，输入与返回候选的差集记为“处理状态未取得”，不写成未获取专利、已筛除、低相关或低风险。
 
-For changed returned PNs or unexplained nonreturns in list mode, produce rowwise identity reconciliation. A/B version folding requires the same application number or verified relationship evidence for the same application text; titles, family proximity and rank alone do not suffice. Record input PN, returned PN, application/relationship evidence, adopted version and source. Missing server reasons remain “not returned.” Do not resubmit evidenced mappings. For unexplained differences, run at most one compensating subbatch with the same solution/mode/input version. Add recovered objects with `reconciliation` provenance without altering original ranks. Remaining nonreturns stay “processing status not obtained.” Ask continue/wait only if this gap changes the client’s next scope; no endless retries.
+PN 列表模式存在“输入与返回 PN 不同”或“未返回且不在未解析集合”的对象时，先生成逐行身份对账表。只有申请号相同，或有可核验关系证据明确指向同一申请文本版本时，才记录 A/B 等版本折叠；标题相似、同族相关或排序位置不能单独证明映射。映射表至少列输入 PN、返回 PN、申请号／关系证据、采用版本和核验来源；Tool 未给映射原因时明确写“服务端理由未返回”。有据映射到已返回对象时不重复提交。只对仍无法解释的差集做一次相同方案、模式和输入版本的补偿子批。补偿返回的对象以 `reconciliation` 来源加入目录，不插入或改写原批排序；仍未返回的对象保持“处理状态未取得”。只有该缺口会改变客户下一步范围时才按[关键提问与补充节点](references/customer-prompts.md)询问继续或等待，不做无上限重提。
 
-For each candidate verify adopted version, claim basis, missing product facts, rationale stability and processing completeness. Missing tool content remains unavailable. Even all-success batches mean “all batch receipts obtained,” not every input processed.
+对每个返回候选核对采用文献版本、权项依据、缺失产品事实、理由稳定性和处理完整性；Tool 未提供的内容记为未取得，不本地伪造。即使所有计划批次均成功，也只能写“全部批次回执已取得”，不能据此写“全部输入已逐件处理”。
 
-Screening order is this receipt’s candidate priority, not a stable risk score. Do not repeat production inputs to cherry-pick more candidates. Acceptance/fault reruns compare identity sets, order and version mappings; record changes as `screening_rank_unstable` and preserve all receipts. Do not present one chosen order as certain global risk ranking or a random multi-run union as one complete Pro result.
+Screening 顺序只作为本次回执中的候选优先级，不作为稳定风险分数。生产案件不为获得更多候选而重复相同请求后择优合并；因验收或故障复跑相同输入时，比较返回身份集合、顺序和版本映射，结果变化记为 `screening_rank_unstable` 并保留各次回执。不得挑选其中一次排序冒充确定的全局风险顺序，也不得把多次随机并集写成一次 Pro 完整结果。
 
-## Step 6.5: Client selects CC scope and full-text strategy
+## Step 6.5：客户确定 CC 范围与全文策略
 
-Once receipts are parseable, handshake state is disclosed and the full catalog is frozen, obtain two independent choices. With `pro_requested_unverified`, label mode unconfirmed; with `mode_mismatch`, remain blocked. No server echo means no “Pro confirmed” claim.
+Screening 候选回执可解析、握手状态已披露且完整候选目录固定后，让客户明确两项独立决定。`pro_requested_unverified` 时须把目录标为模式未确认；`mode_mismatch` 时停留在待核状态。未取得服务端模式回显时，不把候选回执表述为“Pro 已确认”。
 
-Keep full requests/raw receipts as audit evidence, without dumping them in conversation/report body. Deliver a lightweight selectable catalog first. Fetch full text/lifecycle and run CC only for adopted objects. Unselected objects retain identity, original rank and receipt location without automatic detailed treatment. Label order “this Screening order,” not infringement risk. Show observed same-input ranking instability.
+完整 Screening 请求与原始回执只保存为审计证据，默认不在对话或报告正文中全量展开。先交付可选择的轻量候选目录；只对客户确认采用的对象补取全文、生命周期和执行 Claim Chart。未选对象保留身份、原始顺序和回执定位，但不默认生成逐件详细内容。目录中的顺序明确标“本次 Screening 顺序”，不是侵权风险评分；若已观察到同输入复跑顺序变化，同时显示稳定性缺口。
 
-1. All candidates or a conditionally/manually selected subset for CC;
-2. Whether to obtain and analyze complete descriptions before CC.
+1. 全部候选进入 CC，还是按条件或手动选择部分；
+2. CC 前是否取得并分析所选专利的说明书全文。
 
-Without the client decision, do not call Claim Chart or automatically fetch candidate full text. No default all/top-N, silence or timeout. `scripts/select_cc.py` freezes catalogs/selections/batches and validates local records; it does not define MCP or authenticate real human approval.
+没有客户决定不调用 Claim Chart，也不自动为候选补取全文；不默认全部、不默认前若干件、不用沉默或超时代替选择。使用本地 `scripts/select_cc.py` 可以冻结目录、客户选择和分批；该脚本只校验本地记录，不定义 MCP 协议，也不认证真人授权。
 
-If design rights appear and inclusion is unresolved, ask for technical invention/utility-model claims only or a separate design-right track. Do not mix designs into ordinary technical Claim Charts or silently delete them for lacking technical claims.
+候选出现外观设计／意匠等非技术权利类型，而输入卡未明确是否纳入时，先让客户选择“只评估发明／实用新型技术权利要求”或“另建外观设计风险轨道”。不得把外观设计当普通技术权利要求送入同一 Claim Chart，也不得因缺少技术权项而静默删除。
 
-Selection is a scope decision, not status verification. Obtain lifecycle and full-text receipts per selected object before final batches. Move inactive/withdrawn selections to evidenced exclusions; unknown status or missing text blocks CC. A target-jurisdiction pending/active family/application alternative requires verified new identity, without silent substitution.
+客户选择是范围决定，不是法律状态确认。对选中对象逐件取得 `patsnap-ip:fetch_patent_lifecycle` 和 `patsnap-ip:fetch_patent` 回执，再生成最终 CC 批次。客户选中但已失效／撤回的对象转入“状态排除”并披露依据；状态未知或采用文本未取得时停在待核，不调用 Claim Chart。同族或同申请另有目标法域的有效／申请中对象时，必须核验身份后作为新采用对象，不静默替换。
 
-Lifecycle event names/numbers for invalidation, reexamination, limitation, correction or litigation without decisions, maintained scope and effective claims imply `current_claims_unverified`. An Active label cannot resolve this. Do not use original grant claims in blocking CC without evidence of claims effective at assessment time.
+生命周期回执若只给出无效、再审、限制、更正或诉讼事件名称／编号，而未给决定结论、维持范围及对应现行权项文本，记为 `current_claims_unverified`。简化状态仍为 Active 不能解除该缺口；不得直接沿用原授权文本进入阻断性 CC，除非另有可核验证据确定评估时点实际生效的权项。
 
-## Step 7: Claim Chart
+## Step 7：Claim Chart
 
-Call `patsnap-ip:build_claim_chart` only on the frozen list passing current-status/adopted-text gates. Active grants use effective granted/corrected/reexamined/limited claims. Pending applications use latest available published or sourced amended claims, disclosing potential changes. If only a publication draft is available without proof it is current, make a bounded pending comparison without calling it current claims. Simplified status, risk or `include_in_report` fields cannot replace lifecycle eligibility, selection or adopted text.
+只对已通过“当前权利状态＋采用文本”门的冻结名单调用 `patsnap-ip:build_claim_chart`，具体输入与回执结构以当前 MCP 协议为准。有效授权对象使用评估时点实际生效的授权／更正／再审／限制后权项；申请中对象使用可取得的最新公开申请权项或有来源的最新修改权项，并明示未决权项仍可变化。只有公开申请稿而无法证明其为当前文本时，可作有边界的申请中比对，不写“当前权项”。Claim Chart 回执中的简化状态码、风险级别或 `include_in_report` 只按其运行时定义使用，不能反向替代生命周期资格、客户选择或采用文本门。
 
-Save each raw batch receipt and verify results/errors for every object. Partial returns, timeouts and mismatched identities stop dependent batches; IDs/download links do not prove analysis completion. For full-text enhancement first read [Full-text review](references/fulltext-review.md). Follow [Strong-evidence CC](references/claim-chart.md) for original claims, dependencies, complete translations, product evidence, interpretation conditions, unknowns and local opinions. Separate tool results from local legal/technical review.
+每批保存完整原始回执，核对本批全部采用对象都有完成结果或明确错误；部分返回、超时或身份错位时停止依赖批次，不把回执标识或下载链接当作分析完成。客户选择全文增强时先读[全文分析](references/fulltext-review.md)。按[强证据 CC](references/claim-chart.md)保留权项原文、从属关系、完整翻译、产品证据、解释条件、未知和本地复核意见。Tool 结果与本地法律／技术意见分列。
 
-Before report adoption, apply the label–row–conclusion consistency gate and inference-label review in [Strong-evidence CC](references/claim-chart.md). Unknown product facts, unsupported equivalence or unresolved interpretation preclude definite exclusion. Risk labels/numeric codes do not replace lifecycle checks.
+报告采用前按[强证据 CC](references/claim-chart.md)执行标签—逐行—结论一致性门和推理标签复核。逐行仍有产品事实未知、无据等同或解释待核时，不采用确定性排除结论；风险标签和数字状态也不能替代生命周期门。
 
-## Step 8: HTML preview and final delivery
+## Step 8：HTML 预览与最终交付
 
-Organize the [unified report](assets/report-template.md) and first generate a self-contained customer HTML preview with [HTML preview template](assets/html-report-preview.html). Apply [Plain language](references/plain-language.md) to headings, notes, headers, statuses, conclusions and questions, understandable on first reading. Explain internal codes/acronyms at first use, then use plain terms. Include scope/facts, features, retrieval units/logic, keywords/synonyms/classes, Boolean/semantic routes and scopes, retrieval/screening count reconciliation, selections, itemwise CCs, conclusions and evidence gaps. Reference full receipts by location without repeating them.
+按[统一模板](assets/report-template.md)组织内容，先使用 [FTO HTML 预览模板](assets/html-report-preview.html)生成自包含 HTML 客户预览版。全部标题、说明、表头、状态、结论和提问遵循[平实表达规则](references/plain-language.md)，以目标国普通读者能一次读懂为准；内部代码和英文缩写只在首次出现时给出本地化解释，随后使用易懂名称。HTML 必须显示范围与事实、技术特征、检索单元与组合逻辑、关键词／同义词／分类号、关键词逻辑检索与语义路线及范围、检索与候选专利筛选数量对账、客户选择、逐件权利要求对照、结论与待补证。完整工具原始回执仍只引用定位，不在 HTML 重复展开。
 
-Create “View original” patent links only from accessible URLs actually returned by search/full-text tools or verified official evidence. Do not construct URLs from PNs. Otherwise show “Original link not obtained,” keeping local evidence anchors/source locations.
+专利号只在 `patsnap-ip:search_patent`／`patsnap-ip:fetch_patent` 或已核验的官方证据实际返回可访问 URL 时生成“查看原文”链接；不按 PN 自行拼接网址。无可核 URL 时显示“原文链接未取得”，但仍保留本地证据锚点和来源定位。
 
-Deliver HTML as a content-review draft and ask the client to confirm content and choose HTML, Word, PDF, Markdown or an explicit combination. Without confirmation label it preview, not final. Changes to facts, jurisdictions, queries, selections or evidence strategy restart affected nodes and produce a new preview. Layout/format changes alone do not rerun tools.
+先把 HTML 作为内容确认稿交给客户，让客户确认内容并选择最终交付为 HTML、Word、PDF、Markdown 或明确组合。没有确认时只标“预览稿”，不标最终报告。客户修改方案事实、法域、查询、候选选择或证据策略时，从受影响节点重做并生成新预览；只改版式或交付格式时不重跑 Tool。
 
-Before final generation read [Report structure and formatting](references/report-format.md) for cover, portrait/landscape sections, overview, per-patent CC, appendices and pagination. Render and inspect every Word page with available document capabilities; verify print layout for PDF. Cite solution, final queries/scope, actual windows, complete screening receipts, choices, all CC batches, full-text and lifecycle evidence.
+最终格式生成前读取[报告结构与版式](references/report-format.md)，统一封面、纵横向分节、概览、逐件 Claim Chart、附录和分页。用户选择 Word 时使用可用文档能力生成并逐页渲染核验；选择 PDF 时必须核对打印版布局。报告引用采用方案、最终查询和范围、实际候选窗口、Screening 完整回执、客户选择、全部 CC 批次、全文和生命周期证据。
 
-Identify unsearched, unretrieved, nonreturned, unselected, CC-failed and evidence-pending objects. Selected CC completion is not worldwide/product clearance or completion of all search hits.
+明确未检索、未取得、Screening 未返回、用户未选、CC 失败和证据待核对象。不把“全部 CC 完成”扩写成全部检索命中、全球或全部产品已放行。
 
-## Failure and recovery
+## 失败与恢复
 
-- Record absent tools/unsupported protocol and stop affected chains without cross-stage substitution.
-- Retry harmless reads once. For unknown Screening/CC state, inspect saved receipts before resubmitting.
-- Fetch only basic full text needed for the step by default. If optional relationships fail authentication/permission and are unnecessary, retain the failure and retry once with the same identity excluding optional relations. Do not call it empty full text. Necessary relationship evidence cannot be silently dropped.
-- Reuse completed identical nodes; redo affected downstream work only after solution, jurisdiction, query or candidate-version changes.
-- Mark stages complete, reused, not run, awaiting selection or blocked. Technical analysis is not a final legal opinion.
+- Tool 缺失或当前协议不支持本步：记录事实并停止受影响链路，不跨阶段替代。
+- 无副作用的读取失败可原请求重试一次；Screening 或 CC 状态未知时先核对已保存回执，避免盲目重提。
+- `patsnap-ip:fetch_patent` 默认只取完成本步所需的基础全文。可选关系内容因认证或权限失败、且本步不需要关系证据时，保留失败回执并用同一专利身份去掉可选关系内容重试一次；不能把关系扩展失败写成“全文为空”。确需关系证据时不得降级掩盖缺口。
+- 输入相同的已完成节点复用原回执；方案、法域、查询或候选版本变化时，只重做受影响下游。
+- 交付逐步标记完成、复用、未执行、等待选择或受阻。技术分析不是最终法律意见。

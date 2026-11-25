@@ -1,224 +1,237 @@
-# Scope, Screening and CC strategy
+# 范围、Screening 与 CC 策略
 
-Read before Steps 4–6.5. Connect user scope, official Screening receipts, user decisions and the current CC list. All record formats and strategy interaction are local orchestration, not new MCP parameters/tools.
+## 目录
 
-## 1. Confirm jurisdictions while preparing technical input
+- 法域与语言范围
+- 字段初筛
+- Screening 入口和窗口
+- Step 6.5 交互策略
+- 选择包与回滚
 
-Map manufacturing/import/sales/use to `activity | requested scope | adopted authorities/regions | pending regions | source/adoption decision | status`.
+Step 4–6.5 前读取。目标是把客户范围、官方筛选回执、用户选择和本次 CC 名单接起来。记录字段及 6.5 交互均是本地编排，不是新增 MCP 参数或工具。
 
-- China manufacturing plus worldwide sales are two scope requirements. Unresolved global scope is not agreement to CN-only first; do not complete CN CC before asking about overseas coverage.
-- Execute all-authority search only if explicitly supported and verifiable, with database limits recorded. Otherwise resolve markets or explicit interim scope before Step 4. Do not invent global-scope values or assume omitted geography necessarily means worldwide coverage.
-- US/EP/JP/KR are discussion examples, not global coverage. EP search differs from national effects/unitary protection; WO/PCT is not a globally enforceable right.
-- Whenever EP appears, check country clarification. Ask before search if actual countries are unknown, or confirm EP-documents-only intent. Reuse explicit answers. Europe/EU/EPC are not the same scope.
-- For adopted GB/FR/DE markets, authorities will typically include EP/GB/FR/DE. Add only adopted countries, not all Europe. Verify national effect/applicable claims separately in CC. Respect explicit EP-only scope and disclose absent national routes.
-- Added countries create a scope version: retain old Q/C, choice and additions; reuse technical expressions. Establish the authorized new Q0 before Step 4 checks. Do not reject authorized expansion against stale EP-only baselines or silently remove scope protection. Recheck all OR branches/new C and invalidate affected candidate/Screening/selection versions.
-- While global scope is pending, continue technical preparation in 1–3. An explicit first-branch instruction permits bounded work with gaps recorded. Do not re-ask settled scope.
-- Keyword-region hints do not alter C. Check actual query/provenance in 4/5/6; multi-country scope must not collapse to one country.
-- A verified combined query may cover multiple authorities. Keep separate receipts for branches. C listing several countries does not prove the retrieved window contains them: inspect candidate origins. If one authority fills the window, retrieve/screen adopted markets through appropriate branches and merge, without arbitrary equal quotas. Blocked branches remain gaps, not removed scope. CC follows actual all/partial choice, with no total cap of ten.
+## 1. 法域先落实，技术输入可先整理
 
-Pending applications and active grants are the default FTO scope, without requiring a separate client narrowing instruction. Search status is a candidate gate; lifecycle evidence is the separate pre-CC gate. Verify current status-code meanings for pending/active; retaining codes is not semantic verification. Record assessment date/source update time; execution date is not legal-event effective date.
+把制造、进口、销售、使用地映射为本次法域表：`行为｜用户范围｜本次受理局／地区｜待定地区｜来源／采用决定｜状态`。
 
-For every search page record `requested_statuses`, `raw_returned_count`, `eligible_returned_count`, `status_filter_leak_count` and `status_unknown_count`. A requested filter does not prove execution. Move inactive/withdrawn leaks to exclusions; hold unknowns before formal pooling/Screening. Continue paging to fill the frozen eligible window when leaks consume slots; disclose incomplete windows at runtime boundaries without substituting raw counts for eligible counts.
+- “中国制造、全球销售”包括两个范围要求。全球尚未具体化不等于客户选择了“先只做 CN”；不得直接完成 CN 的 CC 后才补问海外。
+- 若官方接口明确支持且数据范围可核验，可执行其已声明的全部受理局检索，并记录数据库覆盖边界。否则在 Step 4 前补问实际销售市场或由用户明确接受阶段性范围；不能发明“全球”范围值，也不能假定省略地域就一定表示全球覆盖。
+- US／EP／JP／KR 等可作为讨论市场的例子，不能自动等同全球。EP 检索与各生效国、单一专利等法律覆盖需另核对；WO／PCT 不是一项全球可执行权利。
+- **出现 EP 就检查国家澄清状态**：实际制造／销售／使用国家未明确时，在检索前询问具体国家或是否仅限 EP 文献；国家已明确或客户已明确只查 EP 时复用记录，不重复问。EP 是受理局，欧洲、欧盟和 EPC 不是同一范围。
+- 客户采用英法德市场时，记录市场 `GB/FR/DE`，检索受理局通常补充为 `EP/GB/FR/DE`；只添加实际采用国家，不自行展开所有欧洲国家。CC 另查 EP 在各目标国的效力与适用权项。明确仅查 EP 文献时尊重限定，并标明未做国家途径覆盖。
+- 补充国家属于范围版本变更：保留旧 Q／C、用户选择和新增国家，尽量复用技术子式。先建立已批准新范围的基准 Q0，再按 Step 4 进行本地范围核对与搜索执行检查；不能拿旧 EP-only 固定字段基准反复拒绝已获授权的扩大，也不能静默取消范围保护。所有 OR 分支与新 C 再核对，受影响的候选、Screening 和选择版本失效。
+- 全球范围待定时可继续 Step 1–3 的通用技术整理；若用户明确先做某分支，保存该决定及未覆盖清单，按有限任务推进。不重复追问已经明确的范围。
+- 本地关键词表的区域提示不改变 C。Step 4／5／6 核对实际查询与候选来源，不能把多国范围缩成单国。
+- 多法域可使用一个已验证的联合查询；需要分组时各检索分支保留独立回执。不能仅凭 C 包含多国就宣称读取窗口覆盖多国：按受理局检查取得及筛选候选的来源，单一受理局占满窗口时按采用市场分路取数／筛选并归并，不机械等额分配。分支阻断不能将其他范围删除；CC 按客户最终全部／部分策略执行，无固定 10 篇总额。
 
-## 2. Three query checks
+“申请中和有效授权”是 FTO 候选的默认权利状态范围，不需要客户另行把它作为缩窄条件授权。必须核对当前接口码表来源；沿用原始状态码不等于核实了代码含义。记录评估时点及来源更新时间，不能以运行日期代替法律事件有效日期。检索状态是候选门，生命周期证据才是 CC 前门；两者不可互相替代。
 
-1. **Scope:** use confirmed, actually effective structured scope only where the route protocol supports it. Exclusive/filter-ignored Boolean remains unrestricted diagnosis outside the formal jurisdiction pool. Unions contain verified-scope objects only; syntax success does not prove intent.
-2. **Key concepts:** reference Step 2–4 retrieval units/query-plan and record `element | expression/query location | omission reason`. Routes may be terms, synonyms, classifications, supplementary retrieval or explicit Screening deferral; not every feature is ANDed together. Verify AND within a unit, OR across independent risk directions and classifications not accidentally becoming global gates. Repair unintended omissions locally and check syntax; recall priority does not waive checks and no dedicated clause does not prove zero coverage.
-3. **Actual languages:** check concepts in Q or evidenced index/alternate coverage, not only K. Equivalent Chinese/English terms normally use OR. Tool output language does not constrain search terms/jurisdictions. Recheck adopted queries: complete vocabulary with CN-only structured geography is still CN-only search.
+结构化状态请求不等于过滤已执行。每个检索页都核对返回对象的实际状态并保存 `requested_statuses`、`raw_returned_count`、`eligible_returned_count`、`status_filter_leak_count` 和 `status_unknown_count`。泄漏的失效／撤回等对象进入状态排除清单，不进入正式召回池或 Screening；未知对象停在待核。若泄漏占用检索窗口，继续分页补足已冻结的合格候选窗口；达到协议上限仍不足时明确记为窗口不完整，不能把原始返回数写成合格候选数。
 
-Ordinary gaps do not automatically enable Step 5. If sample diagnosis is needed, record why and the five-round limit. Passing sample coverage does not resolve Step 6 windows; overly broad queries with one retrieved window remain incomplete.
+## 2. 检索式通过三项检查
 
-<a id="field-prefilter"></a>
-## 2.5. Step 5.5 — Field prefilter before official Screening
+1. **范围一致**：法域、法律状态和日期使用已确认且实际生效的结构化范围能力。各技术分支只有在当前协议支持时才复用同一范围；Boolean 独占或过滤被忽略时标为未限定范围诊断并排除出正式法域池。多分支并集只包含范围已核对的对象；语法校验通过不代表意图一致。
+2. **关键要素有交代**：引用 Step 2–4 的本地检索单元和 query-plan，简记 `要素｜表达途径／查询定位｜未采用原因`。途径可以是词语、同义表达、分类号、另一路召回或明确留待 Screening；无需每个要素都 AND 进同一式。核对同一单元必要概念的 AND、独立风险方向的 OR，以及分类补召回未被误设为全局门槛。遗漏明确且非有意时局部修订并语法校验，不能以“查全优先”跳过检查，也不能因无独立子句就断言零覆盖。
+3. **语言实际落实**：按输入卡逐概念核对 Q 的多语表达或有依据的索引／替代召回覆盖，不只核对本地词表 K。中文和英文通常 OR；工具产出语言不限制检索词和法域。检查后的采用查询也要检查；词语齐备而结构化地域仍仅 CN，仍是 CN 检索。
 
-Applicable to queries from 4/5, official auxiliary search candidates or supplied PN lists without requiring 5. Reuse upstream conditions; additional client-field filters may be skipped when absent, but the pending/active status gate remains mandatory. This selects objects **sent to Screening**; 6.5 selects objects **sent from Screening to CC**. Archive separately.
+Step 5 不因发现普通缺口自动启用。若需语义样本诊断，记录启用理由及最多 5 轮规则；样本覆盖达标仍需检查 Step 6 的可达窗口。为了样本数好看扩成过宽查询，不能忽略后续只取得一个窗口的现实。
 
-| Field | Official route | Boundary |
+<a id="字段初筛"></a>
+## 2.5. Step 5.5：先按字段初筛，再做官方 Screening
+
+本节点可用于 Step 4／5 的查询、官方辅助搜索取得的候选或客户 PN 清单，不要求先跑 Step 5。条件已在上游落实就复用；没有额外条件就跳过。这里控制**送入 Screening 的对象**，Step 6.5 控制**Screening 后进入 CC 的对象**，两份选择分别存档。
+
+使用 `patsnap-ip:screen_patents_for_FTO` 的 PN 列表入口时，PN 是已经冻结的候选集合，不会继承此前 `patsnap-ip:search_patent` 的地域、法律状态或日期过滤。故送入前必须完成本节状态对账；不能把失效对象一并传入后期待 Screening 代为排除。受控验收可以用混合状态列表观察 Tool 行为，但不得把该探针批次当正式案件候选批次。
+
+### 字段与决策
+
+| 字段／依据 | 落实方式 | 初筛边界 |
 |---|---|---|
-| Assignee/standard assignee | Available official entity disambiguation, then current search protocol | Different entity identifiers are not interchangeable; applicant field is not necessarily current owner. |
-| Group/company tree | `patsnap-ip:get_corptree_hierarchy` for selected/direct-parent/root mappings | Not a full subsidiary list; use verified identities within requested scope and retain group gaps. |
-| IPC | Current supported classification capability or verified Boolean class expression | Adopted user limits are allowed; AI predictions/vocabulary classes are clues. Main IPC does not exclude other classes. |
-| Authority | Current supported structured geography | Reuse C and EP/country rules; grouping cannot delete other adopted markets. |
-| Legal status | Current supported structured legal-status scope | Default all FTO recall routes to pending/active grants under current definitions. Unknown status awaits verification rather than being treated as active; search filters and lifecycle evidence remain distinct. |
-| Dates | Current supported structured date scope | Distinguish filing/publication/priority/grant and boundaries; “last 20 years” does not replace validity checks. |
-| Publication/application numbers | Current supported exact-number capability or verified list | Preserve full identities; family/A-B deduplication cannot erase relevant countries/claim versions. |
+| 申请人／标准申请人 | 先用可用的官方主体消歧能力核实身份，再按当前检索协议落实 | 不同主体标识不可直接互换；申请人信息不当然代表当前权利人 |
+| 公司树／集团 | `patsnap-ip:get_corptree_hierarchy` 查已识别公司的根／直接母公司及各自映射 | 不是完整子公司清单；只采用需求已涵盖且身份核实的主体，集团覆盖缺口保留 |
+| IPC | 使用当前检索协议支持的分类能力，或已验证的布尔分类号子式 | 用户指定／采用的限定可用；AI 预测、词表中的分类号默认只是检索线索。主分类号不足以证明文献没有其他相关分类 |
+| 受理局 | 使用当前检索协议支持的结构化地域能力 | 复用 C；EP 与具体市场规则不变，分组不删除其他采用法域 |
+| 法律状态 | 使用当前检索协议支持的结构化状态能力 | 所有 FTO 召回路线默认限申请中／有效授权；检索过滤与生命周期证据各自按当前定义取值，不混用口径。未知状态保留待核，不直接当有效 |
+| 日期 | 使用当前检索协议支持的结构化日期能力 | 区分申请、公开、优先权、授权等日期及边界；不自行按“近20年”替代有效性核查 |
+| 专利号／申请号 | 使用当前检索协议支持的精确号码能力，或已核对的号码名单 | 采用完整文献身份；不因同族或 A/B 去重丢掉适用国家和权项版本 |
 
-Use current MCP-declared capabilities only. Verify patent-type/other conditions against the official protocol or Boolean guide before use; do not add undeclared conditions. Preserve sources for identity, code tables, language and filter rules.
+只使用当前 MCP 协议声明的能力；专利类型等如需使用，先核对官方协议或布尔字段指南，不自行增加未声明条件。申请人身份、字段码表、检索语言及过滤规则保留来源。协议无法表达申请中／有效授权时，不猜状态码：保留技术召回，标记状态门未下推，并在送筛或客户选中后用生命周期证据补核。
 
-- **Hard limits:** explicit exclusive requirements/adopted rules may narrow the pool. Reuse known conditions. “Prioritize/first look at” is not exclusive. Out of scope is not no risk.
-- **Priority groups:** process priority companies/classes first while retaining remainder/unknown groups within the plan and official within-group order. Overlapping queries may be used with an original-scope remainder route, or group a fully retrieved set. Uncovered remainder prevents complete Screening claims; priority is not a new official global risk ranking.
-- **Clues/unknowns:** uncertain structures, AI inference, similarity thresholds and predicted classes cannot directly exclude. “95% similar to prior art” does not remove an infringement candidate here.
+候选中出现外观设计／意匠时，不把文献号后缀或标题自行解释成完整权利类型证据。输入卡未明确时按主文直达的“关键提问与补充节点”确认是否建立独立外观设计风险轨道；技术 FTO 的 Claim Chart 与外观设计比对分开，任何一方未纳入都须列范围缺口。
 
-Ask only unresolved scope-changing priority/exclusive, identity or logical questions. Preserve AND/OR/negation: “company A or class B” is not their intersection. Prefiltering is optional.
+- **硬限定**：需求已明确“只查某申请人／国家／状态／日期范围”等，或客户采用了具体规则，可形成较小送筛池。已有明确条件不反复确认；“希望先看看／重点关注”不构成独占限定。范围排除只表示未纳入本次，不表示无风险。
+- **优先分组**：先处理重点公司或分类组，余集和未知组保留在采用计划内，组内沿用官方排序。可用重叠子查询并保留原范围补查路线；在已完整取得的集合上可直接分组。没有覆盖余集就不能标全部 Screening 完成；不得把优先组伪装成新的官方全局风险排序。
+- **仅线索／未知**：不确定结构、AI 推断、相似度阈值、分类预测只作探索或复核线索。不得据此直接剔除；“与在先文献95%相似”不在此节点自动排除侵权候选。
 
-PN-list Screening does not inherit search jurisdiction/status/date filters. Reconcile and remove ineligible objects before submission, rather than expecting Screening to remove them. Controlled mixed-status probes are not production batches. If runtime cannot express pending/active status reliably, mark the gate not pushed down and verify lifecycle before formal submission; do not guess codes.
+只在“优先还是仅限”、主体身份或条件逻辑会改变范围且仍不明确时补问。明确多条件的 AND／OR 及否定关系；不能把用户说的“公司 A 或分类 B”悄悄执行成两者交集。初筛是可选能力，不要求每个案件都做一轮字段操作。
 
-When designs appear, suffix/title alone is not complete rights-type evidence. Resolve a separate design-risk track via customer prompts if scope is unclear. Technical claim charts and design comparison remain separate; disclose omitted tracks.
+### 两种实际接法
 
-### Two routes
+1. **可执行查询 → 材料名单**：保存初筛前 Q/N，保留技术逻辑与多语表达，只更新已确认的结构化范围。按 Step 4 核对当前查询策略是否支持该范围；支持时执行并分页取回实际文献，形成 Step 6 候选名单。Boolean 独占且不支持范围时只保留诊断回执，正式名单改由支持范围的路线形成。范围变更保留新旧基准与用户依据，不沿用旧 N。
+2. **结构化条件／混合检索／客户号码名单 → 候选名单**：客户公开号／申请号名单先按主文“客户列表导入门”由 `patsnap-ip:build_patent_boolean_query` 建立精确 OR 查询，再由 `patsnap-ip:search_patent` 取得并核对真实文献身份。如有已确认范围，使用结构化范围能力；披露原始行、重复、异常、未解析、版本映射和实际窗口。本流程把核对后的对象交给 `patsnap-ip:screen_patents_for_FTO`，不把不透明 Boolean 引用冒充筛选所需的其他内容。已有名单只在原集合内筛，除非另有扩展检索需求。
 
-1. **Executable query → candidate list:** preserve original Q/N, technical Boolean and multilingual expressions; update only confirmed structured scope. Check runtime strategy support before scoped execution/paging into Step 6. With exclusive Boolean lacking scope support, retain diagnostic receipts only and build formal candidates using supported routes. Record old/new scope baselines and user basis; never reuse old N.
-2. **Structured/mixed search/client number list → candidate list:** pass client publication/application numbers through the main list-import gate: `patsnap-ip:build_patent_boolean_query` creates exact OR, then `patsnap-ip:search_patent` retrieves and verifies real identities. Apply confirmed structured scope where present. Disclose original rows, duplicates, anomalies, unresolved identities, version mappings and actual windows. Submit verified objects to `patsnap-ip:screen_patents_for_FTO`, without presenting opaque Boolean references as other screening content. Existing lists stay within their original set unless expansion is requested.
+查询改写条件不能表达、字段语义或逻辑尚未核实时，保留原输入并处理该具体缺口，不猜参数、不中途换成自由摘要筛。负向条件仅在官方布尔语法及缺失值语义已核对时下推，或对已取得的完整名单按证据本地筛；仅使用工具声明的参数。
 
-If conditions cannot be expressed or semantics/logic are unverified, preserve original input and resolve the specific gap; do not guess parameters or switch to freeform summary screening. Push negative conditions only with verified Boolean/missing-value semantics, or filter a fully retrieved set locally from evidence.
+**缺失值分两层处理**：已取得名单按“满足／有据不满足／未知”记录，未知保留送筛或待核，不用补数值判断。数据库字段过滤可能根本不返回缺失元数据的文献；不能声称这些未知项已保守保留。若需求包括这些对象，需保留不带该新增条件的补查路线，并遵守窗口计划；否则在采用范围中明确该字段限定的覆盖边界。过滤后未返回不等于已取得证据证明不符合，也可能是窗口或调用问题。
 
-**Two layers of missingness:** retrieved lists record matches/evidenced nonmatches/unknowns, retaining unknowns for screening/review without invented values. Database filtering may omit missing-metadata documents before retrieval; do not claim those unknowns were retained. If required, keep a supplementary route without that condition under the window plan; otherwise disclose the field-defined coverage limit. Not returned may mean missing metadata, window truncation or call failure, not proven noncompliance.
+### 记录与回滚
 
-### Records and rollback
+在 `case.md` 引用 `prefilter.json`（本地资产，不是 MCP 参数），至少包含：原 Q／名单及来源版本；规则的字段、值、组合逻辑、用途（硬限定／优先分组）、需求依据；实际请求、采用 Q/N 或 PN、未知项与未纳入范围；分页／窗口、回执引用、规则版本及受影响节点。若全池未落地，保存原查询／回执／窗口即可，不伪造完整原池。
 
-Reference local `prefilter.json` from case.md: original Q/list and version; fields/values/logic/purpose/user basis; requests/adopted Q/N or PNs/unknowns/exclusions; pagination/window/receipts/version/affected nodes. If the full pool was never saved, retain query/receipts/window, not a fabricated pool.
+展示：`原查询命中｜初筛条件与用途｜初筛后命中或已取得PN数｜未覆盖／未知｜送入Screening的实际入口`。命中数用对应工具字段，名单数仅统计已取得集合；不从不同时间／重叠窗口的计数相减推断已排除数。分组并集按身份去重并留来源，不将组计数直接相加。接口或分页失败不记零命中。
 
-Show original hits, conditions/purpose, filtered hits or retrieved PN count, uncovered/unknowns and actual Screening entry. Use matching response counts; count lists only when obtained. Do not subtract overlapping/time-varying counts to infer exclusions. Deduplicate grouped unions by identity with provenance; do not sum group counts. Failures are not zeroes.
+放宽／撤销规则时从保存的原查询／池恢复，复用未改变的技术输入和有效回执，重做受影响的取数、Screening、目录与策略核对；不默认从 Step 1 重来。技术、范围、查询／名单、模式／窗口等请求输入相同才复用 Screening；新候选不能自动沿用旧逐项勾选。只改 CC 名单或全文选项不反向重跑初筛。
 
-Relaxed/revoked rules restore the saved original query/pool, reuse unchanged technical input/valid receipts and redo affected retrieval/Screening/catalogue/strategy checks, not Step 1 by default. Reuse Screening only with identical technical/scope/query-list/mode-window input. New candidates do not inherit old itemwise choices. CC-list/evidence-depth changes alone do not rerun prefilters.
+初筛改变查询后，旧样本查全率只属于旧查询及其样本，不转作新池指标；需要重新诊断时明确新评估版本，不因此自动开启五轮调优。初筛把 N 降到 W 以内也不证明原范围全部覆盖。完成本节点后仍须调用或有效复用官方 Screening。
 
-Old sample metrics belong only to their query/sample. New diagnosis needs an explicit evaluation version, not automatic five-round optimization. Reducing N below W does not establish original-scope completeness. Official Screening or valid reuse is still required.
+## 3. 调用 Screening 前选择窗口策略
 
-## 3. Window strategy before Screening
+W 是依据当前 MCP 协议、案件预算和覆盖目标制定的本地候选获取窗口，N 是对应搜索的实际命中数。先通过 `patsnap-ip:search_patent` 取数，再把实际取得并核对身份的候选交 `patsnap-ip:screen_patents_for_FTO`；计划窗口不等于取得、送筛或 Screening 实际处理数量。只按实际回执判断候选、未解析对象和处理完整性，不预设每个输入对象都有逐件排除证据。
 
-W is the local retrieval window determined by current MCP, case budget and coverage objectives; N is the actual corresponding search total. Retrieve with `patsnap-ip:search_patent`, then submit actually obtained, identity-verified candidates to `patsnap-ip:screen_patents_for_FTO`. Planned window, retrieved count, submitted count and processed count differ. Judge candidates, unresolved objects and completeness only from real receipts; do not assume itemwise exclusion evidence exists for every input.
-
-| Condition | Action |
+| 条件 | 处理 |
 |---|---|
-| Known N≤W | No known window overflow; still check errors/receipts/visible coverage before claiming complete processing. |
-| N>W | Adopt explicit limited-window review or a verified, workload-bounded sharding/retrieval plan before CC. |
-| Unknown N | Obtain available counts/window evidence; if still unknown, treat scope as unresolved, not fully screened. |
+| 已知 N≤W | 没有已知的窗口超限；仍核对调用错误、回执和后端可见覆盖信息，不能仅凭 N≤W 声称逐件处理完整 |
+| N>W | 在 CC 前采用明确的有限窗口复核范围，或执行有验证和工作量边界的分片／取数计划 |
+| N 未知 | 先取可用计数及窗口证据；仍未知则按范围不明处理，不能假定全部已筛 |
 
-Reuse explicit quick-review/window-sampling decisions. Do not downgrade requested full scope without a choice. Prepare coverage first, not 150 CC analyses followed by a truncation disclaimer.
+窗口策略从需求卡复用：已明确快速评审／窗口抽查可继续，无需重复确认；用户要求完整范围且尚未选择有限窗口时，不能自行把它降格。可以先整理覆盖计划，不能先做 150 篇 CC 再说明截断。
 
-Use connected official capabilities only:
-- Shard executable queries by supported authorities/dates with verified union coverage and boundary/missing-value treatment. Overlap is allowed with deduplication/provenance. IPC is multivalued, not inherently disjoint; a few classes cannot silently omit the remainder.
-- Retrieve candidates through semantic, keyword, Boolean and structured scope under current MCP pagination/reachable depth. Keep Boolean separate from semantic/keyword routes reusing confirmed structured scope only when explicitly supported. Exclusive Boolean is unrestricted diagnosis only. Record actual retrieval boundaries; beyond reachable windows use verifiable authorized shards or a disclosed limited window, never a full list.
-- Submit actually retrieved and verified candidates to `patsnap-ip:screen_patents_for_FTO` under runtime entry limits. When batching, preserve actual requests, receipts, unresolved objects and original order. Explicit lists cannot recover unsearched objects; nonreturned objects are not evidenced exclusions.
-- Estimate shard count, reachable bounds and budget first. Resolve a feasible plan before large work with unknown budget; do not recursively exhaust data or add unsupported technical exclusions merely to fit a window.
+需要补齐候选时，只用已连接官方能力：
 
-All hits from one query still do not prove 100% true recall; this addresses known-result window coverage only.
+- 可执行查询分片：以已支持的法域、日期等条件分解原查询，逐片校验；并集须覆盖原范围，包含边界／缺失值的处理。分片允许重叠，去重并记录来源；IPC 是多值，不能宣称天然互斥，也不能只选几个 IPC 丢掉余集。
+- 通过官方 Search 取得候选：semantic、keyword、Boolean 与结构化范围均按当前 MCP 协议执行和分页；页大小与可达深度以运行时定义为准，记录实际取数边界。Boolean 不与 semantic 或 keyword 混为同一路线；只有协议明确允许时才复用结构化范围，独占时只作未限定范围诊断。超过可达窗口时按已确认条件做可核验覆盖的分片，或明确标为有限窗口；不能当完整名单。
+- `patsnap-ip:screen_patents_for_FTO` 按实际取得并核对的候选提交，单次接入能力以运行时协议为准；需要分批时保留各批真实请求、回执、未解析对象和原始顺序。显式候选名单不能补回未搜索对象，未返回对象不能反推为有据排除。
+- 先列预计分片数、可达边界与预算。预算不明且需要大量调用时先确定可执行计划，不自动递归切分直到耗尽全部数据。不能仅为了塞入可达窗口而增加未经依据的技术排除条件。
 
-## 4. Preserve official Screening evidence
+即使完整取得原查询所有命中，也不证明真正查全率为 100%；此处解决的是已知查询结果的窗口覆盖。
 
-New search paths require actual `patsnap-ip:screen_patents_for_FTO` or valid previous receipts for the same solution/scope/query/mode. Save tool name, complete credential-free request, input version, raw receipt, business status, query/window, actual returned list, unresolved and nonreturned objects. For each object check adopted version, claim basis, missing product facts, rationale stability and processing completeness. Unavailable content is “Not returned by tool,” without local fabrication. Completion prose or search/semantic ranking cannot replace receipts.
+## 4. 必须留下官方筛选证据
 
-Use only Screening entry paths declared by runtime MCP. Do not invent parameters or present opaque Boolean references as other business content. Apply custom criteria in retrieval/local records without claiming tool adoption. If itemwise reasons are absent, do not invent exclusion evidence. Adjust saved actual inputs explicitly for rescreening and create request versions.
+新建检索路径必须实际调用 `patsnap-ip:screen_patents_for_FTO`，或引用同方案／范围／查询／模式的有效旧回执。保存工具名、完整请求（不含凭据）、输入版本、原始回执、业务状态、查询／窗口、实际返回名单、未解析和未返回对象。逐项检查采用版本、权项依据、缺失产品事实、理由稳定性和处理完整性；实际回执未提供的内容记“Tool 未返回”，不本地补造。不能用叙述“筛选完成”或搜索／语义排序结果替代回执。
 
-User-directed company/module/experience rules may guide rescreening with old/new pools and rationale. Field prefilters follow section 2.5 and never replace Screening. Preserve remainder for priority groups and record hard-scope exclusions separately. IPC, semantic scores, industry context and unknown facts alone cannot justify exclusion.
+每轮建立独立对账：`已匹配身份 I｜实际提交 S｜已取得批次回执 B｜回执明确已处理 P｜返回候选 R｜未解析 U｜处理状态未取得 G`。各集合以核验后的专利身份去重并保留版本映射。`B` 完整仅表示计划调用均有可解析回执；只有回执明确提供逐件状态或可核验的等价处理明细时才填写 `P`。若工具只返回候选清单及未解析清单，则经版本映射后按 `G = S - R - U` 对账；`G` 不能进入“已排除”“低相关”“低风险”或“未获取专利”。
 
-For explicit direct comparison, first verify identities through the main list-import gate and obtain adopted originals with `patsnap-ip:fetch_patent`, then enter 7 with “Screening not executed: specified-object comparison.” Generic lists/search results/supplier reports do not automatically qualify. Pure review of existing CC may reuse old results.
+`G` 非空时先核对原回执，并用已有搜索／全文证据检查同申请 A/B、分案或其他版本映射。有据折叠到已返回对象的输入移入 `identity_remaps`，不再计入 `G`；不得只因标题相同或同族关系推定。仅对映射后仍在 `G` 的对象做一次相同方案、模式和输入版本的补偿子批。补偿返回对象只追加 `reconciliation` 来源，不重排原目录；仍未返回的对象保持 `G`。若客户已接受在缺口披露下继续，直接复用该决定；否则仅在缺口会改变选件或 CC 范围时询问继续还是等待。
 
-Keep hits, requested window, returned candidates, selected count and actual CC count distinct. If receipts omit processed counts/exclusion reasons, state “Not returned by tool”; submitted minus returned does not prove exclusions. Returned candidates do not prove only those deserve attention.
+筛选只使用运行时 MCP 协议声明的接入方式，不自造参数，也不把不透明 Boolean 引用冒充其他业务内容。自定义筛选要求在检索或本地记录落实，不能冒充工具已采用。实际回执若未返回逐件理由，不得补造排除证据。需要复筛时对保存的实际输入明确调整，另建请求版本。
 
-Keep identity matching, request submission, successful batches, obtained claims, explicitly processed objects and returned candidates separate. A candidate-only receipt cannot prove full processing. Reconcile PN changes with same-application numbers or explicit relation evidence in a rowwise table, not titles/family proximity alone. Record input PN, returned PN, relationship, adopted version and source; missing server reasons remain unavailable. Do not resubmit evidenced mappings. Compensate unexplained differences once with the same solution/mode/version; label recovered objects `reconciliation` without changing original ranks. Remaining differences retain unknown processing status.
+若因验收、服务异常或用户明确要求而对完全相同的方案、模式和 PN 集合复跑，比较两次返回身份集合、顺序、版本映射与未解析集合。集合或顺序变化记 `screening_rank_unstable`；原始回执分别保留，不合并成虚构的全局排序，不从多次结果中择优挑选，也不把重复运行当作补齐未返回对象的常规分页机制。
 
-Repeat identical production requests neither to accumulate candidates nor choose favorable ranks. On controlled/fault reruns compare sets/order/mappings; record `screening_rank_unstable`, preserve receipts and avoid certain global risk rankings. Count identity matches, submissions, batches, explicitly processed objects, returned candidates, processing unknowns, selected objects and actual CCs separately. All batches successful never means all inputs processed.
+可以按客户明确的公司、模块或经验规则定向复筛，保存原池／新池和规则依据。字段初筛按第2.5节，不能用它替代 Screening；优先分组保留余集，明确的范围限定另记未纳入部分。IPC、语义分数、行业背景或未知事实不能单独成为无据排除条件。
 
-## 5. Step 6.5 — Independent strategy interaction
+客户明确要求直接比对指定专利时，先经主文列表导入门核对身份并用 `patsnap-ip:fetch_patent` 取得采用版本原文，再从 Step 7 接入，标 `Screening 未执行（指定对象直接比对）`；一般候选清单、搜索结果或供应链报告不自动获得这个例外。已有 CC 的纯复核可复用旧结果。
 
-State chain: `Screening success → lightweight catalog → awaiting_user_strategy → user_confirmed → lifecycle_and_text_gate → optional full-text review → batched CC`. All/some applies to returned Screening objects, not the earlier search pool. No fixed total; ≤10 per batch is local verification, not an API limit.
+只写可证实数字：命中数、身份匹配数、实际提交数、回执批次数、明确处理数、已返回候选数、处理状态未取得数、选定数及实际 CC 数分别记录。实际回执没有处理数或排除理由时写“工具未返回”，不能用“提交数减返回数”推导已排除数量。筛选返回的候选也不证明只有这些对象值得关注；“全部批次成功”不得改写为“全部输入筛选完成”。
 
-Two independent choices may be answered together:
-- CC scope: all current catalogue, or some by assignee/status/authority/manual selection/explicit combination.
-- Evidence depth: full-description acquisition/analysis before CC, or no advance full-description analysis while retaining complete claims and necessary interpretive evidence.
+## 5. Step 6.5：独立交互策略
 
-Fulltext works with either scope. Wait for missing choices; default neither to all nor a top-N subset. Explicit “all candidates, no advance fulltext” needs no itemwise re-confirmation.
+**状态链：`Screening 成功 → 轻量目录 → awaiting_user_strategy → user_confirmed → lifecycle_and_text_gate → 按需全文分析 → 分批 CC`。** 这里的全部／部分明确作用于 Screening 返回对象，不改变更早的原始检索池。没有固定总额；每批最多 10 是本地核验编排规则，不是接口声明的上限。
 
-Keep full raw Screening evidence in case files, without repeating it in dialogue, selection pages or report body. Deliver the lightweight catalog with mode/completeness notes first; only adopted objects receive lifecycle/text verification and, after passing, optional full-text enhancement and CC. This local traffic/status gate does not change the service protocol.
+分层交付：完整 Screening 原始回执保存在案件证据中，不在对话、选件页或报告正文重复展开；客户先收到轻量目录和必要的模式／完整性说明；客户确认后，才为入选对象调用生命周期和采用文本核实。只有通过该门的对象再进入全文增强（如选）和 Claim Chart。这是本地编排的流量与状态双闸门，不改变 MCP Tool 的返回协议。
 
-### Lightweight catalogue and partial selection
+### 两个独立决定，可一次回答
 
-- Make every returned candidate selectable through a downloadable/paginated page, without pasting all detailed reasons into dialogue. Retain actual source order/provenance. Group order is not global risk rank. Deduplicate cross-group IDs while preserving locations; do not merge distinct national family rights. Do not force new Screening merely for selection UI.
-- Keep stable ID, PN, title, assignee, jurisdiction/status, original rank/group, brief selection reason and completeness only. Link detailed reasons to raw receipts. Reuse search/Screening metadata without batch full-text calls to fill the catalog; unavailable remains marked. Do not confuse applicant/current owner, standardized names, group scope or status source/date.
+| 决定 | 选项及含义 |
+|---|---|
+| CC 范围 | **全部**：采用当前完整目录；**部分**：按申请人、法律状态、法域、手动勾选或明确组合选择 |
+| 证据深度 | **全文增强**：CC 前取得并分析所选对象的说明书全文；**不预先全文增强**：仍取得完整权项并按需补关键解释证据 |
 
-- Clarify AND/OR and assignee matching. Current UI uses OR within a field, AND across fields; text search changes display only. UI supports assignee/status/authority/manual choices; other rules can be recorded in dialogue as reviewable IDs.
-- Unknown/unverified metadata does not automatically fail filters. Preview conservatively retains potentially matching unknowns for review; users may explicitly include/exclude them. Unselected means not in this CC, not no risk.
-- Before confirmation show total/selected count and list, conditions/unknowns, batches ≤10 and evidence option. Resolve actual budget/workload conflicts without invented prices/times or automatic truncation.
-- Resolve one-authority-dominated multi-market windows first under sections 1–3. Selecting all cannot recover unsearched countries/window-external objects.
+全文增强不是与全部／部分互斥的第三条路径；两类范围都可以开启。默认等待客户决定，不默认全部、不默认前若干件。客户明确“全部候选、不预先全文”后直接落实，不能再要求逐篇勾选或多次确认。
 
-### Local helper (not MCP)
+### 轻量目录与部分选择
 
-Requires Python 3 standard library only. Ten per batch is a local verification/current-adapter ceiling, not a permanent MCP claim; obey stricter runtime limits.
+- 候选目录必须让客户能够选到每一个 Screening 返回对象，但默认以可下载或可分页的选件页交付，不在对话中粘贴全量逐件理由。按实际来源顺序排列并保留定位，分组结果不冒充全局风险排名。跨组按 ID 去重并保留各处位置；同族不同国家的权利不合并掉。无需为了用户选片强制重跑 Screening。
+- 目录行只保留选择所需信息：稳定编号、PN、标题、申请人、法域／法律状态、Screening 原始顺序或分组、简短依据与完整性标记；详细理由指向原始回执而不复制。不为补齐选件目录批量调用 `patsnap-ip:fetch_patent`；可直接复用 `patsnap-ip:search_patent` 或 Screening 已有元数据，缺失就标未取得。申请人名称精确／标准化、当前权利人与原申请人、公司树范围、法律状态来源／时间不可混同。
+- 部分选择先明确条件是 AND 还是 OR、申请人如何匹配。当前页面按同字段多个值 OR、跨字段 AND；文本搜索只查找显示内容，不代表法律／技术排除。UI 支持申请人、法律状态和法域条件，以及勾选；其他规则在对话中明确并保存可复核的 ID 集合。
+- 元数据缺失或状态未核对的对象，不能自动当作不满足条件。过滤预览保守保留可能符合的未知项并标待核；客户可明确勾选／排除这些对象。任何筛去仅表示本次 CC 策略未纳入，不是无风险。
+- 确认前展示全部候选数、将进入 CC 的数量与名单、条件与未知项、每批≤10的计划，以及全文选项。采用预算不足或工作量与用户预期冲突时解决具体冲突，不臆造精确费用／时长、不擅自截为10篇。
+- 多市场联合窗口被单一受理局占据时，先按第1–3节落实覆盖；“全部候选进入 CC”不能补回窗口外或未检索国家。
 
-Read complete `patsnap-ip:screen_patents_for_FTO` receipts and reconcile submitted, returned, unresolved and nonreturned sets before saving local `step6-final.json`. This is selection-script input, not an MCP response schema:
+### 本地辅助脚本（不是 MCP）
+
+脚本仅依赖 Python 3 标准库。每批 10 件是便于人工核验并适配当前 Claim Chart 批次的本地上限，不是永久 MCP 能力声明；调用前仍以运行时协议的更严格上限为准。
+
+先读完各 `patsnap-ip:screen_patents_for_FTO` 回执并核对实际提交、返回、未解析和未返回集合，再保存本地 `step6-final.json`；以下是选择脚本的输入格式，不是 MCP 返回结构：
 
 ```json
 {
   "schema_version": "fto-screening-evidence-2",
   "results_complete": true,
-  "sources": [{"path": "/absolute/path/fto-screening-result.json", "sha256": "actual-file-sha256"}],
-  "submitted_pns": ["Actual submitted publication number"],
-  "identity_remaps": [{"input_pn": "Application-publication PN", "returned_pn": "Returned grant PN", "reason": "Verified same-application version relationship"}],
+  "sources": [{"path": "/绝对路径/fto-screening-result.json", "sha256": "实际文件SHA-256"}],
+  "submitted_pns": ["送入Screening的真实公开号"],
+  "identity_remaps": [{"input_pn": "申请公开PN", "returned_pn": "工具返回的授权PN", "reason": "已核验的同申请版本关系"}],
   "unresolved_pns": [],
-  "nonreturned_pns": ["Input PN absent from returns without an explanation"],
+  "nonreturned_pns": ["工具未返回且未说明原因的输入PN"],
   "records": [{
-    "patent_id": "actual-internal-id",
-    "pn": "Returned and verified PN",
-    "evidence_refs": [{"source_index": 1, "pointer": "/actual/result/path"}]
+    "patent_id": "真实内部ID",
+    "pn": "Screening返回并核对后的PN",
+    "evidence_refs": [{"source_index": 1, "pointer": "/实际结果路径"}]
   }]
 }
 ```
 
-Sources contain genuine Screening receipts; pointers locate actual returned-candidate JSON objects. `records` contains service-returned candidates only, without invented keep/exclude labels. Record identity remaps only after `patsnap-ip:fetch_patent`/`patsnap-ip:fetch_patent_lifecycle` verification; same-application A/B deduplication also needs explicit mapping. Submitted PNs, mappings, unresolved and nonreturned PNs disclose input coverage together. Nonreturned objects are neither low risk nor evidenced exclusions. Set `results_complete=true` only after all planned batches have been obtained and parsed; this means local planned receipts are complete, not that the service processed every input or should return every input.
+sources 保存真实 Screening 回执；pointer 定位到返回候选的实际 JSON 对象。`records` 只列服务返回候选，不自行增加 keep/exclude 标签。返回 PN 与输入不一致时，只有经 `patsnap-ip:fetch_patent`／`patsnap-ip:fetch_patent_lifecycle` 核实后才能写入 `identity_remaps`；同申请 A/B 去重也要显式映射。`submitted_pns`、映射、`unresolved_pns` 和 `nonreturned_pns` 共同披露输入覆盖；非返回对象不能记低风险或有据排除。只有全部计划批次均已取得并解析才填 `results_complete=true`；该字段只表示本地计划回执齐备，不表示服务已逐件处理全部输入，也不表示所有输入都应返回为候选。
 
-`prepare` creates the complete catalog and an unselected strategy page:
+`prepare` 准备完整目录和未选策略页面：
 ```bash
-python3 scripts/select_cc.py prepare --screening /absolute/path/step6-final.json --case-id case-id --input-version v1 --scope 'Actual countries, authorities, window and gaps' --language en --out /absolute/path/cc-catalog.json --html /absolute/path/cc-select.html
+python3 scripts/select_cc.py prepare --screening /绝对路径/step6-final.json --case-id 案件编号 --input-version v1 --scope '实际国家、检索受理局、窗口及未覆盖范围' --language zh --out /绝对路径/cc-catalog.json --html /绝对路径/cc-select.html
 ```
+执行者还须核对每个目录对象确实来自 Screening 返回记录；脚本只验证来源文件、身份和定位，不判断 Screening 模型理由。未解析和未返回 PN 在范围说明中单列，不伪装成候选或有据排除。
 
-The operator must verify that each catalog object came from actual Screening returns. The script validates source files, identities and pointers, not model reasoning. List unresolved/nonreturned PNs separately in scope notes, without presenting them as candidates or evidenced exclusions. Optional metadata: `{by_patent_id:{ID:{title,assignees,jurisdiction,legal_status,screening_reason,completeness,url,source_ref}}}` via --metadata. `screening_reason` is one short selection reason; `completeness` records receipt completeness. Do not embed abstracts, claims or full descriptions. Repeat --screening for multiple normalized records with their own provenance, not a fabricated merged official receipt. Pass `--language zh` or `--language en` explicitly to match the adopted output language. For another requested language, localize the full selector while preserving its catalogue, selection logic and source evidence.
+元数据可加 `--metadata`，结构为 `{by_patent_id:{ID:{title,assignees,jurisdiction,legal_status,screening_reason,completeness,url,source_ref}}}`；`screening_reason` 只放选择所需的一句简短依据，`completeness` 只标明回执完整性，不将摘要、权项或说明书全文嵌入目录。多份本地筛选记录重复 `--screening`，各自保留原始结果来源，不伪造工具合并回执。生成选件页时显式按交付语种传 `--language zh` 或 `--language en`。其他交付语种需完整本地化选件页，保留目录、选择逻辑和原始证据。
 
-After actual user reply or submitted UI JSON:
-
+用户实际回复或提交页面生成的 JSON 后：
 ```bash
-python3 scripts/select_cc.py confirm --catalog /absolute/path/cc-catalog.json --choice /absolute/path/user-choice.json --user-action /absolute/path/actual-user-reply.txt --out /absolute/path/cc-selection.json
-python3 scripts/select_cc.py validate --catalog /absolute/path/cc-catalog.json --selection /absolute/path/cc-selection.json --lifecycle /absolute/path/lifecycle-gate.json --batch 1
+python3 scripts/select_cc.py confirm --catalog /绝对路径/cc-catalog.json --choice /绝对路径/user-choice.json --user-action /绝对路径/真实用户回复.txt --out /绝对路径/cc-selection.json
 ```
+选择包为 `fto-cc-choice-3`，包含目录散列、`strategy=all/subset`、`selected_patent_ids`、`evidence_mode=claims/fulltext`；部分选择另存 `subset_method=manual/filters` 和条件。全部策略要求集合等于完整目录；没有任一决定不能自动生成可提交批次。脚本生成有序批次，每批≤10；所有 `validate` 都必须提供 `--lifecycle`，全文模式还需 `--evidence`。
 
-Choice schema `fto-cc-choice-3`: catalogue hash, strategy=all/subset, selected_patent_ids, evidence_mode=claims/fulltext; subsets also retain subset_method=manual/filters and conditions. All must equal the whole catalogue. Missing either choice prevents runnable batches. Ordered batches contain ≤10. Every validation requires `--lifecycle`; fulltext also requires `--evidence` under the full-text reference.
+脚本校验本地格式、全部提交身份、结果与来源文件散列、证据定位、选择集合；不认证真人、全部服务端结果已读全、排除理由、市场覆盖或法律判断。不得代造实际用户回复。已有真实选择可复用其名单，只补问尚未明确的全文决定并保存对应记录；自动选片不能冒充用户选择。
 
-The script validates format, all submitted identities, source/result hashes, pointers and selection sets. It cannot authenticate humans, full server-result reading, exclusions, market coverage or legal opinions. Never fabricate actual replies. Reuse real choices and ask only missing fulltext decisions; automated picks are not user choices.
+### CC 前生命周期与采用文本门
 
-### Lifecycle and adopted-text gate before CC
-
-After client selection, obtain `patsnap-ip:fetch_patent_lifecycle` per selected object for the target jurisdiction/date and `patsnap-ip:fetch_patent` for the actual adopted text. Save local `lifecycle-gate.json` (not MCP response structure):
+客户确认名单后，对入选对象逐件调用 `patsnap-ip:fetch_patent_lifecycle` 核对目标法域和评估时点的权利状态，并用 `patsnap-ip:fetch_patent` 取得实际准备交给 Claim Chart 的文本。保存本地 `lifecycle-gate.json`（不是 MCP 返回结构）：
 
 ```json
 {
   "schema_version": "fto-lifecycle-gate-1",
-  "selection_sha256": "Canonical JSON SHA-256 of cc-selection.json",
-  "assessment_date": "Assessment date",
+  "selection_sha256": "cc-selection.json 对象的规范 JSON SHA-256",
+  "assessment_date": "评估时点",
   "reviews": [{
-    "patent_id": "Selected PID",
+    "patent_id": "入选 PID",
     "eligibility": "active_grant | pending_application | ineligible | unknown",
-    "adopted_pn": "Actual adopted CC publication",
+    "adopted_pn": "本次 CC 采用的真实文献号",
     "text_basis": "current_grant_claims | current_post_grant_claims | current_pending_claims | published_pending_claims | unavailable",
-    "status_label": "Actual tool status and short rationale",
-    "lifecycle_record": {"path": "/absolute/path/lifecycle-receipt.json", "sha256": "Actual file SHA-256"},
-    "text_record": {"path": "/absolute/path/adopted-text-receipt.json", "sha256": "Actual file SHA-256"}
+    "status_label": "Tool 实际返回的状态与简短理由",
+    "lifecycle_record": {"path": "/绝对路径/生命周期回执.json", "sha256": "文件SHA-256"},
+    "text_record": {"path": "/绝对路径/采用文本回执.json", "sha256": "文件SHA-256"}
   }]
 }
 ```
 
-- `active_grant`: potentially subsisting rights in the jurisdiction at the assessment date, using grant or evidenced corrected/limited/reexamined claims.
-- `pending_application`: still pending; prefer sourced latest amended claims. Published-only claims use `published_pending_claims` and disclose that they may not be current prosecution text.
-- `ineligible`: inactive, expired, terminated, withdrawn, abandoned, rejected or revoked/invalidated rights outside current blocking scope; retain exclusion evidence and omit CC by default.
-- `unknown`: unresolved lifecycle, national effect or text; hold without treating as active.
+- `active_grant`：只有在目标法域和评估时点仍可能存续的授权权利；采用授权文本或有据的授权后更正／限制／再审文本。
+- `pending_application`：申请仍在审理中；优先采用有来源的最新修改权项。只有公开申请权项时可作 `published_pending_claims`，但报告必须说明其不一定是当前审理文本。
+- `ineligible`：失效、届满、终止、撤回、放弃、驳回、被撤销／无效等不属本次当前阻断权利的对象；保留排除证据，默认不进入 CC。
+- `unknown`：生命周期、目标国效力或采用文本无法确认；停在待核，不当作有效。
 
-Invalidation, reexamination, limitation or correction event names/numbers/dates without decisions, maintained scope and effective text require unknown eligibility/unavailable text and `current_claims_unverified`. Active database labels alone cannot establish `active_grant`.
+存在无效、再审、限制或更正事件，而回执仅给事件名、决定号或日期，未给决定结论、维持范围和对应现行权项文本时，必须使用 `unknown` 与 `text_basis=unavailable` 或相应待核值，并记录 `current_claims_unverified`；数据库简化状态为 Active 不能单独改为 `active_grant`。
 
-Same-application A/B mapping needs identity/lifecycle evidence. Other applications, divisionals, continuations and national EP rights require separate verification; an active family member cannot revive an inactive object.
+同一申请的 A／B 文本映射必须由身份和生命周期证据支持。跨申请同族、分案、继续申请或 EP 目标国权利必须作为另一对象核实，不用活跃同族成员自动给当前失效对象“续命”。
 
-Before each batch:
+CC 前执行：
 
 ```bash
-python3 scripts/select_cc.py validate --catalog /absolute/path/cc-catalog.json --selection /absolute/path/cc-selection.json --lifecycle /absolute/path/lifecycle-gate.json --batch 1
+python3 scripts/select_cc.py validate --catalog /绝对路径/cc-catalog.json --selection /绝对路径/cc-selection.json --lifecycle /绝对路径/lifecycle-gate.json --batch 1
 ```
 
-Every object must be an active grant/pending application with traceable adopted PN/text. Ineligible, unknown or unavailable objects fail the batch. Separate excluded/pending objects from runnable batches and disclose counts/evidence; a validation failure is not low risk.
+只有本批每个对象均为 `active_grant` 或 `pending_application`，采用 PN 和文本回执可回查，才生成可提交批次。存在 `ineligible`／`unknown`／`unavailable` 时脚本拒绝本批；执行者先将排除或待核对象从可提交 CC 批次分离，向客户披露数量和依据，不把脚本报错写成低风险。
 
-Catalogue/proposal/scope changes create versions and require affected strategy review. Criteria may be reused, but new candidates do not inherit itemwise authorization. Evidence-depth-only changes do not rerun search/Screening. Reuse completed official CC; new description evidence changing interpretation requires row review and opinion history. New solution facts require verification and a new solution version. Interpretive opinions and dependent-claim review remain local; do not claim tool writeback, and rerunning alone does not prove evidence adoption.
+目录、方案或范围变化后保存新版本并复核受影响策略；筛选条件可复用，但新候选不自动取得原有逐项选择授权。仅证据深度改变时不重跑检索和 Screening；已完成官方 CC 可复用，新增说明书证据改变解释时复核相关行并记录意见变化，新增方案事实需核对并建立新的方案版本；解释意见及从权复核单列本地记录，不能声称已写回 Tool，也不得仅因重调就宣称证据已被采用。
 
-## 6. Handoff and delivery
+## 6. 交接与交付
 
-Before 7 show countries/search languages/gaps, prefilter scope if any, N/W, returned M, all/partial/count, fulltext/readiness, batch plan and actual user decision. Do not re-ask settled matters. Pending strategy permits candidates/questions, not CC/report completion.
+进入 Step 7 前显示：`实际国家／检索语言／未覆盖地区｜采用的初筛条件及边界（如有）｜N｜窗口 W｜Screening 返回 M｜全部／部分及实际数量｜全文选项与准备状态｜批次计划｜真实用户决定`。已确认内容不反复询问。未定策略只能交付候选和问题，不声明 CC／报告完成。
 
-Every selected object gets the required original/translation/evidence CC regardless of local risk opinion. Retain unselected lists labeled “Not included in this CC”; selected unfinished objects need concrete reasons, never low-risk placeholders.
+全部入选对象均做规定的原文／译文强证据 CC，不按本地风险意见省略对象。未选对象保留清单，标“未纳入本次 CC”；入选但未完成对象标具体原因，不填低风险。
 
-Step 8 uses ID-matched official results for the adopted list with original fields unchanged; store full-text/local review separately. Denominators are adopted objects. CC completion on returned candidates is not completion of all hits or markets.
+Step 8 只使用与采用名单按 ID 一致的官方结果并保留原字段；全文证据和本地复核另存。统计分母是采用对象，不能把全部返回候选完成 CC 写成全部检索命中或全部市场风险已评估。

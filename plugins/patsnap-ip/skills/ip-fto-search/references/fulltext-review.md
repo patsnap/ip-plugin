@@ -1,48 +1,47 @@
-# Optional description review before CC
+# CC 前的说明书全文分析（可选）
 
-Run only for `evidence_mode=fulltext`. Retrieval here means obtaining selected patents' full descriptions, not new patents or a broader pool. Both all/partial strategies may use it. `claims` skips advance per-patent description review but still requires complete claims, itemwise translation and necessary interpretive evidence.
+仅当客户选择“全文增强”时执行；此处“召回”指取得已选专利的说明书全文，不是另找新专利或扩大候选池。全部／部分 CC 策略均可选择本模式。不预先逐篇全文分析也不取消完整权项、逐项翻译或必要的解释补证。
 
-## Acquisition and limits
+## 文本获取与边界
 
-Follow the main Skill's A1 routing and current MCP protocol, reusing identical-identity/version receipts first. For numbers alone, verify complete publication identity through search, then obtain text through the full-text tool's supported identity route. Do not infer required identifiers/content options from the Skill. Check complete claims/descriptions and retain document, original language, version, complete receipt and provenance. No silent family substitution or summary-as-fulltext. Translate locally with provenance without overwriting originals.
+按主文 A1 工具路由和当前 MCP 协议取得文本，优先复用身份和版本相同的原回执。只有号码时先通过检索核对完整公开件身份，再按全文 Tool 当前支持的身份接入方式取文；不从 Skill 推断所需标识或内容选项。核对实际回执中的权项和说明书是否完整，保留采用文献、原文语种、版本、完整回执及来源。不能用相关同族文本静默替代，不能用技术摘要冒充全文。需要译文时在本地逐项翻译并标明来源，不覆盖原文。
 
-For client number lists requesting import and originals, first pass the list-import gate through Boolean construction/search, then call `patsnap-ip:fetch_patent` for every verified object. Disclose complete, partial, failed and unresolved objects individually. Original-text-only delivery does not require Screening first.
+客户以号码列表要求“导入并给原文”时，先按主文列表导入门用 Boolean 构式和搜索核对真实文献身份，再对每个已核对对象调用 `patsnap-ip:fetch_patent`。逐件披露完整、部分、失败和未解析；仅原文交付不要求先做 Screening。
 
-Call `patsnap-ip:build_claim_chart` under the current protocol, keeping the frozen solution separate from patent identity. Do not mix patent text into product facts or present local text as the tool's own original source. Full-text enhancement first acquires, reads and records descriptions locally. Uncovered dependent claims and interpretation opinions remain separate local reviews, without claimed tool writeback. Verify actual evidence on both sides and claim coverage.
+调用 `patsnap-ip:build_claim_chart` 时遵循当前 MCP 协议，并保持冻结方案与采用专利身份清晰分离；不能把专利正文混入方案事实，也不能用本地全文冒充 Tool 的原始取材。全文增强先在本地取得、阅读并记录说明书证据；工具未覆盖的从权和解释意见单列本地复核，不声称已写回 Tool。仍须核对实际双方证据和权项覆盖。
 
-## Minimum per-patent analysis
+## 每篇的最小分析记录
 
-1. Acquisition: PN/PID, claim version, source and original availability. Empty/abstract-only/error/truncated content is not acquired fulltext. Long texts may be read in segments with coverage intervals/locations; unread parts are not analyzed.
-2. Interpretation clues: locate definitions, components/relationships, optional/required configurations, structures/steps supporting functional language, parameters/conditions and explicit exclusions/distinctions. Record exact quote/location and applicable claim/row.
-3. Support/conflict: preserve both. Ordinary embodiments do not automatically narrow claims; description disclosure is not a claim limitation or customer product fact. Explain changes to interpretation; unknown remains unknown.
-4. Handoff: separate raw text files from concise interpretation tables. Claims still decompose from originals; put description evidence in the CC interpretation column and details below/appendix, not a fulltext dump in the main table.
+1. **取得状态**：核对 PN／PID、采用权项版本、来源、原文是否可用。空内容、仅摘要、错误或可见截断不标全文取得成功。长文本可分段读取，保存覆盖区间和原文定位；未读部分不能称分析完毕。
+2. **解释线索**：从全文定位术语定义、部件及作用关系、可选／必要配置、功能性描述对应的结构或步骤、适用参数／条件，以及明确排除／区别陈述。记录原句、段／页／字符位置和适用权项／行号。
+3. **支持与冲突**：同时保留支持对应和反向证据；普通实施例不自动限缩权利要求，说明书披露不等于权项限定，专利内容也不是客户实际产品事实。分析是否改变原解释及原因，未知保持未知。
+4. **交接**：原始全文文件与简短解释证据表分开保存。完整权项仍按原文拆解；说明书证据填入 CC 四列表的“说明书支持／权项解释依据”，优先带段落号，详情折叠到行下／附录，不把主表扩成全文堆叠。
 
-Acquire/analyze the current batch, then official CC and review; do not wait for all 150 before batch 1. Missing selected fulltext keeps that batch pending with specific objects. Continue independent preparation, not false fulltext completion. Users may wait, explicitly switch to claims mode or accept bounded local delivery. Mode changes create versions; gap acceptance is not acquisition.
+按当前 CC 批次先取证分析，再调该批官方 CC 并结合证据复核；无需等所有150篇都读完才处理首批。已选全文增强但该批有缺失时，保持该批待补证并说明具体对象；可继续独立资料整理，不默认为已完成全文模式。客户可针对明确缺口选择等待、改为基础模式或交付有边界的本地稿；改变模式记录新版本，不把接受缺口写成证据已取得。
 
-## Verifiable local record
+## 可检查的本地记录
 
-`fulltext-review.json` is local, not an MCP result:
-
+`fulltext-review.json` 是本地资产，不是 MCP 返回值：
 ```json
 {
   "schema_version": "fto-fulltext-review-1",
-  "selection_sha256": "canonical-selection-object-sha256",
-  "reviews": [{
-    "patent_id": "selected-PID", "status": "complete",
-    "source_record": {"path": "/absolute/path/official-fulltext.json", "sha256": "actual-file-sha256"},
-    "analysis_record": {"path": "/absolute/path/fulltext-analysis.md", "sha256": "actual-file-sha256"}
-  }]
+  "selection_sha256": "cc-selection.json 对象的规范 JSON SHA-256",
+  "reviews": [
+    {
+      "patent_id": "已选 PID",
+      "status": "complete",
+      "source_record": {"path": "/绝对路径/官方全文回执.json", "sha256": "文件SHA-256"},
+      "analysis_record": {"path": "/绝对路径/全文分析.md", "sha256": "文件SHA-256"}
+    }
+  ]
 }
 ```
+`complete` 必须基于实际取得和完成的分析，不因工具调用成功就填写。缺失／部分分析写 `missing/partial/failed` 及原因；脚本不会把它们当完成。散列算法见本地脚本 `sha(canonical(selection))`，`canonical` 为 UTF-8 JSON，键排序，无额外分隔空白，中文不转义。
 
-Complete requires actual acquisition and finished analysis, not successful calls alone. Missing/partial/failed states include reasons and do not validate as complete. Hash with the script's `sha(canonical(selection))`: UTF-8 JSON, sorted keys, compact separators, Unicode unescaped.
-
+CC 前：
 ```bash
-python3 scripts/select_cc.py validate --catalog /absolute/path/cc-catalog.json --selection /absolute/path/cc-selection.json --lifecycle /absolute/path/lifecycle-gate.json --batch 1 --evidence /absolute/path/fulltext-review.json
+python3 scripts/select_cc.py validate --catalog /绝对路径/cc-catalog.json --selection /绝对路径/cc-selection.json --lifecycle /绝对路径/lifecycle-gate.json --batch 1 --evidence /绝对路径/fulltext-review.json
 ```
+脚本检查该批 IDs、记录版本、来源／分析文件散列及完成状态；不自动证明文档真实、全文完整或解释正确，仍需上述核验。其他批未完成不阻塞本批已完成记录的校验；失败批不跳过伪装整案完成。
 
-The script checks batch IDs, record versions, source/analysis hashes and completion, not authenticity/fulltext completeness/interpretation correctness. Other incomplete batches do not block a ready batch's validation; skipped failures cannot be called whole-case completion.
-
-Report description acquired/analyzed/missing separately with objects, sources and effects on opinions. Use the shared local report template and distinguish official results from local evidence/interpretation/review. Fulltext may strengthen interpretation; do not promise a predetermined accuracy gain.
-
-In the four-column table, use “Description support / claim interpretation basis,” prioritizing original description/prosecution quotations and paragraph numbers.
+报告分别列说明书“已取得／已分析／缺失”及覆盖对象、来源和对意见的影响。报告按统一模板在本地生成，分别标明工具结果与本地证据、解释和复核意见。全文可加强解释证据，不能预先保证准确率提高多少。

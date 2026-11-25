@@ -1,128 +1,153 @@
-# FTO report structure and formatting
+# FTO 报告结构与版式
 
-Read when generating, redesigning or reviewing final reports. These delivery/layout rules do not change retrieval, Screening, Claim Chart or legal assessment, or duplicate MCP protocols.
+## 目录
 
-## 1. Document structure
+- 1. 文档结构与客户预览
+- 2. 页面系统
+- 3. 封面与目录
+- 4. 执行摘要和结果概览
+- 5. 技术方案与技术特征
+- 6. 逐件 Claim Chart
+- 7. 附录
+- 8. 视觉规范
+- 9. 生成与验收
 
-Use this order. Omit optional statistics without data; retain required unexecuted sections with their actual status.
+仅在生成、改版或复核最终报告时读取。本文件规定交付层级和版式，不改变检索、Screening、Claim Chart 或法律判断规则，也不复制任何 MCP Tool 协议。
 
-1. Cover;
-2. Contents (required for more than 10 body pages);
-3. Executive summary and fact basis;
-4. Retrieval and candidate-screening scope;
-5. Results overview;
-6. Per-patent, itemwise assessment of possible claim coverage;
-7. Conclusions and unresolved matters;
-8. Appendix A: keywords and classifications;
-9. Appendix B: search strategies and queries;
-10. Appendix C: evidence, adopted versions and current rights;
-11. Appendix D: completeness and delivery verification;
-12. Disclaimer.
+## 1. 文档结构
 
-Partial tasks retain this hierarchy but name their actual scope, such as partial analysis, report review or specified-patent comparison, on the cover/summary. Do not imply complete FTO.
+报告按以下顺序生成；无数据的可选统计表省略，不保留空壳，必要但未执行的章节保留并写明状态。
 
-### 1.2. General readers
+1. 封面
+2. 目录（正文超过 10 页时必须生成）
+3. 执行摘要与事实基础
+4. 检索与候选专利筛选范围
+5. 分析结果概览
+6. 逐件、逐项检查权利要求是否可能覆盖产品
+7. 结论与仍需确认的事项
+8. 附录 A：关键词与分类号
+9. 附录 B：检索策略与检索式
+10. 附录 C：证据、采用版本与专利当前状态
+11. 附录 D：完整性与交付核验
+12. 免责声明
 
-Apply the main Skill’s plain-language rules throughout. Explain scope, findings, unknowns and decisions first, then technical terminology, queries and evidence. Explain FTO/Boolean/Screening/Claim Chart on first use; keep internal codes in parentheses/appendices. Preserve full originals/claims and layer important evidence as original, complete translation and plain explanation, without treating explanations as originals/legal conclusions.
+局部任务仍使用同一层级，但封面及执行摘要必须在标题中注明“局部分析／报告复核／指定专利比对”等真实范围，不冒充完整 FTO。
 
-### 1.5. HTML preview and final-format choice
+## 1.2 目标国普通读者
 
-Generate a self-contained preview before final delivery for content review and format selection. Use chapter navigation, conclusions first, evidence anchors and expandable details, with FTO structure:
+全部客户可见文字遵循主文直达的“目标国普通读者的平实表达”。报告先说清本次检查范围、主要发现、尚未确认事项和客户下一步，再提供专利术语、检索式和完整证据。FTO、Boolean、Screening、Claim Chart 等词首次出现时用目标国语言解释；正文随后使用易懂名称，英文和内部状态码放在括号或附录。
 
-1. Summary, scope and decisive unknowns;
-2. Product solution and evidence;
-3. Logic, keywords/synonyms/classes, Boolean/broad semantic recall and convergence within a frozen semantic pool;
-4. Retrieval, Screening, selection and completeness reconciliation;
-5. Selected identities, lifecycle and itemwise CC;
-6. Conditional conclusions, evidence gaps, completeness and disclaimer.
+专利原文和完整权利要求不得为了易读而删减。每项重要证据按“原文／完整译文／平实说明”分层，平实说明不得冒充原文或法律结论。
 
-Navigation targets section anchors; evidence links target actual limitations/appendices. External original links use only tool-returned/verified official URLs with `target="_blank" rel="noopener noreferrer"`. Do not build URLs from PNs. Mark missing links without deleting documents.
+## 1.5 HTML 客户预览和最终格式选择
 
-Default status is customer preview, with unresolved items and HTML/Word/PDF/Markdown/explicit-combination choices at the top. Record actual client confirmation/choice provenance. Confirmed HTML can be final; do not generate all formats automatically.
+最终报告前必须先生成自包含 HTML 预览稿，供客户核对内容和选择最终格式。HTML 参考查新页的“章节导航、结论先行、证据锚点、可展开详情”的信息设计，但页面结构必须保持 FTO 逻辑：
 
-Do not embed complete raw Screening receipts, unselected full texts or duplicate claims. Retain locations/completeness. Selected CC must be complete when expanded and printed; folding cannot hide gaps. No external CSS/JavaScript dependencies; color alone cannot carry conclusions.
+1. 执行摘要、范围与决定性未知
+2. 技术方案与事实证据
+3. 检索逻辑、关键词／同义词／分类号、关键词逻辑检索／语义宽召回及固定语义池内收敛
+4. 检索、Screening、客户选择和完整性对账
+5. 选定专利的身份、生命周期与逐项 Claim Chart
+6. 条件化结论、待补证、完整性和免责声明
 
-Show actual semantic sentences, relationship phrases by language, input-pool count/version, scope, method and retention rules directly in the body. Long PN/ID lists may use downloads/appendices; hashes/references or “converged” alone are insufficient. Separate convergence from new whole-database supplementary recall.
+顶部导航使用上述章节锚点；内部证据链接定位到具体权项限定或附录证据。外部“查看专利原文”链接只使用工具回执或已核验官方资料中的 URL，使用 `target="_blank" rel="noopener noreferrer"`；不从 PN 自动拼网址。缺链接时显示未取得，不删除该文献。
 
-## 2. Page system
+HTML 默认为“客户预览稿”，页首列出待确认项和最终格式选项：HTML、Word、PDF、Markdown 或客户明确的组合。用户确认后记录选择及来源；HTML 本身可经确认后转为最终版。未确认不自动生成所有格式。
 
-- Word/PDF: A4. Portrait body/appendices with left/right 3.18 cm and top/bottom 2.54 cm margins.
-- Per-patent CC: landscape with left/right 2.54 cm and top/bottom 3.18 cm; restore portrait through a new section afterward.
-- Keep patents in one document. Start each with a level-2 heading/identity band, paging as needed without near-empty title-only pages.
-- Repeat table headers across pages. Allow natural row continuation; avoid fixed heights clipping text. Keep short limitation rows together where possible.
-- Header: case name/report version. Footer: confidentiality if supplied, page X of Y. No cover header; numbering starts at contents/body.
-- Long queries/originals may span pages. Do not shrink to unreadable sizes or force entire-page cells.
+HTML 不嵌入完整 Screening 原始回执、未选专利的全文或重复权项；这些只保留定位和完整性状态。选定对象的 Claim Chart 必须完整可展开及可打印，不以折叠隐藏缺口。页面不依赖外部 CSS／JavaScript；颜色仅辅助状态，不单独承载结论。
 
-## 3. Cover and contents
+语义池内收敛必须在 HTML 正文直接显示实际语义原句、按语言分组的关系短语、输入候选池数量与版本、范围、方法和保留规则。完整 PN／ID 清单过长时可使用下载文件或附录链接，但正文不能只给散列、不透明引用或“已收敛”等结论。收敛结果与新增补召回分开，避免把全库混合检索写成固定池重排。
 
-Cover includes product name, freedom-to-operate report/actual task type, version, delivery/assessment dates, markets/activity countries, sourced client/preparer identities and one scope-summary sentence. State actual route counts, Screening returns, selected/completed/incomplete CC and decisive unknowns, with sourced counts rather than cross-stage inference. Avoid long risk prose or “not found” equated with clearance.
+## 2. 页面系统
 
-Use real heading hierarchy/page numbers for contents. Patents appear at level 2; individual limitations do not.
+- Word 与 PDF 使用 A4。正文和附录采用纵向：左右页边距 3.18 cm，上下 2.54 cm。
+- 逐件 Claim Chart 使用横向：左右页边距 2.54 cm，上下 3.18 cm；结束后新建分节并恢复纵向。
+- 不为单个专利创建独立文档。每件专利使用二级标题及专利身份带开始，必要时分页，但不得生成只有标题或一两行内容的空白页。
+- 超过一页的表格重复表头。允许正文行自然跨页，不设置可能截断文字的固定行高；同一限定的短行尽量保持在同页。
+- 页眉使用“案件名称｜报告版本”；页脚使用“保密级别（如有）｜第 X 页／共 Y 页”。封面不显示页眉，页码从目录或正文开始。
+- 长查询和完整原文允许跨页，禁止通过把字号缩至不可读或把单元格固定为超高整页来维持单页。
 
-## 4. Summary and results
+## 3. 封面与目录
 
-Answer object, countries/activities/date, work actually completed, findings and gaps. Present solution and features separately so readers need not reconstruct product facts from queries.
+封面只保留以下信息：
 
-Use two overview tables:
+- 明确的方案或产品名称
+- “自由实施分析报告”及真实任务类型
+- 报告版本、交付日期、评估时点
+- 目标市场／实施国家
+- 委托方／编制方（有来源时）
+- 一句范围摘要：实际检索路线数、Screening 返回数、CC 选定／完成／未完成数及决定性未知
 
-1. Process counts: database returns, retrieved/identity-verified, submitted, returned candidates, selected, successful reviews, failures, unresolved and pending counts/sources.
-2. Candidate overview: original screening order, PN, title, applicant/owner, authority, adopted claims, pending/active status, comparison result, local review and main gaps.
+各数量必须来自对应回执或冻结目录；不得把搜索命中、Screening 返回和 CC 完成相互替代。封面不放风险结论长段落，也不把“未发现”写成“可自由实施”。
 
-Add an applicant/owner × high/medium/low/pending matrix only with verified identities and decision value. List PNs and use the same completed-analysis denominator. Screening order is not legal risk; nonreturns are not low risk.
+目录使用真实标题层级和页码；逐件专利只进入二级目录，不把每条限定放入目录。
 
-## 5. Solution and features
+## 4. 执行摘要和结果概览
 
-Explain purpose, components/relationships, operation/conditions, problem/effect and unknowns in coherent prose, separating configurations without inventing a combined product. Feature table: `ID | actual type | technical feature | source location | search purpose/status`. Use actual extraction categories/traceable sources. Put keywords/synonyms/classes and queries in appendices A/B rather than crowding this table.
+执行摘要先回答：评估对象是什么、在哪些国家／行为／时点、实际完成到哪一步、发现了什么、仍缺什么。正文随后分别列出技术方案和技术特征表，避免读者只能从检索式反推产品事实。
 
-## 6. Per-patent Claim Chart
+结果概览按两层呈现：
 
-Repeat these components:
+1. **流程数量表**：分别列出数据库返回、实际取得并确认身份、送入候选专利筛选、筛选后列出、客户选定详细检查、详细检查成功、失败、无法识别和待确认的数量及来源。
+2. **候选概览表**：保留候选筛选返回的顺序，列专利号、标题、申请人／权利人、受理局、本次使用的权利要求版本、目前是否仍在申请中或有效、比对结论、本地复核状态和主要缺口。
 
-1. Level-2 heading: sequence, PN, title;
-2. Identity: publication/adopted version, applicant/current owner, jurisdiction, filing/priority dates, legal/procedural status, evidenced expected expiry and evidence date; unavailable stays pending without calculation;
-3. Scope: claims/dependencies, product configuration, full-description strategy and evidence state;
-4. Separate raw tool and local-review conclusions, with decisive limitations/unknowns before conditional findings;
-5. Four-column strong-evidence table: claim limitation, description support/interpretation, product facts, comparison opinion.
+只有在申请人／权利人字段已核对且分组确实帮助决策时，才增加“申请人／权利人 × 高／中／低／待核”矩阵。矩阵必须列出 PN，并以已完成的同一分析集合为分母；不得把 Screening 排名直接换算成法律风险，也不得把未返回对象归入低风险。
 
-Keep the strong-evidence contract rather than an ordinary feature/similar-text/relevance table. Suggested landscape widths: 34%/20%/26%/20%, adjustable for language/evidence without losing originals, translations, sources, knowledge states or unknowns.
+## 5. 技术方案与技术特征
 
-- Column 1: row/claim/dependency identity, complete original unit, complete translation/provenance and version changes.
-- Column 2: prioritize original description/prosecution quotes, paragraph numbers and conditions/status. State claim-only reliance or unavailable originals. Embodiments do not automatically limit scope; model reasoning is not description support.
-- Column 3: product-element IDs, actual quotes/figure locations, sources and present/absent/unknown states.
-- Column 4: raw label alongside local correspondence/difference/pending-evidence/interpretation opinion and decisive reason; preserve conflicts.
+- 技术方案用连贯正文说明用途、组成与关系、工作过程／条件、问题／效果及未知；不同配置分列，不合并成不存在的单一产品。
+- 技术特征表固定为“编号｜类型｜技术特征｜原文位置｜检索用途／状态”。类型采用当前特征提取结果的真实类别；原文位置必须可回查。
+- 关键词、同义词、分类号和查询不挤入正文特征表，分别放入附录 A 和 B。
 
-Use one limitation per row, not one vertically merged claim cell across many pages. Repeat claim IDs or “continued” and page headers. Preserve frozen candidate order rather than resorting by final risk.
+## 6. 逐件 Claim Chart
 
-## 7. Appendices
+每件专利按相同组件生成：
 
-### A. Keywords and classifications
+1. 二级标题：`序号  文献号  标题`
+2. 专利身份表：文献号、采用文本／版本、申请人／当前权利人、法域、申请日、优先权日、法律／程序状态、预计届满日及证据日期；未取得写待核，不推算。
+3. 分析范围：采用权项、依附关系、产品配置、说明书全文策略和本件证据状态。
+4. 工具结果与本地复核分列的结论段；先写决定性限定和未知，再写条件化结论。
+5. 四列强证据主表：权项限定、说明书支持／权项解释依据、客户方案、比对意见。
 
-One retrieval unit per row: unit ID, feature, Chinese terms, target-language terms, classification, adoption/rejection reason. Expanded terms remain separate from product facts.
+四列表保留现有强证据契约，不照搬普通“特征—相似文本—相关度”表。为提高横向可读性，列宽建议为 34%／20%／26%／20%；可按语言和证据长度小幅调整，但不得删除原文、翻译、来源、认知状态或未知。
 
-### B. Strategies and queries
+- 第一列：行号、权项与依附身份、完整原文单元、完整译文及来源、版本差异。
+- 第二列：优先列说明书或审查材料原句、段落号、解释条件及状态；仅依据权项本身时明确注明，未取得原文时写未取得。普通实施例不自动限缩权项，模型推理不能替代说明书支持。
+- 第三列：产品要素 ID、客户方案原句／图示位置、来源及存在／不存在／未知状态。
+- 第四列：原始比对标签、本地对应／差异／待补证／解释待定意见及一句决定性依据；两者冲突时并列，不覆盖。
 
-First list route ID, strategy/language, search intent, countries/status/dates, actual viewed window, database-return/retrieved counts and receipt locations. Then reproduce complete queries in monospaced naturally wrapping text. Separate Boolean, semantic and keyword routes; do not sum overlapping counts as unique totals.
+不要把整项权利要求放进一个跨数十页的纵向合并单元格。每条限定单独成行，重复权项号或使用“续”；表头在每页重复。专利间的顺序沿用冻结目录，不按最终风险重新排序而丢失来源顺序。
 
-### C. Evidence, versions and lifecycle
+## 7. 附录
 
-List complete claims, dependency sources, procedural records, description evidence, product materials and locations by evidence ID. Body citations resolve to those IDs; mark missing material individually.
+### 附录 A：关键词与分类号
 
-### D. Completeness and delivery
+每个检索单元一行，列“单元 ID｜技术特征｜中文词组｜目标语言词组｜分类号｜采用／未采用及理由”。同义词与原产品事实分开，不把扩展词写回技术方案。
 
-Record stages, object coverage, failures/unresolved identities, version consistency, count reconciliation, page rendering, removed placeholders and professional-review gaps as passed/failed/not verified. File generation does not establish content completeness.
+### 附录 B：检索策略与检索式
 
-## 8. Visual standards
+先列路线表“检索路线编号｜检索方式／语言｜要查找的内容｜国家、专利状态和日期｜本次查看到的结果范围｜数据库返回数／实际取得数｜来源记录”，再逐条放完整查询。关键词逻辑、语义和关键词路线分开，不把多路线返回数相加当作去重后的总数。长查询使用等宽字体和自然换行，不缩小到不可读。
 
-- Black headings, body and headers/footers. Use stable sans-serif fonts with available language fallbacks; body 10.5–11 pt, tables 9–10.5 pt, footnotes/sources at least 9 pt.
-- Real Word heading styles: level 1 16 pt, level 2 13–14 pt, level 3 11–12 pt, supporting contents generation.
-- `#D9D9D9` table borders, consistent pale-blue header fill, black text. Status colors supplement text.
-- Center numbers/dates/short statuses; left-align long text with vertical centering and consistent cell padding.
-- Use hierarchy, whitespace and grouped tables, without decorative rules, textbox conclusion cards or large dark fills.
+### 附录 C：证据、版本与生命周期
 
-## 9. Generation and acceptance
+按证据编号列完整权项、依附来源、程序材料、说明书证据、产品材料和定位。正文引用必须能回到该编号；未取得材料逐项注明。
 
-Fill the unified template, generate the customer HTML preview, then confirmed final formats. Verify navigation, evidence anchors, evidenced original URLs, logic/terms/queries, expandable evidence and printing. Remove inaccessible external links and mark unavailable.
+### 附录 D：完整性与交付核验
 
-For Word, update contents/page numbers and render every page, checking cover, contents, section orientations, all multipage headers and CC pages. Check missing glyphs, font replacement, clipping, overlap, broken tables, abnormal blank pages, orphan headings, fixed-height truncation and placeholders.
+列步骤状态、对象覆盖、失败／未解析、版本一致性、报告数量对账、逐页渲染、占位符清理及人工待核项。每项使用“通过／未通过／未核验”，不能用文件生成成功代替内容完整。
 
-Long reports may use main report plus evidence attachments, but the main report still lists every adopted object, completion state and conclusion basis. Splitting cannot omit failed, unknown or low-risk objects.
+## 8. 视觉规范
+
+- 标题、正文和页眉页脚均使用黑色。中文优先使用稳定的无衬线字体并设置可用的中英文字体回退；正文 10.5–11 pt，表格 9–10.5 pt，脚注与来源不低于 9 pt。
+- 一级标题 16 pt、二级标题 13–14 pt、三级标题 11–12 pt；标题使用真实 Word 标题样式，保持层级可生成目录。
+- 表格边框使用 `#D9D9D9`；表头使用统一浅蓝填充，黑色文字。状态颜色仅作辅助，不以颜色单独表达结论。
+- 数字、日期、短状态居中；长文本左对齐并垂直居中。单元格保留一致内边距，禁止文字贴边。
+- 不使用装饰性横线、文本框式结论卡或大面积深色底。页面主要依靠标题层级、留白和表格分组。
+
+## 9. 生成与验收
+
+- 报告内容先按主文直达的统一模板填充，使用主文直达的 HTML 预览模板生成客户确认稿，再按客户选择生成最终格式。
+- HTML 核验章节导航、内部锚点、有据的外部原文链接、检索逻辑、关键词及查询内容、折叠证据和打印版；不可访链接去除链接并标未取得。
+- 生成 Word 后必须更新目录和页码，逐页渲染检查封面、目录、纵横向切换、每个多页表头、首尾页及全部 Claim Chart 页面。
+- 检查缺字方框、字体替换、裁切、重叠、表格断裂、异常空白页、孤立标题、固定行高截断和未替换占位符。
+- 若报告过长，允许同时交付“主报告＋证据附件”，但主报告仍须列出全部采用对象、完成状态和结论依据；拆分不能用于省略失败、未知或低风险对象。

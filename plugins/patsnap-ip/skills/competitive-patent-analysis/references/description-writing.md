@@ -1,62 +1,62 @@
-# Writing patent technical descriptions
+# 专利技术描述句写作规范
 
-Use one italic sentence per patent, normally 20–50 English words. For Chinese, use about 12–60 characters. For other requested languages, use comparable information density. Explain why the patent belongs in the area and what its specific technical subject is.
+每件专利按交付语种写一句斜体技术描述。中文通常 12–60 字，英文通常 20–50 词，其他语种按同等信息密度调整。目标：让读者不点开专利就知道"这件专利为什么被放在这个技术方向里，它到底保护了什么"。
 
-## Three required elements
+## 三要素结构
 
-```text
-Protects {specific object}, using {mechanism/construction}, serving {role in this technology or commercialization path}.
+```
+保护{具体对象}，{通过什么机制/构造实现}，{在该技术方向或商业化路径中的角色}。
 ```
 
-A sentence missing any element fails the requirement.
+三要素缺一即为不合格。
 
-## Layer-specific templates
+## 分层句式模板
 
-### Physical/manufacturing foundations
+### 物理与制造基础层专利
 
-Focus: concrete mechanical/structural object → architectural function → manufacturing/assembly relationship.
+聚焦：保护的具体机械/结构对象 → 在整体架构中的功能作用 → 与制造或装配路径的关联。
 
-> Protects the {structural feature} of {component}, defining {dimension/interface/flow-path} relationships that provide {function} within {architecture}.
+> 保护{构件名}的{结构特征}，规定{关键尺寸/接口/流路}关系，是{整体架构特征}设计中{承担的功能}的核心专利。
 
-Examples:
-- Protects a shared building arrangement for multiple modules, defining lifting corridors, pool structures and module spacing to connect factory-built modules with on-site installation.
-- Protects tube-sheet openings and seals inside a pressure vessel, separating primary and secondary circuits in an integrated design without external main piping.
+示例：
+- 「保护多个模块共用厂房的整体布置方案，规定模块吊装通道、水池结构与模块间隔设计，是工厂制造模块与现场安装接口的核心专利。」
+- 「保护压力容器内管板的开孔布置与密封结构，在取消外部主管道的一体化设计中承担一次侧与二次侧隔离功能。」
 
-### Regulatory licensing/certification barriers
+### 监管许可 / 认证壁垒层专利
 
-Focus: concrete passive mechanism → evidenced certification role → position in family evolution.
+聚焦：无能动机制的具体实现方式 → 在认证审查中的地位 → 在专利族演进中的位置。
 
-> Protects a {passive/adaptive} implementation of {system}, using {gravity/density difference/immersion/phase change} to perform {function}, supporting {specific safety case} in {certification}.
+> 保护{系统名}的{非能动/自适应}实现，依靠{重力/密度差/浸没/相变等具体物理机制}完成{功能}，是{认证名}审查中{对应的安全论证项}。
 
-Examples (claims about certification or citation counts require actual evidence):
-- Protects passive emergency-feedwater startup through hot/cold-leg density differences, driving natural circulation without external power or a main pump and supporting the loss-of-power residual-heat-removal safety case.
-- For an early, highly cited member, its evidenced role as a reference for industry passive-safety designs may supply the third element. A citation statement alone does not replace the protected object and mechanism.
+示例：
+- 「保护应急给水系统的非能动启动机制，依靠冷热段密度差驱动自然循环，无需外部电源与主泵，是设计认证中失电工况余热导出的论证基础。」
+- 「该族最早期成员，被引近 90 次，已成为行业被动安全设计的参照基线。」（用于高被引件，可作为第三要素替代）
 
-### Commercialization
+### 商业化护城河层专利
 
-Focus: system hierarchy → topology/coupling → specific commercial application.
+聚焦：保护的系统架构层级 → 拓扑或耦合方式 → 对应的具体商业场景。
 
-> Protects {architectural feature} at the {grid/module/process} level, enabling {capability} for {named product family/application}.
+> 保护{系统层级：电网拓扑 / 模块并联 / 工艺耦合}的{架构特征}，实现{能力}，直接对应{产品系列名或场景名}的商业化路径。
 
-Examples:
-- Protects the internal-grid topology of a multi-module power station, enabling islanded operation and module-level load dispatch for the station's product family.
-- Protects coupling between reactor heat and hydrogen production through an indirect thermal loop, supplying industrial process heat for green industry and data-center energy applications.
+示例：
+- 「保护多模块电站专用内部电网的拓扑结构，实现脱网自维持运行与模块级负载调度，是电站产品系列的直接知识产权载体。」
+- 「保护反应堆热能与制氢工艺的耦合系统，通过间接热循环向工业过程供热，对应绿色工业与数据中心供能场景布局。」
 
-## Prohibited
+## 硬性禁止
 
-- Generic filler: “This patent concerns reactor technology and is important.”
-- Title-only repetition: “Protects a passive emergency-feedwater system.”
-- Claim-scope assertions: “Covers all natural-circulation cooling” or “Competitors cannot design around it.”
-- Invented parameters, materials or values unsupported by original evidence read, or technical-summary fields presented as originals.
-- Identical opening phrasing for every patent in an area; vary expression without omitting required elements.
+- ❌ 空话套话：「本专利涉及核反应堆技术，具有重要意义」
+- ❌ 仅复述标题：「保护一种被动应急给水系统」
+- ❌ 权利要求范围断言：「该专利覆盖所有自然循环冷却方案」「竞品无法规避」
+- ❌ 编造已读原文未支持的具体参数、材料、数值；将技术总结字段冒充原文
+- ❌ 同一方向内 10 句使用同一句式开头，须交替变换
 
-## Quality check
+## 质检清单
 
-Check every listed sentence; actual `listed_count` determines the total, not a target of 30:
+写完全部已列专利的描述句后逐项自检（数量由真实 `listed_count` 决定，不要求达到 30 句）：
 
-1. Does it identify a concrete protected object rather than a broad field?
-2. Does it name a mechanism/construction rather than merely “advanced” or “efficient”?
-3. Does it explain relevance to its area?
-4. Is there only one representative per simple family, with no count-padding siblings?
-5. Does any sentence exceed evidence actually read? For protected objects, component relationships and mechanisms, were corresponding claims/description grounds checked and retained?
-6. Does any wording improperly interpret claim scope?
+1. 每句是否都能指出具体保护对象（而非泛化技术领域）？
+2. 每句是否点出了一个具体机制或构造（而非"先进""高效"）？
+3. 每句是否说明了与所属技术方向的关联？
+4. 是否严格做到每个简单同族只列一件代表件，没有用同族成员补足数量？
+5. 是否有任何句子超出已读证据可支撑的范围？涉及保护对象、构件关系或实现机制时，是否核对并保留了对应权项／说明书依据？
+6. 是否有任何句子使用了权利要求解释性措辞？

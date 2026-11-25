@@ -18,73 +18,73 @@
   </style>
 </head>
 <body>
-  <!-- Replace all placeholders and remove comments. Follow references/plain-language.md for every customer-visible label. Without verified URLs remove external anchors and show “Original link not obtained.” Repeat candidate rows and CC details for adopted patents. -->
-  <nav aria-label="Report sections">
-    <a href="#summary">Summary</a><a href="#facts">Product</a><a href="#search">Search approach</a><a href="#screening">Candidates</a><a href="#claim-chart">Detailed review</a><a href="#conclusion">Conclusions and open issues</a><a href="#evidence">Evidence</a>
+  <!-- 生成时替换全部占位符并删除注释。全部客户可见文字按 references/plain-language.md 面向目标国普通读者改写。无已核验 URL 时删除外部 a 标签，保留“原文链接未取得”。按入选专利重复候选行和逐项对照 details。 -->
+  <nav aria-label="报告章节">
+    <a href="#summary">摘要</a><a href="#facts">产品方案</a><a href="#search">怎样检索</a><a href="#screening">候选专利</a><a href="#claim-chart">详细检查</a><a href="#conclusion">结论与待确认事项</a><a href="#evidence">证据</a>
   </nav>
   <main>
     <header class="cover" id="summary">
-      <div class="eyebrow">Patent freedom-to-operate assessment (FTO)· {{preview_status}}</div>
+      <div class="eyebrow">专利自由实施分析（FTO）· {{preview_status}}</div>
       <h1>{{report_title}}</h1>
       <p class="lead">{{scope_summary}}</p>
       <div class="meta">
-        <div><span class="label">Case / version</span>{{case_id}} · {{report_version}}</div>
-        <div><span class="label">Markets / assessment date</span>{{target_markets}} · {{assessment_date}}</div>
-        <div><span class="label">Candidate screening / detailed review</span>{{screening_returned}} candidates · {{cc_selected}} selected · {{cc_completed}} completed</div>
-        <div><span class="label">Decisive unknowns</span>{{decisive_unknown_count}}</div>
+        <div><span class="label">案件／版本</span>{{case_id}} · {{report_version}}</div>
+        <div><span class="label">目标市场／评估时点</span>{{target_markets}} · {{assessment_date}}</div>
+        <div><span class="label">候选筛选／详细检查</span>{{screening_returned}} 件候选 · {{cc_selected}} 件选定 · {{cc_completed}} 件完成</div>
+        <div><span class="label">需要确认的关键事项</span>{{decisive_unknown_count}}</div>
       </div>
-      <div class="review"><strong>Customer confirmation</strong><br>{{review_questions}}
-        <div class="format" aria-label="Final delivery formats"><span class="pill">HTML</span><span class="pill">Word</span><span class="pill">PDF</span><span class="pill">Markdown</span><span class="pill">Chosen combination</span></div>
+      <div class="review"><strong>请客户确认</strong><br>{{review_questions}}
+        <div class="format" aria-label="最终交付格式选项"><span class="pill">HTML</span><span class="pill">Word</span><span class="pill">PDF</span><span class="pill">Markdown</span><span class="pill">明确组合</span></div>
       </div>
     </header>
 
-    <section id="facts"><h2>1. Solution and fact basis</h2><p>{{technical_proposal}}</p>
-      <div class="table-wrap"><table><thead><tr><th>ID</th><th>Product feature</th><th>Source location</th><th>Verification status</th><th>Search / detailed review purpose</th></tr></thead><tbody>{{feature_rows}}</tbody></table></div>
+    <section id="facts"><h2>1. 技术方案与事实基础</h2><p>{{technical_proposal}}</p>
+      <div class="table-wrap"><table><thead><tr><th>编号</th><th>产品特点</th><th>原文位置</th><th>目前是否确认</th><th>用于检索还是逐项对照</th></tr></thead><tbody>{{feature_rows}}</tbody></table></div>
     </section>
 
-    <section id="search"><h2>2. How we searched</h2>
-      <div class="flow"><span>Product feature</span><b>→</b><span>Independent search directions</span><b>→</b><span>Organize synonyms</span><b>→</b><span>Define OR / AND relationships</span><b>→</b><span>Boolean + broad semantic recall</span><b>→</b><span>Converge within semantic results</span><b>→</b><span>Apply country and status scope</span></div>
+    <section id="search"><h2>2. 我们怎样检索</h2>
+      <div class="flow"><span>产品特点</span><b>→</b><span>分成几个检索方向</span><b>→</b><span>整理同义词</span><b>→</b><span>确定“或者／并且”关系</span><b>→</b><span>关键词逻辑检索＋语义宽召回</span><b>→</b><span>在语义结果中收敛</span><b>→</b><span>限定国家和专利状态</span></div>
       <p class="notice">{{query_logic_summary}}</p>
-      <h3>Keywords, synonyms and patent classes</h3>
-      <div class="table-wrap"><table><thead><tr><th>Search direction</th><th>Search concept</th><th>Chinese terms</th><th>Target-market language terms</th><th>Patent classes (IPC / CPC)</th><th>Adoption reason</th></tr></thead><tbody>{{keyword_rows}}</tbody></table></div>
-      <h3>Boolean and semantic searches</h3>
-      <div class="table-wrap"><table><thead><tr><th>Search method</th><th>Search intent</th><th>Countries, statuses and dates</th><th>Viewed window / returned / retrieved</th><th>Source record</th></tr></thead><tbody>{{query_route_rows}}</tbody></table></div>
-      <details><summary>View complete Boolean queries</summary><pre>{{boolean_queries}}</pre></details>
-      <details><summary>Expand semantic queries and source basis</summary><pre>{{semantic_queries}}</pre></details>
-      <h3>Semantic-pool convergence: actual inputs</h3>
-      <p class="notice">The following inputs rank and tier already retrieved semantic candidates; they do not expand the database search.</p>
-      <div class="table-wrap"><table><thead><tr><th>Language</th><th>Original broad semantic query</th><th>Object + relationship + context phrases</th><th>Input candidate pool</th><th>Convergence method / retention rules</th></tr></thead><tbody>{{semantic_convergence_input_rows}}</tbody></table></div>
-      <p>{{semantic_convergence_result_summary}} <span class="source">Complete input candidate list: {{semantic_convergence_pool_reference}}</span></p>
+      <h3>关键词、同义词与专利分类号</h3>
+      <div class="table-wrap"><table><thead><tr><th>检索方向</th><th>要查找的概念</th><th>中文词</th><th>目标国语言词</th><th>专利分类号（IPC／CPC）</th><th>为什么采用</th></tr></thead><tbody>{{keyword_rows}}</tbody></table></div>
+      <h3>关键词逻辑检索和语义检索</h3>
+      <div class="table-wrap"><table><thead><tr><th>检索方式</th><th>要查找的内容</th><th>国家、专利状态和日期</th><th>本次查看范围／返回／取得</th><th>来源记录</th></tr></thead><tbody>{{query_route_rows}}</tbody></table></div>
+      <details><summary>查看完整关键词逻辑检索式</summary><pre>{{boolean_queries}}</pre></details>
+      <details><summary>展开语义查询及生成依据</summary><pre>{{semantic_queries}}</pre></details>
+      <h3>语义结果收敛：本轮输入明文</h3>
+      <p class="notice">以下内容是对已经取得的语义候选进行排序和分层，不是重新扩大数据库检索范围。</p>
+      <div class="table-wrap"><table><thead><tr><th>语言</th><th>宽召回语义原句</th><th>对象＋关系＋场景短语</th><th>输入候选池</th><th>收敛方法与保留规则</th></tr></thead><tbody>{{semantic_convergence_input_rows}}</tbody></table></div>
+      <p>{{semantic_convergence_result_summary}} <span class="source">完整输入候选清单：{{semantic_convergence_pool_reference}}</span></p>
     </section>
 
-    <section id="screening"><h2>3. Retrieval, screening and client selection</h2>
+    <section id="screening"><h2>3. 检索结果、候选专利筛选与客户选择</h2>
       <div class="grid">
-        <div class="card metric"><span class="label">Submitted for screening</span><strong>{{screening_submitted}}</strong><span class="source">{{screening_submission_source}}</span></div>
-        <div class="card metric"><span class="label">Returned candidates</span><strong>{{screening_returned}}</strong><span class="source">{{screening_mode_status}} · Version mapping: {{identity_remap_status}}</span></div>
-        <div class="card metric"><span class="label">Client-selected / pending or active verified</span><strong>{{cc_selected}} · {{lifecycle_gate_passed}}</strong><span class="source">{{selection_source}}</span></div>
+        <div class="card metric"><span class="label">送入候选筛选</span><strong>{{screening_submitted}}</strong><span class="source">{{screening_submission_source}}</span></div>
+        <div class="card metric"><span class="label">筛选后列出的候选</span><strong>{{screening_returned}}</strong><span class="source">{{screening_mode_status}} · 版本映射：{{identity_remap_status}}</span></div>
+        <div class="card metric"><span class="label">客户选定／确认仍在申请或有效</span><strong>{{cc_selected}} · {{lifecycle_gate_passed}}</strong><span class="source">{{selection_source}}</span></div>
       </div>
       <p>{{screening_completeness_note}}<br>{{lifecycle_gate_summary}}</p>
-      <div class="table-wrap"><table><thead><tr><th>Order</th><th>Adopted publication / original</th><th>Title / applicant</th><th>Country / pending or active rights</th><th>Adopted claim version</th><th>Detailed-review status</th></tr></thead><tbody>{{selected_candidate_rows}}</tbody></table></div>
-      <p class="source">Objects outside this claim comparison: {{lifecycle_excluded_or_unknown_reference}}. Reasons may include inactive rights or insufficient status evidence.</p>
-      <p class="source">Unselected objects: {{deferred_catalog_reference}}. Unselected does not mean excluded or low risk.</p>
+      <div class="table-wrap"><table><thead><tr><th>顺序</th><th>本次使用的专利号／原文</th><th>标题／申请人</th><th>国家／是否仍在申请或有效</th><th>本次比对的权利要求版本</th><th>详细检查状态</th></tr></thead><tbody>{{selected_candidate_rows}}</tbody></table></div>
+      <p class="source">未进入本次逐项对照的对象：{{lifecycle_excluded_or_unknown_reference}}。原因可能是专利已经失效，或者现有资料还不能确认其状态。</p>
+      <p class="source">未选对象：{{deferred_catalog_reference}}。未选不等于已排除或低风险。</p>
     </section>
 
-    <section id="claim-chart"><h2>4. Itemwise review of possible claim coverage</h2>
+    <section id="claim-chart"><h2>4. 逐件、逐项检查权利要求是否可能覆盖产品</h2>
       {{claim_chart_sections}}
-      <!-- One-patent example：
+      <!-- 单件示意：
       <details open id="patent-{{patent_id}}"><summary>{{pn}} · {{title}} · {{local_risk}}</summary>
-        <p><a href="{{verified_patent_source_url}}" target="_blank" rel="noopener noreferrer">View patent original</a> · <a href="#evidence-{{evidence_id}}">Go to evidence</a></p>
-        <div class="table-wrap"><table><thead><tr><th>Claim limitation (original / translation)</th><th>Description support / claim interpretation basis</th><th>Product facts</th><th>Assessment</th></tr></thead><tbody>{{claim_limitation_rows}}</tbody></table></div>
+        <p><a href="{{verified_patent_source_url}}" target="_blank" rel="noopener noreferrer">查看专利原文</a> · <a href="#evidence-{{evidence_id}}">跳转证据</a></p>
+        <div class="table-wrap"><table><thead><tr><th>权利要求中的具体条件（原文／翻译）</th><th>说明书支持／权项解释依据</th><th>产品中的对应情况</th><th>本次判断</th></tr></thead><tbody>{{claim_limitation_rows}}</tbody></table></div>
       </details> -->
     </section>
 
-    <section id="conclusion"><h2>5. Conclusions and unresolved matters</h2><div class="card">{{conditional_conclusion}}</div><p class="notice">Consistency between claim rows and tool summary: {{cc_conclusion_consistency_status}}</p><h3>Evidence and decisions still needed</h3>{{open_issues}}</section>
+    <section id="conclusion"><h2>5. 本次结论与仍需确认的事项</h2><div class="card">{{conditional_conclusion}}</div><p class="notice">逐项结果与工具总结的一致性：{{cc_conclusion_consistency_status}}</p><h3>还需要补充或决定</h3>{{open_issues}}</section>
 
-    <section id="evidence"><h2>6. Evidence, adopted claims and current rights</h2>{{evidence_sections}}
-      <!-- Use a stable anchor for every evidence item：<section class="evidence" id="evidence-{{evidence_id}}">...</section> -->
+    <section id="evidence"><h2>6. 证据、采用的权利要求版本和专利当前状态</h2>{{evidence_sections}}
+      <!-- 每条证据使用稳定锚点：<section class="evidence" id="evidence-{{evidence_id}}">...</section> -->
     </section>
 
-    <footer>{{disclaimer}}<br>Client confirmation: {{client_confirmation_status}} · Final format: {{final_output_choice}}</footer>
+    <footer>{{disclaimer}}<br>客户确认状态：{{client_confirmation_status}} · 最终格式：{{final_output_choice}}</footer>
   </main>
 </body>
 </html>

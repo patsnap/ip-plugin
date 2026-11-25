@@ -1,70 +1,70 @@
-# Disclosure judgments and fact verification
+# 公开判断与事实核查
 
-## Comparison entry
+## 比较入口
 
-Pass original `disclosure_text`, shared `features` and actual disclosure images to `assess_feature_disclosure`. With existing patent materials, provide `patent_text` and `patent_images`, using the publication number as a label. For identifier-based retrieval choose either a patent ID or a complete publication number.
+用 `assess_feature_disclosure` 传原始 `disclosure_text`、共同 `features` 和实际交底图片。已有专利材料时提供 `patent_text`、`patent_images`，公开号用于标注；按编号取文时，专利 ID 与完整公开号选一种。
 
-Single-patent fields and the `patents` batch field are mutually exclusive. Each batch contains 1–10 documents and may mix identifier retrieval with supplied material. Align by the returned original `index`; do not renumber after dropping failures. Save successes and recover only failed items.
+单篇字段与 `patents` 批量字段互斥；每批 1–10 篇，可混合编号取文和已有材料。按返回的原始 `index` 对齐，不把失败项丢弃后重新编号；成功结果先保存，只恢复失败项。
 
-Use one relationship list throughout. Check statuses, reasons, evidence, `coverage` and document-level `arrangement`; the tool does not redefine scope or decide final conclusions.
+同一关系清单贯穿各篇。检查状态、理由、证据、`coverage` 及整篇 `arrangement`，不让工具重新决定范围或最终结论。
 
-## Establish document facts first
+## 先确定文献事实
 
-| `judgment` | Meaning |
+| `judgment` | 含义 |
 | --- | --- |
-| `disclosed` | Explicitly stated or necessarily determined by the same document's context; `disclosure_type` distinguishes explicit, inherent or combined disclosure |
-| `not_disclosed` | An actually different structure, parameter or implementation is used; cite that fact |
-| `not_mentioned` | The relevant material read does not state it; this does not establish actual absence |
-| `null` | Insufficient material; describe the gap rather than relabeling it “not mentioned” |
+| `disclosed` | 明确记载或同篇上下文必然确定；`disclosure_type` 标明明确、隐含或结合 |
+| `not_disclosed` | 实际采用明确不同的结构、参数或做法，引用该事实 |
+| `not_mentioned` | 已检查相关材料未记载，不表示实际不存在 |
+| `null` | 材料不足，说明缺口，不改写成“未提及” |
 
-An absent abstract term, zero text matches, unread text or unseen figures cannot establish nondisclosure. Missing figures do not invalidate facts established by text; limit conclusions only when missing figures affect decisive relationships. When text refers to table/figure parameters, inspect actual PDF pages rather than treating extraction omissions as source omissions.
+摘要缺词、查词零命中、未读正文或未看图，不能证明未公开。正文已确定的事实不因缺图作废；仅缺图影响决定性关系时限制结论。正文提到表格或图中参数时，实际查 PDF 对应页，不把提取遗漏当原文缺失。
 
-Every limitation in a complete feature must be satisfied. Separate disclosure of components is not disclosure of their combination. Matching numbers/materials cannot conceal unmatched position, connection or sequence.
+完整特征的各项限定都须满足。部件分别公开不等于组合公开；数值或材料对应不能掩盖位置、连接或顺序未对应。
 
-## Comparison units and source-relationship aggregation
+## 比对单元与源关系汇总
 
-Preserve original extraction entries as source relationships instead of compressing a whole row into a negative finding because of one local difference. When a source relationship contains independently disclosable limitations, compare traceable units before aggregation:
+提取工具的原始条目作为源关系，不直接因一个局部差异而压缩成整行结论。一条源关系同时包含多个可独立公开的限定时，先对可追溯比对单元逐项调用工具，再汇总：
 
-- A unit status records disclosure of that complete local relationship. Retain disclosed units even when another unit in the group differs.
-- For novelty, aggregate a source relationship as fully disclosed only when one date-eligible document discloses every necessary unit in one technical arrangement. Otherwise show partial disclosure and the actual differences.
-- For inventive step, an auxiliary document’s explicit disclosure of a difference unit is a local technical teaching. Separately audit combination motivation, structural compatibility, reasonable expectation of success and obstacles; local disclosure alone does not establish overall obviousness.
-- Preserve a single-source mapping and original disclosure quotation for every unit. Do not recombine source relationships to increase matching.
+- 单元状态表示文献对该完整局部关系的公开事实；已公开单元必须保留，不因同组其他单元不同而改写为“未公开”。
+- 新颖性中，只有同一篇日期合格文献在同一技术安排中公开某源关系的全部必要单元，才能将该关系汇总为完整公开。其他情况显示“部分公开＋实际区别”。
+- 创造性中，辅文献只要明确公开某个区别单元，就应作为局部技术教导记录；但仍须另行审计结合动机、结构兼容性、成功预期和障碍，不得从局部公开直接跳到整体显而易见。
+- 源关系与比对单元之间必须保留单一来源映射和交底原句；不得为了命中率跨源关系拼成新单元。
 
-A genus covers only species it explicitly encompasses; a species cannot supply an unstated specific use or structure for a broader target object. Similar names, a shared industry or possible use do not add specific equipment, workpieces or process limitations to the solution. State the direction of the concept relationship explicitly.
+上位概念只覆盖其明确包含的下位实现；下位概念不能反向覆盖未限定到该用途或结构的上位对象。名称相近、同属一个行业或“通常可用于”某用途，不足以把具体设备、工件或工艺限定补入方案。比较时写明概念方向，不使用含糊的“上下位对应”。
 
-## Necessary inherency, use and numbers
+## 必要隐含、用途与数值
 
-Inherency requires necessity from conditions disclosed in the same document, without selection, modification or another document. Retain input quotations and explain definitions, units, assumptions, calculations, precision and results. A derivation is not a source quotation.
+“隐含”要求从同篇已公开条件必然得到，不能需要选择、改造或跨篇补入。保留输入原句，在理由中写定义、单位、前提、计算、精度及结果；推导不是原文引句。
 
-A usual configuration, possible adoption or an available choice is not necessary inherency. Necessity is possible only when the expressly disclosed arrangement could not be implemented without the feature; otherwise retain `not_mentioned` or `null`. Do not import FTO function–way–result equivalence to fill novelty limitations, or relabel an obvious substitution as disclosure.
+“通常配置”“存在采用可能”“本领域可选择”均不属于必要隐含。只有在不具备该特征就无法实施已明确公开的同一安排时，才可能认定为必然存在；否则保持 `not_mentioned` 或 `null`。查新公开判断不使用 FTO 的功能—方式—效果等同来补足缺失限定，也不以“显而易见替换”改写成原文公开。
 
-Separate inherent structural capability from actual steps. A product's ability does not automatically disclose a method performed in a particular order. Different use names alone are not differences; verify any structure genuinely required by the use without adding models/dimensions absent from the target limitations.
+区分结构必然具备的能力与实际步骤。产品能做到某事，不自动公开方法已以某顺序这样做。用途名称不同不单独构成区别；用途确实要求特定结构时核实该结构，不追加目标未限定的型号或尺寸。
 
-Normalize dimensions, test conditions and endpoints first. A point/narrow range may satisfy a containing broad limitation; assess overlap/shared included endpoints for that limitation. A broad range does not automatically disclose a strictly internal point/subrange. A species may meet its genus; a genus does not automatically disclose a species, nor does one sibling species disclose another. Multiple parameters must belong to an evidenced common arrangement, not an arbitrary combination of alternatives.
+数值先统一量纲、测试条件和端点：点值或窄区间可对应包含它的宽限定；重叠或共有包含端点按该项判断；宽范围不自动公开严格内部点或子区间。下位可对应同类上位，上位不自动公开下位，兄弟下位不互相对应。多个参数须属于有依据的同一安排，不能从备选列表任意拼配。
 
-## One technical arrangement
+## 同一技术安排
 
-Verify complete interaction even within one embodiment; different embodiments are not automatically incompatible. Use source links between parts and conflicts in structure, parameters, states or step conditions.
+同一实施例仍须核对完整配合，不同实施例也不自动互斥。依据是原文联系及结构、参数、状态或步骤条件是否冲突。
 
-- `single_embodiment`: actual interaction within one implementation.
-- `linked_combination`: continuous source quotations linking the parts; possible coexistence does not prove an actual combination.
-- `incompatible_pieces`: at least two source locations and the concrete incompatible conditions, not just different embodiment numbers.
-- Neither a link nor incompatibility established: remain unconfirmed, without asserting impossibility of combination.
+- `single_embodiment`：同一实施方式的实际配合。
+- `linked_combination`：引用联系各部分的原文连续引句；“可以共存”不足以证明已组合。
+- `incompatible_pieces`：至少两处原文位置，指出具体互斥条件，不能只列不同实施例编号。
+- 没找到联系也未证明互斥：保留未确认，不能说必然不能组合。
 
-Express a missing feature through its itemwise status, not as incompatibility. Do not combine documents or incompatible arrangements to negate novelty.
+缺某特征由逐项状态表达，不因此写成互斥。不能拼接多篇或互斥安排否定新颖性。
 
-## Agent verification
+## Agent 核查
 
-Actually verify decisive cases: a date-eligible document's remaining difference is only “not mentioned,” intended to support novelty; or a document may disclose the whole solution with an inherent derivation intended to negate novelty.
+决定性情形须实际核查：日期合格文献的剩余区别仅为“未提及”，且拟据此肯定新颖性；或某单篇可能整体公开，其中有拟用于否定新颖性的隐含推导。
 
-The Agent rereads text/figure pages most likely to contain omissions, seeks counterexamples or independently recalculates. Record `method: agent`, the original judgment/disclosure, shared features, the same document material, verification scope, rationale and current outcome. The report-data reference linked from the main Skill defines the format.
+Agent 重读最可能遗漏的正文/图页、寻找反例或独立复算。记录 `method: agent`、原判断、原交底、共同特征、同一文献材料、核查范围、理由和当前结果。记录格式在入口直接链接的报告数据文档中定义。
 
-Outcomes are upheld, changed or insufficient material; incomplete execution is not upheld. Changed facts/evidence invalidate old checks. Save new facts before updating differences, arrangements and conclusions; do not overwrite raw receipts. Visual evidence must refer to actual original figures read.
+结果为维持、改判或材料不足；执行未完成不写成维持。事实与依据变化后旧核查失效。改判先保存新事实，再更新区别、整体安排和结论，不覆盖原回执。图证必须对应实际读过的原图。
 
-Use `fetch_patent`, `search_patent` or the existing comparison tool again for specific gaps. Repeated calls are not independent review. Unverified decisive silence cannot support novelty; an unverified derivation cannot negate it. Do not hide potential counterexamples to support a positive conclusion.
+需要补证时用 `fetch_patent`、`search_patent` 或再次调用现有对比工具，按具体疑点处理；重复调用不称独立复核。无法核实的决定性“未提及”不支持肯定新颖性，未核验推导不支持否定，也不能隐藏潜在反例后肯定。
 
-## Routine modification and direct substitution
+## 常规改造与直接置换
 
-`routine` explains the document starting point, modification of differences, independent motivation, compatibility and expected effects. It does not change disclosure status or alone decide overall inventive step. Address every remaining difference in that relationship; label counts have no evaluative meaning.
+`routine` 仅解释文献起点、区别如何改造、独立动机、配合条件及效果为何可预期，不改变公开状态或单独决定整体创造性。理由须覆盖该关系全部剩余区别，标签数量没有评价意义。
 
-For conventional direct substitution, identify the original and target means, evidence of conventional alternatives at the assessment date, equivalent function/effect and why other necessary relationships need essentially no change. Preserve actual differences instead of claiming explicit disclosure. New structures, unstated steps and cross-document additions are not substitutions. “Routine,” “easy to modify” or a passed check does not replace reasoning.
+惯用手段直接置换须说明原手段、目标手段、评价时点的惯用替代证据、相同作用与效果，以及其他必要关系为何基本无需改变。保留原差异，不写成原文明示。新增结构、未提及的步骤和跨篇补入不冒充置换；不能凭“常规”“容易改”或核查通过代替论证。

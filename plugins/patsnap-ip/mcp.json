@@ -3,7 +3,7 @@
   "mcpServers": {
     "patsnap-ip": {
       "type": "streamable-http",
-      "url": "https://connect.patsnap.com/2b0355/logic-mcp"
+      "url": "https://connect.zhihuiya.com/2b0355/logic-mcp"
     }
   }
 }

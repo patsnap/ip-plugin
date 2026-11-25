@@ -1,105 +1,116 @@
-# Input and intent: a correctable case card
+# 输入与意图：先形成一张可纠正的卡
 
-## 1. Ask only questions that change the route
+## 目录
 
-Read existing material first. Use short prompts such as “I understand the main objective is …; is A or B closer?” Allow uncertainty/free text without steering users to a predetermined answer.
+- 1. 提问只解决路径分岔
+- 2. 输入卡最小格式
+- 语言与法域分别锁定
+- 3. 技术补全
+- 4. 采用方案保持短文本
 
-| Topic | Clarify | Execution impact |
+## 1. 提问只解决路径分岔
+
+先读用户已有资料。每轮用“我理解这次主要为了……；目前更接近 A 还是 B？”等短命题，允许“不确定”和自由补充；不暗示客户一定选择某个答案。
+
+| 主题 | 需要弄清 | 何时影响执行 |
 |---|---|---|
-| Decision | R&D exploration, design freeze, launch/export, old-report review | Exploration, formal scope or review |
-| Object/scope | Product/module/configuration, manufacturing/sales/use countries, dates, and whether to include a separate design-right track | Separate cases, search scope, applicable claims and comparison tracks |
-| Existing assets | Proposal, query, patent list, CC, report; column meanings, original order and changes this time | Entry/list-import gate/reuse |
-| Tradeoffs | Unsettled technology, required objects, deadline/budget, first deliverable | Evidence gaps and batches |
+| 决策 | 研发探索、设计冻结、上市／出海、旧报告复核 | 探索、正式范围或 Review |
+| 对象与范围 | 哪个产品／模块／配置；在哪制造、销售或使用；哪些法域和时点；是否另纳入外观设计／意匠权 | 分案、检索范围、适用权项和比对轨道 |
+| 已有资产 | 方案、查询、专利名单、CC、报告；名单列含义、原始顺序与本次改变 | 接入点、列表导入门与复用范围 |
+| 关键取舍 | 未定技术、必查对象、期限／预算、先要的成果 | 待补证与执行批次 |
 
-Usually 3–5 exchanges suffice; combine topics and reuse known answers. Wait only for ambiguity affecting current correctness; mark other items pending. Without jurisdictions, unrestricted technical exploration is possible but is not country-specific FTO. Chinese input does not imply CN.
+通常 3–5 轮足够，主题可合并。已有答案不重问；只对会影响本步正确性的关键歧义等待澄清，其余写为待定。法域未明确时可做不限地域的技术探索，不因中文输入默认 CN，也不把探索当作某国 FTO。
 
-### Scope card before the first formal call
+### 首次正式调用前的范围确认卡
 
-Show and save plain-language `product/configuration | manufacturing countries | import countries | sales countries | use countries | search authorities | assessment date | evidence cutoff | unresolved items`.
+在首次正式业务 Tool 调用前，用普通语言向客户显示并保存：
 
-- **Assessment date:** when rights must be pending/active and conclusions apply. If absent, propose the current date explicitly and obtain confirmation; do not silently insert it.
-- **Evidence cutoff:** last relevant collection date for searches/lifecycle/other evidence. Update with evidence; it is not automatically the assessment date.
-- **Patent-date filters:** filing/publication/priority/grant restrictions need a client request or evidenced case rule. Neither assessment nor evidence cutoff is an automatic filing/publication lower bound.
+`产品／配置｜制造国家｜进口国家｜销售国家｜使用国家｜检索受理局｜评估日期｜资料截止日｜待确认项`
 
-Unconfirmed items permit only clearly labeled technical exploration. Missing activity countries, actual European countries or assessment date must be resolved before formal jurisdiction retrieval, Screening or CC. Pure report review still discloses whether the original report’s countries and dates are known.
+- **评估日期**：判断专利在何时仍处于申请中或有效，以及报告结论适用的时点。客户未指定时可提议采用当前日期，但必须把提议显示给客户确认，不能静默写入。
+- **资料截止日**：本次检索、生命周期和其他证据实际更新到哪一天。通常以最后一次相关取证日期为准；报告更新后随证据更新，不自动等同于评估日期。
+- **专利日期过滤**：申请日、公开日、优先权日或授权日的检索条件。只有客户明确要求或案件规则确有依据时才设置；不得把评估日期或资料截止日误用为默认申请／公开日期下限。
 
-After scope confirmation record `execution_mode=continuous_ai` or `execution_mode=stage_confirm`.
+范围确认卡有待定项时，只能继续不会冒充某国正式 FTO 的技术探索。制造／进口／销售／使用国家、欧洲实际国家或评估日期的缺失会改变正式范围，因此在进入法域检索、Screening 或 Claim Chart 前必须补齐。纯报告审核若不重检，也要明确原报告采用的国家、评估日期和资料截止日是否已知。
 
-- Continuous AI execution optimizes and advances within confirmed scope, pausing for mandatory client decisions, scope changes, decisive missing facts or result conflicts. It does not authorize new countries, rewritten facts, expanded client lists, skipped lifecycle checks or AI-selected CC scope.
-- Stage confirmation shows adopted input, changes, reasons, expected effects and gaps before the next major stage and waits for confirmation. Pagination, reading, formatting and one bounded retry within a stage do not need repeated confirmation unless scope, cost or result meaning changes.
+范围确认后另存 `execution_mode=continuous_ai` 或 `execution_mode=stage_confirm`：
 
-Do not begin the first formal business call before the execution-mode choice. Show the choice once, separately from later mandatory decisions. Switch at safe points and record time/effective stage.
+- **AI 连续执行**：AI 在已确认范围内自主整理、优化并推进各阶段；仍须在强制客户决定、范围变化、关键产品事实缺失或结果冲突时暂停。不得把“自主优化”解释为新增国家、改写产品事实、扩大客户名单、跳过生命周期门或替客户决定 CC 范围。
+- **分阶段确认**：每个主要阶段先展示本阶段采用输入、相对上阶段的调整、理由、预期影响和缺口；客户确认后再进入下一阶段。同一阶段内的分页、读取、格式整理和一次有边界重试无需逐次确认，除非会改变范围、成本或结果含义。
 
-Distinguish priority competitors from exclusive assignee scope. Industry/group inference is not a hard filter. Reuse explicit assignee/classification/country/status/date conditions; clarify only unresolved hard-limit/priority and AND/OR logic, without a forced extra question. Separate products/mutually exclusive implementations.
+客户未选择执行方式时，不开始首次正式业务 Tool 调用；只显示一次选择提示，不把该选择和后续每个强制业务决定混为一问。客户可在任意安全断点切换，记录切换时间和从哪个阶段生效。
 
-## 2. Minimum card
+重点竞对先区分“优先关注”与“只查这一家”；行业／集团背景的推断不得自动成为硬过滤。需要字段初筛时复用已明确的申请人、分类、国家、状态或日期条件；只补问仍不明确的限定／优先关系和组合逻辑，不强制多问一轮。多产品或互斥实现分别记录，不拼成单一产品。
 
-- **Requirements:** decision/stage, configuration/module boundary, manufacturing/import/sales/use activities and respective jurisdictions, search authorities, assessment date, evidence cutoff, execution mode, assets, priority/exclusive scope, deadline/budget and first result.
-- **Evidence:** technical quote/faithful excerpt + location + nature (actual assertion/plan/customer uncertainty/AI inference) + verification state (not independently checked/verified/conflicting).
-- **Process:** simplified/full/partial route, T/input version, query/list, client-list import disclosure, steps 1–8, 5.5 rule version and original/new pools, 6.5 awaiting/confirmed/not analyzing, all/partial conditions/list, full-description option and acquisition/analysis state, interpretation sources, changes/next step.
+## 2. 输入卡最小格式
 
-For client lists, identify publication numbers, application numbers, patent records or other fields and fix the objective: Screening, direct comparison, original-text retrieval or a combination. Preserve original rows, blanks, duplicates and display formats; normalization creates a mapping rather than overwriting the client file. Number lists enter Boolean construction/search through the main list-import gate; N received rows are not N imported patents.
+- **需求**：本次决定／阶段；产品配置与模块边界；制造／进口／销售／使用行为及对应法域；检索受理局；评估日期；资料截止日；执行方式；已有资料；关注与独占范围；期限或预算；首个成果。
+- **证据**：关键技术原句或忠实摘录＋来源位置＋性质（实际陈述／计划／客户不确定／AI 推断）＋核验状态（未独立核验／已核验／冲突）。
+- **过程**：简化／完整或局部路径、T 与输入版本、查询／名单、客户列表导入披露、Step 1–8 状态、5.5 初筛规则版本与原池／新池、6.5 等待策略／已确认／暂不分析、CC 全部／部分条件和名单、说明书全文选项及取得／分析状态、解释来源、重要变更与下一步。
 
-Also freeze one summary line: **actual manufacturing/sales/use countries, search authorities and unresolved regions; complete coverage or adopted window; post-Screening all/partial CC and actual count; full-text option; receipts and strategy references**. For “Europe/EU/EP/EPO” without actual countries, distinguish EP-document retrieval from FTO for specific European markets. The latter requires target countries and EP plus necessary national routes under the screening rules. Until clarified, only unrestricted technical exploration is allowed, without a “European FTO” conclusion. “Worldwide sales” does not remove unresolved overseas scope; workload does not authorize taking only the first ten.
+客户提供列表时，先记录列表是公开号、申请号、专利记录还是其他字段，并锁定目标为筛选、直接比对、原文取得或组合任务。原始行、空值、重复和显示格式保留；号码归一化只建映射，不覆盖客户文件。专利号码列表按主文的列表导入门进入 Boolean 构式与搜索，不能直接把“收到 N 行”写成“导入 N 件”。
 
-All three sections may share `case.md`; retain originals/receipts separately. Confirmed plans remain plans; report assertions retain report provenance. Preserve old/new values when users change facts and update affected work without overwriting originals with summaries.
+另用一行锁定：**实际制造／销售／使用国家、检索受理局及待定地区；完整候选覆盖或采用窗口；Screening 后全部／部分进入 CC 与实际数量；全文选项；回执和策略清单引用**。用户仅说“欧洲／欧盟／EP／EPO”且实际国家不明时，先区分是否只检索 EP 文献，还是要对具体欧洲市场做 FTO。后者必须补目标国家，并按筛选与最终名单参考文件的范围规则补 EP 及必要的国家途径检索。未澄清前只可做不限地域技术探索，不得交付“欧洲 FTO”结论。仅说“全球销售”不能把待定海外移到任务之外；工作量大也不能自动截前10篇。
 
-Record prefilters as `field/value and AND-OR logic | hard limit or priority group | requirement basis | unknown/remainder handling | adopted version`. Apply explicit jurisdiction, legal-status and date conditions through current structured search scope in Step 4 and reuse them after Step 5.5 checks. Do not put them into the technical Boolean or append them twice. Prefilter-only changes reuse technical input and restart affected retrieval/screening, not polishing. “All CC” after prefilter still means all subsequent Screening candidates.
+三部分可放同一 `case.md`，原件和回执另外保存。用户确认计划仍是计划；报告转述仍保留报告来源。客户改口时保留旧值与新值，更新受影响部分，不让摘要覆盖原件。
 
-Before CC, organize product evidence as `element ID | product element | present/absent/unknown | quote/image and location | version/configuration | nature and verification`. Only explicit counterevidence supports absent; silence means unknown. Plans, hypotheses and measurements differ. Preserve originals and reference this record by element ID in CC.
+初筛条件另记 `字段／值与AND-OR逻辑｜硬限定或优先分组｜需求依据｜未知与余集处理｜采用版本`，详细资产见筛选与最终名单参考文件的“字段初筛”。明确的法域、法律状态和日期条件在 Step 4 通过检索 Tool 当前支持的结构化范围能力落实，Step 5.5 核对后复用；不写入技术 Boolean，也不重复追加。仅改变字段初筛规则时复用技术输入，回到受影响的取数／筛选节点，不从润色重跑。初筛后“全部进入 CC”仍仅指随后 Screening 返回的全部候选。
 
-Reuse this card at CC; ask only new material ambiguities. Record disputed legal interpretations as adopted conditions with authority; user preference is not legal authority. Analyze fixed hypothetical configurations separately with conditional conclusions.
+进入 CC 前将产品证据整理为 `要素ID｜产品要素｜存在／不存在／未知｜原句或图示及位置｜材料版本／配置｜事实性质与核验状态`。明确反向证据才可填“不存在”，材料未提及填“未知”；计划、假设和实测不能互换。原始资料不改写，比对表通过要素ID引用该记录。
 
-## Language and jurisdiction are independent
+进入 CC 复用这张卡，不重新问相同配置、法域或已确认的技术事实。只有新的关键歧义会改变判断时才补问；争议法律解释记录为采用条件及依据，用户选择不能代替法律依据。固定假设配置可单独比较，结论只对该假设成立。
 
-These are orchestration records, not new API parameters:
+## 语言与法域分别锁定
 
-| Axis | Record/use | Must not imply |
+输入卡独立保存以下四轴及工具映射；这些是编排记录，不是新增 MCP 参数：
+
+| 轴 | 记录与作用 | 不可混同 |
 |---|---|---|
-| `input_language` | User's main language; preserve original technical input | Chinese input means China-only search |
-| `output_language` | English by default for this release, or explicit user choice; UI/report agree | Search-term/source-evidence language |
-| `search_languages` | Chinese/English/other terms and field/index coverage by jurisdiction | An official parameter or guaranteed semantic coverage |
-| Countries/authorities | Actual `target_markets`, `search_authorities` C, pending regions | EP documents prove national effect or authority filters prove full market coverage |
+| 输入语言 `input_language` | 客户主语言，原始技术描述保真保存 | 中文输入不表示只查中国 |
+| 交付语言 `output_language` | 用户明确指定时优先；面向目标国读者且语言未定时只确认一次，界面和报告统一 | 不决定证据原文和检索词语种 |
+| 目标读者 `reader_country/reader_language/reader_level` | 记录目标国、读者语言和普通读者水平，决定措辞、术语解释和本地化方式 | 不改变法域、法律结论或检索语言 |
+| 检索语言 `search_languages` | 各法域采用的中文／英文／其他技术表达及字段覆盖依据 | 不是官方入参，也不保证跨语义检索覆盖 |
+| 国家与受理局 | `target_markets` 保存实际国家，`search_authorities` 保存 C，另记待定地区 | EP 文献不等于已在某国生效；受理局过滤也不能直接代表完整市场覆盖 |
 
-Record actual `tool_language` separately: prod_us generates English, other environments Chinese. Local keyword-region preferences are not API fields. Generation language or Chinese proposals cannot reduce C to CN.
+另存实际 `tool_language`：由部署环境决定，prod_us 英文、其他环境中文；关键词区域偏好只用于本地词表。工具产出语言或中文方案均不能把 C 缩成 CN。
 
-- Identify input language from the task instruction or standalone proposal. Foreign patents, attachments and tool returns do not switch it. If genuinely ambiguous mixed input matters, ask once. Explicit language requests update the card; do not repeatedly reconfirm.
-- All visible explanations, stage results, headers, legends, notes, comparison opinions and local reports use `output_language`. Template English is default copy, not a prohibition on requested languages.
-- Preserve labeled evidence originals, document numbers, source titles, code and queries. When evidence differs from output language, CC requires complete itemwise translations alongside originals. Never delete originals for consistency or let foreign evidence switch narrative language. Localize displayed enum labels while preserving original enums in receipts/annotations.
-- Each tool’s language capabilities and invocation follow the runtime MCP protocol. Construction/search tools do not automatically change scope with delivery language. Preserve raw receipts and localize presentation to output_language with translation provenance. Delivery language does not change source evidence, search languages or jurisdictions.
-- Translate locally from actual originals, retaining complete mappings and labeling AI/human translation/review provenance. If a tool returns the wrong language, preserve its response and correct presentation; do not call machine translation original or officially certified text.
+- 以客户本次任务指令的主语言识别输入语种；单独提交技术方案时按方案主语言。外文专利、附件和工具返回不触发切换。混合输入无法判断时只补问一次；用户明确要求改用某语言则更新卡片，后续统一采用。
+- 所有用户可见说明、阶段结果、表头、图例、备注、比对意见、结论和本地报告使用 `output_language`，并按主文直达的“目标国普通读者的平实表达”本地化；语言已确定不逐步重复确认。模板中的中文是占位文案，不是固定交付语言。
+- 证据原文、文献号、来源标题、代码与检索式保留原样并明确标签；原文与交付语言不同时，CC 必须另列该语言的完整逐项译文。不能为了“语言一致”删除原文，也不能让外文原文带偏正文语言。官方枚举用本地化标签显示，原枚举保留在回执或括注。
+- 各 Tool 的语言能力和调用方式只以运行时 MCP 协议为准；构式／检索 Tool 不因交付语种自动改变检索范围。保留原始回执，本地按交付语言转换展示并标明译文来源。交付语种不改变证据原文、检索语种或法域。
+- 取得原文后按需在本地翻译并保留完整对应关系，标注 AI 翻译／校译或人工来源。工具返回语言错误时保留原始回执，展示层纠正；不能声称机器译文是原文或官方认证译文。
 
-### Implement search-language coverage
+**检索语言如何落实：**
 
-1. Check Chinese/English terms in Step 3 by adopted authorities, query fields and verified index/translation capabilities. Overseas searches from Chinese input need equivalent English technical terms; non-English jurisdictions need local-language routes or verified cross-language indexing. English does not automatically cover Japanese/German documents. In Step 3 perform one targeted translation/synonym check for each adopted priority language, once per language rather than country. Reuse established language plans.
-2. Do not replace original P with a full translation. Keep `original concept | search expressions by language | source/nature | adopted query location/coverage basis`. Preserve structure, action, quantities, negatives and relations. New mechanisms/uses/materials/effects remain inference. Synonyms are not CC product facts.
-3. Check K in 3 and actual Q before adoption in 4/5. Language equivalents are usually OR branches, not Chinese AND English forcing bilingual matches. Classifications/other verified routes may supplement coverage; English characters or one English term do not establish core-concept coverage.
-4. Repair necessary terms under the same P or use available official searches for terminology. Locally edit Q under Step 4 scope/execution checks with provenance/change records; do not restart the entire workflow for translation. Keep feature receipts unchanged and K separate, without invented fields. Recheck language/scope after execution too.
-5. For auxiliary multilingual semantic exploration, preserve each expression/language/receipt, merge by ID with provenance and use Step 6 PN entry as needed. Do not assert automatic multilingual coverage from the model alone. Disclose specific gaps; resolve requested scope rather than silently reverting to Chinese-only search.
+1. 默认核对 Step 3 的中英技术表达；根据采用法域、查询字段及可核验的索引／译文能力决定使用。中文输入的海外／跨法域检索至少有对应英文技术表达；非英语法域还要核对本国语言检索或已验证的跨语种索引覆盖，不能宣称英语天然覆盖所有日德等文献。Step 3 对每种已采用的优先语言做一轮定向翻译与同义表达核对；相同语言只需一轮，不按国家重复。已有明确语言策略不重复问客户。
+2. 原始 P 不整段覆盖成译文。建立简短 `原文概念｜中文／英文等检索表达｜来源与性质｜采用查询位置／覆盖依据` 记录。翻译保留结构、动作、数量、否定和关系；新机制、用途、材料、效果仍标推断。检索同义表达不自动成为 CC 的产品事实。
+3. Step 3 检查本地词表所需语种及对应关系；Step 4／5 采用查询前再次检查实际 Q。多语表达通常为同一概念的 OR 分支，不用“中文 AND 英文”要求一篇文献双语命中。分类号或其他已验证召回路径可补充覆盖，但出现英文字符或一个英文词不等于覆盖了关键技术概念。
+4. 缺词时先在同一 P 下修复必要输入或用已有官方检索补充术语，再按 Step 4 的本地范围核对与布尔检索执行检查局部改 Q；附来源和变化记录，不因翻译重启全流程。原始特征回执不改，本地词表另存，不伪造工具参数或返回字段。执行检查之后也要重看采用查询是否保留语言与范围。
+5. 多语技术探索若使用辅助语义检索，保存每种表述、语言及回执，按 ID 合并并保留来源，按需走 Step 6 PN 入口；不能只凭语义模型声称“自动跨语言”。范围或预算不足时披露具体语言缺口，涉及用户要求的覆盖时先落实范围，不能静默退回中文单路。
 
-Example for an English-release task submitted in Chinese: `input zh | output en unless explicitly changed | search zh+en (other languages verified by jurisdiction) | C=authorities derived from adopted countries`. If overseas patents are absent, check whether authority scope was incorrectly reduced to CN; if terms are Chinese-only, inspect K/Q. Adding English terms does not remove existing CN structured scope.
+例如中文任务可记录：`输入 zh｜交付 zh｜检索 zh+en（其他语种按法域核验）｜C=按已采用国家落实的检索受理局`。发现“没有海外专利”先查受理局范围是否被错误缩成 CN；发现“只用中文表达”再查 K 及实际 Q。两个问题分别修复，增加英文词不会解除既有的 CN 结构化范围。
 
-One clarification suffices: “Is this EP-document retrieval only, or FTO for specific European markets? For the latter, please confirm countries.” Reuse explicit countries or EP-only instructions. Label EP-document scope as document retrieval, not European-market scope. GB/FR/DE markets might use `target_markets=[GB,FR,DE]`, `search_authorities=[EP,GB,FR,DE]`, `search_languages=[en,fr,de]`; this example is not a user choice. National effect, unitary effect and UPC checks remain separate from search scope.
+EP 澄清用一条命题即可：“本次是仅检索 EP 文献，还是要覆盖具体欧洲市场？如是后者，请确认国家。”已有国家或仅 EP 文献的明确指令直接复用，但报告要把“EP 文献范围”标明为文献检索范围，不写成欧洲市场范围。比如英法德市场可记录 `target_markets=[GB,FR,DE]`、`search_authorities=[EP,GB,FR,DE]`、`search_languages=[en,fr,de]`，不把示例自动当客户答案。后续 EP 的国家效力、单一效力及 UPC 状态核验与这一步的检索范围分开。
 
-After Screening, independently resolve `CC all/some (conditions/list)` and `advance full-description analysis yes/no`. Both all+fulltext and partial+claims are supported. Ask only missing choices; fulltext does not automatically expand selection.
+Screening 后一次落实两项：`CC 全部／部分（条件或名单）` 与 `预先说明书全文分析：是／否`。这是两个独立决定，既支持全部＋全文，也支持部分＋基础；只补问缺项，不因“全文”自动扩选专利。
 
-Use one combined prompt from the main Skill’s customer-prompts reference when needed. Reuse existing answers rather than asking to demonstrate the process. Customer-facing text follows the plain-language reference; template language does not fix delivery language.
+需要向客户提问时使用主文直达的“关键提问与补充节点”中的一条合并话术；已有答案直接写入输入卡，不为了展示流程重复询问。
 
-## 3. Technical clarification: six optional angles
+## 3. 技术补全：六个角度，按需选取
 
-Understand who does what to whom, under which conditions and by which means. Check **objects/components, actions/connections, materials/processes, control/timing, application boundaries, problems/effects**.
+围绕“谁，在什么条件下，用什么方式，对谁产生什么作用”理解方案。快速检查：**对象／部件、动作与连接、材料／工艺、控制与时序、应用边界、问题与效果**。
 
-Company domain, supply chain and system context may reveal missing questions. TRIZ only guides questions; do not force power/transmission components into every proposal. Unstated materials/mechanisms/effects are AI inference or pending confirmation. Add only search/comparison-relevant information.
+公司领域、上下游关系和系统视角可帮助发现漏问项。TRIZ 只用作补问提示，不强行为每个方案补齐动力／传动等部件。原文没写的材料、机制、效果，标为 AI 推断或待客户确认；只补对检索或比对有用的信息。
 
-If input is insufficient, official semantic search may supply sourced terminology/problem/effect clues for key questions. Inventors need not confirm every synonym; new technical meaning that changes understanding does require confirmation.
+资料不足时可用官方语义检索取得行业术语、问题／效果线索，附出处后提出关键命题。无需让发明人确认每个同义词，只有会改变技术理解的新增含义需要确认。
 
-## 4. Keep the adopted solution concise
+## 4. 采用方案保持短文本
 
-Order: **purpose/object → components/relationships → operation/conditions → problem/effect → unknowns**. Preserve necessary quantities, units, negatives, sequence and materials. Do not remove ordinary components as “non-inventive.”
+建议顺序：**用途与对象 → 组成及相互关系 → 工作过程／条件 → 问题／效果 → 待定项**。逐项保留必要数量、单位、否定、先后关系与材料；不要将普通部件因“非创新”删掉。
 
-- Search: facts plus clearly labeled exploratory concepts; unknowns may aid retrieval and alternatives remain distinct.
-- Screening/CC: actual configuration, provenance/nature and key unknowns; exploration is not implementation and silence is not absence. Hypotheses need separate conditional analysis.
+- 供检索：事实＋明确标识的探索概念；未知可用于召回，互斥实现分别表达。
+- 供筛选／CC：实际配置＋来源性质＋关键未知；不能把探索概念写成已实现，也不能把未说明写成没有。假设方案需要单独分析并标条件。
 
-Keep fact/plan/unknown/search-only sections within one adopted P rather than freely rewriting it between stages. Version proposal changes and revisit affected downstream work. Save sent-version/original mappings. Clear simplified input may bypass Step 1; full mode/difficult text/images use local preparation and verify no lost conditions. Preserve images; unread images remain pending. Submit text and attachments under the extraction tool’s current protocol, preserving their correspondence; image interpretation is not verbatim evidence.
+上述分区组织在同一采用方案内。默认用同一采用 P，事实／计划／未知／仅检索概念分区标明，不在步骤间临时自由改写；方案内容变化按主文建新版本并回查相关下游。保存提交版本与原件的对应。简化模式下清晰输入可不润色；完整模式或材料难读、需要图文整理时进入 Step 1 本地图文整理，核对改写未丢条件。原图保留，图片未读时标待核；正文和附件按技术提取 Tool 当前协议接入，并保留附件与正文的对应，模型图像解释不能当作逐字原文。
 
-Do not insert jurisdiction, interpretive preferences or custom CC prompts into P and claim they override backend rules. Call `patsnap-ip:build_claim_chart` under the current protocol with frozen solution and selected patent identities clearly distinguished. Verify jurisdiction, interpretation and dependent claims against actual claims/lifecycle evidence; do not claim local opinions were written back to the tool.
+不要把法域、解释偏好或一段自定义 CC 提示词塞进 P，宣称它能覆盖后端规则。按当前 MCP 协议调用 `patsnap-ip:build_claim_chart` 时保持冻结方案与已选专利身份清晰；法域、解释及从权审阅仍须依据真实权项和生命周期证据核验，不能称本地意见已写回 Tool。

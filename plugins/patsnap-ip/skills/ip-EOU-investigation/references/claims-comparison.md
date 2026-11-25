@@ -1,44 +1,44 @@
-# Key claim points and evidence comparison
+# 核心权利要求与证据比对
 
-## Identify the exact claim text
+## 锁定准确文本
 
-Record the exact publication or grant number, language, claim number, and dependency path. Use the abstract, technical summary, claims, and description returned by `fetch_patent` for their respective purposes. Verify that the required original text was actually obtained. Record text from other family versions separately.
+绑定准确公开号或授权号、语言、权项号和依赖路径。fetch_patent 返回的摘要、技术总结、权项和说明书分别使用。核验所需原文已经实际取得，其他同族版本的文字分别记录。
 
-For a dependent claim, expand all inherited limitations. Organize multiple dependencies by their actual branches. Keep the full parent claim or a precise line reference. Record what was read, unread, assessed, and unassessed. Present translations separately from originals and retain short original-language quotations with locations.
+采用从属项时展开其继承限定，多项引用按实际分支组织。保留父项全文或可定位的行引用。记录已读、未读、已评和未评范围。译文与原文分栏，保留英文或其他原始语言短引及位置。
 
-## Derive stable elements from the original
+## 从原文形成稳定要素
 
-Reconstruct the full selected claim before breaking it into meaningful technical units. Preserve actors, components, connections, motion, sequence, signals, trigger conditions, values, negation, and AND/OR relationships. Keep related functions together when needed to assess the limitation.
+先还原选定权项完整原文，再按有意义的技术单元拆解。保留主体、部件、连接和运动关系、动作顺序、信号、触发条件、数值、否定及 AND／OR 关系。必要的作用关系放在同一可判断单元中。
 
-Use the original to explain dynamic relationships, technical means, and applicability. Let the complete original determine the number of elements. HTML containers and array lengths are layout details. Give every element a stable ID linked to the exact wording, claim, and location.
+结合原文解释动态关系、技术手段和适用边界。特征数量由完整原文决定，HTML 容器和数组长度只作为排版信息。每个要素使用稳定编号，关联准确原句、权项及位置。
 
-Record engineering conjectures separately as hypotheses. Preserve provenance for available material, user statements, AI image interpretations, and deductions. Interpret references to seasons, modes, and steps in context, and require evidence for duration, causation, or exclusion.
+工程推测作为调查假设单列。已有材料、用户陈述、AI 图像解释和推断各自保留来源。季节、模式或步骤的不同表述按原文解释，时长、因果或排他条件须有依据。
 
-## Summarize and confirm key points
+## 通俗总结与用户确认
 
-Choose at least one point per patent that matters to the investigation. Explain the mechanism, the product implementation to look for, the relevant claim, and the conditions omitted from the short title that still need checking. Link the summary to the complete element list.
+每件专利至少选一个对当前调查有意义的核心点。说明它关注什么机制、要找怎样的产品实现、采用哪个权项，以及哪些条件在简短标题中省略但后续仍需核对。总结和完整要素表关联保存。
 
-Specify the exact range when only part of the original was read. Explain each patent separately, then explain complementary roles. After confirmation, keep the current point and element IDs stable. If the meaning changes, preserve the prior version and reconfirm affected points.
+只读原文的一部分时交代具体范围。不同专利分别解释，再说明组合的互补作用。用户确认后固定当前核心点和要素编号，含义变化时保留旧版并重新确认受影响点。
 
-## Review each matrix cell
+## 逐格核对
 
-Fix one exact product version and one key point for each comparison. Check:
+每次固定一个具体产品版本和一个核心点，逐项检查。
 
-1. The structure, relationships, and conditions required by the original claim.
-2. What the product source actually states and which models it covers.
-3. How the technical correspondence holds and what it supports.
-4. Conflicting evidence and conditions that need more material.
+1. 专利原句要求的结构、关系和条件。
+2. 产品原句实际公开的内容及适用型号。
+3. 技术对应如何成立，支持到哪一部分。
+4. 有无冲突，哪些条件还需资料。
 
-Locate quotations verbatim before assessing support. Check quotation accuracy and the technical judgment separately. Interpret electronic control, mechanical structure, shared effects, and specific implementations according to the evidence. Treat typical behavior as a search hypothesis and leave unknown internal structure unresolved.
+引文可以逐字定位后，再判断其是否支持该要素。引用准确与判断合理分别检查。电子控制、机械结构、相同效果和具体实现各按证据解释。“通常如此”只形成补查假设，未知内部结构保持待核。
 
-Use ✓ or ? in each cell. A ✓ requires support for the point as defined and confirmed by the user. Record the reason and unassessed limitations of the original claim. If the point covers a complete claim, expand all required limitations and dependencies. If it covers only one mechanism, record that mechanism's boundary and what remains unassessed. Name supported elements in the details and keep ? if any necessary condition of the current point is unsupported. For ?, describe the relevance, gap, and priority evidence to obtain. Document established differences with the exact quotation, applicable conditions, and effect on the assessment.
+每格使用 ✓ 或 ?。✓要求材料支持用户已确认定义的核心点，保留具体理由和仍未评估的原权项条件。核心点定义为完整权项时，展开全部必要限定及引用依赖；只选其中一个机制时，保存该机制的边界与其余未评范围。局部要素获支持时在详情明确点名，当前核心点仍缺必要条件则保留?。?说明已有相关性、缺口及最值得补的资料。明确差异可写入详情，并给差异原句、适用条件和对本点判断的影响。
 
-Use the confirmed definition and checkmark criteria consistently. If the user narrows the mechanism, revise the point and its necessary conditions, identify the affected cells, obtain confirmation, then recalculate and retain the old matrix.
+确认后持续沿用核心点定义与打勾口径。用户希望改查较小机制时，先修订核心点及必要条件，说明受影响的格子，取得确认后再重算矩阵并保存旧版。
 
-Use “Evidence supported” for a row with at least one ✓ and “Pending manual review” for a row with zero ✓. Compute both from the current matrix. Explain technical fit, evidence sufficiency, and investigation priority separately. Address decisive gaps first.
+行内至少一✓归为“有证据支持”，零✓归为“待人工复核”。这两类按当前矩阵计算。技术贴合、证据充分及调查优先级分别用理由解释，决定性缺口优先补证。
 
-## Check the assessment
+## AI 判断核对
 
-Check for treating silence as proof of absence, inferring identical mechanisms from identical functions, or mixing evidence from different models, family members, or mutually exclusive embodiments. Verify inherited limitations against the exact product configuration. For unsupported elements, state the actual contrary evidence. Avoid extending an unverified difference into exclusion of all claims.
+检查是否将资料未提及转成明确不存在，是否从同功能推导相同机制，是否混用不同型号、同族或互斥实施例的证据。核对从属项的继承条件与当前产品配置。局部不支持结论说明实际反向证据，不能把未经证实的差异传播成全部权项已排除。
 
-Perform these checks during the investigation and report specific gaps and evidence priorities with the matrix. Update affected cells when new material arrives, retaining prior judgments, reasons for change, and references. Reuse technical content for layout-only changes. Check each row label against its rationale. Use “Pending manual review” consistently for zero-✓ leads.
+由 AI 在当前调查中完成上述核对，随矩阵说明具体缺口和优先补证方向。新增材料优先更新相关格子，保留原判断、改变原因及引用。只有排版变化时沿用技术内容。完成矩阵后逐行检查标签与理由是否一致。“待人工复核”作为零✓线索的固定标签保留。

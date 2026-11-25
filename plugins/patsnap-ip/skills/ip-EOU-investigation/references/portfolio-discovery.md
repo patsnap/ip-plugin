@@ -1,48 +1,48 @@
-# Exploring directions and owned patent portfolios
+# 方向探索与自有组合
 
-## Company and constraints
+## 公司与条件
 
-Check company and assignee match status separately. Use the actual `company_id` for corporate relationships and verified standardized assignee IDs for patent filters. Record the ultimate parent, selected company, and directly associated assignees separately. State the actual coverage of returned relationships. Fix the company scope after confirmation.
+解析结果中分别核对 company 与 assignee 的匹配状态。公司关系使用实际 company_id，专利过滤使用实际标准申请人 ID。根公司、当前公司和直接关联申请人各自记录，关系返回的覆盖边界按实际说明。用户确认后固定我方范围。
 
-Use the product, technology, problem, and competitor to interpret one another while preserving the original inputs. Organize names, components, connections, motion or data flow, triggers, values, negation, and alternative implementations. Keep source statements separate from deductions. Respect exclusions in the search and treat user conjectures about competitor internals as facts to verify.
+产品、技术、问题和竞品可以相互帮助解释，保持原始输入。整理名称、部件、连接关系、运动或数据流、触发条件、数值、否定和替代实现。原文陈述与推导分开。用户的排除条件控制本次搜索；用户对竞品内部结构的推测作为待核事实。
 
-Organize the description into explicit constraints, components, relationships, and direct functions, preserving the user's original wording and source. Use deductions for open questions or query hypotheses. If the connection is unspecified, flag it for verification and look for a diagram or manual.
+把用户描述整理为明确约束、部件结构、相互关系和直接功能，保留用户原话与来源。推导只用于待确认问题或查询假设。资料未写明连接方式时保留“连接方式待查”，随后寻找结构图或手册。
 
-## Search based on the information available
+## 按信息深度检索
 
-- With only a company, use `field_analysis` to examine the same company's technology, time, or status distribution, then use `search_patent` to find and read representative patents. Combine the classifications with company product material to propose several distinct technical directions.
-- With a product or technology, build complementary expressions around components, mechanisms, problems, industry terminology, and language variants. Start with a reasonable route and add others in response to specific gaps. Record the queries and the basis for combining their results.
-- With a competitor, use available public web capabilities to read its product material. Anchor the search in actual mechanisms and treat competitor patents as third-party leads.
-- With specified patents, verify the exact documents and ownership first, then follow the user's choice about recommendations. Keep every specified number in each recommended portfolio.
+- 只有公司时，用 field_analysis 查看同一公司范围的技术分类、时间或状态分布，再用 search_patent 找代表文献并阅读。结合公司产品资料，将分类解释成具体技术问题，给出几个有区别的方向。
+- 有产品或技术时，从部件、机制、问题、行业惯用词和语言变体构造互补表达。先选择合理的一种，遇到具体漏项再补路，保存各次查询及合并依据。
+- 有竞品时，用你已有的公网搜索能力读取其产品资料，把实际机制作为检索锚点。竞争对手专利属于第三方线索。
+- 有指定专利时先查准确文献和权属，按用户是否推荐的选择继续。推荐的每一个组合保留所有指定号码。
 
-Match `search_patent` strategies to their parameters. Combine ordinary semantic, keyword, and filter strategies as the schema allows. Use the Boolean strategy alone with an executable field expression. Keep company and user constraints in every OR branch. Use `describe_search_capability` before specialized field searches. Start with a small result set for inspection, then page or expand based on relevance and new information.
+search_patent 的策略与参数配对。普通语义、关键词及过滤按 schema 组合，布尔策略独占并使用可执行字段式。保持每个 OR 分支中的公司和用户限定。复杂专业字段先调用 describe_search_capability。先小量取回核对，按相关性和新信息需要继续分页或扩展。
 
-Set filters against the user's wording and confirmed scope. Translate the user's technical direction into semantic, keyword, or technical text expressions. Treat inferred IPC, legal status, dates, or jurisdictions as possible suggestions. For fields the schema requires the user to specify, obtain that condition before use. Apply the same rule to equivalent Boolean filters. For a confirmed company, restrict the search using standardized identities from the resolution response.
+逐项对照用户原话和已确认范围设置 filters。用户给出的技术方向可以转换为语义、关键词或技术文本表达；自行推导的IPC、法律状态、日期或地区保留为可建议条件。schema要求用户明确指定的过滤字段，取得该条件后再使用，布尔表达式中的等价筛选遵守相同要求。已确认公司可使用解析回执中的标准身份限制范围。
 
-For an exact known publication number, retrieve the document directly with an identifier supported by `fetch_patent`. Search when the number or identity requires resolution. Copy internal IDs exactly from saved responses. On failure, check the number and identity mapping, then retry with the actual number or verified ID. Save the mapping between exact publication number, returned ID, and raw response file.
+已知准确公开号时，按 fetch_patent 实际支持的标识直接取文献；需要解析号码或身份时再检索。请求中的内部 ID 必须从已存回执逐字复制。失败后回到号码及身份映射核对，使用真实号码或已核实ID重试。保存“准确公开号—返回ID—原始回执文件”的对应。
 
-## Read the patents before forming portfolios
+## 读文献，再组织组合
 
-Use abstracts for initial screening. Base recommendations and technical relationships on claims, relevant description passages, and actual product material. Follow the schema for `fetch_patent` defaults and `include` values. Retrieve relationships or figures only when needed. Use `fetch_patent_lifecycle` to check status, assignments, and similar events.
+摘要帮助粗筛，推荐作用和技术关系回到权项、必要说明书及真实产品材料。fetch_patent 默认字段与 include 的适用值以 schema 为准，只有需要关系或图片时才补相应部分。状态与转让等补查 fetch_patent_lifecycle。
 
-Check the material index and what has already been read. If you have the original text but need family data, make one targeted relationship request. If the response also returns the full text, record the new relationship data and reuse what was already read. Read sections using the actual character length and reach the relationship fields of each document being compared. Record counts, truncation, pagination, and unknown completeness.
+先查看已读范围与材料索引。需要同族关系但已有原文时，只补一次必要的关系请求。当前接口补关系仍会返回全文，记录新增的关系部分并复用已读正文。分段读取以实际文件字符总长为准，分别读到每件待比较文献的关系字段。记录返回条数、截断、分页或完整性未知等信息。
 
-Explain at least three things for each portfolio:
+组合至少解释三个问题。
 
-1. Which product or technical problem the investigation addresses.
-2. What distinct part each patent protects and where the original text supports it.
-3. Why they should be investigated together and what still requires product-specific verification.
+1. 围绕什么产品或技术问题调查。
+2. 每件专利保护哪个不同部分，原文依据在哪里。
+3. 共同调查有什么理由，哪些关系尚待具体产品验证。
 
-Distinguish versions of the same invention, complementary technologies, and merely similar subjects. Verify simple family membership using actual relationships. Read applicable claims separately for original applications, divisionals, and continuations. Show versions side by side for jurisdictional and textual differences. Complementary members must cover genuinely different subject matter.
+区分同一发明不同版本、互补技术以及仅主题相近的对象。简单同族使用实际成员关系核对。原案、分案或继续申请分别阅读适用权项。版本并列用于呈现地区与文本差异，互补成员来自实际不同保护内容。
 
-Track technical roles, citations in either direction, application chains, and family membership separately. Cite actual citation responses. Absence from a limited family list, different application numbers, or a citation alone leaves family membership unresolved. If priority fields are missing, pagination is incomplete, or relationship coverage is unknown, state that no match was found in the relationships read and that full family membership remains unverified. When determining membership, retain its source, family type, and the scope read.
+分别记录技术分工、引证与被引关系、申请链和同族归属。被引关系可按实际回执说明，有限同族清单的缺席、不同申请号或被引关系本身均不足以确定“非同族”。优先权字段缺失、分页未读完或关系覆盖未知时，使用“已读关系中未发现对应，完整同族关系待核”。确定归属时保留具体关系来源、同族类型和读取范围。
 
-Prioritize fit with the direction, the relationship between claim mechanisms and possible product functions, applicable jurisdictions and status, and the likelihood of observing the mechanism in public evidence. Use sourced citation, family, and time information as supporting reasons. List unknowns explicitly and avoid speculative scores.
+推荐优先考虑方向贴合、权项机制与潜在产品功能的关系、地区和状态适用性，以及公开证据是否有机会观察这些机制。引证、家族与时间信息作为有来源的辅助理由。未知项列出，不折算成猜测分数。
 
-## Present recommendations
+## 推荐展示
 
-Lead with the portfolios available for selection. Use a short table to show product direction, members, what each protects, recommendation reasons, and sources. Quote text supporting each patent's actual role. Show current ownership and when it was verified. Distinguish facts from investigation suggestions. Keep long claims and document-level checks in the case record. If there are too few members, report the actual result and possible next searches, then let the user decide.
+先给可供选择的组合概览，再用短表列产品方向、成员、保护内容、推荐理由和来源。理由的引文覆盖实际作用句。展示当前权属与核验时点，事实和调查建议分开。长篇权项与逐件核验材料留在底稿中供展开。成员不足时给实际结果及补查方向，由用户决定下一步。
 
-Compare portfolios by their exact document membership. Reordering documents or changing the rationale leaves the set identical. Merge identical sets and list their different product uses. Sets can share members when each additional member has an explained role. List family versions separately in member descriptions and explain differences between portfolios in terms of protection.
+按准确文献组成的成员集合检查重复，顺序改变或推荐理由改变仍视为同一集合。相同集合合并成一组，其下可列多个产品用途。组间共享部分成员可以保留，需说明新增成员带来的实际作用。同族版本在成员说明中分开列，组合差异性结合保护内容解释。
 
-Track `total_hits`, returned page counts, local deduplicated counts, and family counts separately. Independent searches may overlap. Deduplicate combined results by exact document identity and explain counting rules alongside the table.
+统计的 total_hits、分页返回数、本地去重数和同族数分别记录。独立查询存在重叠，合并后按准确文献身份去重，统计口径随表说明。

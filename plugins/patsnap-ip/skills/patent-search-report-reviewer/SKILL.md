@@ -1,130 +1,171 @@
 ---
 name: patent-search-report-reviewer
-description: "Use to independently review an existing report, citations and process records. Check document identity, quoted source text, evidence support and scope/count consistency. Return located issues, coverage and missing evidence. Unavailable sources do not prove fabrication. Additional retrieval or independent FTO searching requires a separately defined scope. Proposed workflow; apply the local MC/Skill/patent-search-report-reviewer execution contract. Runtime binding and channel availability remain unverified."
+description: "复核已有专利检索、查新、FTO、EoU 或无效检索报告，核查检索策略、文献依据和事实引用，并提供书面审核意见。"
 metadata:
   version: "1.0.0"
   edition: "fusion-mcp"
 ---
 
-# Patent Search Report Reviewer
+# 专利检索报告审核
 
-Help IP reviewers decide whether a report supports its intended decision and what must change. Search review asks whether terms, queries and their technical derivation are sound; analysis review separately checks factual foundations and comparison with original text.
+让IPR能够判断报告是否可用于既定决策，以及哪些内容必须修订。检索审核聚焦“词是否合适、式是否合理、从技术到式的推导是否成立”；分析审核聚焦事实基础与原文比对。
 
-Default dialogue and review opinions to English. An explicit output-language request takes precedence. Preserve original evidence and locations, with translations as needed. Determine search languages and jurisdictions independently.
+对话和审核意见默认用中文，用户明确指定交付语种时优先。保留证据原文和出处，必要时附译文。检索语言与法域独立确定。
 
-## Applicability
+## 适用范围
 
-**Objective:** Review, quality-check or accept existing patent search, novelty/inventive-step, FTO, EoU or invalidity reports. Also review existing term lists, queries and their derivations, or specific analytical material separately.
+**适用目标：** 对已有专利检索、查新／新创性、FTO、EoU 或无效检索报告进行复核、质检、验收，也可单独审核已有检索词表、检索式及其推导，或报告中的特定分析材料。
 
-**Review and deliverables:** Check search strategy, selected documents, basic facts and source support within the agreed scope, delivering structured written comments. Support full reviews, focused reviews and fact checks using criteria for the report purpose.
+**审核内容与交付：** 按约定范围核对检索策略、入选文献、基础事实及原文对结论的支持，交付结构化书面意见。支持全量审核、重点复核和事实抽查，具体准则按报告目的选择。
 
-**Exclusions:** Full search or report generation from scratch, screening-process assessment and final legal opinions. For “generate then review” requests, review only material that actually exists; apply the contract below for required input and bounded reviews.
+**不适用：** 从零执行完整检索或生成检索报告、评价筛选过程、出具最终法律意见。对“先生成报告，再审核”的复合请求，仅负责实际已形成材料的审核；所需输入及有限审核的处理按下述审核契约执行。
 
-## 1. Establish the review contract
+## 1. 先确认审核契约
 
-The review object must be an actually readable report, term list, query or analytical material. Report generation in a “search, generate, then review” request is outside this workflow. Read and verify an existing draft directly; without reviewable material, identify required input and keep review pending, rather than generating a draft or running generic searches. Opinions must follow actual claims and sources; entering the workflow does not mean the review is complete.
+审核对象为实际可读取的报告、词表、检索式或分析材料。“先检索生成报告，再审核”的请求中，报告生成不属于本流程；已有初稿时直接读取并核验，没有可审材料时说明所需输入，保留审核待执行状态，不以生成初稿或泛化检索替代审核。审核意见依据实际主张与原文形成，单纯进入本流程不代表审核完成。
 
-Read the report, commission and existing material to determine report type/intended decision, technical object/configuration/version, jurisdictions/key dates/languages, existing features/terms/queries/selected references/analysis scope, and whether the user wants a full review, focused review or fact check.
+读取报告、委托要求及用户已有材料，确定：
 
-Ask only for missing information that materially changes the conclusion. Continue bounded review when possible. Default output is review comments, not edits to the original, a replacement report, automatic writeback or external sending.
+- 报告类型和预期决策；
+- 技术对象、配置或产品版本；
+- 目标法域、关键时点和语言；
+- 已有技术特征、检索词表、检索式、入选文献和分析范围；
+- 用户要求全量审核、重点复核还是事实抽查。
 
-Extract available input rather than asking for a new form. Analysis-only review does not trigger synonym expansion/search review. When search review lacks a vocabulary list, extract actual terms from the query and label them reviewer-extracted. If query and meaning are both unclear, ask only for the needed specifics.
+只有缺失信息会实质改变审核结论时才补问。材料不足但仍可开展有限审核时，明确限定范围并继续。
 
-Screening processes are always out of scope: do not assess selection criteria, inclusion/exclusion reasons, disposition consistency or handoffs; do not request full candidate pools/logs. Existing or missing process material affects neither scores, evidence gaps nor sign-off. Do not restore those checks under another heading. State separately whether search strategy, selected results and analysis are in scope; search review is not “selected results only.”
+默认输出是审核意见，不修改原报告或生成替代报告，不自动回写审核结果或发送给外部人员。核验所需材料按本次审核范围取用。
 
-## 2. Tool and evidence boundaries
+优先从已有材料提取输入，不要求重新填表。仅审某项分析时，不额外启动同义词拓展或检索审核；需要审核检索但未提供词表时，可以从检索式提取实际用词，标明是本次提取。检索式和技术含义均不明时，只补问影响审核的具体内容。
 
-Select search/fulltext/legal-record/identity tools by the disputed issue. Read [tool usage](references/tool-usage.md); runtime definitions govern full schemas. Read report/attachments first and reuse evidence. Verify company/product facts with available web sources as needed, recording source/date. A URL is not read content. If tools fail/are absent, continue independent internal checks and mark only dependent assertions unverifiable. Local review fields are not MCP inputs.
+筛选过程始终在范围外：不评价筛选准则、纳入/排除理由、处置一致性或流转，不索取候选全集和筛选日志。缺少或已经提供的过程材料均不评分，不计入证据缺口或签发建议，也不通过其他栏目恢复这些检查。范围说明须同时写清本次是否包含检索策略、入选结果和分析，不能将检索审核误写成“仅审入选结果”。
 
-Preserve original responses and actual field paths. Distinguish report text, raw Patsnap facts, model/composite MCP judgments, this skill's review inference and the human reviewer's final disposition.
+## 2. 严守工具与证据边界
 
-## 3. Scenario rules
+按审核争点选择检索、全文、法律记录或主体解析工具。工具衔接、关键参数规则与证据含义见[工具使用要点](references/tool-usage.md)；完整参数和返回结构以运行时工具定义为准。
 
-Read [scenario rubrics](references/scenario-rubrics.md), choose the report purpose, then apply four modules:
+先读取报告和附件，复用已有证据。产品、公司等事实可结合环境可用的网页能力核实，记录来源与时点；URL不等于已读取正文。工具缺失或失败时继续可完成的内部检查，只将依赖缺失证据的主张标为不可验证。审核记录字段是本地输出结构，不作为MCP入参。
 
-1. Search quality: synonyms, query reasonableness and technical derivation.
-2. Selected-reference results.
-3. Analysis quality.
-4. Compliance and traceability.
+保留完整原始回执以及实际字段路径。区分：
 
-Acceptance criteria vary by scenario. Do not use FTO active-claim logic for novelty review or single-document disclosure logic in place of FTO elementwise coverage.
+- 报告原文；
+- 智慧芽返回的原始事实；
+- MCP 的模型判断或复合结果；
+- 本 Skill 的审核推断；
+- reviewer 的最终采用意见。
 
-## 4. Reviewer workflow
+## 3. 选择场景准则
 
-### 4.1 Assertion register
+读取 [场景审核准则](references/scenario-rubrics.md)，先选报告目的，再应用共同的四模块框架：
 
-Extract material assertions about search scope/query, final selected list, actually cited key references, feature/claim comparisons, legal status, conclusions and limitations with report locations. Do not reconstruct screening/exclusion histories for evaluation.
+1. 检索策略质量：同义词拓展、检索式合理性、检索逻辑推导；
+2. 入选文献结果；
+3. 分析质量；
+4. 合规与可追溯性。
 
-Use an internal register: `assertion ID | report location/quote | affected conclusion | evidence/version | supported/partly supported/contradicted/unverifiable/not checked | reason`. Reuse existing records; users need not fill it. Review decisive in-scope assertions first, then affected tables/conclusions. Account for every assertion's status at completion; coverage is not quality. Check internal consistency before invoking MCP for peripheral facts the report neither asserts nor needs.
+四模块只是共同骨架，合格条件随场景变化。不得用 FTO 的有效权利要求逻辑审核查新报告，也不得用查新的单篇完整公开逻辑替代 FTO 的逐项权利要求比对。
 
-### 4.2 Synonyms, queries and derivation
+## 4. 按 reviewer 路径审核
 
-Apply the three [search checks](references/scenario-rubrics.md), without rerunning a full search workflow.
+### 4.1 建立报告主张清单
 
-1. **Synonyms:** preserve complete concepts, qualifiers and target languages. Review the report vocabulary or extracted terms first. Only if candidate expressions are needed and complete natural-language intent exists, use `build_patent_boolean_query(text=complete_intent)` and extract candidates from actual `data.reference_query` with provenance. Never send existing executable queries for builder validation/rewriting. Do not invent intent just to call it; reuse suitable receipts. Candidates are neither an independent synonym list nor correct answers: explain keep/add/restrict/remove decisions term by term.
-2. **Query reasonableness:** examine alternatives/grouping, concept relationships, parentheses, fields, phrase/proximity/truncation, languages and geography/date/status boundaries. Compare original/proposed scope explicitly. Search execution is not independent syntax certification or fixed-field protection. Bounded execution of the original may resolve a concrete issue but does not prove technical logic. Keep suggestions separate and disclose unverified/unexecuted syntax without overwriting originals.
-3. **Derivation:** check features → concepts → synonym groups → fields/Boolean relationships → branches → merge/boundaries. If absent, reconstruct from the query and label reviewer interpretation, not author intent. Lack of a dedicated derivation section is not itself a defect. Use concrete concepts/counterexamples to explain excessive breadth/narrowness/purpose drift, not hit counts alone.
+从报告中抽取会影响结论的主张：检索范围及检索式、最终入选清单、实际引用的重点文献、技术特征或权利要求比对、法律状态、最终结论及限制声明。每项保留报告位置，不整理筛选过程或排除记录用于评价。
 
-Related, broader, narrower and functionally similar terms are not necessarily synonyms. Do not flatten grouped reference queries into a giant OR. Verify complete concepts/dependencies. Builder candidates do not score synonym quality or prove omissions.
+用内部主张清单记录 `主张ID｜报告位置与原句｜影响的结论｜证据及版本｜支持／部分支持／反驳／不可验证／未核验｜原因`；已有记录直接复用，不要求用户填写。只纳入本次范围内主张，先核对决定性主张，再核对受其影响的表格和结论。完成时逐项交代状态，覆盖程度不是报告质量分数。
 
-Use `search_patent` unchanged on an existing query only for necessary execution checks/specific doubts. Default to inspecting reference expressions without running new candidate searches. Distinguish hits/retrieved/selected/cited counts. Do not claim unmeasured missed counts, precision or recall, run automatic optimization, pseudo-gold-standard or recall experiments.
+先检查报告内部一致性，不调用 MCP 验证报告未提出且不影响结论的外围事实。
 
-Read actual `data.returned_count` and available `data.total_hits`; missing is not zero. Do not mix endpoints' counts. Check merge/state/boundaries before calling cross-source differences errors. Empty results do not prove historical events or relevant patents absent.
+### 4.2 审核同义词拓展、检索式与推导
 
-### 4.3 Facts and selected-reference results
+按 [场景审核准则](references/scenario-rubrics.md) 的三个检索检查点执行，不重跑完整检索流程。
 
-As needed, verify publication/application numbers, dates, assignee and simple legal status. Reuse actual receipts; targeted search filter queries by explicit publication number may supply basic facts. Use fetch_patent JSON only if insufficient; receiving text does not mean analyzing it. Request relations only for family issues; simple family is not every family definition.
+1. **同义词拓展质量**：保留完整技术概念、必要限定及目标语言。先核对报告词表或从原式提取的用词；只有需补充候选表达且已有完整自然语言检索意图时，才用`build_patent_boolean_query(text=完整意图)`辅助构建参考式，从实际`data.reference_query`提取候选并注明来源。不得将报告现有可执行式传入该构建工具以校验或改写。缺少自然语言意图时不为调用工具强行重写原式；已有适用回执可复用。工具候选不是独立同义词表或正确答案，逐词说明保留、补充、限用或删除的专业理由。
+2. **检索式合理性**：检查替代表达的分组、概念关系、括号、字段、短语/邻近/截词、语言及地域/日期/状态边界，逐项比较原式与建议式是否改变必要范围。检索执行结果不等于独立语法校验或固定字段保护结论。必要时对原有可执行式作有界执行复核，但执行成功仍不等于技术逻辑成立。建议式另列，未执行或未确认的语法如实说明，不覆盖报告原式。
+3. **检索逻辑推导**：核对“技术特征 → 检索概念 → 同义词组 → 字段与布尔关系 → 检索分支 → 合并及边界”。报告没有推导说明时，可从现有式反向解释并标明是审核者重建，不冒充作者原意，不因缺少专门推导章节直接判错。用具体概念或逻辑反例解释过宽、过窄或目的偏移，而不是仅凭命中数量判断。
 
-Disambiguate vague assignees with get_standard_assignee_name. Never choose the first ambiguous result or interchange company_id/ans_id.
+相关词、上位词、下位词和功能近似词不等于同义词；参考式中的分组不能展平成一个大OR。确认完整概念和术语依赖。不把工具候选表达当作同义词质量评分。生成参考式不证明原报告遗漏，也不代替专业审核。
 
-Review only the final list and actually cited references:
-- Identity/applicability: number, version, public date and scenario-required jurisdiction/status/evidentiary eligibility.
-- Content relevance: connection to the report's topic/features and assigned use; sufficiency for conclusions is checked during analysis.
-- Citation mapping: consistency across list/table/prose, avoiding misattribution, mixed family versions or duplicate independent-evidence counting.
+只有需确认既有检索式的执行情况或具体疑点时，才用`search_patent`原样作有界复核；查询传递规则见[工具使用要点](references/tool-usage.md)。默认只查看参考式，不执行新候选检索。数量区分命中、取回、入选和引用，不声称无实证的实际漏检数量、准确率或查全率。不运行自动优化、伪GT或召回实验。
 
-These are result checks, not inferred selection-process review. A final list is sufficient to start; absent exclusion logs do not impair this module. Ask only for specific unidentifiable objects/citations. Do not rescreen, expand the pool or calculate hit/list-overlap/precision/recall rates. Relevant selected references do not prove exhaustive search/Screening. Fetch technical originals only for concrete analysis issues.
+数量读取实际`data.returned_count`及可用的`data.total_hits`；缺失不能补零，不混用其他接口的计数。跨来源数字先核对合并、状态和边界，不直接判为报告错误。正常空集合不证明历史事件或相关专利不存在。
 
-### 4.4 Factual foundation and original-text comparison
+### 4.3 核对基础事实与入选文献结果
 
-For each material conclusion and its claims/features/product evidence, separately assess:
+对关键对象按需核对公开号、申请号、日期、申请人和简单法律状态。先复用已有真实回执，必要时用`search_patent`的filter策略按明确公开号查询基础字段；不足时才用`fetch_patent(format="json")`核对著录。取得文本不等于已开展原文分析。同族争点才请求`include=["relations"]`，不把简单同族等同于完整家族。
 
-- **A1 Factual foundation:** applicable object/version/date, located patent/product sources, and clear distinction between originals, translations, customer assertions, inference and unknowns. Product silence is not absence.
-- **A2 Original-text comparison:** faithful quotations, preserved limitations/dependencies, reasoned elementwise mapping, and evidence supporting conclusion strength without leaps, selective quotation, incompatible-embodiment assembly or similarity-as-coverage.
+若报告仅有模糊主体名称，可用 `get_standard_assignee_name` 消歧；`ambiguous` 时不得默认采用第一候选。公司 `company_id` 和申请人 `ans_id` 不得互换。
 
-Give separate judgments. Sourced facts can support invalid reasoning; accurate quotes can concern the wrong version. Agreement with another AI analysis proves neither.
+以最终入选清单和正文实际引用的文献为对象，只检查以下结果：
 
-Fulltext is not the default for basic facts. Deepen only when a decisive issue depends on disclosure, claim scope, term interpretation, content applicability or version:
-- Fetch actual bibliography/claims/description under tool rules.
-- Verify target original/version/completeness; do not substitute other versions silently.
-- Use lifecycle for relevant legal/invalidation/licensing/assignment events, relations for families/citations and media for PDF/images; missing records remain pending, not complete summaries.
-- Bind translations to originals/languages.
-- technical_problem/technical_solution/technical_effect are analytical aids, not raw patent facts. Fetch success proves neither completeness/applicability nor validated conclusions.
+- **文献身份与适用性**：公开号、文献版本、公开时间及本场景必要的法域或权利状态是否正确，是否具备所承担的证据资格。
+- **内容相关性**：文献是否涉及报告讨论的技术主题或特征，报告赋予它的用途是否有内容基础；是否足以支持具体结论在分析环节核查。
+- **引用对应关系**：清单、比对表和正文指向的文献是否一致，是否错引、混用同族版本或将同一文献重复计算为独立依据。
 
-For disputed analysis, state judgment, cite report/source, explain impact and propose revision. Use real readable locations, e.g. “D1 claim 1” or “D2 description paragraph [0032].” Keep technical field paths in evidence/appendices. Without original numbering, use exact quotes/sections rather than invented numbers. Check actual support relationships. CC/model agreement is not a substitute for independent A1/A2 review of originals.
+这些检查针对已呈现的结果，不反推其筛选过程。仅有最终清单即可开始；不存在排除日志不影响本项审核。如果入选文献自身无法识别或正文引用不明，只提出具体对象的核对需求。
 
-### 4.5 Compliance
+不重做筛选，不扩大候选集合，不计算命中率、名单重合率、准确率或召回率。不得因所审入选文献相关而推断检索或筛选已经穷尽。需要核对技术内容时，在分析阶段按具体争点获取原文。
 
-Check scoped method/date/provenance/limits/version/human judgment, excluding screening-process material. Distinguish report defects (something the report could have disclosed/verified), review limits (necessary user material absent) and tool limits (unavailable/failed/unreturned capability). Tool limits neither automatically condemn nor validate the report.
+### 4.4 从事实基础和原文比对合理性审核分析
 
-## 5. Output
+以报告中的关键分析单元为对象：一项结论及其相关权利要求、技术特征或产品证据。先复用已取得的基础事实，再沿两条主线审核：
 
-Read the [output contract](references/output-contract.md). Deliver only **Quality overview → Main issues → Revision recommendations**. Start with one overall judgment, one necessary scope sentence and a compact dimension table, without a duplicate conclusions section. Preserve issue evidence/impact; recommendations give actions and acceptance evidence. Partial review assesses only its dimensions.
+- **A1 事实基础**：对象/版本/时点是否适用；专利和产品事实是否有可定位来源；原文、译文、客户陈述、AI推断和未知是否被正确区分。产品资料没有披露某要素，不等于该要素不存在。
+- **A2 原文比对合理性**：引用是否忠实、限定条件和从属关系是否保留；技术要素之间是否有逐项且有理由的对应；原文能否支持报告结论，是否存在跳步、断章取义、跨实施例拼接或把相似性当成覆盖。
 
-Default to formal, clear English; honor explicit output-language requests while retaining labeled original evidence and appropriate translations. Search languages remain independent. Each issue addresses one concrete problem in coherent prose: judgment, basis, impact, recommendation. Avoid colloquial verdicts, dense tags, oversized tables and repeated disclaimers. Distinguish novelty/inventive step. Use business labels such as “Factual foundation” rather than internal A1/A2, status codes, MCP names or field paths unless requested.
+两个指标分别给结论。事实有来源但推理不成立、文字引用准确但对象版本错误，应分别指出。不得用“与另一份 AI 分析结论一致”证明分析合理。
 
-Overall dispositions: **Pass / Conditional pass / Return for revision / Unable to complete review**. Severity: **Major / Moderate / Advisory**. No default aggregate score; major defects cannot be offset by unrelated high scores.
+全文不是基础事实核验的默认步骤。仅当关键结论依赖技术公开、权利要求范围、术语解释、入选文献的内容适用性或文本版本时，才进入全文深化：
 
-Each important finding's internal evidence record contains module/scenario rule/report location/assertion/review judgment/severity/evidence status/limits/recommendation. MCP evidence includes actual tool/field path; direct report/attachment evidence uses file/location. External prose is written opinion, not a field dump.
+- 用`fetch_patent`获取已知专利的著录、权利要求与说明书，结构化核验与字段读取见[工具使用要点](references/tool-usage.md)。
+- 目标原文、版本或完整性无法确认时明确缺口，不把其他文献版本当作目标原文。
+- 法律事件、无效、许可或转让线索按需用`fetch_patent_lifecycle`；同族、引证用fetch的`relations`，原始PDF或附图线索用`media`。缺失部分保持待核实，不能把摘要视为完整记录。
+- 使用译文时同时保留原文绑定和语言；译文不冒充原文。
+- `technical_problem`、`technical_solution`、`technical_effect`均是分析辅助，不是原始专利事实。成功fetch不代表所需文本完整、版本适用或判断已验证，逐项检查实际内容。
 
-## 6. Completion criteria
+对每项有争议的分析，先说明审核判断，再引用报告与原文，解释其对结论的影响并提出修订建议。正文以“D1权利要求1”“D2说明书第[0032]段”等实际来源定位；`response.claims` 等技术字段保存在证据记录或附录。原文没有编号时使用精确引文定位，不自造编号。必须核对原文与报告主张的支持关系。
 
-- Clear scope/scenario/jurisdiction/date; every in-scope dimension assessed, distinguishing excluded/not applicable/missing/not checked.
-- When search is included, separate judgments for synonyms/query/derivation, with actual reference-expression provenance and no invented synonym/validation interface.
-- Selected results checked only for identity/applicability, relevance and citation mapping. Screening-process evidence is not scored/requested or used to change conclusions.
-- When analysis is included, separate A1/A2 judgments and located originals/reasoning for key issues.
-- Material facts verified or explicitly unverifiable; issue-specific fulltext retains source/version, and incidental fetched fulltext is not claimed as reviewed.
-- Major defects, evidence coverage and all three limitation types disclosed.
-- Composite model judgments are not raw facts, and review does not provide out-of-scope legal clearance.
-- Three-part delivery ties important issues to dimensions, facts, impacts and testable revisions without repetition.
+不以CC分析结论替代原文审核。第二意见也须在已有原文证据上独立分析，不能用AI结论一致性替代A1/A2审核。
 
-If decisive material is absent, deliver completed bounded review and exact gaps, not a claim of full review.
+### 4.5 审核合规性
+
+检查本次范围内的方法、时点、来源、限制、版本和人工判断是否清楚；筛选过程材料不列入本栏目。特别区分：
+
+- 报告缺陷：报告本可说明或验证却未做到；
+- 审核限制：用户未提供必要材料；
+- 工具限制：官方 MCP 未开放、失败或未返回所需字段。
+
+工具限制不自动构成报告缺陷，也不得被用来证明报告正确。
+
+## 5. 形成 reviewer 输出
+
+读取 [审核输出契约](references/output-contract.md)，精简为三部分：**质量概览 → 主要问题 → 修订建议**。开头用一句总体判断、一句必要范围说明及简短维度表，不单列重复的审核结论或概览。主要问题保留证据和影响，建议只写必要动作与完成依据。部分审核仅评价所审维度，不扩大任务。
+
+使用正式、清晰的中文：一项意见围绕一个具体问题，以“判断、依据、影响、建议”写成连贯段落。结论明确、措辞审慎，避免口语化短评、密集标签、过长表格和重复风险提示。新创性报告分别说明新颖性与创造性结论。正文使用“事实基础”“原文比对合理性”等业务名称，内部指标编号、英文状态码、MCP工具名和字段路径留在证据记录，用户明确要求时再展示。
+
+默认结论使用：
+
+- `通过`
+- `有条件通过`
+- `退回修改`
+- `无法完成审核`
+
+问题严重性使用 `重大 / 一般 / 提示`。总分不是默认产物；重大缺陷不能被其他项目的高分抵消。
+
+每个重要发现的证据记录至少包含模块、场景规则、报告位置、报告主张、审核结论、重要程度、证据情况、限制和建议。引用 MCP 时记录实际工具名和返回字段路径；直接依据报告或附件时填文件及位置。对外正文按书面意见组织，不逐字段打印该记录。
+
+## 6. 完成标准
+
+只有满足以下条件才宣布本次审核完成：
+
+- 审核范围、场景、法域和时点明确；
+- 本次范围内维度均已评价；范围外、确实不适用、材料缺失和未检查分别说明；
+- 检索在范围内时，同义词、检索式及推导分别有判断；如使用候选表达，记录实际参考式来源，不把构建工具冒充独立同义词或语法校验接口；
+- 入选文献仅按身份与适用性、内容相关性及引用对应关系核查；筛选过程没有被评分、要求补证或影响审核结论；
+- 分析在范围内时，分别评价 A1 事实基础和 A2 原文比对合理性，关键问题有可定位的原文和推理说明；
+- 影响结论的事实已验证，或明确标记不可验证；
+- 全文分析只针对争点所需对象，保留文本和版本来源；fetch随附全文不等于已完成原文审核；
+- 重大问题、证据覆盖和三类限制均已披露；
+- 输出没有把复合 MCP 判断冒充原始事实，也没有给出超出审核范围的法律放行结论。
+- 按三部分交付，重要问题能对应到专业维度、事实依据、结论影响及可检验的修订建议，避免重复表述。
+
+缺少决定性材料时，交付已完成的有限审核和精确缺口，不将其包装为完整审核。

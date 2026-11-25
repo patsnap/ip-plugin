@@ -1,41 +1,41 @@
-# Investigation records, resumption, and reporting
+# 调查记录、续查与报告
 
-Use the current task directory. At the start, save `case.md` with the user's company, objective, specified inputs, geographic and time constraints, current step, confirmed choices, open questions, and next action. Link confirmations to the actual user message or a traceable location and keep the model's analysis separate.
+沿用当前任务的文件目录。首次调查保存 case.md，记录我方公司、用户目标、指定输入、地区与时间条件、当前步骤、已确认选择、未决问题及下一步。用户确认关联其实际消息或可追溯位置，模型自己的分析单独记录。
 
-Update the case record and read it back before the end of each substantive turn, especially after confirmation of scope, portfolio selection or key points, or a pause or change in constraints. Verify the actual file and its current status and additions. If writing fails, retain the pending content and explain what was actually saved.
+每个实质调查回合结束前更新案件底稿并读回，尤其是用户刚确认范围、选定组合、确认核心点、暂停或改变条件之后。读回实际文件，核对当前状态及新增内容。写入失败时保留待保存内容并说明实际保存范围。
 
-Keep the case record concise and link to complete originals and detailed analysis. Cite existing text and analysis by file path and precise location. Change only what is affected by new confirmation or evidence. Keep at least the following:
+底稿保持简洁，完整原文与详细分析另存关联文件。已有正文和分析使用文件路径与准确位置引用，新增确认或材料时只更新受影响部分。至少保留以下内容。
 
-- Current status, including active investigation, the confirmation awaited, or pause, plus the user's latest decision and the next action.
-- Legal company name, confirmed scope, verified assignee mappings, and the confirmation message.
-- User-specified products, patents, competitors, patent jurisdictions, product markets, and time constraints, with individual confirmation status.
-- Candidate and selected portfolios, exact versions, each patent's role and supporting text, and selection status.
-- Stable IDs for confirmed key points, their meanings, claims, exact text locations, and uncovered conditions.
-- Retained products and models, key point mappings, classifications, evidence, and gaps. Link a large matrix separately if useful.
-- Material index with the object requested, actual publication numbers and IDs, file paths, what was read, failures, and truncation.
+- 调查中、等待何种确认或暂停等当前状态，用户最近一项决定及下一步。
+- 公司法律全称、确认范围、真实申请人身份映射和确认消息。
+- 用户指定产品、专利、竞品、专利地区、产品市场及时间条件，分别标记确认状态。
+- 候选与已选组合、准确版本、每件的作用和原文出处；候选与选中状态分别记录。
+- 已确认核心点稳定编号、含义、权项、原句位置与未覆盖条件。
+- 保留产品、型号、核心点对应、分级、证据与缺口；大型矩阵可链接独立记录。
+- 已取得材料索引，包含请求对象、真实公开号与ID、文件路径、已读范围、失败和截断。
 
-A new chat should be able to recover the confirmed scope and stage from the case files. Chat history can supplement a self-contained case record. Answer standalone conceptual questions directly.
+新会话仅凭案件文件也应能恢复已确认范围与阶段。对话历史可以辅助，案件底稿需要自行包含这些信息。纯概念问答沿用普通回答。
 
-Save original tool requests and complete responses where available, or record an accessible location for the host's original execution record. For long responses, prefer the host's save, export, or file handling capability. Cite original material and keep quotations, interpretations, and hypotheses separate. If the host supplies only partial text or excerpts, save the range actually obtained, mark it “Excerpt read,” and note any gap in preserving the response. For web pages, files, and patent text, keep the source, object, retrieval time, range actually read, and any truncation or failures.
+保存原始工具请求及可取得的完整回执，或记录宿主原始执行记录的可访问位置。长回执优先使用宿主提供的保存、导出或文件处理能力留存原件。分析记录引用原始材料，引用、自己的解释和待证假设分别保存。宿主仅提供部分正文或摘录时，保存实际取得的范围并标注“已读摘录”，说明原始回执的保存缺口。网页、文件和专利正文保留来源、对象、取得时间、实际读到范围、截断或失败。
 
-Reuse material before refreshing it for current legal status or updated product documents. Before requesting the same object again, check whether the prior scope and date still apply. Map patent or product IDs to source text and provenance, and keep raw responses intact.
+已有材料先复用，需要最新法律状态或新版产品资料时再刷新。查询相同对象前检查其范围和时点是否仍适用。专利或产品 ID、源文本及来源之间建立对应，原始回执保持原样。
 
-## Changes and pauses
+## 修改与暂停
 
-When a market, jurisdiction, or exclusion changes, identify affected queries and leads, keep the prior version, and reassess the affected results. When patents or key points change, review related matrix columns and reuse material that still applies.
+用户改市场、国家或排除条件时，明确哪些查询和线索受影响，保留原版本，复核受影响结果。换专利或改变核心点时核对相关矩阵列，仍适用的材料继续使用。
 
-For an added link, first read it and verify the model, then update relevant cells. For a removed lead, record the user's choice and the original row. Build the final report from the current retained list. On pause, save progress and stop investigating. Answer intervening questions, then resume at the current step when the user asks to continue.
+只补链接时先阅读核型号，再更新有关格子。删除线索记录用户选择和原行，最终报告采用当前保留清单。暂停时保存进度并停止调查。插问先回答，得到继续意图后从当前步骤接续。
 
-When resuming across tasks, read the case record and files it relies on, then state where work resumes. If the case is unclear, ask only for information needed to locate it. If the environment cannot retain files, give a portable text summary and state what was actually saved.
+跨任务续查先读案件记录及其采用文件，简短说明恢复到哪里。案件不明时只问定位所需信息。若当前环境无法持续保存文件，向用户提供可携带的文字进度摘要并说明实际保存范围。
 
-## HTML delivery
+## HTML 交付
 
-After the user confirms the retained leads, read [Report writing and template](report-writing.md) and use `assets/report-template.html`. Populate the findings, counts, scope, portfolio, key points, matrix, evidence, and next steps with current confirmed data, using the actual counts available. Default to plain English, honor the requested language, and preserve original evidence with necessary translations.
+用户确认线索范围后阅读[报告写作与填充](report-writing.md)，使用 assets/report-template.html。模板的结论、统计、范围、组合、核心点、矩阵、证据和下一步栏目以当前确认数据填充，数量不足照实列出。正文默认通俗中文，原文证据保留原始语言并附必要译文。
 
-Keep the `lead-matrix` table. Add one column per confirmed point and one row per retained model. Put ✓ or ? in each cell, link to its evidence, and show the row classification in the final column. Place long element-by-element tables in the evidence details. Verify row and point-column counts against the confirmed lists and recalculate every row label.
+沿用模板中 `lead-matrix` 表格，表头按当前确认的核心点增加列，表体按当前保留产品逐行填充。一个产品型号一行，每格放对应核心点的✓或?并链接逐格依据，最后列出整行分级。逐要素长表放到证据详情。填写后核对表体行数等于保留产品数，核心点列数等于已确认核心点数，并逐行核算标签。
 
-Use the current company, patent versions, key points, and retained products. Each matrix cell should expand to its reasoning and gaps. Link to actual URLs or local evidence files. Use patent links from tool responses when available, otherwise give the exact number and original-text location.
+报告采用当前公司、专利版本、核心点和保留产品。每个矩阵格能展开到依据和缺口。来源使用实际取得的 URL 或本地证据文件，专利链接采用工具真实返回值，缺链接时保留准确号码和原文定位。
 
-Deliver standalone HTML with inline styles, horizontally scrollable wide tables, and native expandable details. Keep internal IDs and long JSON in the working material. Save raw responses separately and show readers the quotations, locations, and sources they need.
+输出为可独立打开的 HTML，样式内联，宽表可横向滚动，证据用原生 details 展开。内部 ID 和大段 JSON 留在过程材料。原始回执单独保存，报告中呈现读者需要的引文、位置和来源。
 
-Read the generated file and verify placeholders, columns, citations, matrix classifications, selected counts, and links. Provide the actual file link, completed scope, key findings, and material still needed. Record only checks actually completed and expand the details as requested.
+生成后由 AI 读取实际文件，核对占位符、表列、引用、矩阵分级、选中数量和链接。提供真实文件链接，说明已完成范围、关键发现和仍需补的材料。文件检查结果按实际完成范围记录，检查细节随用户需要展开。

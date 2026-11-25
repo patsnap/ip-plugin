@@ -3,110 +3,110 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Consider only these two technology areas and organize the attached candidates into a report.",
-      "expected_output": "Generate two technology sections. Area A: 4 raw families, 0 eligible, 0 listed; keep pending verification. Area B: 3 raw families, 2 eligible, 2 listed. Do not add weak matches to fill a quota.",
+      "prompt": "只看这两个技术方向，把附件中的候选整理成报告。",
+      "expected_output": "生成两个技术章节；方向甲原始4族、合格0族、列出0件，保留待核；方向乙原始3族、合格2族、列出2件，不为了凑数量引入弱相关对象。",
       "files": [],
       "fixture": {
-        "notice": "Offline synthetic material, not a real company or patents. Do not call external services.",
+        "notice": "离线合成材料，非真实公司或专利，不调用外部服务。",
         "directions": {
-          "A": {
+          "甲": {
             "families": 4,
             "eligible": 0,
             "uncertain": 1
           },
-          "B": {
+          "乙": {
             "families": 3,
             "eligible": 2
           }
         },
-        "scope": "Review only the supplied samples; no new search."
+        "scope": "仅审核所给样本，不新增检索"
       }
     },
     {
       "id": 2,
-      "prompt": "The company says its product is certified, but I cannot find proof. How should the report describe it?",
-      "expected_output": "Label certification as a user statement / not independently verified. Remove any template assertion of verified certification and do not invent certification milestones.",
+      "prompt": "公司说产品拿过认证，但我没找到证明，报告里怎么写？",
+      "expected_output": "认证标用户陈述／未独立核实，不保留模板默认已核实声明，不虚构认证里程碑。",
       "files": []
     },
     {
       "id": 3,
-      "prompt": "Both technologies are structural improvements. Analyze their respective advantages.",
-      "expected_output": "Retain the three strategic layers. Evidence supports only the physical/manufacturing foundation; place both there and disclose missing evidence for licensing barriers and commercial moats. Do not invent regulatory licensing or commercial barriers. Separate technical function from comparative advantages; without comparison evidence, limit statements to technical relevance.",
+      "prompt": "这两项技术都是结构改进，请分析它们各自的优势。",
+      "expected_output": "仍按战略地位三层组织；材料只支持物理与制造基础层，两项归入同一层并注明许可壁垒层与商业护城河层证据不足，不强造监管许可或商业壁垒；区分技术作用与优势证据，缺比较证据时限定为技术关联。",
       "files": [],
       "fixture": {
-        "notice": "Offline synthetic technology description",
-        "material": "A is an airflow separation structure; B is a suction-head sealing structure. Only structural descriptions are available, with no performance or competitive comparison."
+        "notice": "离线合成技术说明",
+        "材料": "甲是气流分离结构，乙是吸头密封结构，只有结构说明，没有性能或竞争对比。"
       }
     },
     {
       "id": 4,
-      "prompt": "We are evaluating next-generation ADC R&D directions, focusing on Daiichi Sankyo. Trace DXd portfolio evolution, distinguish the underlying platform from HER2/TROP2 product improvements, explain linker, payload and conjugation design relationships, and provide representative patents and a report.",
-      "expected_output": "The primary objective is research into the other company’s existing technology. Use competitive analysis, display candidate directions at Gate A and wait for confirmation before patent retrieval. No patent call while awaiting confirmation is not a failure. Include partners only with evidence and within task scope.",
+      "prompt": "我们正在评估下一代ADC研发方向，想重点研究第一三共。梳理DXd的技术布局演进，区分底层平台与HER2、TROP2产品改进，解释连接子、载荷和偶联设计的关系，给代表专利与报告。",
+      "expected_output": "以研究对方已有技术为主，采用竞对分析；按 Gate A 展示候选方向并等待用户确认，未确认前不调用专利检索，不因尚无专利调用判失败。合作方范围只在有依据且属于任务时纳入。",
       "files": []
     },
     {
       "id": 5,
-      "prompt": "We are developing robot-joint reducers. Research Harmonic Drive Systems’ flexspline, circular spline, wave generator and engagement structures; find representative patents and compare foundational designs with improvements.",
-      "expected_output": "Use competitive analysis. Present the supplied directions as a Gate A confirmation list before searching. “We are developing” does not change the objective into new technical proposal design.",
+      "prompt": "我们在开发机器人关节减速器，请研究Harmonic Drive Systems的柔轮、刚轮、波发生器与啮合结构，找代表专利并比较基础设计和改进。",
+      "expected_output": "采用竞对分析，复用给定方向形成 Gate A 清单并展示确认；确认前不开展专利检索，不因“我们在开发”改为新技术提案。",
       "files": []
     },
     {
       "id": 6,
-      "prompt": "Research Dameng Database patents for multi-node concurrency and consistency. Give an architecture-based roadmap and representative patents, and identify objects whose purchase value merits further assessment.",
-      "expected_output": "Competitive technology research is primary. Display technology directions at Gate A and wait for confirmation before retrieval. Present purchase-value evidence and limitations separately; citation counts are not litigation value.",
+      "prompt": "研究达梦数据库多节点并发和一致性专利，按架构给路线图及代表专利；另外标出值得进一步评估购买价值的对象。",
+      "expected_output": "竞对技术研究为主要目标，按 Gate A 展示技术方向并等待确认；确认后检索，购买评价单列证据与限制，不以引用量等同诉讼价值。",
       "files": []
     },
     {
       "id": 7,
-      "prompt": "Research the core technologies of “Huaxing.” Do not search yet; wait until I confirm which company it is.",
-      "expected_output": "Pause identity-dependent retrieval as requested and ask for or organize disambiguation options. Do not select the first candidate by default or override an explicit wait with default execution.",
+      "prompt": "帮我研究“华星”的核心技术，先别检索，等我确认到底是哪家公司。",
+      "expected_output": "遵守用户要求暂停依赖主体的检索，询问或整理主体消歧选项；不默认第一候选，不以默认自动执行覆盖明确的停等请求。",
       "files": []
     },
     {
       "id": 8,
-      "prompt": "The entity and technology area are confirmed. Continue retrieval from the attached builder result and prepare application trends and IPC statistics for the same scope.",
-      "expected_output": "Verify reference_query preserves confirmed ALL_AN and technical scope. Pass boolean_query unchanged to exclusive Boolean search. Combine trend and IPC dimensions in one field_analysis using the verified expression in source.query, never the opaque reference. Save actual queries/receipts; do not sum truncated buckets as totals.",
+      "prompt": "主体和方向已经确认。根据附件中的构式结果继续检索，并准备同范围的申请趋势与IPC统计。",
+      "expected_output": "先核对 reference_query 保留已确认 ALL_AN 主体和技术条件；向 search_patent 原样传 boolean_query 引用，使用独占 boolean 策略。同一数据集的趋势和IPC维度合并为一次 field_analysis，source.query 使用已核对的表达式，不能传不透明引用。保存实际查询与回执，不将截断桶相加当总量。",
       "files": [],
       "fixture": {
-        "notice": "Synthetic offline receipt; inspect call plans only, without external services.",
-        "scope": "Example Company A and battery cooling are both confirmed by the user.",
+        "notice": "离线合成回执；仅检查调用计划，不调用外部服务。",
+        "scope": "主体为示例公司甲；技术方向为电池冷却；两者均已由用户确认。",
         "builder_result": {
           "status": "success",
           "data": {
             "boolean_query": "BOOLEAN_QUERY_ID:bq_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            "reference_query": "ALL_AN:(\"Example Company A\") AND TAC_ALL:(\"电池冷却\" OR \"battery cooling\")"
+            "reference_query": "ALL_AN:(\"示例公司甲\") AND TAC_ALL:(\"电池冷却\" OR \"battery cooling\")"
           }
         }
       }
     },
     {
       "id": 9,
-      "prompt": "ALL_AN restricts Company A but the returned current assignee is Company B. Is the search wrong? Can total hits be labeled Company A’s current holdings?",
-      "expected_output": "Check current/original assignee evidence. Original Company A can explain ALL_AN hits; a different current assignee alone does not prove a false hit or expand group scope. Hits measure the assignee query, not current holdings. Current ownership/transfer conclusions require relevant legal evidence.",
+      "prompt": "ALL_AN限定了公司甲，但返回记录显示当前申请人是公司乙，是不是检索错了？能将总命中写为公司甲当前持有量吗？",
+      "expected_output": "检查当前和原始申请人的证据；原始申请人为公司甲可解释 ALL_AN 命中，不能仅凭当前申请人不同判为误检或自动扩大集团范围。命中总量是申请人查询范围的命中数，不是当前持有量；当前权属或转让结论需相应法律证据。",
       "files": [],
       "fixture": {
-        "notice": "Synthetic offline document for entity/count-scope checks.",
+        "notice": "离线合成文献，仅核对主体与统计口径。",
         "search_assignees": [
-          "Example Company B"
+          "示例公司乙"
         ],
         "bibliography": {
           "original_assignees": [
-            "Example Company A"
+            "示例公司甲"
           ],
           "current_assignees": [
-            "Example Company B"
+            "示例公司乙"
           ]
         }
       }
     },
     {
       "id": 10,
-      "prompt": "Ordinary full text is available, but family retrieval requires authentication. Continue organizing what can be delivered now.",
-      "expected_output": "Preserve full text and AUTH_REQUIRED. Do not pass ID arrays to the single-patent interface. Until relationships are recovered, document counts/empty arrays cannot establish family totals, completed deduplication or full coverage. Reuse text for independent technical interpretation and deliver interim results with explicit gaps, without bypassing authentication or inventing relationships.",
+      "prompt": "普通全文已经取得，但同族调用要求认证。请继续整理目前可交付的结果。",
+      "expected_output": "保存全文和 AUTH_REQUIRED，逐件接口不改传ID数组；关系取证恢复前不能将文献数或空关系计为独立同族数，不能宣称完成代表件去重或全量布局。复用正文开展不依赖同族的技术解读，交付带明确缺口的阶段结果，不绕过认证或编造关系。",
       "files": [],
       "fixture": {
-        "notice": "Synthetic offline state, without external calls.",
-        "fulltext_state": "Bibliography, claims and description obtained for the exact publication version.",
+        "notice": "离线合成状态，不执行外部调用。",
+        "fulltext_state": "取得准确公开版本的书目、权项和说明书",
         "relations_error": {
           "code": "AUTH_REQUIRED",
           "message": "Patent relations require an authenticated user."

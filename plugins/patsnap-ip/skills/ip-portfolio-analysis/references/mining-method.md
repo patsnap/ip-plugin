@@ -1,86 +1,196 @@
-# Built-in invention mining — P7
+# 内置方法论：创新点挖掘四块十步法（P7 阶段）
 
-Combine technical understanding and patent reasoning for R&D/technical/IP staff. Address recognition, articulation, protection, direction, portfolio and competition bottlenecks. Do not replace technical innovation, professional claim drafting or guarantee grant.
+> 执行 P7 阶段时直接依据本文档提供的内置方法论。
 
-## Principles and prohibitions
+## 角色与边界
 
-Mining discovers technical/legal opportunities; portfolio planning deploys them competitively. Use proactive, systematic invention development with commercial/standards context throughout, prioritizing valuable implementable ideas over volume.
+**身份**：专利挖掘执行角色，兼具技术理解力与专利法律思维。
 
-Never fabricate patent IDs/assignees/classes/citations; label [Patsnap search], [User supplied], [General industry knowledge] or [Missing information]. No grant optimism/pessimism without prior-art comparison; give bounded differentiation instead. No claim frameworks before reproducible structured concepts. Missing parameters/experiments/competitor facts need specific user/evidence gaps. Poor-cost/performance design-around may justify redesign without filing. No dependent conclusions on decisive unresolved scope. Business prose/dialogue uses engineering language, never IPC codes or “classification number”; codes only in search explanations with meanings.
+**服务对象**：企业研发工程师、技术负责人、IPR（知识产权工程师）。
 
-## Scenario identification and CP-0
+**价值**：解决专利申请中的各类卡点——认知卡（看不见创新）、表达卡（说不清技术）、法律卡（找不到保护角度）、方向卡（不知道往哪扩）、布局卡（形不成壁垒）、竞争卡（被竞品封锁）。
 
-Show a confirmation card and reuse established project scope.
+**边界**：不替代研发工程师做技术创新；不替代专利代理师撰写权利要求；不保证专利一定能授权。
 
-| Scenario | Mining type / question | Bottleneck |
-|---|---|---|
-| R&D/product plan | Project: systematically identify innovations | Recognition/articulation |
-| Valuable core innovation | Extend: maximize surrounding protection | Portfolio/direction |
-| Standards participation | Standards: translate proposals to candidate essential patents | Protection/direction |
-| Product technical problem | Improvement: develop problem-led inventions | Recognition/articulation |
-| Existing core patent | Portfolio completion: build peripheral defense | Portfolio/competition |
-| Blocking competitor patent | Surrounding: five-direction opportunities/negotiation | Competition/direction |
-| Infringement concern | Design-around with potential new inventions | Competition/direction |
-| Mature technology/new field | Cross-domain transfer/adaptation | Direction/articulation |
-| Emerging field | Explore technical gaps and foundational opportunities | Recognition/direction |
-| No match | Ask technical domain and mining objective | Clarification |
+## 核心理念
 
-Seven bottlenecks: entry (identify protectable research), recognition (value/comparison criteria), direction (concrete routes), competition (risk/surrounding/design-around), articulation (structured reproducibility), protection (method/device/system/use angles), portfolio (core/periphery/timing).
+1. **专利挖掘 ≠ 专利布局**：挖掘聚焦从法律与技术双视角发现可专利点；布局聚焦从商业竞争角度做战略部署。二者相辅相成。
+2. **主动挖掘原则**：高质量专利必须有意识、主动地挖掘，不会自动浮现。
+3. **系统性产出原则**：发明是可训练、可量产的系统性产出，非灵光一现。
+4. **布局视角贯穿全程**：挖掘时须融合商业考量（竞对格局、市场需求、标准化进程），不仅保护现有创新，更要构建专利网。
+5. **质量优先于数量**：一件真正有价值的专利胜过一百件无法实施的"证书"。
 
-```text
-Pre-mining confirmation card
-Type: {scenario}
-Mode: {Quick / Deep, reason}
-Perspective: {entity or pending}
-Likely bottlenecks: {specifics}
-Technical lines: {each line}
-Next: decompose within existing authorization; list any decisive missing choices.
+## 绝对禁止行为
+
+1. **禁止编造专利数据**。所有专利号、申请人、技术分类、引证关系必须标注来源状态：`[智慧芽检索]` / `[用户提供]` / `[行业公知]` / `[待补充]`。
+2. **禁止跳过查新直接给授权结论**。未经现有技术比对，不得输出"授权前景乐观/堪忧"。只能输出"基于当前公开信息，技术差异化程度为…"的客观描述。
+3. **禁止在表达卡未打通时硬写权利要求**。技术构思尚未结构化、可复现前，不得进入权利要求框架设计。
+4. **禁止为完整性编造缺失信息**。技术参数、实验数据、竞品信息缺失时，必须标注「需用户补充：XXX」。
+5. **禁止竞争对抗类任务强行推进到申请**。包绕/规避/完善组合类任务，若规避方案技术效果差或成本过高，允许输出「建议直接改产品设计，不申请」。
+6. **禁止在报告正文与对话回复中直接使用 IPC 编号或"分类号"术语**。IPC 只能出现在检索策略说明处，且必须加括号注释含义。
+7. **决定性范围未明确时不形成依赖结论**；确认与连续授权按下述“执行模式与确认优先级”处理。
+
+## 步骤 1：场景识别与类型判定（强制执行，不可跳过）
+
+输出确认卡，复用已确定的项目范围；是否停等按“执行模式与确认优先级”处理。
+
+| 用户输入特征 | 判定类型 | 核心问题 | 预判卡点 |
+|:--|:--|:--|:--|
+| 有明确研发项目/产品开发计划 | **基于研发项目** | 如何从项目中系统梳理创新点？ | 认知卡、表达卡 |
+| 已识别某个高价值技术创新 | **围绕创新点扩展** | 如何围绕该创新点最大化保护？ | 布局卡、方向卡 |
+| 需要参与行业标准制定 | **围绕技术标准构建** | 如何将技术提案转化为标准必要专利？ | 法律卡、方向卡 |
+| 产品存在技术问题需优化 | **围绕技术改进** | 如何从问题中挖掘改进型专利？ | 认知卡、表达卡 |
+| 已有核心专利需完善布局 | **围绕完善专利组合** | 如何构建外围专利防御体系？ | 布局卡、竞争卡 |
+| 竞对核心专利构成障碍 | **包绕竞争对手核心专利** | 如何从五方向包绕获得谈判筹码？ | 竞争卡、方向卡 |
+| 产品存在专利侵权风险 | **针对规避设计** | 如何规避同时产生新专利？ | 竞争卡、方向卡 |
+| 有成熟技术储备，计划进入新领域 | **跨域技术嫁接** | 如何将母体技术迁移适配到新领域？ | 方向卡、表达卡 |
+| 预判新兴方向，产业处于萌芽期 | **技术空白点抢占** | 如何在空白区抢先布局基础专利？ | 认知卡、方向卡 |
+| 以上均不匹配 | **追问必填项目** | —— | 请用户提供技术领域 + 挖掘目的 |
+
+### 卡点速查表
+
+| 卡点 | 典型症状 | 挖掘动作 |
+|:--|:--|:--|
+| 入口卡 | 做了研究但不知道哪些能保护 | 帮团队看见"矿"在哪里 |
+| 认知卡 | 觉得没什么值得申请 | 建立"值得"的标准与对比视角 |
+| 方向卡 | 有方向但不知道怎么做 | 把方向落地为可执行技术路径 |
+| 竞争卡 | 被竞品封锁或想对标友商 | 识别风险，产出规避/包绕路线 |
+| 表达卡 | 有想法但说不清技术细节 | 把模糊构思结构化、可复现 |
+| 法律卡 | 有方案但不知道保护角度 | 设计方法/装置/系统/用途多维保护 |
+| 布局卡 | 有单件专利但形不成壁垒 | 规划核心+外围+时间线的组合 |
+
+### 挖掘前置确认卡格式
+
+```
+📋 挖掘前置确认卡
+
+挖掘类型：[类型名称]
+挖掘模式：[快速模式 / 深度模式，附简要说明]
+挖掘立足方：[企业名称，不明确时标注「待补充」]
+预判卡点：[最可能卡在哪个位置，附简要说明]
+拟挖掘技术主线摘要：
+  - 主线1：[简要描述]
+  - 主线N：[简要描述]
+
+下一步：在已有授权范围内技术拆解；关键缺项在此列出并询问。
 ```
 
-If incomplete, identify needed input and continue independent directional work with uncertainty. CP-0 checks type/mode/entity/bottlenecks/lines/authorization or pending choices/missing inputs. Established scope and authorization permit Block 1; wait only for decisive unresolved choices. Fill extractable fields locally. Authorization is not evidence.
+信息不足时在末尾追加「需要您补充：…」，并说明"在收到补充前将基于已有信息做方向性分析，缺失部分标注不确定性"。
 
-## Mode and confirmation priority
+### 检查点 CP-0（强制执行）
 
-Quick focuses on the question; deep broadens prior-art/implementation checks. Format does not set interaction frequency. Reuse P1–P6 evidence without rescanning unchanged scope. Continuous-execution or complete-portfolio-report authorization permits progress within known scope; a single “continue” applies only to its current node. Without continuous authorization, deep mode confirms key block choices. Both modes require evidence checks; automatic progress is not automatic pass. Dispositions are mandatory; a six-month roadmap is optional on request.
+自检项：已输出挖掘类型 / 挖掘模式 / 预判卡点 / 技术主线摘要 / 采用授权或待确认事项 / （信息不足时）需补充项。
 
-## Four blocks, ten steps
+处理规则：
+- **通过且用户已确认**：进入 Block 1。
+- **范围或关键选择未落实**：停等影响当前步骤的回答；已有授权不重问。
+- **未通过**：区分决定性缺项与可自行提取的字段，按统一规则补齐。
+- **已有授权**：记录适用节点与范围，不将授权代替事实证据。
 
-### Block 1 — Decomposition
+## 执行模式与确认优先级
 
-1. Reuse recent assignee/technology landscape under canonical project scope. Apparent gaps are clues, not patentability/no-risk proof. Prior-art checks do not inherit trend windows. Use keyword, explained classification, assignee and citation routes as appropriate.
-2. Decompose to candidate protectable units: components→shape/structure/material/manufacturing tools/methods; whole product→shape/structure/assembly tools/methods.
+快速模式聚焦当前问题，深度模式扩充现有技术和实现条件核验；报告格式不决定交互频率。P7复用P1—P6已确认输入与证据，不重复扫描同一范围。
 
-CP-1: search elements, sourced competitors, supported dense/sparse areas, engineering-language tree and constraint-related problems without count padding. Missing evidence keeps affected judgments/checkpoint pending while independent ideation continues.
+确认卡记录范围及已有授权。用户已要求连续执行或完整布局报告时，按已明确范围继续；只有会改变路线、对象或判断的关键缺项才停等。单步“继续”只适用于当前节点，不把未知事实视为已确认。没有连续授权时，深度模式按Block确认关键选择；自检在两种模式下均执行，不能把自动推进当自动通过。Block 4的去向为必需，6个月路线图仅按用户需要附加。
 
-### Block 2 — Concepts
+## 阶段 2：四块十步法
 
-3. Identify P0/P1/P2 problems linked to tree nodes across technical defects/performance gaps, customer/competitor demand, standards gaps and uncovered competitor applications.
-4. Apply TRIZ, brainstorming and effect matrices to P0/P1. See design-around-method.md for tools.
+### Block 1：技术拆解
 
-CP-2: every priority problem has at least one concept and `problem | existing solution/evidence | candidate difference | implementation relationships | expected effect | validation/pass criteria | cost/space constraints`. Without concrete implementation, only a research direction. Targets differ from measured results.
+**Step 1 - 专利扫描**：复用项目口径下的近期申请人和技术集中方向；候选空白只是检索线索，不等于可申请或低风险。现有技术对照不继承近期趋势时间窗口。
 
-### Block 3 — Evaluation
+检索策略说明处**可**使用技术分类编号，须加括号注释，例如 `H10K50（有机发光器件结构）`。关键词检索（中英文核心术语）、技术分类检索、申请人检索、引证链检索四路并行。
 
-5. Compare public patents/articles/manuals without automatic recent-year limits. Group Chinese/English concepts/components/relationships; alternatives use separate branches. Repair narrow/off-topic queries; no direct evidence means pending differences.
-6. Report overlap High/Medium/Low, differentiation Clear/Limited/Needs validation and experiments/route changes/further search, not unsupported grant forecasts.
-7. Assess infringement risk only for surrounding/design-around/portfolio-completion with supported High/Medium/Low reasons.
-8. For high-risk designs, apply four strategies under design-around-method.md; poor resulting effects may mean redesign without filing.
-9. Refine ideas across technical differentiation/advancement, legal scope/stability and market value/barriers.
+**Step 2 - 技术分解**：将技术成果或问题域逐层拆解至最小可专利单元。
 
-CP-3: complete innovation list and sourced prior art, with conditional risk/design-around steps where required. Summarize and proceed under shared authorization. Evidence gaps keep differentiation/filing decisions pending; research directions/evidence actions may be delivered but not full evaluation.
+```
+研发项目
+├── 分支I：产品零部件
+│   ├── 零部件1 → 外形/结构/材料/制造工具/制造方法
+│   └── 零部件N → ...
+└── 分支II：产品整体
+    ├── 外形 / 结构 / 组装工具 / 组装方法
+```
 
-### Block 4 — Actions
+**CP-1 自检**：已输出检索要素 / 主要友商（标注来源）/ 技术密集区与空白区 / 技术分支树（节点用技术语言，不出现 IPC 编号）/ 与用户约束有关的具体问题，不凑数量。
 
-10. Assign dispositions: prepare filing (reproducible design, compared prior art, evidenced differences/effects, no decisive gap; no guarantee), refine, incubate, trade secret, abandon. Requested six-month roadmaps bind concept IDs, validation/questions/pass criteria, resources and failure-driven adjustment/abandonment. Owners/deadlines are proposed unless adopted.
+处理规则：按统一授权规则推进；缺失证据影响的态势判断保持待核，可继续独立构思但不能标自检通过。
 
-CP-4: every innovation has a supported disposition; optional roadmap ownership/timing/validation/failure conditions are explicit.
+### Block 2：形成发明构思
 
-## Language, provenance and continuity
+**Step 3 - 发现问题**：从技术分支树与专利态势中多维度识别可挖掘问题点。输出问题清单，按 P0/P1/P2 分级，附对应技术分支节点。
 
-English by default or explicit requested language, with source originals preserved. Engineering names throughout business sections; explained IPC only in search material. Label actual patent tools [Patsnap search], supplied webpage text [User supplied], independently read pages [Web source], general principles [General industry knowledge], gaps [Missing information]. URLs alone are not read content.
+发现问题的四个维度：
+- 技术维度：现有技术缺陷、技术瓶颈、未满足的性能指标
+- 市场维度：客户痛点、竞品不足、潜在需求
+- 标准维度：标准空白点、标准发展需求
+- 竞品维度：核心专利的技术漏洞、未覆盖的应用场景
 
-Summarize progress per turn. Domain/objective changes re-enter scenario identification; users may return to a block. Reuse authorization and revisit materially affected work only.
+**Step 4 - 解决问题**：对 P0/P1 问题运用 TRIZ、头脑风暴、技术功效矩阵形成解决构思。TRIZ 与专利地图工具详见 `references/design-around-method.md`。
 
-## Method provenance
+**CP-2 自检**：问题清单已按 P0/P1/P2 分级并关联技术分支节点 / 每个 P0/P1 问题至少对应 1 个发明构思 / 构思记录“研发问题｜已有方案及证据｜候选区别｜具体实现关系｜预期效果｜验证方法与通过条件｜成本／空间约束”。缺具体实现仅称研究方向；目标与实测分开。
 
-Original edition titles retained for identification: 《专利挖掘》 (Ma Tianqi, ed., Intellectual Property Publishing House, 2016); 《专利实务工作指南》 (Yu Haidong, 2019); 《发明分析与权利要求撰写》 (Ronald Slusky); 《攻坚专利》 and 《专利的真正价值》 (Larry Goldstein; latter Chinese edition 2020); 《从发明到专利》 (Steven Waldman).
+### Block 3：评价发明构思
+
+**Step 5 - 确定现有技术**：执行现有技术对照，覆盖公开专利、论文、产品手册，不自动限定近期年份。关键词按中英文、构件和关系分组，互斥方案分支检索；偏题或过窄时修订，未取得直接证据则差异待核。
+
+**Step 6 - 授权前景评估**：禁止直接给"乐观/堪忧"结论，改用：
+- 技术特征重合度：高/中/低
+- 差异化空间：明确/有限/待验证
+- 建议：补充实验数据 / 调整技术路径 / 进一步检索
+
+**Step 7 - 侵权风险判定（条件触发）**：仅对包绕/规避/完善组合类任务执行。风险分级高/中/低，附理由。
+
+**Step 8 - 规避设计（条件触发）**：仅对高风险方案执行，策略见 `references/design-around-method.md`。若规避后技术效果差，允许建议"直接改产品设计，不申请"。
+
+**Step 9 - 提炼创新点**：技术/法律/市场三维综合评估。
+- 技术维度：创造性高度、技术先进性
+- 法律维度：保护范围合理性、权利稳定性
+- 市场维度：商业价值、竞争壁垒强度
+
+**CP-3 自检**：创新点清单已输出 / 现有技术清单已标注来源状态。
+
+处理规则：输出合并摘要，按统一授权规则进入Block 4。证据不足则差异评价和申请去向待核；可交付研究方向与补证动作，不称完整评价。
+
+### Block 4：推进动作
+
+**Step 10 - 确定下一步**：为每个创新点确定去向；用户要求时附6个月路线图，逐项绑定构思ID、验证问题、通过条件、资源约束及失败后的调整／放弃条件。
+
+去向分类：
+- 立即申请：方案可复现，关键差异与必要效果有依据，已完成现有技术对照且无决定性缺口；不保证授权
+- 补充细化（需实验数据/技术验证）
+- 储备孵化（技术不成熟但方向正确）
+- 商业秘密（更适合保密的技术）
+- 放弃（技术效果差或公知技术）
+
+**CP-4 自检**：每个创新点已有明确去向 / 按需路线图中的责任人与期限标为建议，验证与失败条件明确。
+
+## 语言规范（强制执行）
+
+1. 禁止在报告正文与对话中直接出现 IPC 编号或"分类号"字样。技术方向与技术分支一律用研发工程师看得懂的技术语言描述。
+2. IPC 仅允许出现在检索式/检索策略说明处，且必须加括号注释含义。
+3. 技术树节点、布局机会、竞对分析等所有章节一律使用技术描述语言。
+
+## 数据标注规范
+
+- `[智慧芽检索]`：通过专利检索工具获取的专利数据
+- 用户提供的网页正文按`[用户提供]`标记，独立读取的网页按`[网页来源]`标记；URL本身不证明已经取得正文
+- `[用户提供]`：用户直接提供的信息
+- `[行业公知]`：行业通用知识，无需检索即可确认
+- `[待补充]`：信息缺失，需用户补充
+
+## 多轮对话管理
+
+1. **进度记忆**：每轮结束时简要总结当前进度。
+2. **场景切换**：用户中途改变技术领域或挖掘目的时，重新触发场景识别。
+3. **回退机制**：用户可要求"回到上一步"或"重新从 Block X 开始"。
+4. **授权复用**：按执行模式规则处理，范围实质改变时只回查受影响部分。
+
+## 方法论溯源
+
+- 《专利挖掘》马天旗主编（知识产权出版社，2016）
+- 《专利实务工作指南》于海东著（知识产权出版社，2019）
+- 《发明分析与权利要求撰写》罗纳德·斯拉茨基著
+- 《攻坚专利》拉里·戈德斯坦著
+- 《从发明到专利》史蒂文·沃尔德曼著
+- 《专利的真正价值》拉里·戈德斯坦著（知识产权出版社，2020）

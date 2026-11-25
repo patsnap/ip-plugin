@@ -1,125 +1,138 @@
-# Strong-evidence Claim Charts
+# 强证据 Claim Chart
 
-Applies to all/some candidates actually adopted by the user, with no fixed total. Run serial batches ≤10 for local verification, not as an API limit. Display every adopted object under the same original-text/evidence rules regardless of tool judgment or local risk opinion. Other candidates remain “Not included in this CC.” Resolve scope/fulltext choices first; no CC with pending strategy. For fulltext, complete this batch's acquisition/analysis before official CC and evidence review. Claims mode still requires complete claims and necessary interpretive evidence.
+## 目录
 
-## 1. Identify the comparison text
+- 确定比对文本
+- 原文拆解与翻译
+- 映射与风险判断
+- 四列主表与证据
+- 变更备注
+- 交付核验与复用
 
-First pass `lifecycle_and_text_gate`: verify target-jurisdiction/date pending or active rights with `patsnap-ip:fetch_patent_lifecycle`, and adopted text with `patsnap-ip:fetch_patent`. Inactive, expired, terminated, withdrawn, abandoned, rejected or revoked/invalidated objects are excluded by default. Unknown status/text blocks CC; do not compare first and verify later. Explicit historical comparisons remain separate from current blocking-risk counts.
+本规范适用于客户已采用的全部／部分候选，无固定总额，本流程按每批≤10篇串行执行以便核验；该大小是本地编排规则，不是工具上限。对采用对象完整展示，原始比对结论与本地复核意见同样遵守原文和证据规范；其余筛选返回对象标未纳入本次 CC。先按筛选与最终名单参考文件落实范围与全文选项，未定策略不调用 CC。选择全文增强时先按全文分析参考文件完成该批的说明书取证与分析，再结合官方 CC 复核；不增强也不能省略完整权项与必要解释证据。
 
-Bind product configuration, assessed activity, jurisdiction/date, document/claim numbers, dependencies and adopted text. Use effective granted/post-grant-amended claims for active rights and latest available published/sourced amended claims for pending applications. A publication draft alone is publication-time text and may not be current prosecution text. Check publication/grant/amended versions of the same application. Other family applications, divisionals and continuations are not one claim set. Latest returned text is not automatically applicable.
+## 1. 确定比对文本
 
-State whether the comparison baseline is original filing, published application or an amendment. Align by actual text/dependencies, allowing renumbering, splits/merges and dependent limitations incorporated into independent claims. Do not pair by identical numbers alone. Missing baseline permits bounded CC with differences pending.
+先通过 `lifecycle_and_text_gate`：用 `patsnap-ip:fetch_patent_lifecycle` 确认目标法域和评估时点的申请中／有效授权状态，用 `patsnap-ip:fetch_patent` 取得采用文本。失效、届满、终止、撤回、放弃、驳回、被撤销／无效的对象默认不进入本章；状态或文本不明时标待核，不先做 CC 再补状态。客户明确要求历史文本比对时可另列，但不纳入当前 FTO 阻断风险统计。
 
-Reuse confirmed case facts without per-patent questioning. Call `patsnap-ip:build_claim_chart` under the current MCP protocol and inspect actual receipts for analyzed objects, claims, limitations and evidence; do not assume all dependent claims are covered. When requested claims are not covered, perform sourced local review and list gaps. Local interpretation/jurisdiction conditions are not automatically adopted server-side. Hypothetical configurations remain conditional; plans/AI inference are not implementation evidence.
+绑定产品配置、被评估行为、法域／时点、文献与权项号、依附关系和采用文本。有效授权权利使用当前生效的授权／授权后修订权项；申请中对象使用可取得的最新公开或修改权项。只取得公开申请稿时，明确这是公开时点文本，可能不等于当前审理文本。核对同申请 A／B／修订版本；跨申请同族、分案与继续申请不能合并为同一套权项。最新返回不自动等于适用文本。
 
-Tool `legal_status` or equivalent simplified codes do not replace jurisdiction/date lifecycle verification. `include_in_report` controls tool-report adoption, not client selection, eligibility or low risk. Tool capability to compare inactive patents does not authorize current blocking-risk CC. Reconcile every submitted object with returns; list nonreturns, unresolved identities, errors and mismatches explicitly.
+前后对照注明基线是最初提交稿、申请公开稿还是修订稿。依据原文和依附对齐，允许改号、拆合及从权纳入独权，不能按相同编号硬匹配。缺对照稿可做有边界的 CC，版本差异标待核。
 
-## 2. Decompose originals before translating
+复用输入卡中已明确的需求与事实，不逐篇重新确认。按当前 MCP 协议调用 `patsnap-ip:build_claim_chart`，以实际回执核对它分析了哪些对象、权项、限定和证据，不预设已经覆盖全部从权。客户要求全部权项或指定从权而工具结果未覆盖时，另做有来源的本地复核并列明缺口。本地解释和法域条件不等于服务端已采用。材料仅支持假设配置时明确条件，不把计划或 AI 推断提升为实际实施证据。
 
-Fixed order: **complete adopted claim original → original units/locations → corresponding translations → interpretive/product evidence → comparison opinions**. Do not draft summaries or translated features first and backfill approximate originals.
+Tool 回执中的 `legal_status` 或等价简化码只用于理解该回执，不能代替 `patsnap-ip:fetch_patent_lifecycle` 的目标法域／评估时点核验；`include_in_report` 或等价标记只控制工具报告采用，不等于客户选择、权利资格或低风险结论。Tool 即使能分析失效对象，也不授权将该对象纳入当前 FTO 阻断性 CC。逐件核对输入冻结名单与返回对象；未返回、未解析、分析失败或身份错位必须显式列错，不能由其余成功结果覆盖。
 
-1. **Original units:** take continuous complete technical units from one adopted version in claim order. Add only row numbers, layout and highlighting; no word edits, spelling fixes, punctuation replacement, new sentence assembly or ellipses. HTML escaping/display line breaks are permitted with raw source retained. Note suspected typos separately.
-   - div/seg containers, paragraphs, line breaks and array entries are transport/layout, not inherently technical units. One may hold multiple limitations; several may form one inseparable relationship.
-   - Reconstruct continuous text first, then consider preamble, comprising/wherein/and/or, parallel components, relationships, steps, conditions, numbers and negations. Use FWR and necessary relations as the granularity standard; one div does not justify one row for a whole claim.
-   - Returned feature quotes/locations are anchors and omission-check clues. Locate verbatim in the adopted claim or explicitly record failure. Never rewrite originals from feature summaries/translations or pair arrays to rows by position. Record many-to-one/one-to-many/cross-row associations.
-   - Fill missing local units from complete originals and label “Not separately identified in official CC.” Over-split official features may map many-to-one without altering text. Container, feature and row counts need not match.
-2. **Complete coverage:** represent preamble, body, connectors, numbers/units/materials, negatives, sequence, AND/OR, conditions and dependencies. Discuss whether preamble limits scope; do not delete it first. Dependent claims include inherited limitations through original rows or explicit complete row references. Analyze multiple-dependency branches separately, never synthesizing a new claim. Split meaningful clauses without breaking necessary relationships.
-3. **Itemwise translation:** translate locked original units fully into output_language with matching row IDs/locations. Original precedes translation; summaries are not translations. If already in output language, label “Original (same as output language)” without duplication. AI translation is allowed when tool translation is absent, with provenance and unresolved terminology marked pending.
-4. **Moderate granularity:** retain enough function/way/result and necessary relationships for judgment. No word-by-word row requirement or forced F/W/R fields per row. FWR is not a substitute for jurisdiction-specific construction/equivalence rules. Component names may be subheadings, not replacements for limitations.
+## 2. 必须先从原文拆解，再逐项翻译
 
-Summaries belong only in labeled overviews, never original/translation cells. Partial excerpts may be delivered as “Selected limitations / partial verification,” not complete CC. Length or lack of a high-risk label does not justify retaining only decisive phrases.
+顺序固定：**取得采用权项完整原文 → 原文分行并定位 → 对应单元翻译 → 补解释与客户依据 → 比对意见**。不得先写摘要或中文特征，再回填近似的原文。
 
-## 3. Review mapping, evidence and interpretation separately
+1. **原文拆解**：从同一采用版本连续截取完整技术单元，按权项顺序分行。只添加行号、排版和高亮；不得改词、修正原文拼写、替换标点、拼接成新句，或添加省略号。展示中 HTML 转义、换行可调整，原始回执及可定位文本必须保存。疑似笔误另注。
+   - **不得以接口包装代替语义拆解**：`div`、`seg-*`、段落、换行和数组项都是传输／排版容器，不天然等于一个技术单元。一个容器可能包含多个必要限定，多个容器也可能共同构成一个不可拆散的作用关系。
+   - 先还原该权项的连续完整原文，再依据前序、`comprising`／`wherein`／`and`／`or` 等连接、并列部件、部件关系、方法步骤、条件、数值和否定形成候选边界。以 FWR 和判断所需关系为尺度，不能因为接口只给一个 `div` 就把整项压成一行。
+   - 工具返回特征原文引用和定位时，把它们当作**原文锚点和漏项检查线索**：必须在采用权项全文中逐字定位或明确记录无法定位；不得以翻译或特征概述反向改写原文，也不得按 feature 数组与展示行的序号强行配对。一个原文单元可对应多个锚点，一个锚点也可能跨相邻原文单元，均须记录关联。
+   - 官方 CC 漏拆时仍按完整原文补齐本地原文单元，并标“官方 CC 未单列”；官方 CC 多拆时可在不改变原文的前提下建立多对一关联。容器数、官方 feature 数和最终行数无需相等。
+2. **完整覆盖**：所选权项的前序、主体、连接词、数量、单位、材料、否定、顺序、or／and、条件与依附引用均有行对应；前序是否具有限定作用在意见中注明，不能先删除。采用从属权项时把被引用权项的继承限定用原文行或明确行引用接入；多项从属分支分别比对，不拼成新权项。长句可按有意义的分句拆行，不能拆散必要的作用关系。
+3. **逐项翻译**：把已经锁定的原文单元完整译成 `output_language`，行号、原文定位与译文一一对应。先原文后译文，不能以中文摘要冒充翻译。原文已是交付语言时显示“原文（与交付语言一致）”，无需复写。工具未返回译文时可作 AI 翻译并标来源，无法确定的术语标待核。
+4. **适度粒度**：以功能—方式—结果（FWR）及必要关系足以判断为尺度，不要求逐词拆行或给每行强填 F/W/R。FWR 不代替本法域的权项解释或等同规则。部件名称可作辅助小标题，不能替代限定原句。
 
-For every row ask how it technically maps, whether evidence supports/conflicts/is insufficient, and what interpretation applies. Keep local states separate from actual tool judgments/evidence; do not rewrite receipts or derive new states mechanically from scores.
+摘要只用于结果概览并明确标“摘要”，不进入主表的原文／译文栏。只取部分句子可以交付“限定摘录／局部核验”，不能称该权项的完整 CC。不得因为一件专利较长或未显示高风险就只保留决定性词组。
 
-### Legal structure only when relevant
+## 3. 对应、证据与解释分开复核
 
-Check preambles, open/closed transitions, functional limitations, Markush/Jepson, product-by-process, order and dependencies only insofar as they affect the row/jurisdiction. Do not force every category into ordinary cases or invent authorities.
+每行复核三件事：**技术上如何对应；依据是否充分／冲突／不足；采用什么解释条件**。本地状态与工具实际比对判断、双方证据分开，不改写官方回执，也不按分值直接映射新状态。
 
-- Material ambiguity: state conditional branches, e.g. correspondence under X but not Y/pending; reuse adopted interpretations. Not every structural noun is disputed.
-- If US §112(f) may apply, examine corresponding structure/material/acts and authority; same function alone is insufficient. Language does not determine jurisdiction.
-- Ordinary embodiments do not automatically limit claims. Explicit definitions/disclaimers, supported procedural restrictions and applicable functional construction cannot be dismissed solely because not verbatim in the claim. Missing material limits that issue, not an automatic full litigation investigation.
-- Added dependent limitations need actual rows; inherited rows must be complete and readable in expanded/exported views. Separate multiple-dependency branches; an independent claim's stability opinion does not analyze dependent claims.
+### 有关时才做法律结构预检
 
-| Check | Rule |
+遇到前序、开放／封闭过渡语、功能性限定、Markush、Jepson、产品制法、步骤顺序或从属项，核对其是否实际影响本行及本法域下的范围。普通案不必强制展开全部类别；没有实际来源不虚构判例或裁定。
+
+- 存在实质术语歧义时说明“采用解释 X 可对应；解释 Y 下不对应／仍待核”，复用已有采用解释。不把所有结构名词都自动标争议。
+- 美国可能适用 §112(f) 时核对对应结构／材料／行为和解释依据，不能仅凭同功能判相同；法域不从语言推断。
+- 说明书普通实施例不自动成为必要限定；明确术语定义、明确排除、有据的程序限制及适用功能性解释也不能被“未逐字写进权项”一概忽略。缺材料只限制相关判断，不默认扩大为完整诉讼调查。
+- 从属项新增限定必须有实际行，继承限定有完整原文行引用；展开或导出时可读到父项全部必要内容。多项从属分支分开，不能用父项的稳定性意见替代从属项分析。
+
+### 检查会改变结果的失真
+
+| 检查点 | 采用规则 |
 |---|---|
-| Silence/plans/inference | Neither absence nor implementation; insufficient evidence is pending, not exclusion. |
-| Support/counterevidence | Check conflict after finding a similar quote. Preserve correspondence/difference quotes, sources and fact nature. Accurate quoting is not independent factual verification. |
-| Broad/narrow concepts | A specific product species may meet a broader claim genus; the converse is not assured. Same function does not establish identical scope/mechanism. |
-| Inherency | Explain necessity from established facts; common practice/possibility is insufficient. |
-| Numbers/ranges/order | Partial overlap only identifies relevant operating conditions. Missing actual values/conditions remain unknown; do not invent sequence. |
-| AND/OR/configurations | All necessary conditions must hold in one actual or explicit hypothetical configuration, not assembled from incompatible embodiments. |
-| Equivalence | Identify concrete FWR way, differences/substitution evidence and jurisdictional limits. Same purpose is insufficient; unresolved conditions mean candidate equivalence. |
-| Row/claim/conclusion | Check inheritance, decisive limitations and labels against prose. Averaged feature scores do not yield legal conclusions. |
+| 未提及／计划／AI 推断 | 不等于实际不存在或已经具有；资料不足标待补证，不能仅据此排除 |
+| 支持与反向证据 | 找到近似原句后仍检查冲突；保留对应与差异原句、来源及事实性质，引文准确不等于事实已独立核验 |
+| 上下位与功能 | 客户下位可以对应权项上位；反向不成立。同功能不足以证明具体范围或机制相同 |
+| 隐含存在 | 说明由哪些已有事实必然得到该要素；行业常见、可能或惯例不足以证明必然 |
+| 数量／范围／顺序 | 部分数值重叠仅表示存在相关工况；缺实际值／条件保持未知。未写的先后关系不能补造 |
+| AND／OR 与多配置 | 所有必要条件在同一实际或明确假设配置内满足；不能拼接互斥实施例 |
+| 等同 | FWR 明确具体 Way、差异与替换依据，并考虑相关法域限制；用途相同不足以成立，条件未解标等同候选 |
+| 行—权项—结论 | 检查继承、决定性限定及风险标签与文字意见是否一致；不平均特征分数产生法律结论 |
 
-Official call success does not pass these checks. An unknown row does not automatically make a patent low risk, nor automatically invalidate a separate decisive, evidenced nonmatch. Where another necessary limitation is decisively unmet and interpretation/equivalence questions are resolved, give a configuration-bounded conclusion while disclosing remaining unknowns.
+官方“调用成功”不代表这些检查已通过。某行存在未知，不自动使整件专利低风险；也不机械否定已有的有据排除理由。若另一必要限定确有决定性不满足且相关解释／等同问题已解决，可给出限于该配置的结论，同时披露其他未知。
 
-### Stricter inference-label review
+### 对 Tool 推理标签的加严复核
 
-- `IMPLIED`: identify actual frozen product facts making the element logically necessary in the same configuration. Product category, common structures, intended use or “needed for the function” alone becomes product fact unknown.
-- `HYPERNYM`: use only when the actual object is an evidenced species of the claim genus, with roles, connections and steps established. Capability is not actual method performance; do not transfer concept relations across components.
-- `FUNCTIONAL`/equivalence: check specific way/structure, FWR and target-jurisdiction interpretation, not function/result alone. Without interpretation evidence, retain candidate correspondence rather than complete coverage.
-- Numeric status codes, automatic expiry, risk levels and implementation advice are neither product facts nor lifecycle evidence. Preserve originals, but do not adopt them before lifecycle/text/row gates pass.
+- `IMPLIED`：必须指出冻结产品证据中哪些事实使该要素在同一配置下逻辑上必然存在；仅凭产品类别、常见结构、预期用途或“为了实现功能应当具有”一律改为“产品事实未知”。
+- `HYPERNYM`：只在客户实际对象确为权项上位概念的下位实例，且实体角色、连接关系和方法步骤均有证据时采用。不能把“可用于／能够”改成已经执行的方法，也不能跨不同部件套用上下位关系。
+- `FUNCTIONAL` 或等同：不能只比较功能或结果；继续核对具体方式／结构、FWR 和目标法域解释。缺解释依据时只能标候选对应，不能判整项覆盖。
+- Tool 的数字法律状态码、自动到期日、风险级别和实施建议不属于产品事实或生命周期证据。未通过生命周期、采用文本和逐行证据门时，原样保留但不进入本地采用结论。
 
-If a necessary limitation becomes unknown, record `cc_inference_unsupported`. Show the raw whole-claim result separately, without asserting every limitation satisfied, coverage established or definite implementation advice.
+任一必要限定因上述复核转为未知时，记录 `cc_inference_unsupported`。官方整项仍可显示为原始 Tool 结果，但强证据 CC 不得写“全部限定满足”“落入保护范围”或确定性实施建议。
 
-### Label–row–conclusion consistency gate
+### 采用与补问
 
-Before adopting any official summary, check whole-patent/claim risk, row statuses and summary text together.
+普通材料缺失、已明确的解释条件可据实展示为待核，不把它们当作传输失败。出现未知被判不存在、无据等同、虚构时序或标签—结论矛盾等决定性问题时，保留官方结果并单列本地问题，暂停采用受影响结论及依赖它的正式报告；继续无需该结论的工作和局部审阅。
 
-- Medium/high risk alongside “not covered,” “no implementation obstacle” or “free to operate” is `cc_conclusion_conflict`; do not adopt the summary.
-- `QUESTIONABLE_RISK`, unknown product facts, unsupported FWR/equivalence or possible/common mislabeled necessary preclude definite exclusion.
-- `include_in_report=false`, `risk=false`, similarity or simplified codes cannot cure conflicts.
-- An independent local exclusion is permissible only with explicit contrary product evidence for another necessary limitation, resolved construction/equivalence and failure of the complete claim in the same actual configuration. Limit it to configuration, claim and time; retain the raw tool summary unchanged.
+### 标签—逐行—结论一致性门
 
-Conflicted objects may show originals, full raw results and local issues, but remain conclusion-conflict/pending and outside confirmed-low-risk/free-to-operate counts.
+在任何官方总结进入报告前，逐件检查三层是否一致：整件／权项风险标签、逐行限定状态、总结文字。
 
-Ordinary gaps/adopted conditional interpretations may remain pending rather than treated as transport failures. Decisive errors such as unknown→absent, unsupported equivalence, invented sequence or label/conclusion conflict require preserving official results, listing local issues and suspending affected conclusions/formal reports. Independent checks and partial review may continue.
+- 整件或任一权项为中／高风险，而总结写“未落入”“不构成实施障碍”或“可自由实施”，先记 `cc_conclusion_conflict`，不得采用该总结。
+- 逐行仍有 `QUESTIONABLE_RISK`、产品事实未知、无据 `FWR`／等同、或把“常见／可能”写成“必然”，总结不得给确定性排除结论。
+- `include_in_report=false`、`risk=false`、相似度或简化状态码均不能消除上述冲突。
+- 只有另一项必要限定已有明确反向产品证据，采用解释与等同问题均有据解决，且同一实际配置下不满足完整权项时，才能独立写出限于该配置、权项和时点的排除意见；该意见标为本地复核，不改写 Tool 原总结。
 
-Use available official material first. Ask only for customer-held decisive facts/configurations, not mandatory confirmation of every patent decomposition. User preference cannot establish legal effect; unresolved interpretation stays conditional. Gap acceptance does not validate unsupported judgments.
+冲突对象仍可展示完整官方结果、原文与本地问题清单，但强证据审阅状态标“结论冲突／待核”，不得计入已确认低风险或自由实施数量。
 
-## 4. Four-column table and evidence
+先利用已有官方资料核验；只有客户掌握的关键事实或未确定的配置会改变判断时才补问，不要求所有专利逐一“确认拆解后才能比对”。解释不能由客户偏好直接定法律效力；不能消除分歧时呈现条件分支。客户接受缺证不使无据判断有效。
 
-Each local row records stable ID, full-text location, complete original unit, translation/provenance, version-change evidence, interpretation/authority, product support/counterevidence/knowledge state, linked rows, opinion and unknowns. Locations may be character intervals or verifiable paragraph/page/sentence references tied to document/claim/version. Join originals/translations by identity, not array position. These are local records, not new MCP fields.
+## 4. 四列主表与证据
 
-| Column | Content |
+每行保存：**稳定行号、原文全文中的位置、完整原文单元、对应译文及来源、版本差异证据、解释条件及依据、客户支持／反向证据及认知状态、关联行、比对意见和未知**。位置可用原文字符区间或可复核的段／页／句定位；行号对应文献、权项和文本版本。原文与译文按身份关联，不能按工具数组顺序配对。这些是本地审阅记录，不是新增 MCP 返回字段。
+
+| 主表列 | 内容 |
 |---|---|
-| Claim limitation (original/translation) | Row ID/location, complete original and complete translation, with corresponding additions/changes highlighted relative to the application baseline. |
-| Description support / claim interpretation basis | Prioritize actual description/prosecution quotes, paragraph numbers, location and purpose; concise adopted conditions; local views labeled “Local interpretation.” If relying only on the claim, say so. Missing external quotes stay unavailable; model common-knowledge reasoning cannot replace original support; detailed branches may expand. |
-| Customer implementation | Actual configuration's quote/image location, source and verification state. Supplier-report retellings are not original process facts. |
-| Comparison opinion | Correspondence/difference and decisive basis; brief pending-evidence/interpretation/equivalence labels with reasons rather than forced low risk. Put detailed support/counterevidence/FWR/linked rows below. |
+| 权项限定（原文／翻译） | 行号、原文定位；完整原文单元及对应完整译文上下显示；相对申请文本的新增／改动直接在两者中对应高亮 |
+| 说明书支持／权项解释依据 | 优先列说明书／审查材料原句、段落号、来源位置及解释用途；有争点时短写采用解释及条件，本地分析另标“本地解释意见”。仅依据权项本身时注明，未取得其他引文就写未取得；不得用模型常识性推理替代原文支持，解释分支详情可展开 |
+| 客户方案 | 实际配置的对应原句／图示位置、来源与核验状态；供应商报告转述不能冒充原始工艺事实 |
+| 比对意见 | 对应／差异及决定性依据；证据不足、解释待定或等同候选用短标签及一句原因，不强行填低风险。细部支持／反向证据、FWR 和关联行放行下展开区 |
 
-Label translation provenance accurately: returned tool machine translation, AI translation/revision, or human translation. Tool output is not certified. Locally revised tool translation gets a revised provenance label with original tool version retained. Originals/translations never overwrite each other; adopted text excludes removed historical wording. If highlighting is unavailable, use separate change notes rather than inserting fake source text.
+译文按真实来源注明工具机器译文（确已返回时）／AI 翻译或校译／人工译文，不能把工具生成等同于经认证翻译。本地改过的工具译文必须改标来源并保留工具版。原文和译文不互相覆盖，采用原文不混入删除的旧句；格式不支持高亮时用独立文字标记，不能把标记伪装为原文。
 
-All headers/instructions/interpretation/change notes/opinions use output_language; clearly labeled originals may differ. Keep four columns, concise opinions and expandable claims/evidence to simplify presentation. Expanded views must actually contain all units/translations/locations, not empty “see appendix” pointers. Print/export retains full content or accessible attachments.
+所有表头、提示、解释、变更备注和比对意见使用输入卡锁定的交付语言；仅保留明确标识的证据原文等必要异语内容。让界面简洁的方法是保留四列、短意见、折叠整项权利要求和证据附录；展开后必须实际包含所有原文单元、对应译文和定位，不能只有“完整原文见附录”的空指引。打印／导出也须保留完整内容或可访问的附件。
 
-Separate technical mapping, claim-version differences and translation. Unknowns may guide searches but cannot prove absence/coverage. Never combine products/incompatible embodiments. Disclosure/coverage/similarity judgments do not directly yield legal conclusions.
+技术对比、权项版本差异、翻译转换分开记录。未知可检索，不能据其排除专利或确认覆盖；不同产品、互斥实施例不能拼凑满足全部限定。工具的公开／覆盖判断或相似度不直接换算法律结论。
 
-## 5. Change notes below rows
+## 5. 变更备注放在行下
 
-Do not add sprawling label columns or split every word into a row. Add one note per changed unit; full before/after originals/translations/procedure evidence belong in expandable details or located appendices.
+采用四列主表，不增设多页标签或把每个词拆成行。每个有变化的单元写一条备注，完整前后原文／译文和程序证据放在展开区或可定位附录。
 
-| Situation | Note |
+| 情况 | 备注 |
 |---|---|
-| Published application vs grant available | “Application publication → grant: X changed to Y.” Endpoint differences may be verified while dates/reasons remain pending. |
-| Grant independent claim adds limitation | If supported: “Grant independent claim incorporates X; application dependent claim N already contained related content.” Do not call it first disclosure/new matter automatically. |
-| Actual post-grant text and procedure available | Identify amendment/incorporation/deletion, process/date/source. Separate text date and effective date; retain legal-effect uncertainty. |
-| One original missing / event title only | “Change unverified: missing X.” No invented highlights or “unchanged” claims. |
+| 公开稿→授权稿可对照 | “申请公开→授权：X 修改为 Y”；端点差异可确认，具体修改日期／理由未取得就待核 |
+| 授权独权增加公开独权没有的限定 | “授权独权新增纳入 X，公开从权 N 已有相关内容”（有据时）；不自动称首次披露或新增技术内容 |
+| 确有授权后的修订文本与程序材料 | “授权后修改／新增纳入／删除：X；程序、日期、来源”；文本日与生效日分开，效力疑点保留 |
+| 缺一侧原文／仅有事件标题 | “变更待核：缺 X”；不造高亮、不写无变化 |
 
-If post-grant procedure was not checked, say so. Verified no-change applies only to the checked unit. Text differences alone do not establish overall broadening/narrowing, rationale or estoppel. Obtain targeted reliable evidence when material rather than defaulting to complete litigation research.
+没有检查授权后程序，注明“授权后新增／修改尚未核验”。已核查无变化只针对本单元。文字差异不能独自证明整体扩大／缩小、修改理由或禁止反悔；需要影响判断时再有针对性取得可靠材料，不默认扩张为完整诉讼研究。
 
-## 6. Delivery checks and reuse
+## 6. 交付核验与复用
 
-- **Verbatim:** removing highlights, each row matches its source exactly except display whitespace. Check all claim text/order/dependency branches, not approximate meaning.
-- **Lossless reconstruction — hard gate:** concatenate original units in order; after display-whitespace normalization, match the complete adopted claim exactly, without omissions/duplicates/reordering. A single row for a multi-limitation HTML container needs a reason why it is indivisible; otherwise decomposition is incomplete.
-- **Anchor coverage — hard gate:** map every actual returned quote/location, explicitly recording unresolved/cross-row/not-separately-listed cases. No positional pairing. Unexplained missing anchors allow displaying official CC but strong-evidence status remains pending/incomplete.
-- **Translation:** every required unit has a complete matching translation preserving numbers/units/negation/connectors/conditions/references. Material missing/ambiguous translations remain pending.
-- **Provenance/language:** originals, translations, versions and quotes are retrievable; labels/prose/opinions agree in language, with foreign text confined to labeled evidence. No reverse-translated invented originals or fabricated interpretation citations.
-- Change type/stage/date/reason require evidence; identify opinion producer. Template requirements never justify fabricated material.
-- Cover all necessary/inherited limitations or disclose partial scope. Product unknowns are not absence and unverified material is not established correspondence.
-- Apply section 3 row checks. Evidence priority is not a certainty score; decisive contradictions suspend adoption.
-- Supplement insufficient official CC using actual official text in a labeled local view. Input edits do not prove control over backend claim adoption.
-- Failed checks mean incomplete with specific gaps, although verified portions may be shown. Risk labels/page-generation success do not establish complete CC.
-- Track official call/business completion separately from strong-evidence review. Official success with missing applicable text/translation/product evidence stays locally pending. Save local four-column/risk views separately before reporting.
-- Save the verified adopted row view for direct report reuse, including originals/translations/locations/notes/conditions/opinions. Meaning-changing corrections to configuration, interpretation, translation, text or history require affected rows, inheriting claims and summaries to be reviewed with old opinions retained. Formatting-only changes rerender.
+- **原文检查**：去掉展示高亮后，每行必须与所指原文片段逐字一致；只允许排版空白差异。按原顺序核查全部行是否覆盖所选权项全文，并检查依附来源和分支。不以“意思接近”通过。
+- **无损重组检查（硬门禁）**：将同一权项各原文单元按顺序拼回，仅规范展示空白后必须与采用权项完整原文一致；不得遗漏、重复或调序。若单一 HTML 容器内含多个限定而最终仍只生成一行，必须说明该行为何构成不可再分的技术单元，否则视为拆解未完成。
+- **锚点覆盖检查（硬门禁）**：逐项核对工具实际返回的原文引用和定位是否关联到原文行；未定位、跨行或官方未单列都须显式记录。禁止按数组位置默认配对。存在未解释的锚点缺失时，官方 CC 可展示，但强证据 CC 状态只能是“待核／未完成”。
+- **翻译检查**：每个需要翻译的原文单元有完整对应译文；数量、单位、否定、连接、条件和引用一致，无省略或摘要化。缺译或术语歧义会影响判断时，该单元标待核。
+- **出处与语言检查**：原文、译文、前后版本及引文位置能回查；模板标签、说明和意见同语种，异语仅出现在标明的原文等区域。原文取不到不反译补造，解释引文取不到不写成有来源。
+- 备注中的变化类型、阶段、日期和理由有对应证据；解释意见标生产方。缺材料不因模板要求而补造。
+- 检查所选权项的全部必要限定及依附是否覆盖；只展示局部时注明范围和未完成项。客户未知不是“没有”，材料未独立核验不等于已经满足。
+- 判断核验按第 3 节逐行完成，普通未决事项保留，不把补证优先级变成更高的确定性分数；有决定性矛盾时停止采用相关结论。
+- 官方 CC 不够详细时，用官方文本补充本地审阅视图，明确补充来源；不能宣称仅改输入就控制了工具内部采用的权项。
+- 核验未通过的对象标未完成及具体缺口，可展示已核验的部分；不以已有风险标签或页面生成成功宣布 CC 完成。
+- Step 7 分别记录“官方 CC 调用／业务完成状态”和“强证据审阅完成状态”。官方已成功但缺适用原文、对应译文或关键产品依据时，后者仍待核；本地四列表及风险意见与工具回执分存，再进入本地报告。
+- 保存核验后的逐行采用视图用于报告，报告直接复用原文、译文、定位、备注、条件和意见。配置事实、解释、译文、采用文本或履历更正改变含义时，复核受影响行、继承它的权项及汇总，保存旧意见；纯排版只重渲染。

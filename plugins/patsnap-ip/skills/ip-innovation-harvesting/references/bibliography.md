@@ -1,10 +1,10 @@
-# Methodology bibliography
+# 方法论参考书籍
 
-Publications underlying the method (provenance only; no runtime loading required). Original Chinese edition titles are retained for identification; English descriptions below are explanatory translations, not claims of official translated titles.
+本 Skill 的方法体系源自以下公开出版物（运行时无需加载，仅供溯源）：
 
-- 《专利挖掘》 — Patent mining, edited by Ma Tianqi, Intellectual Property Publishing House, 2016.
-- 《专利实务工作指南》 — Practical patent-work guide, Yu Haidong, Intellectual Property Publishing House, 2019.
-- 《发明分析与权利要求撰写》 — Invention analysis and claim drafting, Ronald Slusky.
-- 《攻坚专利》 — Patent strategy, Larry Goldstein.
-- 《从发明到专利》 — From invention to patent, Steven Waldman.
-- 《专利的真正价值》 — The value of patents, Larry Goldstein, Intellectual Property Publishing House, 2020.
+- 《专利挖掘》马天旗主编（知识产权出版社，2016）
+- 《专利实务工作指南》于海东著（知识产权出版社，2019）
+- 《发明分析与权利要求撰写》罗纳德·斯拉茨基著
+- 《攻坚专利》拉里·戈德斯坦著
+- 《从发明到专利》史蒂文·沃尔德曼著
+- 《专利的真正价值》拉里·戈德斯坦著（知识产权出版社，2020）

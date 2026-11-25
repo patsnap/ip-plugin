@@ -1,154 +1,165 @@
-# FTO semantic retrieval strategy
+# FTO 语义召回策略
 
-Read for semantic supplementation of a new solution, requested expression coverage, or GT/missed-hit diagnosis. This extends Steps 2–4; Boolean queries are built independently under `query-construction.md`. Runtime MCP alone defines invocation, pagination and window capabilities.
+新建技术方案需要语义补召回、客户要求扩大表达覆盖、或开展 GT/漏检诊断时读取。本文件扩展 Step 2–4；Boolean 仍按 `query-construction.md` 独立构建。运行时 MCP 协议是调用方式、分页和窗口能力的唯一事实源。
 
-## 1. Objective and boundaries
+## 目录
 
-Convert the same product facts into complementary, traceable, single-focus natural-language queries to find patents with similar technical relationships but different titles, terms or classifications. Similarity is neither infringement analysis nor claim coverage.
+- 1. 目标与边界
+- 2. 语义事实表
+- 3. QuerySpec 表达轴
+- 4. 扩展词与真实探针
+- 5. 执行与窗口
+- 6. 合并、分层与送筛
+- 7. GT 与效果评价
+- 8. 扩展注册规则
 
-- Generate only from the adopted solution, feature receipts, frozen keyword-expansion receipts, reviewed Step 3.5 target-language lexicon and verified public-patent probes. Do not feed GT, missed-hit lists, client conclusions or target-patent titles into generation or translation.
-- Use GT for evaluation only after freezing and hashing QuerySpec; record exact hits and family-only hits separately.
-- Execute/rank semantic and Boolean routes independently and union by identity only. Do not fuse scores or present one route's rank as global rank.
-- Separate scope and language. Reuse confirmed jurisdiction/date scope, omitting unconfirmed geographic restrictions without inferring CN from language. Consistently apply the default pending/active-grant status gate where runtime supports it; otherwise mark status unverified without guessing enum codes.
+## 1. 目标与边界
 
-## 2. Semantic fact sheet
+语义路线把同一产品事实转换为多条**单中心、可追溯、彼此互补**的自然语言查询，用于发现标题、术语和分类表达不同但技术关系相近的专利。它不是侵权判断，也不以相似度替代权项覆盖。
 
-Keep feature/expansion receipts unchanged and create local `semantic-factsheet.json`:
+- 生成只读采用方案、技术特征、冻结的关键词扩展回执、Step 3.5 已审核目标语言词表，以及经核实的公开专利探针；GT、漏检清单、客户结论和目标专利标题不得进入查询生成或翻译。
+- GT 只可在 QuerySpec 冻结并留存散列后用于评价；命中与同族命中分开记录。
+- 语义与 Boolean 独立调用、独立排名，最后只做身份并集；不拼接分数、不把一条路线的名次冒充全局排名。
+- 范围与语言分开。语义路线复用输入卡中已确认的法域、状态、日期等固定范围；没有范围就省略过滤，不从中文输入推断 CN。
 
-| Dimension | Record |
+## 2. 语义事实表
+
+不改写技术特征和关键词扩展的原始回执，另建 `semantic-factsheet.json`：
+
+| 维度 | 记录内容 |
 |---|---|
-| Elements | Product, module, component, material, data object |
-| Relationships | Connection, position, motion, action direction, sequence, conditions and quantity roles |
-| Attributes | Shape, material, position, parameters, state; unknown remains unknown |
-| Functions | Actual functions of components and combinations |
-| Problem/effect | Explicit original problems/effects; separate inference |
-| Domain/context | Technical field, application object and conditions |
+| 元件 | 产品、模块、部件、材料、数据对象 |
+| 联系 | 连接、位置、运动、作用方向、先后、条件、数量角色 |
+| 属性 | 形状、材料、位置、参数、状态；未知仍为未知 |
+| 功能 | 各部件及组合实际执行的功能 |
+| 问题／效果 | 原文明确的问题与效果；推断必须分列 |
+| 领域／场景 | 技术领域、应用对象和使用条件 |
 
-Also mark solution-specific names, component-level concepts, decisive relationships and claim form (product/method/use/unknown). For cross-level discovery, optionally map N0 whole device/terminal, N1 system/assembly, N2 component/element, N3 material/process, locating the solution and its host object. Do not automatically add whole-device terms to every query.
+同时标记四个检索对象：`方案特有叫法`、`部件级概念`、`决定性关系`、`权项形态（产品/方法/用途/未知）`。需要跨层发现时再建产业链：N0 整机／终端、N1 系统／总成、N2 部件／元件、N3 材料／工艺，并说明本方案位于哪一层及其上装对象。产业链是可选扩展，不自动把整机词加入每条查询。
 
-Each fact retains `source_quote/location/feature_pointer/keyword_pointer/fact_status`. Expanded terms are candidate vocabulary; synonyms, classifications and inferred effects do not become product facts.
+每条事实保留 `source_quote/location/feature_pointer/keyword_pointer/fact_status`。工具扩词只作为候选词表；同义词、分类号或效果推断都不能反写成产品事实。
 
-## 3. QuerySpec expression axes
+## 3. QuerySpec 表达轴
 
-Save `query_id/group/layer/language/source_units/translation_pointer/hypothesis/text/applicable_when` for each query. Use one semantic focus in complete natural-language sentences without field codes, AND/OR, classification expressions or publication numbers. Non-Chinese/English routes must trace to Step 3.5 translations, back-translations, roles and review status.
+每条查询均保存 `query_id/group/layer/language/source_units/translation_pointer/hypothesis/text/applicable_when`。同一查询只表达一个语义中心，使用完整自然语言句子，不包含字段代码、AND/OR、分类式或公开号；非中英文路线必须能回查 Step 3.5 的译词、回译、技术角色和审核状态。
 
-| Group | Axis | Generation rule | Default layer |
-|---|---|---|---|
-| Q1 | Generalized inventive concept | Summarize object, decisive relationship and objective without coined solution terminology | L2 |
-| Q2 | Expression variants | Separate original-name, broader-name, functional and attribute sentences; no synonym piles | Broader L1, others L2 |
-| Q3 | Problem/effect | Problem/effect + decisive relationship + domain, with source-supported causality only | L1 |
-| Q4 | Concrete implementation | One per independent risk unit, preserving entity roles, structure and relationships | L2 |
-| Q5 | Broader nouns | Peer terminology verified by expansion receipts or actual patent probes | L3 |
-| Q6 | Narrower nouns | Substructures, equivalent implementations or other paths for key components | L3 |
-| Q7 | Relationship rephrasing | Peer wording, active/passive or structural/functional expression of the same relationship | L3 |
-| Q8 | Technical routes | One per mutually exclusive implementation; do not imply coexistence | L3 |
-| Q9 | Method/use | Only when solution or actual domain evidence supports it; otherwise empty | L3 |
-| Q10 | English complement | Complete English sentences for core relationships, broader expressions and applicable methods | L3 |
-| Q12 | Supply-chain nodes | Add only when N0/N2/N3 expressions may form independent protection directions | L3 |
-| Q13 | Target-market language complement | For confirmed priority languages only, express the same frozen facts in complete local-language sentences without term piles | L3 |
+| 组 | 表达轴 | 生成规则 | 默认层级 |
+|---|---|---|---:|
+| Q1 | 发明构思上浮 | 概括对象、决定性关系与目标，不依赖方案自造词 | L2 |
+| Q2 | 表述变体 | 原叫法、上位叫法、功能式、属性式分句生成；不堆同义词 | 上位版 L1，其余 L2 |
+| Q3 | 问题／效果视角 | `问题或效果 + 决定性关系 + 领域`，只采用有原文依据的因果 | L1 |
+| Q4 | 具体实施 | 每个独立风险单元一条，保留实体角色、结构和关系 | L2 |
+| Q5 | 名词上浮 | 经关键词扩展回执或真实专利探针核实的同行上位叫法 | L3 |
+| Q6 | 名词下钻 | 关键部件的子构造、等价实现或其他实施路径 | L3 |
+| Q7 | 关系改写 | 同一决定性关系的同行措辞、主动/被动或结构/功能表达 | L3 |
+| Q8 | 技术路线 | 每条互斥实现单独一条；不能把替代路线写成同时存在 | L3 |
+| Q9 | 方法／用途 | 仅在方案或真实领域证据支持时生成；不适用则为空 | L3 |
+| Q10 | 英文互补 | 核心关系、上位表达和适用的方法式写成完整英文句 | L3 |
+| Q12 | 产业链节点 | 仅在 N0/N2/N3 整类表达可能形成独立保护方向时补充 | L3 |
+| Q13 | 目标市场语言互补 | 仅对已确认优先检索语言，将相同冻结事实写成目标语言完整句；不堆译词 | L3 |
 
-Q11 is reserved for Boolean supplementation, still generated by the layered construction plan and `patsnap-ip:build_patent_boolean_query`. Do not handwrite executable field expressions or mix it into semantic QuerySpec.
+Q11 保留给 Boolean 补网，但仍由主流程的分层构式计划和 `patsnap-ip:build_patent_boolean_query` 生成，不手写可执行字段式，也不混入语义 QuerySpec。
 
-### Query budgets
+### 查询规模档位
 
-| Mode | Use | Size |
-|---|---|---|
-| compact | Local trial, limited budget, supplement existing candidates | 6–10; Q1/Q3/Q4/Q10 backbone |
-| standard | Semantic complement for ordinary complete FTO | 12–20; add applicable Q2/Q5/Q7/Q8/Q13 |
-| extended | Explicit high-recall, GT benchmark or missed-hit research | Up to 27–34; applicable Q6/Q9/Q12/Q13, potentially 2–3 independent batches |
+| 档位 | 适用 | 规模 |
+|---|---|---:|
+| compact | 局部试跑、预算受限、已有候选的补查 | 6–10 条；Q1/Q3/Q4/Q10 为骨架 |
+| standard | 普通完整 FTO 的语义互补路线 | 12–20 条；增加适用的 Q2/Q5/Q7/Q8/Q13 |
+| extended | 客户明确要求高召回、GT 基准或漏检研究 | 最多 27–34 条；启用适用的 Q6/Q9/Q12/Q13，可跑 2–3 个独立批次 |
 
-Counts are ceilings, not quotas. Unsupported/inapplicable groups stay empty; do not fill budgets with duplicate paraphrases.
+条数是预算上限，不是凑数目标。没有证据或不适用的组保持空；不得用重复改写填满配额。
 
-## 4. Expanded terms and real probes
+## 4. 扩展词与真实探针
 
-Build Chinese/English QuerySpecs from feature/expansion receipts first. For other confirmed languages, generate only from frozen facts and the reviewed Step 3.5 lexicon, without reverse-engineering translations from GT, missed titles or target PNs. For unresolved coined/broader terms, relationships or routes, use bounded real-patent probes:
+优先从技术特征和关键词扩展回执建中英文 QuerySpec。已确认其他优先检索语言时，只从冻结方案事实和 Step 3.5 已审核词表生成目标语言 QuerySpec；不得用 GT、漏检标题或目标 PN 反推译词。若自造词、上位词、关键关系或技术路线仍不确定，可进行有边界的真实专利探针：
 
-1. Read actual titles/abstracts from a broad contextual semantic/keyword query.
-2. Use `patsnap-ip:fetch_patent` on a few representative documents to inspect how independent claims name objects/relationships.
-3. Record `probe request → PN/title/original excerpt → candidate expression → adoption/rejection reason`.
-4. Adopt only equivalent meanings without entity-role drift.
+1. 用一条宽但有上下文的语义／关键词查询查看真实标题与摘要；
+2. 对少量代表文献用 `patsnap-ip:fetch_patent` 查看独立权项如何称呼对象和关系；
+3. 记录 `探针请求 → PN/标题/原文片段 → 候选表达 → 采用/拒绝理由`；
+4. 只采用含义一致且实体角色未漂移的表达。
 
-Do not invent DF, keyword frequencies, TSE or IPC probe numbers when such tools are unavailable. Real counts may compare local breadth, but query totals do not measure term quality or GT gain. Preserve scheme/source for classifications from expansion receipts and use them in Boolean supplementation, not as syntax in semantic sentences.
+运行时没有 DF、关键词频次、TSE 或 IPC 探针 Tool 时，不虚构这些数字。可用真实检索计数做局部宽窄对照，但不同查询的总命中数不能当术语质量或 GT 增益。分类来自关键词扩展回执时保留体系和来源，放入 Boolean 补召回，不写进语义句作为语法条件。
 
-## 5. Execution and windows
+## 5. 执行与窗口
 
-Execute each semantic query and each target-language QuerySpec independently, preserving its language, ranks and window. Union identities with Chinese/English routes without score/rank fusion. Reuse confirmed jurisdiction/date scope only. Apply the pending/active-grant gate consistently where supported, otherwise mark status unverified without guessing enums. Sentences do not inherit other implicit filters.
+按当前 MCP 协议逐条独立执行语义查询。每条目标语言 QuerySpec 作为独立路线执行，保留自身语言、原始排名和窗口；与中文、英文路线只做专利身份并集，不融合分数或排名。若本案已有可准确表达的固定法域／日期范围，各语义路线复用同一范围；无用户确认时不得添加地域。申请中／有效授权是 FTO 默认状态门，按运行时协议在每条语义路线中一致复用；协议无法可靠表达时标状态未核，不猜枚举。不同语义句不共享或继承其他隐式范围条件。
 
-Runtime definitions and receipts determine page size, reachable depth and query windows, without fixed Skill limits. Compact normally retrieves the first actual window per route; standard continues important L1/L2 routes by quality/budget; extended may expand adopted routes within runtime/case resources. Multiple-query unions may exceed a single-route window but must be labeled a multi-route union, not deeper ranks from one query. Total candidate caps are local post-union budgets, without changing original hits or unretrieved windows.
+分页大小、可达深度和单次查询窗口完全以运行时协议和实际回执为准，不在 Skill 中写死。compact 通常先取得每条路线的首个实际窗口；standard 按命中质量和预算继续取得关键 L1/L2 路线；extended 可在运行时能力和案件预算内扩大各采用路线。多条查询的并集可能大于单条路线窗口，但必须表述为**多路线并集**，不能冒充某一查询的更深排名。任何总候选上限都是并集后的本地处理预算，不改变各路线原始命中和未取得窗口。
 
-The same QuerySpec may generate 2–3 independent batches to test expression stability. Union batches without score fusion; do not rerun identical queries.
+同一 QuerySpec 可生成 2–3 个独立批次以测试表述稳定性。各批次只并集，不做分数融合；完全重复的查询不重复执行。
 
-### 5.1. Keyword convergence within the frozen semantic pool
+### 5.1 语义宽召回后的池内关键词收敛
 
-This step improves processing density within already retrieved, frozen semantic candidates; it does not create new whole-database candidates. Preserve semantic provenance, original rank, page and window first. Derive relationship phrases from frozen objects, decisive relationships and context, avoiding isolated broad words, cross-unit term piles or one long mixed-language request.
+本节点用于在已取得并冻结的语义候选池内提高后续处理密度，不生成新的全库候选。先保存每个对象的语义来源、原始排名、页码和窗口，再按冻结方案中的对象、决定性关系和场景形成关系短语；孤立的宽泛单词、跨风险单元词堆和把中英日全部混在一个请求中的长列表不用于收敛。
 
-Separate inputs by language and enable market languages only for confirmed markets. Every phrase traces to `source_units`, expansion receipts or verified public-patent probes, without GT/missed titles/target PNs. Classify visible text as explicit occurrence, absent with incomplete text, or meaning conflict. Absence is not nonexistence.
+收敛输入按语言分开，目标市场语言仅在该市场已确认时启用。每条关系短语须能回到 `source_units`、关键词回执或经核实的公开专利探针；GT、漏检标题和目标 PN 不参与生成。对候选可见文本记录“明确出现／未出现但文本不完整／含义冲突”，其中未出现不能自动等于不具备。
 
-Choose execution in this order:
+执行方式按以下顺序选择：
 
-1. If runtime can explicitly constrain all original PNs/IDs as a fixed pool, rerank there using semantic/keyword strategy. Reconcile input/output sets and remove/record outsiders.
-2. If runtime cannot freeze the pool, or splitting creates incomparable batches, locally tier traceable title/abstract/claim snippets by relationship coverage. Server ranks from separate batches cannot become global ranks.
-3. Convergence changes priority only. Preserve original semantic ranks, never hard-delete by missing words, and save candidates outside submission resources as a remainder, not low risk.
+1. 当前协议允许把原语义池的全部 PN／ID 明确作为固定范围时，可用语义＋关键词策略在该池内重排；逐件核对输入集合与返回集合，任何池外对象移出并记异常。
+2. 协议不能固定候选池，或池大到必须拆成无法比较的批次时，在本地依据已有标题、摘要或权项片段建立可追溯的关系覆盖层级。跨批次的服务端名次不能拼成全局排名。
+3. 无论采用哪种方式，收敛只改变优先级，不覆盖原语义排名，不以缺词硬删除对象。未进入送筛预算的对象进入保留余集，不能标为低风险。
 
-At minimum use tiers: relationship largely complete, relationship partially stated, insufficient visible text, explicit meaning conflict. Within a tier retain higher original ranks; round-robin across languages/QuerySpecs without score fusion. Status and rights types use separate gates/tracks.
+本地层级至少区分：`关系较完整`、`关系部分出现`、`现有文本不足以判断`、`明确含义冲突`。同层先保留较高原语义排名；跨语言和跨 QuerySpec 仍按原路线轮转，不融合分数。法律状态和权利类型另走状态门与分轨，不由关键词层级代替。
 
-Before execution, show the customer a convergence input card:
+执行前生成客户可见的“语义结果收敛输入卡”，直接显示：
 
-| Item | Visible content |
+| 项目 | 客户可见内容 |
 |---|---|
-| Broad-query originals | Every actually executed semantic sentence by language |
-| Relationship phrases | Actual object + relationship + context phrases, not hashes/internal IDs |
-| Input pool | Actual count, source routes, windows, version; downloadable full PN/ID list if long |
-| Fixed scope | Confirmed countries/dates/statuses with sources, or explicit unrestricted scope |
-| Method | Fixed-pool tool reranking or local relationship tiers, with no hard deletion for missing words |
-| Handoff | Submission count, retained remainder and separate design-right tracks |
+| 宽召回原句 | 每条实际执行的语义原句，按语言分列 |
+| 关系短语 | 本轮实际采用的对象＋关系＋场景短语，不以散列或内部 ID 代替 |
+| 输入候选池 | 实际对象数、来源路线、窗口、版本；完整 PN／ID 清单过长时给出可下载清单 |
+| 固定范围 | 已确认的国家、日期、专利状态及其来源；未限定就明确写未限定 |
+| 收敛方法 | 固定池内工具重排或本地关系覆盖分层，并说明缺词不作硬删除 |
+| 交接规则 | 进入送筛的数量、保留余集及外观设计等单独轨道 |
 
-The card is transparent disclosure, not a new confirmation gate. Pause only for disagreement with confirmed facts/markets/languages. Separately report original count, tiers, submissions, retained count, outsiders and status leaks. New whole-database mixed-search objects belong to a separately recorded supplementary recall route, not this fixed-pool step.
+输入卡是透明展示，不是新的强制确认点；只有输入内容与客户已确认的方案、市场或语言不一致时才暂停。结果另列原池数量、各层数量、送筛数量、保留数量、池外异常和状态泄漏。全库混合检索产生的新增对象只能作为新的补召回路线另存，不能混入本节点并声称原池已经收敛。
 
-## 6. Merge, tier and submit
+## 6. 合并、分层与送筛
 
-Maintain local `CandidatePool`, not an MCP response schema:
+维护本地 `CandidatePool`（不是 MCP 返回结构）：
 
 ```text
-patent_id | PN/version | query_id | group | layer | language | batch | original rank/page
-query_text_hash | jurisdiction/status scope version | title/abstract evidence | convergence_tier/reason | identity_remap
+patent_id｜PN及版本｜query_id｜group｜layer｜language｜batch｜原始rank/page
+query_text_hash｜法域/状态范围版本｜标题/摘要证据｜convergence_tier/reason｜identity_remap
 ```
 
-Check internal ID and complete PN. Do not silently merge publication/grant versions, divisionals, continuations or families. Multi-route hits retain every source and the lowest layer number, without fabricated fused scores.
+按内部 ID 和完整 PN 两层核对；A/B、分案、继续申请和同族不静默合并。相同对象命中多路时保留全部来源，候选层级取最低层号，但不生成虚构的融合分数。
 
-If the pool exceeds Screening budget, first disclose complete union size and each unretrieved window and convergence input card, then apply frozen selection:
+池超过送筛预算时，先公开完整并集规模、每路未取得窗口和收敛输入卡，再按已冻结策略截取：
 
-1. L1 before L2/L3.
-2. Round-robin query_ids within a layer; within each route use convergence tier then original semantic order, preserving original ranks.
-3. Stop at budget after deduplication and save the remainder.
-4. User market/module/route priorities create a new selection version rather than overwriting the original pool.
+1. L1 优先于 L2/L3；
+2. 同层在各 query_id 间轮转；同一路线内先按收敛层级、再按原始语义顺序，不能用关键词层级抹掉原排名；
+3. 去重后达到预算即停，余集另存；
+4. 用户指定市场、模块或路线优先级时另建选择版本，不覆盖原池。
 
-`patsnap-ip:screen_patents_for_FTO` processes only submitted candidates. Returned counts do not prove complete recall. Retain unsubmitted, nonreturned and unscreened candidates; do not label them low risk.
+`patsnap-ip:screen_patents_for_FTO` 只处理实际提交的候选。Screening 返回数量不证明召回完整；未提交、未返回和未筛候选必须保留，不能标低风险。
 
-### 6.1. Replacement-sufficiency gate
+### 6.1 替代充分性门
 
-If Boolean or another recall route degrades, semantic pooling may continue to Screening only when all hold:
+Boolean 或其他单一路线降级时，只有同时满足以下条件，语义候选池才可继续进入 Screening：
 
-1. Input language, English and confirmed market languages have independent QuerySpecs and actual receipts. Do not duplicate the same language; record any verified index alternative.
-2. Every frozen independent risk unit is covered by an executed semantic route without relationship/role drift.
-3. Per-object checks establish target jurisdictions and pending/active grants; remove leaks and hold unknowns.
-4. Adopted routes reach frozen windows or runtime boundaries. Identity union, provenance, ranks and unretrieved windows are traceable.
-5. Disclose failed routes as `route_degraded` without claiming semantic/Boolean equivalence or complete recall from counts.
+1. 输入语言、英文和已确认目标市场语言均有独立 QuerySpec 与真实检索回执；语言相同时不重复执行，已有可验证索引替代时记录依据；
+2. 每个冻结的独立风险单元至少被一条已执行语义路线覆盖，关系和实体角色未漂移；
+3. 逐件核对后的候选符合目标法域和申请中／有效授权状态，泄漏与未知已剔除或待核；
+4. 各采用路线达到预先冻结的实际窗口或运行时边界，候选按身份并集且来源、原始排名和未取得窗口可回查；
+5. 报告将失败路线列为 `route_degraded`，不宣称语义与 Boolean 等价，也不据命中量声称查全。
 
-Passing means a single-route failure need not block the entire workflow. Otherwise, if continuation narrows authorized scope, let the client choose limited routes or wait.
+满足本门时，单一路线失败不是整条 FTO 编排的自动阻断项。未满足且继续会缩小客户授权范围时，先让客户决定接受有限路线还是等待补齐。
 
-## 7. GT and evaluation
+## 7. GT 与效果评价
 
-Evaluate only with independent GT and frozen QuerySpec:
+仅在独立 GT 已存在且 QuerySpec 已冻结时评价：
 
-- Record Boolean/semantic queries retrieving each GT, original ranks and family-only hits.
-- Report Boolean-only, semantic-only, both, union and respective reachable windows.
-- Separate human GT, pipeline-generated GT and client-defined GT.
-- If generation read GT titles, claims or missed-hit causes, label the round a diagnostic experiment rather than a blind test.
-- Search totals, semantic similarity, Screening ranks and local sample coverage do not replace true recall.
+- 逐个记录 GT 被哪条 Boolean／semantic query 命中、原始排名、是否仅同族命中；
+- 报告 Boolean-only、semantic-only、both、并集和各自可达窗口；
+- 人工 GT、管道自产 GT、客户口径 GT 分开；
+- 查询生成过程中若读取了 GT 标题、权项或漏检原因，该轮标为诊断实验，不能算盲测；
+- 搜索总命中、语义相似度、Screening 名次和局部样本覆盖均不能替代真实查全率。
 
-## 8. Register extensions
+## 8. 扩展注册规则
 
-Register new axes in QuerySpec: `route_id | technical hypothesis | source facts | applicability | language | default layer | maximum queries | evidence threshold | difference from existing axes`. Only axes explaining an independent technical blind spot without GT enter production plans. Case-specific temporary rewrites remain local experiments, not general rules.
+新增表达轴时，在 QuerySpec 注册：`route_id｜技术假设｜来源事实｜适用条件｜语言｜默认层级｜最大条数｜证据门槛｜与现有轴差异`。只有能解释独立技术盲区且不依赖 GT 的轴才进入生产计划；案例特有的临时改写保留为 local experiment，不升级为通用规则。
 
-Case figures, fixed row counts, interface conclusions without raw probes and special executor constraints in attachments are research background, not overrides of runtime MCP. Adopt strategies based on actual case receipts and verifiable gains.
+附件中的案例数字、固定取数行数、缺少原始探测的接口结论以及专用执行器约束只作为研究背景，不覆盖当前 MCP 协议。采用策略必须以本案真实回执和可复核增益为依据。
