@@ -1,0 +1,15 @@
+name: 功能建议 / Feature request
+description: 建议新的工作流或改进 / Suggest a workflow or improvement
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: 使用场景与当前问题 / Use case and current problem
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望实现的结果 / Desired outcome
+    validations:
+      required: true

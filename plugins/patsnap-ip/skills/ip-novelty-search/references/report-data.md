@@ -3,6 +3,7 @@
 ## Contents
 
 - Save inputs and receipts
+- Candidate ledger
 - Solutions and features
 - Report draft
 - Agent verification
@@ -18,6 +19,18 @@ The renderer accepts direct structured results, MCP receipts with `structuredCon
 Actually read media links. Tool image inputs use the current schema's `ref: image:<file SHA256>`, `mime_type`, `data_base64`, `label`, and available `pdf_page`/`text_locations`. Local reports may reference saved originals through `host_file`. The renderer can also associate `material.assets` with `material.patent_images` by `ref`, validate complete Base64 images and save them under task-local `evidence/`. This does not establish that images were read.
 
 All referenced files must be inside the task directory, with paths relative to the draft. Preserve quotations verbatim; summaries and tool-generated technical overviews are not original text.
+
+## Candidate ledger
+
+For a new task, save `candidate-ledger.json` and reference it in `report.candidate_ledger_file` in `report-draft.json`. See the [candidate ledger](candidate-ledger.md) for its fields and stage checks. When resuming a historical task, backfill the ledger once from the saved search receipts. Mark any stage or exclusion reason that cannot be recovered as unresolved.
+
+Before generating a report, you can run the final check independently:
+
+```sh
+python3 scripts/validate_candidate_ledger.py --ledger /task/candidate-ledger.json --root /task --phase final
+```
+
+Set `report_data_version: 2` on new reports. Both `--validate-only` and HTML generation run the final check whenever a ledger is referenced. A complete version 2 report requires a ledger reference. Set `status` to `complete` only after validation passes. On failure, keep the draft `partial` and record unexplained losses, scope discrepancies or weak retrieval in `limitations`.
 
 ## Solutions and features
 
@@ -152,7 +165,9 @@ The renderer validates version-3 source receipts, unit mappings, original quotat
   "title": "Technical Solution Novelty Report",
   "language": "en-US",
   "report": {
+    "report_data_version": 2,
     "feature_plan_file": "feature-plan.json",
+    "candidate_ledger_file": "candidate-ledger.json",
     "primary_solution": "Primary solution",
     "status": "partial",
     "headline": "Principal conclusion and stage status",

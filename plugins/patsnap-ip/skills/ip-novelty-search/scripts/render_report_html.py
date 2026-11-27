@@ -479,6 +479,13 @@ _receipts_spec = importlib.util.spec_from_file_location("novelty_report_receipts
 _receipts_module = importlib.util.module_from_spec(_receipts_spec)
 _receipts_spec.loader.exec_module(_receipts_module)
 
+_report_ledger_spec = importlib.util.spec_from_file_location(
+    "novelty_report_ledger", Path(__file__).with_name("validate_report_ledger.py")
+)
+_report_ledger_module = importlib.util.module_from_spec(_report_ledger_spec)
+_report_ledger_spec.loader.exec_module(_report_ledger_module)
+validate_candidate_ledger_reference = _report_ledger_module.validate_candidate_ledger_reference
+
 
 class Report(_appendices_module.AppendicesPresentation, _comparison_module.ComparisonPresentation, _recommendations_module.RecommendationPresentation, _analysis_module.AnalysisPresentation, _patent_module.PatentReader, _overview_module.TechnicalOverview, _parts_module.Parts):
     comparison_source_context = staticmethod(_patent_module.source_context)
@@ -1377,6 +1384,7 @@ class Report(_appendices_module.AppendicesPresentation, _comparison_module.Compa
         )
 
     def validate(self):
+        validate_candidate_ledger_reference(self.draft, self.base)
         if self.modular:
             self.comparison_data({"features_file": self.draft["report"]["feature_plan_file"],
                                   "documents": self.draft["report"]["documents"]}, "comparison")

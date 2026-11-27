@@ -26,6 +26,82 @@ Use mixed retrieval to cover alternative expressions while retaining complete te
 
 The inputs must complement each other. Semantic input is normally a coherent paragraph; keywords normally comprise 3–8 complete concepts or relationship phrases. Multilingual terms cover real expression differences rather than translating generic words to fill a quota. Dual-channel hits may receive reading priority, but do not establish disclosure or X/Y/A roles.
 
+### Relationship propositions and their sources
+
+Express each decisive technical relationship as a testable proposition. Record:
+
+- `subject` — the component or step that acts or participates.
+- `relation` — the action, connection, position, transmission, trigger or interaction.
+- `object_or_condition` — the object, state or condition to which the relationship applies.
+- `constraints` — the disclosed position, sequence, direction, quantity, size, clearance or state change. An empty array is valid when the disclosure supplies none.
+
+For example, a detector and two gratings name three parts. A testable relationship specifies that detecting removal or installation of the detector or either grating triggers preliminary irradiation to detect a relative position error. Express the complete proposition and technical purpose in `semantic_query`. Use industry phrases that bind the parts and actions in `keywords`.
+
+Store a `relation_proposition` with each `relation` query:
+
+```json
+{
+  "subject": "blade guard",
+  "relation": "slides lengthwise along the handle guide",
+  "object_or_condition": "extended to cover the blade and retracted to expose the blade",
+  "constraints": ["the guard is detachable from the knife body"],
+  "source": "disclosure",
+  "source_refs": ["feature-plan.json#comparison_units/2"]
+}
+```
+
+Use only `disclosure`, `user_clarification` or `candidate_feedback` as the source. For `candidate_feedback`, record `source_publication_number` and point `source_refs` to a saved full-text receipt and a specific passage. Keep scoring references, hidden ground truth, answer keys and target abstracts seen after unblinding out of formal queries. If used for diagnostics, label the experiment as having exposed the reference answers. Its results cannot establish a blind-retrieval improvement.
+
+To expand a relationship with synonyms:
+
+1. Identify one parent `relation` query in `derived_from_query_id`. Inherit its exact `comparison_unit_numbers` and relationship source.
+2. Expand `subject_variants`, `relation_variants` and `object_or_condition_variants` separately. Add one `constraint_variant_groups` entry per original constraint, linking it with `source_constraint` and retaining the original and equivalent expressions in `variants`. Preserve the technical meaning.
+3. Recombine the slots in `composed_phrases`. Record the complete `text`, its `language`, the chosen slot variants and one expression from each constraint group. Avoid mechanically generating every combination of variants, which can produce unnatural phrases, omit constraints or misstate the technical relationship.
+4. Use `composed_phrases[].text` as the actual `keywords` in the same order. Run mixed retrieval with a `semantic_query` that preserves the complete relationship.
+
+```json
+{
+  "query_id": "Q3",
+  "route": "synonym",
+  "derived_from_query_id": "Q2",
+  "comparison_unit_numbers": [2],
+  "semantic_query": "A removable blade guard moves along a longitudinal guide to cover or expose the blade.",
+  "keywords": [
+    "可从刀体分离的刀具护罩沿手柄导槽滑动并覆盖或露出刀刃",
+    "removable blade guard sliding in a longitudinal handle guide to cover or expose the blade"
+  ],
+  "relation_synonym_expansion": {
+    "subject_variants": ["刀具护罩", "blade guard"],
+    "relation_variants": ["slides lengthwise along the handle guide", "沿手柄导槽滑动", "sliding in a longitudinal handle guide"],
+    "object_or_condition_variants": [
+      "伸出时覆盖刀刃、缩回时露出刀刃",
+      "extended to cover the blade and retracted to expose the blade"
+    ],
+    "constraint_variant_groups": [{
+      "source_constraint": "the guard is detachable from the knife body",
+      "variants": ["the guard is detachable from the knife body", "可从刀体分离", "removable from the knife body"]
+    }],
+    "composed_phrases": [{
+      "text": "可从刀体分离的刀具护罩沿手柄导槽滑动并覆盖或露出刀刃",
+      "language": "zh-CN",
+      "subject_variant": "刀具护罩",
+      "relation_variant": "沿手柄导槽滑动",
+      "object_or_condition_variant": "伸出时覆盖刀刃、缩回时露出刀刃",
+      "constraint_variants": ["可从刀体分离"]
+    }, {
+      "text": "removable blade guard sliding in a longitudinal handle guide to cover or expose the blade",
+      "language": "en-US",
+      "subject_variant": "blade guard",
+      "relation_variant": "sliding in a longitudinal handle guide",
+      "object_or_condition_variant": "extended to cover the blade and retracted to expose the blade",
+      "constraint_variants": ["removable from the knife body"]
+    }]
+  }
+}
+```
+
+For weak retrieval, list every comparison unit that could still change the conclusion in `retrieval_assessment.decisive_comparison_unit_numbers`. Cover each with at least one `relation` query before ending retrieval.
+
 ### Retrieval levels
 
 Choose levels by actual uncertainty, without fixed rounds:
@@ -52,6 +128,58 @@ Basic request shape:
 ```
 
 If the date is unknown, omit `filter` and `filters`; do not substitute the test or search date.
+
+### Fill the reading queue after deduplication
+
+Set `target_unique_groups` before the first call on each discovery route. For a recall-sensitive Top 100 evaluation, target 100 distinct technical groups. For client work, use the planned review capacity. Keep the target fixed regardless of which documents appear.
+
+Build two views from the first and subsequent pages:
+
+1. **Publication ledger.** Treat the publication aliases in one result, including its `pn` array, as one identity. Keep distinct publications separately with their original rank, page and query ID.
+2. **Reading queue.** Group by a tool-supplied family ID or a verified family. When family information is missing, provisionally group only exact normalized title matches. Otherwise use the publication identity. Start with the highest-ranked representative of each group.
+
+An exact-title group suppresses duplicate reading only. Preserve every publication, its date and jurisdiction. Update groups as family evidence becomes available and split same-title groups when the technical content differs.
+
+While `unique_group_count < target_unique_groups`, change only `offset`. Keep semantics, keywords, filters, sort order, language and family-collapse settings fixed. Save each original receipt and append its results to the publication ledger. Stop when:
+
+- The number of distinct technical groups reaches the target.
+- The current page returns fewer results than the requested `limit` or the reported total is reached.
+- The tool’s pagination window is exhausted.
+- The user’s stated time or budget limit is reached.
+- The tool fails and recovery with the original request also fails.
+
+If the target is not met, record the actual stopping reason. Disclose any shortfall caused by budget limits or tool errors in the report limitations. Such a shortfall cannot support a claim that retrieval was sufficient. Use `scripts/dedup_fill_results.py` to summarize consecutive pages and read `status` and `next_offset`.
+
+```sh
+python3 scripts/dedup_fill_results.py calls/Q1-page-*.json --target 100 --page-size 100 --output calls/Q1-dedup-fill.json
+```
+
+The script’s `exact_title_provisional` label applies only to the reading queue. Preserve all exact publication identities in `candidate-ledger.json`.
+
+### Review and reconstruct search routes
+
+After filling the queue, review at least 20 distinct technical groups from the combined leading results before rewriting the queries or deciding to stop. Record verifiable observations and the decision in a route review entry:
+
+- Participating query IDs and sample receipts.
+- Number of distinct families or provisional groups, and number of results sharing the dominant mechanism.
+- Decisive relationship coverage as `covered`, `partial` or `missing`.
+- Whether the leading results echo the name, use or effects such as “improve,” “allocate” or “control” while missing the disclosed structure or action.
+- Missing dimensions of implementation, such as structure, position, connection, motion, sequence, condition, control, material, path, interface or mechanism.
+- Decision and follow-up query IDs.
+
+Change course if one core mechanism accounts for at least 60% of the sample and decisive coverage is partial or missing, or if `effect_term_echo=true` and results miss the decisive structural relationship. Also change course if several routes repeat the same subject–action–object relationship without adding an implementation dimension, or if the same verified family dominates across languages and titles despite exact-title deduplication. Continuing the same pagination or concluding the search would leave the issue unresolved.
+
+Choose one primary action:
+
+- `family_expand` — the technical family is established. Read its members and identify the publications eligible by date and jurisdiction.
+- `term_rewrite` — the structure is the same but the field uses different terminology. Rewrite using expressions found in candidate full text.
+- `route_reconstruct` — search a different dimension supported by the disclosure, such as position, movement, control dependencies or step order. Temporarily remove a frequent effect term if it anchors the results to one mechanism.
+- `request_input` — ask for specific structural detail when the disclosure does not support an alternative route.
+- `converge` — stop only when the decisive relationship is covered, one mechanism no longer unduly constrains the results, and further routes are unlikely to change the principal finding.
+
+For `route_reconstruct` or `term_rewrite`, identify the new query and retain its complete proposition and source. Use the original disclosure, user clarification or a retrieved candidate’s full text. Exclude scoring references, hidden ground truth and target abstracts seen after unblinding from both review evidence and query sources.
+
+For example, three searches for “heat transfer efficiency” might all return one mechanism that repeats those words. If the disclosure specifies coolant splitting across staggered microchannels and rejoining in a manifold, choose `route_reconstruct` and search the channel positions, branching and rejoining without the effect term. If the disclosure gives only a name, choose `request_input` and ask for the missing structure.
 
 ### Channel records
 
@@ -83,7 +211,7 @@ Semantic and keyword routes may retrieve independently; one is not a hard constr
 }
 ```
 
-The example date illustrates a user-supplied cutoff, not a default. Paginate with `limit` and `offset` under the current definition and record actual returned scope; one page is not the full set. Normally rank by relevance; switch to dates/citation counts when requested.
+The example date illustrates a user-supplied cutoff, not a default. Paginate with `limit` and `offset` under the current definition and record actual returned scope; continue paging the fixed query if deduplication leaves the queue below target. Normally rank by relevance; switch to dates/citation counts when requested.
 
 ## Fields and Boolean queries
 
@@ -117,3 +245,13 @@ Field directions: [Patsnap Types of Citation](https://help.patsnap.com/hc/en-us/
 Each round states “verification objective → actual retrieval/reading → findings and next step.” Preserve real requests, complete structured receipts and failures. Count total hits, current-page returns, deduplicated candidates and formal comparisons separately. Failure is not zero hits; unknown counts remain unknown.
 
 If the assessment date is unknown, publication dates can be recorded and sorted, but prior-art eligibility remains unresolved. Publication before the search date does not replace eligibility relative to intended filing or priority.
+
+## Candidate retention and follow-up for weak retrieval
+
+Append each round to `candidate-ledger.json` as results arrive. Keep leading hits, in-scope and user-supplied candidates, and candidates close to the overall relationship traceable as new documents appear. See [Candidate ledger and stage checks](candidate-ledger.md) for the fields, stage transitions and validation command.
+
+If leading results fail to cover decisive relationships, or no query expresses a necessary comparison unit as a complete relationship, record why retrieval is weak. Run at least one query preserving subject, action or interaction, and object or condition, plus an independent synonym or alternative-structure, classification or citation route. Keep each technical relationship intact during follow-up.
+
+For each round, retain the publication ledger from `collapse_family: false`, including dates, jurisdictions and original ranks. Use the tool’s family-collapsed view or group uncollapsed receipts locally by known family or provisional exact title for the reading queue. Prioritize distinct groups and fill the queue by paging the original request. Keep the uncollapsed ledger throughout.
+
+Review at least ten leading results. Record the number of distinct families, the largest family’s share and how many results preserve the target chain of technical objects. If one family exceeds half the sample, mark retrieval as weak, read across grouped families and add an independent relationship route. If fewer than 60% retain the target object chain, mark retrieval as weak and restore the domain objects to the semantic query and keyword phrases. Apply these checks regardless of total hits.

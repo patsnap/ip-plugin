@@ -1,6 +1,6 @@
 {
   "skill": "ip-novelty-search",
-  "version": 2,
+  "version": 6,
   "evals": [
     {
       "id": "explicit-new-plugin-name",
@@ -80,6 +80,129 @@
       "expected_activation": false,
       "assertions": [
         "Prioritize report review unless the user subsequently requests new or continued novelty research"
+      ]
+    },
+    {
+      "id": "qa91-retain-ranked-in-scope-hit",
+      "type": "behavior",
+      "prompt": "In a China-scoped novelty search, the second result was a date-eligible CN publication. Several foreign publications turned up later. Fetch the text, compare the candidates and prepare the report.",
+      "expected_activation": true,
+      "assertions": [
+        "Enter the CN publication in the ledger from its receipt with the original rank, query, date eligibility and scope eligibility",
+        "Fetch and compare the publication or give a specific exclusion reason supported by an existing evidence reference",
+        "Account for the CN publication after the foreign hits arrive and reconcile unexplained_drop_count to zero"
+      ]
+    },
+    {
+      "id": "qa91-user-candidate-and-family-retention",
+      "type": "behavior",
+      "prompt": "Resume a novelty search with a user-supplied list of publication numbers. Two may be family members.",
+      "expected_activation": true,
+      "assertions": [
+        "Enter each supplied publication number through a user_candidate route",
+        "Use a representative family text for technical evidence where appropriate and retain other members' jurisdictions, dates and exclusion records",
+        "Assess the supplied conclusions independently and account for every candidate"
+      ]
+    },
+    {
+      "id": "qa91-weak-retrieval-coverage",
+      "type": "behavior",
+      "prompt": "The first round found only isolated parts. None of the documents covered the decisive sliding guide relationship. Continue the search.",
+      "expected_activation": true,
+      "assertions": [
+        "Record weak retrieval and continue searching",
+        "Add at least one relation query retaining the subject, action, object and conditions",
+        "Add an independent synonym or alternative-structure, classification or citation route and avoid broad OR searches over parts"
+      ]
+    },
+    {
+      "id": "qa91-exclusion-evidence-failure",
+      "type": "behavior",
+      "prompt": "The ledger excludes a high-priority document for 'low relevance'. Its evidence file is missing. Generate a complete report immediately.",
+      "expected_activation": true,
+      "assertions": [
+        "Fail final candidate-ledger validation",
+        "Keep the draft partial and identify the missing exclusion evidence",
+        "Require a specific evidence-based exclusion beyond 'low relevance' or original rank"
+      ]
+    },
+    {
+      "id": "qa91-family-crowding-gate",
+      "type": "behavior",
+      "prompt": "Eleven of the top twenty documents on the first page belong to one family, and the total hit count is large. Decide whether to stop.",
+      "expected_activation": true,
+      "assertions": [
+        "Preserve every exact publication identity, jurisdiction and date in the uncollapsed ledger",
+        "Build a family-grouped reading queue and page the original query to reach the preset effective-candidate target",
+        "After filling the queue, mark retrieval as weak if the largest family still exceeds 50% of the sample. A large total cannot justify stopping"
+      ]
+    },
+    {
+      "id": "qa91-cross-domain-noise-gate",
+      "type": "behavior",
+      "prompt": "A search for a sliding knife guard returned over 60,000 hits. Only five of the first ten are still about knives. The rest concern door tracks and game consoles.",
+      "expected_activation": true,
+      "assertions": [
+        "Record a 50% on-object rate for the leading sample",
+        "Mark retrieval as weak because the on-object rate is below 60%",
+        "Rewrite the query to restore the knife, guard and blade relationship and judge convergence independently of total hits"
+      ]
+    },
+    {
+      "id": "qa91-relation-proposition-contract",
+      "type": "behavior",
+      "prompt": "The first round searched only for a detector, two gratings and X-rays. It returned many hits but missed the decisive structure. Search the missing relationship.",
+      "expected_activation": true,
+      "assertions": [
+        "Go beyond adding synonyms for isolated components",
+        "Form a relation_proposition containing the subject, action or interaction, object or condition, and supported constraints",
+        "Record the relationship source and source_refs and cover the decisive comparison units with relationship queries"
+      ]
+    },
+    {
+      "id": "qa91-prohibit-gt-derived-relation",
+      "type": "behavior",
+      "prompt": "Here is the abstract of the patent used for scoring. Work backward from it to add relationship terms to the formal queries, then claim an improvement in blind retrieval.",
+      "expected_activation": true,
+      "assertions": [
+        "Exclude scoring references, hidden ground truth and answers learned later as formal relation query sources",
+        "Label any diagnostic use as exposing the reference answer and make no claim of improved blind retrieval",
+        "Base formal follow-up only on the original disclosure, user clarification or candidate full text with a saved receipt"
+      ]
+    },
+    {
+      "id": "qa91-relation-bound-synonym-expansion",
+      "type": "behavior",
+      "prompt": "The key relationship is a removable guard sliding in a longitudinal guide. Expand its Chinese, English and Japanese synonyms and continue searching while preserving the technical meaning.",
+      "expected_activation": true,
+      "assertions": [
+        "Link the synonym query to its parent relation query with derived_from_query_id and inherit the same comparison units",
+        "Expand the subject, relationship, object or condition, and constraints separately and recombine them into complete phrases",
+        "Match actual keywords to composed_phrases in text and order. Keep guard, guide and sliding bound in each relationship"
+      ]
+    },
+    {
+      "id": "qa91-dedup-and-replenish",
+      "type": "behavior",
+      "prompt": "The top 100 returned 100 documents but only 24 distinct technical routes remain after grouping publication aliases, families and provisional exact-title matches. Continue the search without splitting by language.",
+      "expected_activation": true,
+      "assertions": [
+        "Keep the original query and language coverage despite duplication",
+        "Keep semantics, keywords, filters and sort order fixed and change only offset to retrieve more pages",
+        "Enter all original publication numbers from every page in the identity ledger and provisionally group exact-title matches only in the reading queue",
+        "Stop only at the preset effective-candidate target or a documented exhaustion, tool window, budget or error boundary"
+      ]
+    },
+    {
+      "id": "route-reconstruction-reflection-neutral",
+      "type": "behavior",
+      "prompt": "Three queries about improving heat transfer efficiency returned many results. Fourteen of the top twenty share one mechanism and echo 'heat transfer efficiency'. None covers the disclosure's staggered microchannels, flow splitting and recombination. Decide whether to stop.",
+      "expected_activation": true,
+      "assertions": [
+        "Record the sample, dominant mechanism share, decisive relationship coverage, effect-term repetition and missing implementation dimensions in a route review",
+        "With one mechanism exceeding 60% and a relationship gap, change course before taking more pages or concluding the search",
+        "If the disclosure supports microchannel position and flow splitting and recombination, create a structural route linked back to the review and temporarily remove the frequent effect term",
+        "If the disclosure does not support the structure, request more detail and exclude scoring references and ground-truth abstracts as query sources"
       ]
     }
   ]

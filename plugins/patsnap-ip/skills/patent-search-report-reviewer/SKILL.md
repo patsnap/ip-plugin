@@ -1,9 +1,11 @@
 ---
 name: patent-search-report-reviewer
-description: "Use to review an existing patent search, novelty, FTO, evidence-of-use or invalidity report. Check the search strategy, cited documents, quoted source text and counts, and return located issues, coverage and missing evidence as written comments. Does not run a new search from scratch."
+description: "Review and quality-check existing patent search, novelty and inventive-step, FTO, EoU or invalidity search reports. Check search terms and queries, selected references, original evidence and support for conclusions. Use when asked to review, accept, reassess or spot-check an existing report or its search strategy. Full searches from scratch, repeat screening and final legal opinions are outside the scope."
 metadata:
-  version: "1.0.0"
+  version: "1.2.1"
   edition: "fusion-mcp"
+  source_plugin_version: "0.10.7"
+  source_commit: "1b76572ae329974bed9b47f8a1bcb097ec76ccb2"
 ---
 
 # Patent Search Report Reviewer
@@ -34,7 +36,7 @@ Screening processes are always out of scope: do not assess selection criteria, i
 
 ## 2. Tool and evidence boundaries
 
-Select search/fulltext/legal-record/identity tools by the disputed issue. Read [tool usage](references/tool-usage.md); runtime definitions govern full schemas. Read report/attachments first and reuse evidence. Verify company/product facts with available web sources as needed, recording source/date. A URL is not read content. If tools fail/are absent, continue independent internal checks and mark only dependent assertions unverifiable. Local review fields are not MCP inputs.
+Select search/fulltext/legal-record/identity tools by the disputed issue. See [standard fields](references/standard-fields.md) for field names, data roles and how values pass between tools. See [tool usage](references/tool-usage.md) for tool sequencing, key parameter rules and interpretation of evidence. Runtime definitions govern the complete parameters and response structures. Read report/attachments first and reuse evidence. Verify company/product facts with available web sources as needed, recording source/date. A URL is not read content. If tools fail/are absent, continue independent internal checks and mark only dependent assertions unverifiable. Local review fields are not MCP inputs.
 
 Preserve original responses and actual field paths. Distinguish report text, raw Patsnap facts, model/composite MCP judgments, this skill's review inference and the human reviewer's final disposition.
 
@@ -61,13 +63,13 @@ Use an internal register: `assertion ID | report location/quote | affected concl
 
 Apply the three [search checks](references/scenario-rubrics.md), without rerunning a full search workflow.
 
-1. **Synonyms:** preserve complete concepts, qualifiers and target languages. Review the report vocabulary or extracted terms first. Only if candidate expressions are needed and complete natural-language intent exists, use `build_patent_boolean_query(text=complete_intent)` and extract candidates from actual `data.reference_query` with provenance. Never send existing executable queries for builder validation/rewriting. Do not invent intent just to call it; reuse suitable receipts. Candidates are neither an independent synonym list nor correct answers: explain keep/add/restrict/remove decisions term by term.
-2. **Query reasonableness:** examine alternatives/grouping, concept relationships, parentheses, fields, phrase/proximity/truncation, languages and geography/date/status boundaries. Compare original/proposed scope explicitly. Search execution is not independent syntax certification or fixed-field protection. Bounded execution of the original may resolve a concrete issue but does not prove technical logic. Keep suggestions separate and disclose unverified/unexecuted syntax without overwriting originals.
+1. **Synonyms:** Preserve complete technical concepts, necessary qualifiers and target languages. Start with the report’s vocabulary or the terms extracted from its original query. When vocabulary is in scope and the report provides both a complete technical proposal and traceable search elements, call `expand_patent_search_terms`. Supply the report’s original technical intent as `technical_proposal` and reuse its existing structure for `search_elements` where possible. If an open object cannot be passed through intact, use only `element_description` to carry each existing element’s original text. Do not invent types, scores or facts. Check that each input element returned nonempty expressions. For each original term and expansion candidate, decide whether to retain, add, restrict or remove it. Explain equivalence, broader or narrower meaning, relatedness or semantic drift. Recombine adopted terms into complete phrases preserving the subject, relationship, object or condition, and qualifiers. Keep those connections intact. Only the adopted phrases may be passed to `search_patent.keywords`. The search parameter remains `keywords`, distinct from the tool name `expand_patent_search_terms`.
+2. **Query reasonableness:** Check how alternatives are grouped, the relationships between concepts, parentheses, fields, phrase matching, proximity, truncation, languages and geographic, date and status limits. Compare each aspect of the original and proposed queries for changes to the required scope. If a supplementary Boolean reference expression is needed and complete natural-language intent is available, you may use `build_patent_boolean_query(text=complete_intent)` and read the expression for human review from the actual `data.reference_query`. Do not send an existing executable query to the builder for validation or rewriting. Search execution alone cannot independently validate syntax or establish that fixed fields were preserved. List the proposed query separately, disclose unexecuted or unconfirmed syntax and preserve the original query.
 3. **Derivation:** check features → concepts → synonym groups → fields/Boolean relationships → branches → merge/boundaries. If absent, reconstruct from the query and label reviewer interpretation, not author intent. Lack of a dedicated derivation section is not itself a defect. Use concrete concepts/counterexamples to explain excessive breadth/narrowness/purpose drift, not hit counts alone.
 
 Related, broader, narrower and functionally similar terms are not necessarily synonyms. Do not flatten grouped reference queries into a giant OR. Verify complete concepts/dependencies. Builder candidates do not score synonym quality or prove omissions.
 
-Use `search_patent` unchanged on an existing query only for necessary execution checks/specific doubts. Default to inspecting reference expressions without running new candidate searches. Distinguish hits/retrieved/selected/cited counts. Do not claim unmeasured missed counts, precision or recall, run automatic optimization, pseudo-gold-standard or recall experiments.
+Use `search_patent` for a bounded check of an unchanged original query only when you need to verify its execution or investigate a specific issue. Follow the [query handoff rules](references/tool-usage.md). By default, review the candidate terms and reference expression without running a new candidate search. If the user explicitly requests empirical testing or the report claims term expansion improved retrieval, you may run a bounded A/B check. Hold jurisdiction, dates, status, sorting, pagination and family-collapse settings fixed. Execute the original and proposed queries separately. Compare the key references specified in advance in the report, a relevance sample from the top N results, and any additional noise. Total hits alone cannot establish improvement. Keep hidden ground truth learned after the fact out of formal queries. Label any diagnostic use of ground truth as an experiment with exposed labels and keep it separate from claims about blind testing. Distinguish hit, retrieved, selected and cited counts. Claim actual misses, precision or recall only with empirical evidence.
 
 Read actual `data.returned_count` and available `data.total_hits`; missing is not zero. Do not mix endpoints' counts. Check merge/state/boundaries before calling cross-source differences errors. Empty results do not prove historical events or relevant patents absent.
 
@@ -119,7 +121,7 @@ Each important finding's internal evidence record contains module/scenario rule/
 ## 6. Completion criteria
 
 - Clear scope/scenario/jurisdiction/date; every in-scope dimension assessed, distinguishing excluded/not applicable/missing/not checked.
-- When search is included, separate judgments for synonyms/query/derivation, with actual reference-expression provenance and no invented synonym/validation interface.
+- When search is in scope, assess synonyms, queries and derivation separately. If terms were expanded, record the complete technical proposal, input elements, original response, decisions on each term and how the relationships were recomposed. Review tool output before accepting it or using it in a search field. If a reference expression was used, record its actual `data.reference_query` source. The builder does not independently validate syntax.
 - Selected results checked only for identity/applicability, relevance and citation mapping. Screening-process evidence is not scored/requested or used to change conclusions.
 - When analysis is included, separate A1/A2 judgments and located originals/reasoning for key issues.
 - Material facts verified or explicitly unverifiable; issue-specific fulltext retains source/version, and incidental fetched fulltext is not claimed as reviewed.

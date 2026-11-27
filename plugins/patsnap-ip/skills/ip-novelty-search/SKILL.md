@@ -1,6 +1,6 @@
 ---
 name: ip-novelty-search
-description: "Use when checking whether an invention or technical proposal is new. Compare its features with the closest patents, verify the decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Can continue an existing search."
+description: "Use when checking whether an invention or technical proposal is new. Compare its features with the closest patents, verify the decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Use for prior-art searches, novelty or inventive-step analysis, X/Y evidence audits, and continuation of an existing search. FTO, competitor analysis and portfolio planning fall outside its scope."
 ---
 
 # Novelty Search
@@ -61,7 +61,11 @@ Read [Search methods](references/search.md) before retrieval. Organize queries a
 - Discover candidates with `search_patent`; semantic queries express complete technical intent and keywords preserve complete concepts.
 - Default to mixed semantic and keyword recall in the same request using `semantic` and `keyword`. Semantic input carries complete intent, relationships and the problem; keywords carry precise structures, industry terminology and multilingual variants. The two inputs complement each other instead of repeating the same string.
 - Mixed recall is not a mandatory AND. Merge by exact publication identity and family; retain semantic, keyword or dual-channel provenance. Channel matches determine reading priority, not disclosure facts.
+- Before each discovery query, set a target number of distinct technical groups to review. Group publication aliases, known families and exact normalized titles in the reading queue. If the first page falls short, keep the request fixed and advance only `offset` until the target is met, results are exhausted, or a tool window, budget or error ends the search. Record the stopping reason and preserve every publication in the ledger, including members of provisional title groups.
 - Search the complete primary combination first, then decisive differences or unresolved relationships. Targeted rounds still pair natural-language relationships with grouped concepts rather than broad OR lists of isolated parts.
+- After filling the queue and before deciding to stop, review the search routes. Check whether queries repeat one causal relationship, leading results echo the name or intended effect, one family or mechanism dominates, or a decisive relationship lacks an independent route based on structure, position, movement, sequence or conditions. Record the sample evidence and decision in the ledger. When results stay concentrated, expand the family, rewrite terms, reconstruct the route or request missing disclosure details as appropriate. Follow the decision rules in [Search methods](references/search.md).
+- For each `relation` query, record a testable proposition linking a subject, action or interaction, and object or condition. Preserve decisive limits such as position, sequence, state changes, quantity, size or clearance. Cite the original disclosure, a user clarification or saved candidate full text. Scoring references, hidden ground truth and answers learned later cannot supply the proposition.
+- Derive each `synonym` route from a recorded `relation` query. Expand the subject, relationship, object or condition, and constraints separately, then compose complete phrases that preserve their connections. Record `derived_from_query_id` and `relation_synonym_expansion`. Use the composed phrases verbatim and in order as `keywords`.
 - Apply user-specified scope and dates in actual requests; reference fields or IPC codes do not automatically become hard filters.
 - For strong candidates, use `fetch_patent` to verify text, exact publication number, application date and publication date; request `media` only when visual evidence is needed.
 - Extend citations through `search_patent`: `B_CITES:(publication number)` for backward citations and `F_CITES:(publication number)` for forward citations.
@@ -72,6 +76,10 @@ Read [Search methods](references/search.md) before retrieval. Organize queries a
 One successful call, an absent word in an abstract, or repeated old candidates does not establish completion. Converge when remaining uncertainties are unlikely to change the main judgment; retain decisive counterexamples.
 Normally select no more than 10 documents for formal comparison, without filling a quota. Explain and batch any justified larger set.
 Briefly state each round's verification objective, findings and next action. Save actual requests and receipts; tool failures are not zero hits.
+
+Maintain the [candidate ledger](references/candidate-ledger.md) throughout the search. Use ledger version 2 for new tasks. Enter every exact publication number or within-result alias group from every retained receipt, with its query, original rank, channel, family, actual publication date, jurisdiction and stage. Reconcile candidates before full-text retrieval, before formal comparison and before final reporting. Advance in-scope candidates that have high priority or are clearly close to the primary combination, or record a specific exclusion with evidence. Account for user-supplied candidates as well. The validator calculates `unexplained_drop_count` from unrecorded result groups and candidates without a terminal disposition. The count must be zero before proceeding.
+
+Keep two views. The ledger preserves every publication’s date and jurisdiction. The reading queue groups families and provisional exact-title matches to cover distinct technical routes. Fill the queue by paging the original query before reviewing the routes. Mark retrieval as weak if one family still accounts for more than half of the leading sample, one core mechanism exceeds 60%, several routes echo the same effect, or fewer than 60% of the manually reviewed results retain the target chain of technical objects. Use the route review to choose the next action. Raw hit counts cannot justify stopping.
 
 ## 4. Formal comparison
 
@@ -91,7 +99,7 @@ Formal comparison feeds retrieval. Create a concrete feedback item and return to
 - A difference intended to support novelty has not undergone counterexample retrieval, or a proposed Y combination lacks a secondary document providing the decisive bridge.
 - New candidates or facts may change closest art, difference groups, complete single-document disclosure or combination paths.
 
-Each item records at least `feedback_id`, source publication number, affected features, triggering fact, verification question, new `semantic_query`, `keywords`, and retained dates/scope. Then:
+Each item records at least `feedback_id`, source publication number, affected features, triggering fact, verification question, new relationship proposition, `semantic_query`, `keywords`, and retained dates/scope. For relationships learned from a candidate, cite the actual full-text receipt and source publication number. Reserve scoring references for separately labeled diagnostics. On returning to step 3:
 
 1. Run mixed semantic/keyword retrieval only for the feedback item, preserving previous receipts.
 2. Fetch new candidates first, then compare only new documents or affected features.
@@ -119,7 +127,7 @@ Read [Analysis and reporting requirements](references/report.md) before concludi
 
 ## 6. Generate the report and continue existing work
 
-Read [Report data and commands](references/report-data.md) and use the existing template to generate a standalone HTML report.
+Read [Report data and commands](references/report-data.md) and use the existing template to generate a standalone HTML report. Set `report_data_version: 2` for new reports and reference the candidate ledger. The renderer reconciles it at the final gate. If validation fails, keep the report `partial`. Do not manually reconstruct the final candidate list from the documents fetched.
 Retain the complete matrix, originals, actual drawings, Agent checks and search appendices. User templates must retain the same evidence and judgments.
 The report scripts require Python 3, `markdown-it-py` and `Pillow`; check dependencies first.
 

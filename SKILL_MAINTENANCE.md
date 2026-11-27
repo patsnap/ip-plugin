@@ -1,6 +1,6 @@
 # Skill Maintenance
 
-This guide is for maintainers of the repository’s plugin skills. See [README](README.md) for installation and client verification. Skills do not need to load this guide during business execution.
+This guide is for maintainers of the repository’s plugin skills. See [installation guide](INSTALL.md) for installation and client verification. Skills do not need to load this guide during business execution.
 
 ## Scope of changes
 
@@ -45,7 +45,7 @@ Avoid repeatedly stating the plugin name, service endpoint, MCP compatibility or
 
 Use “智慧芽” for Chinese brand text and “Patsnap” for English brand text. In bilingual documents, follow the language of each passage; in reports, follow the output language. Preserve plugin identifiers, directory names, tool names, URLs and connection parameters such as `APP_ID`.
 
-Use the [listing document’s name and introduction table](https://xa3hdkuita.feishu.cn/wiki/PfiXw6a6TiXhMXkBCPFcDxMFnQg) for the official plugin display name and developer identity: “智慧芽 IP 专家套件” in Chinese, “Patsnap IP Plugin” as the English short name, and “Patsnap” for the developer/author. Keep marketplace names localized by branch and retain current plugin identifiers rather than adopting candidate identifiers.
+Official plugin display names and developer identity: “智慧芽 IP 专家套件” in Chinese, “Patsnap IP Plugin” as the English short name, and “Patsnap” for the developer/author. Keep marketplace names localized by branch and retain current plugin identifiers rather than adopting candidate identifiers.
 
 `main` defaults to Chinese and `release-en` defaults to English. An explicit output-language request takes precedence. Use the adopted output language for dialogue, prose, templates, headers, chart labels and HTML `lang`. Determine search languages and jurisdictions independently. Preserve source originals and locations, with labeled translations where needed.
 
@@ -104,3 +104,7 @@ Evaluate routing, awaiting confirmation, awaiting material, tool execution and f
 Use available skill validators where appropriate and run `git diff --check`. Match verification to the changes; description/link edits alone do not require complete business searches.
 
 Update plugin versions for publication, verify marketplace/README/package agreement, then commit and distribute according to the release process. Routine local document edits do not require a version bump. Never commit real credentials or personal client configuration.
+
+## GitHub releases
+
+Sync the GitLab `main` and `release-en` branches to their matching GitHub branches and preserve each edition’s public README, installation guide, and changelog. Both editions share the logo, security and agent guides, issue templates, and license. Use the version in the plugin manifest and the `v<version>-cn` or `v<version>-en` release tag.

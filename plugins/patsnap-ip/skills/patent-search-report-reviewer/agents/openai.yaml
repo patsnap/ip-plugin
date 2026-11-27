@@ -1,6 +1,10 @@
 interface:
   display_name: "Patent Search Report Reviewer"
-  short_description: "Use to review an existing patent search, novelty, FTO, evidence-of-use or invalidity report. Check the search strategy, cited documents, quoted source text and counts, and return located issues, coverage and missing evidence as written comments. Does not run a new search from scratch."
+  short_description: "Review the strategy, evidence and conclusions of an existing patent search report."
+  icon_small: "./assets/eureka-logo.png"
+  icon_large: "./assets/eureka-logo.png"
+  brand_color: "#0066CC"
+  default_prompt: "Use $patent-search-report-reviewer to review this existing patent search report. Check the search strategy, key references, original evidence and support for its conclusions."
 
 policy:
   allow_implicit_invocation: true
