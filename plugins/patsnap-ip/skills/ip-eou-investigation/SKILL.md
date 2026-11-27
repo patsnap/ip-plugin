@@ -1,5 +1,5 @@
 ---
-name: ip-EOU-investigation
+name: ip-eou-investigation
 description: "用自有专利调查第三方产品，梳理核心权利要求、检索产品证据，并生成专利与产品的对照矩阵及 HTML 报告。"
 metadata:
   version: "0.1.3"

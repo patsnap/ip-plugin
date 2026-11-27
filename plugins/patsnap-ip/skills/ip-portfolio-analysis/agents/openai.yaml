@@ -1,2 +1,3 @@
 interface:
   display_name: "专利布局分析"
+  short_description: "结合企业自身专利覆盖和竞争态势，规划技术方向、专利组合、申请优先级及目标国家/地区，并生成 HTML 报告。"

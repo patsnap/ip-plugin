@@ -1,2 +1,3 @@
 interface:
   display_name: "专利挖掘"
+  short_description: "从研发问题、技术方案或交底材料中发现和完善可专利点，形成技术提案、现有技术差异分析及验证建议。"

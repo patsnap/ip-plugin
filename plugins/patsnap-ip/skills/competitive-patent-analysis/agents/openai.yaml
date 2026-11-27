@@ -1,2 +1,3 @@
 interface:
   display_name: "竞对专利分析"
+  short_description: "分析单一企业或集团的优势技术、技术路线及专利布局演进，解读代表专利并生成 HTML 研判报告。"

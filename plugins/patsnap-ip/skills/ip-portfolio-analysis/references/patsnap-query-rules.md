@@ -4,7 +4,7 @@
 
 Use this reference when converting a technical theme into a Patsnap search formula. If the user provides Patsnap's exact field names or examples, follow those over this generic guidance.
 
-These rules are based on Patsnap Search Helper, the user's Search Helper screenshots, and Patsnap Help Center behavior. These syntax references do not prove that a formula has been executed. Check current tool schemas and record the outcome of any validation.
+These rules are based on Patsnap Search Helper and the Patsnap Help Center. These syntax references do not prove that a formula has been executed. Check current tool schemas and record the outcome of any validation.
 
 ## Core Syntax
 
@@ -430,4 +430,4 @@ Key Patsnap behaviors to preserve in the skill:
 - Search settings can choose default logic or input-order logic; default logic is `NOT > AND > OR`.
 - Keyword Helper can suggest Chinese/English synonyms, hyponyms, and similar keywords.
 - Classification helpers can add IPC/CPC and related classification fields.
-- User-provided Search Helper screenshots define common logical operators, wildcards, proximity operators, frequency operator, range syntax, exact phrase syntax, optional separator `_`, stemming behavior, `TREE@`, and special-character handling.
+- Search Helper documents common logical operators, wildcards, proximity operators, frequency operator, range syntax, exact phrase syntax, optional separator `_`, stemming behavior, `TREE@`, and special-character handling.

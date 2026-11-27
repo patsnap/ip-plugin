@@ -24,7 +24,7 @@ s-search-agent-plugins/
 │           ├── ip-portfolio-analysis/  # 专利布局分析
 │           ├── ip-innovation-harvesting/  # 专利挖掘
 │           ├── ip-fto-search/  # 防侵权检索
-│           └── ip-EOU-investigation/  # 侵权线索发现
+│           └── ip-eou-investigation/  # 侵权线索发现
 ├── .gitignore
 ├── SKILL_MAINTENANCE.md              # Skill 编写、工具适配与维护规则
 └── README.md
@@ -46,7 +46,7 @@ https://connect.zhihuiya.com/2b0355/logic-mcp
 
 MCP 提供工具能力，Skill 定义调用流程，两者由 `plugin.json` 关联并随插件一起分发。
 
-当前插件版本 **0.10.3**。
+当前插件版本 **0.10.5**。
 中文版使用 `main`，英文版使用 `release-en`。
 
 ### competitive-patent-analysis：竞对专利分析
@@ -85,9 +85,9 @@ MCP 提供工具能力，Skill 定义调用流程，两者由 `plugin.json` 关�
 
 围绕产品或技术方案检索潜在专利风险，开展初筛、权项比对和报告分析。
 
-### ip-EOU-investigation：侵权线索发现
+### ip-eou-investigation：侵权线索发现
 
-文件：[SKILL.md](plugins/patsnap-ip/skills/ip-EOU-investigation/SKILL.md)
+文件：[SKILL.md](plugins/patsnap-ip/skills/ip-eou-investigation/SKILL.md)
 
 用自有专利调查第三方产品，梳理核心权利要求、检索产品证据，并生成专利与产品的对照矩阵及 HTML 报告。
 
@@ -104,7 +104,7 @@ MCP 提供工具能力，Skill 定义调用流程，两者由 `plugin.json` 关�
 | Skill | 交付产物 |
 |---|---|
 | `competitive-patent-analysis` | 可离线打开的单文件 HTML，使用正式模板，代表专利表保留估值和布局国家。 |
-| `ip-EOU-investigation` | 可独立打开的 HTML，含产品型号与核心保护点的证据矩阵、逐格依据和待核条件。 |
+| `ip-eou-investigation` | 可独立打开的 HTML，含产品型号与核心保护点的证据矩阵、逐格依据和待核条件。 |
 | `ip-fto-search` | 先交付自包含 HTML 预览，内容确认后按所选 HTML、Word、PDF、Markdown 或组合交付。权项比对主表四列。 |
 | `ip-novelty-search` | 查新结论与单文件 HTML，含实际检索、逐特征证据、Agent 核查、分别的新颖性/创造性评述及未决事项。 |
 | `ip-portfolio-analysis` | 13 章 HTML，布局矩阵八列。行动计划仅在用户要求时提供。 |
@@ -119,6 +119,16 @@ MCP 提供工具能力，Skill 定义调用流程，两者由 `plugin.json` 关�
 - 同一客户端选择一个语言版本安装。两个语言版本在同一客户端使用相同的插件标识。
 - 本地安装使用已有仓库目录；示例中的 `/absolute/path/...` 替换为实际路径。GitLab 安装需要公司网络访问权限及 SSH 凭据。
 - 命令在终端执行，示例适用于 macOS / Linux / Git Bash。正式版本安装包从[插件版本与安装包](https://xa3hdkuita.feishu.cn/docx/Wc5Dd2mDqoQ3C2xSgYucxWninwb)获取；本地开发打包方式见下文。
+
+### GitHub 市场入口
+
+公开仓库为 [patsnap/ip-plugin](https://github.com/patsnap/ip-plugin)。插件市场标识为 `patsnap-plugins`。按客户端选择语言版本：
+
+| 客户端 | GitHub 市场源与语言版本 |
+| --- | --- |
+| Codex | Source 填 `patsnap/ip-plugin`，Git ref 按语言填 `main`（中文）或 `release-en`（英文）。 |
+| Claude Code | 中文版填 `patsnap/ip-plugin#main`，英文版填 `patsnap/ip-plugin#release-en`。 |
+| WorkBuddy 国内版和国际版 | 市场源填 `patsnap/ip-plugin`，默认安装中文版（`main`）。 |
 
 # WorkBuddy（国内版）
 
@@ -396,7 +406,7 @@ claude --plugin-dir "/absolute/path/packages/patsnap-ip-$branch.zip"
 
 > 使用 ip-fto-search，对我提供的技术方案进行FTO检索与分析，落实实际国家与检索语言，筛选后确认CC范围和全文策略，再分批比对并生成报告。
 
-> 使用 ip-EOU-investigation，从我方公司及自有专利出发调查指定第三方产品。依次确认公司范围、专利组合、核心保护点和保留线索，交付含型号、逐格证据及待核条件的 HTML。
+> 使用 ip-eou-investigation，从我方公司及自有专利出发调查指定第三方产品。依次确认公司范围、专利组合、核心保护点和保留线索，交付含型号、逐格证据及待核条件的 HTML。
 
 检查技能是否加载、工具调用与参数是否正确、证据是否可追溯。竞对报告应披露分页、同族与估值限制；审核流程应按争点取证。补充网页材料须记录来源、时点和实际读取范围。
 
@@ -422,7 +432,7 @@ Skill 的目录组织、工具适配、文件清理和检查要求见 [Skill 维
 正式分发使用不可变的发布标签，避免分支后续提交导致同名 ZIP 内容变化。完成版本、RN 和文档的发布提交后，在该提交上创建标签，再从标签导出单插件：
 
 ```bash
-release_tag=v0.10.3-cn
+release_tag=v0.10.5-cn
 mkdir -p outputs/releases
 git archive --format=zip --output="outputs/releases/patsnap-ip-$release_tag.zip" "$release_tag:plugins/patsnap-ip"
 (cd outputs/releases && shasum -a 256 "patsnap-ip-$release_tag.zip" > "patsnap-ip-$release_tag.zip.sha256")

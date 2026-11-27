@@ -2,8 +2,6 @@
 
 > 字段和语法用于构建检索式；实际调用以工具schema为准，未执行的语法需标明待验证。参见[工具使用要点](tool-usage.md)。
 
-Source: `智慧芽可搜索字段.docx`, parsed into a reusable field reference for the skill.
-
 Total fields identified: 269.
 
 Use this file when the user asks for a Patsnap executable search formula or when mapping a retrieval idea to exact searchable fields. Prefer the source document if the user provides an updated version.
