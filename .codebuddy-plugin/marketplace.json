@@ -7,7 +7,7 @@
     {
       "name": "patsnap-ip-plugin",
       "source": "./plugins/patsnap-ip",
-      "description": "面向研发与知识产权团队，在 AI 助手中检索专利和文献，开展查新、FTO 与专利分析，生成可追溯的研究报告。"
+      "description": "帮助知识产权与研发团队检索专利和论文，围绕确认的技术范围比对证据，形成带来源和缺口说明的研究底稿。"
     }
   ]
 }
