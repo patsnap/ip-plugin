@@ -1,6 +1,6 @@
 ---
 name: patent-search-report-reviewer
-description: "Use to independently review an existing report, citations and process records. Check document identity, quoted source text, evidence support and scope/count consistency. Return located issues, coverage and missing evidence. Unavailable sources do not prove fabrication. Additional retrieval or independent FTO searching requires a separately defined scope. Proposed workflow; apply the local MC/Skill/patent-search-report-reviewer execution contract. Runtime binding and channel availability remain unverified."
+description: "Use to review an existing patent search, novelty, FTO, evidence-of-use or invalidity report. Check the search strategy, cited documents, quoted source text and counts, and return located issues, coverage and missing evidence as written comments. Does not run a new search from scratch."
 metadata:
   version: "1.0.0"
   edition: "fusion-mcp"

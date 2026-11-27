@@ -1,6 +1,6 @@
 ---
 name: ip-novelty-search
-description: "Assess a complete technical disclosure against prior patents, compare its features, verify decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Supports continuation of an existing search."
+description: "Use when checking whether an invention or technical proposal is new. Compare its features with the closest patents, verify the decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Can continue an existing search."
 ---
 
 # Novelty Search

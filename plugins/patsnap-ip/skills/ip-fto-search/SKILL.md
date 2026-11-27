@@ -1,6 +1,6 @@
 ---
 name: ip-fto-search
-description: "Use for FTO research on a single confirmed product configuration and specified manufacturing, sales or use countries. Bind the separate fto-search service, run official screening, preserve client-selected claim-analysis scope and produce the actual official report plus evidence review. Disclose coverage and product gaps; do not guarantee non-infringement or exhaustive retrieval. Proposed workflow; apply the local MC/Skill/ip-fto-search execution contract. Runtime binding and channel availability remain unverified."
+description: "Use for freedom-to-operate research on a confirmed product and its target countries. Screen candidate patents, let the user choose which ones go into claim analysis, build claim charts, and produce a risk report with sources and coverage gaps. Does not guarantee non-infringement."
 metadata:
   version: "2.0.0"
 ---

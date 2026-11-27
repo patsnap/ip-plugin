@@ -1,6 +1,6 @@
 ---
-name: ip-EOU-investigation
-description: "EoU Investigation helps companies identify potential patent infringement leads by matching their own patents with evidence from third-party products. It discovers relevant patents, explains key claim features, researches competing products, and maps supporting evidence into a clear comparison matrix. Findings are delivered in a standalone HTML report with traceable sources, evidence gaps, and recommended next steps to support further review."
+name: ip-eou-investigation
+description: "Use when looking for third-party products that may use your own patents. Find relevant patents, explain their key claim features, research competing products, and map the evidence into a comparison matrix in an HTML report with sources, evidence gaps and next steps."
 metadata:
   version: "0.1.3"
 ---

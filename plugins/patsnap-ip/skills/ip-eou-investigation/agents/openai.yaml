@@ -1,0 +1,3 @@
+interface:
+  display_name: "EOU Investigation"
+  short_description: "Use when looking for third-party products that may use your own patents. Find relevant patents, explain their key claim features, research competing products, and map the evidence into a comparison matrix in an HTML report with sources, evidence gaps and next steps."

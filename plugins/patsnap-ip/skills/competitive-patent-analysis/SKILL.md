@@ -1,6 +1,6 @@
 ---
 name: competitive-patent-analysis
-description: "Use when analyzing one company’s strongest technology directions and representative patents. Confirm directions and assignee scope, verify family identities where data permits, explain selected patents and disclose missing valuation or legal data. This does not replace FTO research. Proposed workflow; apply the local MC/Skill/competitive-patent-analysis execution contract. Runtime binding and channel availability remain unverified."
+description: "Use when analyzing one company's strongest technology directions and representative patents. Confirm the company and its subsidiaries, verify patent families where data permits, explain each selected patent, and deliver an HTML report. Does not replace FTO research."
 ---
 
 # Competitive Patent Analysis

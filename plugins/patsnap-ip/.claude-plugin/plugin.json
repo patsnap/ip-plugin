@@ -1,7 +1,7 @@
 {
   "name": "patsnap-ip-plugin",
   "displayName": "Patsnap IP Plugin",
-  "version": "0.10.3",
+  "version": "0.10.5",
   "description": "Patent search, analytics and IP intelligence in your AI assistant, for prior art, FTO, landscapes and more. Every finding traceable to its source.",
   "author": {
     "name": "Patsnap"

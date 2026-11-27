@@ -24,7 +24,7 @@ s-search-agent-plugins/
 │           ├── ip-portfolio-analysis/  # Patent Portfolio Analysis
 │           ├── ip-innovation-harvesting/  # Innovation Harvesting
 │           ├── ip-fto-search/  # FTO Search
-│           └── ip-EOU-investigation/  # EOU Investigation
+│           └── ip-eou-investigation/  # EOU Investigation
 ├── .gitignore
 ├── SKILL_MAINTENANCE.md
 └── README.md
@@ -46,49 +46,49 @@ The client network must reach this service. Skills organize patent search, liter
 
 MCP supplies tools; skills define workflows. The manifest distributes both together.
 
-Current plugin version: **0.10.3**. Chinese edition: `main`; English edition: `release-en`.
+Current plugin version: **0.10.5**. Chinese edition: `main`; English edition: `release-en`.
 
 ### ip-novelty-search: Novelty Search
 
 File: [SKILL.md](plugins/patsnap-ip/skills/ip-novelty-search/SKILL.md)
 
-Assess a complete technical disclosure against prior patents, compare its features, verify decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Supports continuation of an existing search.
+Use when checking whether an invention or technical proposal is new. Compare its features with the closest patents, verify the decisive evidence, and report novelty and inventive step separately in a traceable HTML report. Can continue an existing search.
 
 ### ip-portfolio-analysis: Patent Portfolio Analysis
 
 File: [SKILL.md](plugins/patsnap-ip/skills/ip-portfolio-analysis/SKILL.md)
 
-Use when planning patent protection for a defined project. Analyze portfolios, competitors and technical spaces using explicit dates and jurisdictions; produce a layout matrix and evidence-backed recommendations. Proposed workflow; apply the local MC/Skill/ip-portfolio-analysis execution contract. Runtime binding and channel availability remain unverified.
+Use when planning patent protection for a project or company. Combine your own coverage with competitor activity across set dates and countries to recommend technical directions, patent groups, filing priorities and target countries in an HTML report.
 
 ### competitive-patent-analysis: Competitive Patent Analysis
 
 File: [SKILL.md](plugins/patsnap-ip/skills/competitive-patent-analysis/SKILL.md)
 
-Use when analyzing one company’s strongest technology directions and representative patents. Confirm directions and assignee scope, verify family identities where data permits, explain selected patents and disclose missing valuation or legal data. This does not replace FTO research. Proposed workflow; apply the local MC/Skill/competitive-patent-analysis execution contract. Runtime binding and channel availability remain unverified.
+Use when analyzing one company's strongest technology directions and representative patents. Confirm the company and its subsidiaries, verify patent families where data permits, explain each selected patent, and deliver an HTML report. Does not replace FTO research.
 
 ### ip-innovation-harvesting: Innovation Harvesting
 
 File: [SKILL.md](plugins/patsnap-ip/skills/ip-innovation-harvesting/SKILL.md)
 
-Use when organizing real R&D results into potential invention ideas. Preserve supplied facts, support quick or deep exploration, compare prior art and identify differences, experiments and next actions. Do not invent technical achievements or guarantee patent grant. Proposed workflow; apply the local MC/Skill/ip-innovation-harvesting execution contract. Runtime binding and channel availability remain unverified.
+Use when turning real R&D problems, proposals or invention disclosures into patentable ideas. Keep the supplied facts, compare them with prior art, and list differences, experiments still needed and next steps. Supports quick and deep modes. Does not invent results or guarantee a grant.
 
 ### ip-fto-search: FTO Search
 
 File: [SKILL.md](plugins/patsnap-ip/skills/ip-fto-search/SKILL.md)
 
-Use for FTO research on a single confirmed product configuration and specified manufacturing, sales or use countries. Bind the separate fto-search service, run official screening, preserve client-selected claim-analysis scope and produce the actual official report plus evidence review. Disclose coverage and product gaps; do not guarantee non-infringement or exhaustive retrieval. Proposed workflow; apply the local MC/Skill/ip-fto-search execution contract. Runtime binding and channel availability remain unverified.
+Use for freedom-to-operate research on a confirmed product and its target countries. Screen candidate patents, let the user choose which ones go into claim analysis, build claim charts, and produce a risk report with sources and coverage gaps. Does not guarantee non-infringement.
 
-### ip-EOU-investigation: EOU Investigation
+### ip-eou-investigation: EOU Investigation
 
-File: [SKILL.md](plugins/patsnap-ip/skills/ip-EOU-investigation/SKILL.md)
+File: [SKILL.md](plugins/patsnap-ip/skills/ip-eou-investigation/SKILL.md)
 
-EoU Investigation helps companies identify potential patent infringement leads by matching their own patents with evidence from third-party products. It discovers relevant patents, explains key claim features, researches competing products, and maps supporting evidence into a clear comparison matrix. Findings are delivered in a standalone HTML report with traceable sources, evidence gaps, and recommended next steps to support further review.
+Use when looking for third-party products that may use your own patents. Find relevant patents, explain their key claim features, research competing products, and map the evidence into a comparison matrix in an HTML report with sources, evidence gaps and next steps.
 
 ### patent-search-report-reviewer: Patent Search Report Reviewer
 
 File: [SKILL.md](plugins/patsnap-ip/skills/patent-search-report-reviewer/SKILL.md)
 
-Use to independently review an existing report, citations and process records. Check document identity, quoted source text, evidence support and scope/count consistency. Return located issues, coverage and missing evidence. Unavailable sources do not prove fabrication. Additional retrieval or independent FTO searching requires a separately defined scope. Proposed workflow; apply the local MC/Skill/patent-search-report-reviewer execution contract. Runtime binding and channel availability remain unverified.
+Use to review an existing patent search, novelty, FTO, evidence-of-use or invalidity report. Check the search strategy, cited documents, quoted source text and counts, and return located issues, coverage and missing evidence as written comments. Does not run a new search from scratch.
 
 ### File responsibilities
 
@@ -105,7 +105,7 @@ Novelty scripts organize report data and receipts; HTML rendering requires Pytho
 |---|---|
 | `competitive-patent-analysis` | Standalone offline HTML using the packaged template. Keep valuation and jurisdictional coverage in the representative patent table. |
 | `ip-fto-search` | A self-contained HTML preview first; after content confirmation, deliver the selected HTML, Word, PDF, Markdown or combination. The main claim comparison table has four columns. |
-| `ip-EOU-investigation` | Standalone HTML report with a product model by claim point evidence matrix, supporting evidence, and open questions. |
+| `ip-eou-investigation` | Standalone HTML report with a product model by claim point evidence matrix, supporting evidence, and open questions. |
 | `ip-novelty-search` | Novelty conclusions and single-file HTML with actual retrieval, per-feature evidence, Agent verification, separate novelty/inventive-step assessments and unresolved issues. |
 | `ip-portfolio-analysis` | Thirteen-chapter HTML with an eight-column portfolio matrix. Include an action plan only when requested. |
 | `ip-innovation-harvesting` | Markdown in dialogue and light HTML for full reports, retaining six CP-0 fields and a six-month roadmap. |
@@ -119,6 +119,16 @@ Novelty scripts organize report data and receipts; HTML rendering requires Pytho
 - Install one language edition per client. Both editions use the same identifiers for that client.
 - Replace `/absolute/path/...` with actual paths. GitLab access requires the company network and SSH credentials.
 - Run commands in a terminal; examples target macOS, Linux or Git Bash. Obtain release packages from [Plugin versions and packages](https://xa3hdkuita.feishu.cn/docx/Wc5Dd2mDqoQ3C2xSgYucxWninwb); local development packaging is described below.
+
+### GitHub marketplace
+
+The public repository is [patsnap/ip-plugin](https://github.com/patsnap/ip-plugin). The marketplace ID is `patsnap-plugins`. Choose the edition when adding the source.
+
+| Client | GitHub marketplace source and edition |
+| --- | --- |
+| Codex | Set Source to `patsnap/ip-plugin` and Git ref to `main` for Chinese or `release-en` for English. |
+| Claude Code | Use `patsnap/ip-plugin#main` for Chinese or `patsnap/ip-plugin#release-en` for English. |
+| WorkBuddy domestic and international | Enter `patsnap/ip-plugin` for the default Chinese edition (`main`). |
 
 # WorkBuddy domestic edition
 
@@ -356,7 +366,7 @@ Try the seven workflows individually:
 
 > Use ip-fto-search for my proposal. Resolve actual countries and search languages; after screening, confirm CC scope and full-text strategy, then compare in batches and report.
 
-> Use ip-EOU-investigation to investigate a third-party product using patents we own. Confirm the company scope, patent portfolio, claim points, and retained leads, then deliver an HTML report with model-specific evidence and open questions.
+> Use ip-eou-investigation to investigate a third-party product using patents we own. Confirm the company scope, patent portfolio, claim points, and retained leads, then deliver an HTML report with model-specific evidence and open questions.
 
 Check skill loading, calls/parameters and evidence traceability. Competitor reports must disclose pagination, family and valuation limits; reviews collect evidence according to the issue. Record source, time and actual read coverage for supplementary web materials.
 
@@ -380,7 +390,7 @@ Client adapters coexist within each branch. `main` and `release-en` share the de
 Use immutable release tags for distribution so later branch commits do not change a named ZIP. After the release commit and tag exist, export the plugin directory:
 
 ```bash
-release_tag=v0.10.3-en
+release_tag=v0.10.5-en
 mkdir -p outputs/releases
 git archive --format=zip --output="outputs/releases/patsnap-ip-$release_tag.zip" "$release_tag:plugins/patsnap-ip"
 (cd outputs/releases && shasum -a 256 "patsnap-ip-$release_tag.zip" > "patsnap-ip-$release_tag.zip.sha256")

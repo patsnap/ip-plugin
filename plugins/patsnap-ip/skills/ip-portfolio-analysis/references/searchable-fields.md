@@ -2,9 +2,7 @@
 
 > Use these fields and syntax to construct queries; actual calls must follow the tool schema. Mark unexecuted syntax as pending validation. See [Tool usage](tool-usage.md).
 
-Source: `智慧芽可搜索字段.docx`, parsed into a reusable field reference for the skill.
-
-Total fields identified: 269.
+The tables cover 269 fields. Examples for Chinese translations, registry values and court records retain the wording indexed in Chinese. For example, `汽车` means “car”, and `一审` means “first instance”. For exact names and classification labels, use the value recorded in the index.
 
 Use this file when the user asks for a Patsnap executable search formula or when mapping a retrieval idea to exact searchable fields. Prefer the source document if the user provides an updated version.
 
@@ -37,25 +35,25 @@ Use this file when the user asks for a Patsnap executable search formula or when
 | `FAM_ID` | Simple family ID | Identifier | FAM_ID:138860071 |
 | `IFAM_ID` | INPADOC family ID | Identifier | IFAM_ID:438860071 |
 | `EFAM_ID` | Patsnap family ID | Identifier | EFAM_ID:742326667 |
-| `TTL` | Title | Text | TTL:汽车 |
-| `ABST` | Abstract | Text | ABST:汽车 |
-| `CLMS` | Claims | Text | CLMS:汽车 |
+| `TTL` | Title | Text | TTL:car |
+| `ABST` | Abstract | Text | ABST:car |
+| `CLMS` | Claims | Text | CLMS:car |
 | `ICLMS` | Independent claims | Text | ICLMS:car Supports English-language patents and CN patents only. |
-| `DESC` | Description | Text | DESC:汽车 |
+| `DESC` | Description | Text | DESC:car |
 | `DESC_F` | Technical field | Text | DESC_F:汽车 Supports CN patents only. |
 | `DESC_B` | Background | Text | DESC_B:汽车 Supports CN patents only. |
 | `DESC_S` | Summary of the invention | Text | DESC_S:汽车 Supports CN patents only. |
 | `DESC_D` | Description of drawings | Text | DESC_D:汽车 Supports CN patents only. |
 | `DESC_E` | Detailed embodiments | Text | DESC_E:汽车 Supports CN patents only. |
-| `PROBLEM_SUM` | Technical problem | Text | PROBLEM_SUM:透气性差 Supports worldwide patents with description text. |
-| `METHOD_SUM` | Technical means | Text | METHOD_SUM:汽车 Supports worldwide patents with description text. |
-| `BENEFIT_SUM` | Technical effect | Text | BENEFIT_SUM:汽车 Supports worldwide patents with description text. |
+| `PROBLEM_SUM` | Technical problem | Text | PROBLEM_SUM:"poor breathability" Supports worldwide patents with description text. |
+| `METHOD_SUM` | Technical means | Text | METHOD_SUM:car Supports worldwide patents with description text. |
+| `BENEFIT_SUM` | Technical effect | Text | BENEFIT_SUM:car Supports worldwide patents with description text. |
 | `PROBLEM_PHR` | Standardized technical problem phrase | Text | PROBLEM_PHR:成本高 Supports CN/US/EP/WO patents only. |
 | `BENEFIT_PHR` | Standardized technical effect phrase | Text | BENEFIT_PHR:降低成本 Supports CN/US/EP/WO patents only. |
-| `TA` | Title / abstract | Text | TA:(汽车 and 座椅) |
-| `TAC` | Title / abstract / claims | Text | TAC:(汽车 and 座椅) |
-| `TACD` | Title / abstract / claims / description | Text | TACD:(汽车 and 座椅) |
-| `MAINF` | Main fields | Text | MAINF:汽车 Main fields include title, abstract, claims, description, publication/application numbers, applicants, inventors, and IPC/UPC/LOC classifications. Queries without a field use these main fields by default. |
+| `TA` | Title / abstract | Text | TA:(car and seat) |
+| `TAC` | Title / abstract / claims | Text | TAC:(car and seat) |
+| `TACD` | Title / abstract / claims / description | Text | TACD:(car and seat) |
+| `MAINF` | Main fields | Text | MAINF:car Main fields include title, abstract, claims, description, publication/application numbers, applicants, inventors, and IPC/UPC/LOC classifications. Queries without a field use these main fields by default. |
 | `TTL_ENTRANS` | Title — English machine translation | Text | TTL_ENTRANS:car |
 | `ABST_ENTRANS` | Abstract — English machine translation | Text | ABST_ENTRANS:car |
 | `CLMS_ENTRANS` | Claims — English machine translation | Text | CLMS_ENTRANS:car |
@@ -66,47 +64,47 @@ Use this file when the user asks for a Patsnap executable search formula or when
 | `CLMS_CNTRANS` | Claims — Chinese machine translation | Text | CLMS_CNTRANS:汽车 |
 | `ICLMS_CNTRANS` | Independent claims — Chinese machine translation | Text | ICLMS_CNTRANS:汽车 |
 | `DESC_CNTRANS` | Description — Chinese machine translation | Text | DESC_CNTRANS:汽车 |
-| `TTL_ALL` | Title — original and translated text | Text | TTL_ALL:汽车 |
-| `ABST_ALL` | Abstract — original and translated text | Text | ABST_ALL:汽车 |
-| `CLMS_ALL` | Claims — original and translated text | Text | CLMS_ALL:汽车 |
-| `ICLMS_ALL` | Independent claims — original and translated text | Text | ICLMS_ALL:汽车 |
-| `DESC_ALL` | Description — original and translated text | Text | DESC_ALL:汽车 |
-| `TA_ALL` | Title / abstract — original and translated text | Text | TA_ALL:汽车 |
-| `TAC_ALL` | Title / abstract / claims — original and translated text | Text | TAC_ALL:汽车 |
-| `TACD_ALL` | Title / abstract / claims / description — original and translated text | Text | TACD_ALL:汽车 |
-| `MAINF_ALL` | Main fields — original and translated text | Text | MAINF_ALL:汽车 Includes original and translated title, abstract, claims and description, plus publication/application numbers, applicants, inventors and IPC/UPC/LOC classifications. |
+| `TTL_ALL` | Title — original and translated text | Text | TTL_ALL:car |
+| `ABST_ALL` | Abstract — original and translated text | Text | ABST_ALL:car |
+| `CLMS_ALL` | Claims — original and translated text | Text | CLMS_ALL:car |
+| `ICLMS_ALL` | Independent claims — original and translated text | Text | ICLMS_ALL:car |
+| `DESC_ALL` | Description — original and translated text | Text | DESC_ALL:car |
+| `TA_ALL` | Title / abstract — original and translated text | Text | TA_ALL:car |
+| `TAC_ALL` | Title / abstract / claims — original and translated text | Text | TAC_ALL:car |
+| `TACD_ALL` | Title / abstract / claims / description — original and translated text | Text | TACD_ALL:car |
+| `MAINF_ALL` | Main fields — original and translated text | Text | MAINF_ALL:car Includes original and translated title, abstract, claims and description, plus publication/application numbers, applicants, inventors and IPC/UPC/LOC classifications. |
 
 ## Companies and people
 
 | Field code | Field name | Type | Examples and notes |
 | --- | --- | --- | --- |
-| `ALL_AN` | Applicant/assignee across all fields | Text | ALL_AN:清华大学 Combined index of standardized current, current, standardized original, original and historical applicants/assignees. |
-| `AN` | Original applicant/assignee | Text | AN:清华大学 The initial applicant/assignee. |
-| `ANC` | Current applicant/assignee | Text | ANC:清华大学 The current applicant/assignee. |
-| `ANS` | Standardized original applicant/assignee | Text | ANS:清华大学 Initial applicant/assignee standardized by Patsnap. |
-| `ANS_EXACT` | Exact standardized original applicant/assignee | Text | ANS_EXACT:清华大学 Exact match of standardized original applicant/assignee, including symbols and case. |
-| `ANCS` | Standardized current applicant/assignee | Text | ANCS:清华大学 Current applicant/assignee standardized by Patsnap. |
-| `ANCS_EXACT` | Exact standardized current applicant/assignee | Text | ANCS_EXACT:清华大学 Exact match of standardized current applicant/assignee, including symbols and case. |
-| `AN_HIST` | Historical applicant/assignee | Text | AN_HIST:清华大学 Includes applicants/assignees recorded during transfers, changes, pledges and security interests. |
-| `GNAME` | Custom applicant group | Text | GNAME:清华大学 |
-| `AN_ADD` | Original applicant/assignee address | Text | AN_ADD:北京 |
+| `ALL_AN` | Applicant/assignee across all fields | Text | ALL_AN:"Tsinghua University" Combined index of standardized current, current, standardized original, original and historical applicants/assignees. |
+| `AN` | Original applicant/assignee | Text | AN:"Tsinghua University" The initial applicant/assignee. |
+| `ANC` | Current applicant/assignee | Text | ANC:"Tsinghua University" The current applicant/assignee. |
+| `ANS` | Standardized original applicant/assignee | Text | ANS:"Tsinghua University" Initial applicant/assignee standardized by Patsnap. |
+| `ANS_EXACT` | Exact standardized original applicant/assignee | Text | ANS_EXACT:"Tsinghua University" Exact match of standardized original applicant/assignee, including symbols and case. |
+| `ANCS` | Standardized current applicant/assignee | Text | ANCS:"Tsinghua University" Current applicant/assignee standardized by Patsnap. |
+| `ANCS_EXACT` | Exact standardized current applicant/assignee | Text | ANCS_EXACT:"Tsinghua University" Exact match of standardized current applicant/assignee, including symbols and case. |
+| `AN_HIST` | Historical applicant/assignee | Text | AN_HIST:"Tsinghua University" Includes applicants/assignees recorded during transfers, changes, pledges and security interests. |
+| `GNAME` | Custom applicant group | Text | GNAME:"Tsinghua University" |
+| `AN_ADD` | Original applicant/assignee address | Text | AN_ADD:Beijing |
 | `AN_COUNTRY` | Original applicant/assignee country or region | Text | AN_COUNTRY:CN AN_COUNTRY:中国 Search by applicant country/region name or code. |
 | `AN_PROVINCE` | Original applicant/assignee state or province | Text | AN_PROVINCE:江苏 AN_PROVINCE:32 Search by province name or code. Supports CN patents only. |
 | `AN_CITY` | Original applicant/assignee city | Text | AN_CITY:南京 Search by Chinese city or US municipality. Supports CN and US patents only. |
 | `AN_DISTRICT` | Original applicant/assignee district or county | Text | AN_DISTRICT:鼓楼区 Search by Chinese district/county or US county. Supports CN and US patents only. |
-| `ANC_ADD` | Current applicant/assignee address | Text | ANC_ADD:北京 |
+| `ANC_ADD` | Current applicant/assignee address | Text | ANC_ADD:Beijing |
 | `ANC_COUNTRY` | Current applicant/assignee country or region | Text | ANC_COUNTRY:CN ANC_COUNTRY:中国 Search by applicant country/region name or code. |
 | `ANC_PROVINCE` | Current applicant/assignee state or province | Text | ANC_PROVINCE:江苏 ANC_PROVINCE:32 Search by province name or code. Supports CN patents only. |
 | `ANC_CITY` | Current applicant/assignee city | Text | ANC_CITY:南京 Search by Chinese city or US municipality. Supports CN and US patents only. |
 | `ANC_DISTRICT` | Current applicant/assignee district or county | Text | ANC_DISTRICT:鼓楼区 Search by Chinese district/county or US county. Supports CN and US patents only. |
-| `F_AN` | First original applicant/assignee | Text | F_AN:清华大学 |
-| `F_ANC` | First current applicant/assignee | Text | F_ANC:清华大学 |
+| `F_AN` | First original applicant/assignee | Text | F_AN:"Tsinghua University" |
+| `F_ANC` | First current applicant/assignee | Text | F_ANC:"Tsinghua University" |
 | `ANS_TYPE` | Standardized original applicant/assignee type | Text | ANS_TYPE:ACADEMY ACADEMY: university/research institute; COMPANY: company; GOVERNMENT: government agency; PERSON: individual; HOSPITAL: hospital; BANK: bank. |
 | `ANCS_TYPE` | Standardized current applicant/assignee type | Text | ANCS_TYPE:ACADEMY ACADEMY: university/research institute; COMPANY: company; GOVERNMENT: government agency; PERSON: individual; HOSPITAL: hospital; BANK: bank. |
 | `IN` | Inventor | Text | IN:李书福 |
 | `INC` | Current inventor | Text | INC:李书福 Current inventor name after a recorded change. Supports CN patents only. |
 | `IN_EXACT` | Exact inventor | Text | IN_EXACT:李书福 Exact inventor match including symbols and case. |
-| `IN_ADDRESS` | Inventor address | Text | IN_ADDRESS:北京 |
+| `IN_ADDRESS` | Inventor address | Text | IN_ADDRESS:Beijing |
 | `F_IN` | First inventor | Text | F_IN:李书福 |
 | `AT` | Agent | Text | AT:吴观乐 |
 | `AT_C` | Current agent | Text | AT_C:"GOUDREAU GAGE DUBUC" Supports CA patents only. |
@@ -197,8 +195,8 @@ Use this file when the user asks for a Patsnap executable search formula or when
 | `BF_CITES` | Backward or forward citations | Identifier | BF_CITES:US6394621B1 Retrieves both backward and forward citations of the specified patent. |
 | `B_CITES_COUNT` | Backward citation count | Number | B_CITES_COUNT:[10 TO 20] B_CITES_COUNT:10 Searches patents by backward citation count range. |
 | `F_CITES_COUNT` | Forward citation count | Number | F_CITES_COUNT:[10 TO 20] F_CITES_COUNT:10 Searches patents by forward citation count range. |
-| `F_CITES_ANC` | Citing a current applicant | Text | F_CITES_ANC:清华大学 Retrieves patents citing Tsinghua University patents. |
-| `B_CITES_ANC` | Cited by a current applicant | Text | B_CITES_ANC:清华大学 Retrieves patents cited by Tsinghua University patents. |
+| `F_CITES_ANC` | Citing a current applicant | Text | F_CITES_ANC:"Tsinghua University" Retrieves patents citing Tsinghua University patents. |
+| `B_CITES_ANC` | Cited by a current applicant | Text | B_CITES_ANC:"Tsinghua University" Retrieves patents cited by Tsinghua University patents. |
 | `CITE_CATEGORY` | Citation category | Text | CITE_CATEGORY:X Searches patents with a specified citation category. X: particularly relevant, may negate novelty/inventive step alone; Y: particularly relevant in an obvious combination with another document; A: general prior art without special relevance; D: cited by the applicant; E: earlier document published on/after the international filing date (check conflicting-application eligibility); L: raises priority doubts, establishes another citation’s publication date or is cited for another special reason; R: same-invention patent/application submitted to the office on the filing date; T: later document explaining principles without conflicting with the application; 101: US subject-matter eligibility; 102: US novelty; 103: US non-obviousness. |
 | `FAM` | Simple family | Identifier | FAM:WO2012001234A1 |
 | `IFAM` | INPADOC family | Identifier | IFAM:WO2012001234A1 |
@@ -295,8 +293,8 @@ Use this file when the user asks for a Patsnap executable search formula or when
 | Field code | Field name | Type | Examples and notes |
 | --- | --- | --- | --- |
 | `LICENSE` | Patents with licensing records | Number | LICENSE:1 |
-| `LICENSOR` | Licensor | Text | LICENSOR:(三星) Available for selected countries/regions only. |
-| `LICENSEE` | Licensee | Text | LICENSEE:(小米) Available for selected countries/regions only. |
+| `LICENSOR` | Licensor | Text | LICENSOR:(Samsung) Available for selected countries/regions only. |
+| `LICENSEE` | Licensee | Text | LICENSEE:(Xiaomi) Available for selected countries/regions only. |
 | `LICNO` | License registration number | Text | LICNO:2014510000101 Available for selected countries/regions only. |
 | `EXCLUSIVITY` | License exclusivity | Text | EXCLUSIVITY:(Exclusive) Available for selected countries/regions only. |
 | `LIC_EFDT` | License effective date | Date | LIC_EFDT:[20160101 TO 20160501] Available for selected countries/regions only. |
@@ -307,8 +305,8 @@ Use this file when the user asks for a Patsnap executable search formula or when
 | Field code | Field name | Type | Examples and notes |
 | --- | --- | --- | --- |
 | `TRANSFER` | Patents with transfer records | Number | TRANSFER:1 |
-| `TRANSFER_BEFORE` | Assignor | Text | TRANSFER_BEFORE:(英特尔) Available for selected countries/regions only. |
-| `TRANSFER_AFTER` | Assignee | Text | TRANSFER_AFTER:(华为) Available for selected countries/regions only. |
+| `TRANSFER_BEFORE` | Assignor | Text | TRANSFER_BEFORE:(Intel) Available for selected countries/regions only. |
+| `TRANSFER_AFTER` | Assignee | Text | TRANSFER_AFTER:(Huawei) Available for selected countries/regions only. |
 | `TRANS_EFDT` | Transfer effective date | Date | TRANS_EFDT:[20180701 TO 20181231] Available for selected countries/regions only. |
 
 ## Reexamination and invalidation
@@ -346,4 +344,4 @@ Use this file when the user asks for a Patsnap executable search formula or when
 | --- | --- | --- | --- |
 | `MWS` | My workspace | Text | MWS:\|WorkspaceA\FolderB\| Searches folders under My Workspace only; enclose the folder path in \|\|. |
 | `CWS` | Corporate workspace | Text | CWS:\|WorkspaceA\FolderB\| Searches folders under Corporate Workspace only; enclose the folder path in \|\|. |
-| `CCF_` | Corporate custom field | Text | CCF_PR:"标引值A" Enclose hierarchical/option field tag values in quotes. For URL fields, "not blank" means the field has a value. |
+| `CCF_` | Corporate custom field | Text | CCF_PR:"Project A" Enclose hierarchical/option field tag values in quotes. For URL fields, "not blank" means the field has a value. |

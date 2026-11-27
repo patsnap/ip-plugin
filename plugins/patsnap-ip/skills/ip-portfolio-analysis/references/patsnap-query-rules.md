@@ -4,7 +4,7 @@
 
 Use this reference when converting a technical theme into a Patsnap search formula. If the user provides Patsnap's exact field names or examples, follow those over this generic guidance.
 
-These rules are based on Patsnap Search Helper, the user's Search Helper screenshots, and Patsnap Help Center behavior. These syntax references do not prove that a formula has been executed. Check current tool schemas and record the outcome of any validation.
+These rules are based on Patsnap Search Helper and the Patsnap Help Center. These syntax references do not prove that a formula has been executed. Check current tool schemas and record the outcome of any validation.
 
 ## Core Syntax
 
@@ -25,9 +25,9 @@ These rules are based on Patsnap Search Helper, the user's Search Helper screens
 
 | Operator | Use | Example |
 | --- | --- | --- |
-| `AND` | Both sides must exist; order does not matter. Also used implicitly between terms with no operator. | `太阳能 AND 电池`; `TTL:纳米 AND AN:清华大学` |
-| `OR` | At least one side must exist. Use for synonyms, alternatives, and equivalent search conditions. | `发动机 OR 引擎`; `TTL:非晶硅电池 OR IPC:H01L31/075` |
-| `NOT` | Exclude records matching the following condition from the preceding result set. | `电视 NOT 等离子`; `AN:华为科技 NOT ABST:手机` |
+| `AND` | Both sides must exist; order does not matter. Also used implicitly between terms with no operator. | `solar AND battery`; `TTL:nano AND AN:"Tsinghua University"` |
+| `OR` | At least one side must exist. Use for synonyms, alternatives, and equivalent search conditions. | `engine OR motor`; `TTL:"amorphous silicon cell" OR IPC:H01L31/075` |
+| `NOT` | Exclude records matching the following condition from the preceding result set. | `television NOT plasma`; `AN:"Huawei Technologies" NOT ABST:phone` |
 | `GAND` | Limit search to matched members in an event group or paired field group. | `EPDS:DE GAND EPDS_SLS:1` |
 
 Use `GAND` only for supported grouped-event fields, including award name/level/session, EP designated state/legal status groups, citation relationship groups, enterprise custom fields, and company workspace fields. For normal keyword logic, use `AND`.
@@ -58,7 +58,7 @@ Common high-value fields and examples:
 
 Patsnap contains many additional fields in Search Helper. If a field is not confirmed by the current MCP declaration or supplied reference, mark it unverified; do not invent unsupported field names.
 
-For the full field abbreviation list parsed from the user's document, read `searchable-fields.md` before producing an executable formula.
+For the full field abbreviation list, read `searchable-fields.md` before producing an executable formula.
 
 ### Classification Field Scope
 
@@ -85,7 +85,7 @@ Examples:
 | Medical/pharmaceutical noise | `IPC_LOW:A61K`, `IPC_LOW:A61P`, `CPC_LOW:A61K`, `CPC_LOW:A61P` | Exclude when the topic is not therapeutic, pharmaceutical, diagnostic, or medical |
 | Food/agriculture noise | `IPC_LOW:A23`, `IPC_LOW:A01` | Exclude when food/agriculture is outside the boundary |
 
-For a non-agriculture topic where pesticide records are confirmed false positives, create a named block:
+For a non-agriculture topic where pesticide records are confirmed false positives, group classification codes with Chinese and English terms found in the records:
 
 ```text
 AGRI_NOISE =
@@ -151,7 +151,7 @@ Use these patterns to avoid flat `AND`/`OR` formulas that are either too noisy o
 
 | Pattern | When to use | Preferred expression |
 | --- | --- | --- |
-| Fixed phrase with minor inserted words | Chinese/English compound scenario terms such as 锂电池回收, 废旧动力电池回收, cathode material recycling | `(object $W5-9 action)` |
+| Fixed phrase with minor inserted words | Compound terms such as lithium battery recycling or cathode material recycling | `(object $W5-9 action)` |
 | Ordered technical relation | A must appear before B, such as precursor -> product, process -> output, or modifier -> object | `(A $PREn B)` |
 | Element/material system | Several materials/elements must co-occur as one system, such as Ni-Co-Mn | `((A $Wn B) $Wn C)` plus order variants |
 | Object-action relation | High-frequency object terms need to be tied to operations, such as metal + separation/recovery | `(object $Wn action)` |
@@ -163,7 +163,7 @@ Recommended starting windows:
 
 - `$W0-$W2`: tight phrase variants, equivalent to near-exact terms.
 - `$W3-$W5`: common compound technical expressions and element systems.
-- `$W5-$W9`: application scenarios with inserted qualifiers, such as 废旧锂离子动力电池正极材料回收.
+- `$W5-$W9`: application scenarios with inserted qualifiers, such as recovery of cathode materials from spent lithium-ion traction batteries.
 - `$SEN`: when multiple keywords must be in the same sentence but order/distance is uncertain.
 - `$PARA`: only when the concept is often explained across a paragraph; expect more noise and validate precision.
 
@@ -172,15 +172,15 @@ Always tune the window after reading retrieved patent wording. If noise is high,
 Examples:
 
 ```text
-((锂电池 OR 锂离子电池 OR 动力电池 OR 正极材料) $W7 (回收 OR 再生 OR 资源化 OR 湿法 OR 浸出))
+(("lithium battery" OR "lithium-ion battery" OR "traction battery" OR "cathode material") $W7 (recycling OR regeneration OR reclamation OR hydrometallurgy OR leaching))
 
 ((black mass OR cathode powder) $W5 (battery OR lithium OR recycling OR leachate))
 
-((镍 $W5 钴) $W5 锰) OR ((镍 $W5 锰) $W5 钴)
+((nickel $W5 cobalt) $W5 manganese) OR ((nickel $W5 manganese) $W5 cobalt)
 
 ((nickel OR cobalt OR manganese) $W5 (extract* OR separat* OR recover*))
 
-((固态 OR 固体 OR 聚合物) $PRE3 电池)
+(("solid state" OR solid OR polymer) $PRE3 battery)
 ```
 
 ### Feedback-Derived Translation Variants
@@ -237,7 +237,7 @@ Rules:
 Use `$FREQn` to require that a keyword appears at least n times in a specified field:
 
 ```text
-汽车 $FREQ2
+car $FREQ2
 TTL:("car" $FREQ2) AND ABST:("engine")
 ```
 
@@ -282,7 +282,7 @@ Stemming behavior:
 
 ### Corporate Tree Search
 
-Use `TREE@` to search a name and all lower-level companies in the Patsnap corporate tree. The company name after `TREE@` must be the full name of a company node in the Patsnap corporate tree.
+Use `TREE@` to search a name and all lower-level companies in the Patsnap corporate tree. The company name after `TREE@` must be the full name of a company node in the Patsnap corporate tree. The example uses the Chinese node name for Bayer AG.
 
 ```text
 ANCS:(TREE@"拜耳股份公司")
@@ -430,4 +430,4 @@ Key Patsnap behaviors to preserve in the skill:
 - Search settings can choose default logic or input-order logic; default logic is `NOT > AND > OR`.
 - Keyword Helper can suggest Chinese/English synonyms, hyponyms, and similar keywords.
 - Classification helpers can add IPC/CPC and related classification fields.
-- User-provided Search Helper screenshots define common logical operators, wildcards, proximity operators, frequency operator, range syntax, exact phrase syntax, optional separator `_`, stemming behavior, `TREE@`, and special-character handling.
+- Search Helper documents common logical operators, wildcards, proximity operators, frequency operator, range syntax, exact phrase syntax, optional separator `_`, stemming behavior, `TREE@`, and special-character handling.

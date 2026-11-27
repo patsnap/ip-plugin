@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "patsnap-ip-plugin",
-  "version": "0.10.3",
+  "version": "0.10.5",
   "description": "Patent search, analytics and IP intelligence in your AI assistant, for prior art, FTO, landscapes and more. Every finding traceable to its source.",
   "author": {
     "name": "Patsnap"
