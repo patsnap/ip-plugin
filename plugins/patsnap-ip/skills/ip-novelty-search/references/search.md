@@ -5,9 +5,13 @@
 - 组织查询与收敛
 - 语义＋关键词混合检索
 - 查询分工与检索层次
+- 关系命题与来源审计
+- 去重后补足有效候选
+- 检索路线重构反思
 - 通道记录与工具参数绑定
 - 字段、布尔式与引证扩展
 - 读文与过程记录
+- 候选保全与弱召回补检
 
 ## 组织查询与收敛
 
@@ -41,6 +45,82 @@
 
 语义查询通常是一段完整自然语言；关键词通常为 3—8 个完整概念或关系短语。多语言词项用于覆盖表达差异，不为凑数量逐字翻译所有泛词。
 
+### 关系命题与来源审计
+
+“补关系”是补足技术谓词和约束，不是给名词列表增加同义词。一个可执行的关系命题至少包含：
+
+- `subject`：发生动作或承担配合的一方；
+- `relation`：动作、连接、位置、传递、触发或配合；
+- `object_or_condition`：关系指向的对象、状态或成立条件；
+- `constraints`：交底实际支持的位置、顺序、方向、数量、大小、间隙或状态切换，可为空数组但不得猜造。
+
+例如，“检测器、第一光栅、第二光栅”只是部件集合；“检测到检测器或两光栅被拆装后触发预备照射，以检测相对位置偏差”才是关系命题。`semantic_query` 表达完整命题和技术目的；`keywords` 使用能够共同表达该关系的行业短语，不把主体、动作和对象拆成独立宽词。
+
+每条 `relation` 查询记录 `relation_proposition`：
+
+```json
+{
+  "subject": "刀具护罩",
+  "relation": "沿手柄导槽纵向滑动",
+  "object_or_condition": "伸出时覆盖刀刃、缩回时露出刀刃",
+  "constraints": ["护罩与刀体可分离"],
+  "source": "disclosure",
+  "source_refs": ["feature-plan.json#comparison_units/2"]
+}
+```
+
+`source` 只使用 `disclosure`、`user_clarification` 或 `candidate_feedback`。使用 `candidate_feedback` 时，同时记录 `source_publication_number`，并让 `source_refs` 指向已保存的正文回执和具体位置。评分参考、隐藏 GT、参考答案或事后看到的目标摘要不得成为正式查询来源；确需用它们诊断检索能力时，单独标记为标签暴露实验，不把结果写成盲测召回提升。
+
+关系同义扩展按以下顺序执行：
+
+1. 用 `derived_from_query_id` 指向唯一的 `relation` 查询，并继承完全相同的 `comparison_unit_numbers` 和关系来源。
+2. 分别填写 `subject_variants`、`relation_variants`、`object_or_condition_variants`。每个原始限定建立一个 `constraint_variant_groups` 项，以 `source_constraint` 回指原限定并在 `variants` 中保留原文和同义表达。这些只能改变表达方式，不能新增原关系没有的技术含义。
+3. 在 `composed_phrases` 中重新绑定各槽。每条记录包含完整 `text`、`language` 和实际采用的各槽变体，并从每个限定变体组各选择一个表达；不能直接笛卡尔积生成语义不自然、缺限定或技术关系错误的短语。
+4. 将 `composed_phrases[].text` 按原顺序作为实际 `keywords`，并用保留完整技术关系的 `semantic_query` 执行混合检索。
+
+```json
+{
+  "query_id": "Q3",
+  "route": "synonym",
+  "derived_from_query_id": "Q2",
+  "comparison_unit_numbers": [2],
+  "semantic_query": "可拆卸刀具护罩沿纵向导向结构移动以覆盖或露出刀刃",
+  "keywords": [
+    "可从刀体分离的刀具护罩沿手柄导槽滑动并覆盖或露出刀刃",
+    "removable blade guard sliding in a longitudinal handle guide to cover or expose the blade"
+  ],
+  "relation_synonym_expansion": {
+    "subject_variants": ["刀具护罩", "removable blade guard"],
+    "relation_variants": ["沿手柄导槽纵向滑动", "沿手柄导槽滑动", "sliding in a longitudinal handle guide"],
+    "object_or_condition_variants": [
+      "伸出时覆盖刀刃、缩回时露出刀刃",
+      "extended to cover the blade and retracted to expose the blade"
+    ],
+    "constraint_variant_groups": [{
+      "source_constraint": "护罩与刀体可分离",
+      "variants": ["护罩与刀体可分离", "可从刀体分离", "removable from the knife body"]
+    }],
+    "composed_phrases": [{
+      "text": "可从刀体分离的刀具护罩沿手柄导槽滑动并覆盖或露出刀刃",
+      "language": "zh-CN",
+      "subject_variant": "刀具护罩",
+      "relation_variant": "沿手柄导槽滑动",
+      "object_or_condition_variant": "伸出时覆盖刀刃、缩回时露出刀刃",
+      "constraint_variants": ["可从刀体分离"]
+    }, {
+      "text": "removable blade guard sliding in a longitudinal handle guide to cover or expose the blade",
+      "language": "en-US",
+      "subject_variant": "removable blade guard",
+      "relation_variant": "sliding in a longitudinal handle guide",
+      "object_or_condition_variant": "extended to cover the blade and retracted to expose the blade",
+      "constraint_variants": ["removable from the knife body"]
+    }]
+  }
+}
+```
+
+弱召回时在 `retrieval_assessment.decisive_comparison_unit_numbers` 列出仍可能改变结论的比对单元。每个编号必须被至少一条 `relation` 查询覆盖；否则不得结束检索。
+
 ### 检索层次
 
 按实际疑点选择层次，不固定轮数：
@@ -67,6 +147,65 @@
 ```
 
 日期未知时去掉 `filter` 和 `filters`，不能填入测试日或检索日。
+
+### 去重后补足有效候选
+
+每条发现路线在首次调用前设置 `target_unique_groups`。召回敏感的 Top 100 测试以 100 个有效技术组为目标；普通客户任务按计划快审容量设定，但必须在看到结果前冻结，不能因目标文献是否出现而改变。
+
+首次返回后按以下顺序建立两个并行视图：
+
+1. **身份台账**：同一结果的 `pn`／公开号别名归为一个精确身份；不同公开号仍分别入账并保存原始排名、页码和查询编号。
+2. **阅读队列**：优先按工具提供的同族 ID 或已核实同族归组；没有同族信息时，仅把规范化后完全相同的标题作为临时簇；仍无法归组时按精确身份保留。每组先保留原始排名最高的代表。
+
+完全同题临时簇只抑制阅读队列中的重复，不能据此断定同族、删除其他公开号或合并日期／法域身份。后续取得同族证据时更新分组；发现同题但技术内容不同则拆簇。
+
+若 `unique_group_count < target_unique_groups`，使用**完全相同**的 `semantic_query`、`keywords`、`filters`、排序和折叠设置继续分页，只改变 `offset`；每页原始回执均保存并追加到身份台账。不得为了补数量切换语言、静默放宽关系或生成新查询。达到以下任一条件才停止：
+
+- 去重后有效技术组达到预设目标；
+- 当前页少于请求 `limit`，或已达到工具返回的总命中量；
+- 达到工具允许的分页窗口；
+- 用户已明确的预算／时间边界；
+- 工具失败且按原请求恢复仍失败。
+
+未补足时必须记录实际停止原因；预算边界或工具错误导致的不足进入报告限制，不得写成“检索充分”。使用 `scripts/dedup_fill_results.py` 汇总连续页面并读取 `status` 和 `next_offset`：
+
+```sh
+python3 scripts/dedup_fill_results.py calls/Q1-page-*.json --target 100 --page-size 100 --output calls/Q1-dedup-fill.json
+```
+
+脚本输出的 `exact_title_provisional` 仅代表临时阅读簇；所有精确公开号仍须进入 `candidate-ledger.json`。
+
+### 检索路线重构反思
+
+完成去重补足后、决定收敛或改写前，对合并后的前列至少20个有效技术组做一次可审计反思。这里记录可核对的样本事实和决策，不要求输出隐性思维过程。
+
+反思卡至少回答：
+
+- 参与判断的查询及样本回执；
+- 样本中的独立同族／临时组数量和最大核心机理数量；
+- 决定性关系是 `covered`、`partial` 还是 `missing`；
+- 前列是否主要复述名称、用途或“提高、分配、控制”等效果词，而未覆盖交底中的结构／动作；
+- 缺少的实现维度：结构、位置、连接、运动、顺序、条件、控制、材料、路径、接口或机理；
+- 决策及后续查询编号。
+
+出现以下任一情形，不得直接 `converge`，也不得只继续相同查询补页：
+
+1. 单一核心机理占样本60%以上，且决定性关系只部分覆盖或未覆盖；
+2. `effect_term_echo=true`，即前列主要复述方案名称／效果词，而决定性结构关系未覆盖；
+3. 多条路线虽文字不同，实际使用相同主体—动作—对象骨架，未形成任何新的实现维度；
+4. 真实同族跨语言、跨标题占位，完全同题临时去重无法识别。
+
+按原因选择且只选择一个主决策：
+
+- `family_expand`：技术族已找到，仅需读取真实同族并回填日期／法域合格公开号；
+- `term_rewrite`：结构相同但行业术语不同，用候选正文的真实表达重写；
+- `route_reconstruct`：从交底支持的另一维度建立新路线，例如从效果改为结构、位置、运动、控制链或步骤顺序，并可暂时删除造成锁定的高频效果词；
+- `request_input`：交底没有支持另一实现维度，停止猜测并请求具体结构；
+- `converge`：只有决定性关系已覆盖、没有机理锁定且新增路线不再可能改变主要判断时使用。
+
+`route_reconstruct` 和 `term_rewrite` 必须指向新查询。新查询仍保存完整关系命题和来源；来源只能是原交底、用户澄清或已取文候选反馈。评分参考、隐藏GT或揭盲后的目标摘要不得作为反思证据或查询来源。
+
+中性示例：如果“提高换热效率”的三条路线均被直接复述 `heat transfer efficiency` 的同一核心机理主导，而交底另有“冷却液沿交错微通道分流并在汇流区重新合流”的结构事实，则反思应选择 `route_reconstruct`，新路线围绕流道位置、分流和合流关系，并暂时去掉“提高换热效率”。如果交底只有名称，没有该结构事实，则选择 `request_input`，不能从评分参考或事后目标摘要反推。
 
 ### 通道记录
 
@@ -98,7 +237,7 @@
 }
 ```
 
-示例日期仅演示用户已给定截止日的情况，不是默认条件。按当前工具定义使用 `limit`、`offset` 分页，记录实际返回范围，不把一页当全量。一般按相关性排序；用户要求日期或引证数量顺序时再切换。
+示例日期仅演示用户已给定截止日的情况，不是默认条件。按当前工具定义使用 `limit`、`offset` 分页，记录实际返回范围；一页去重后不足时按上述规则继续补足。一般按相关性排序；用户要求日期或引证数量顺序时再切换。
 
 ## 字段与布尔式
 
@@ -131,3 +270,16 @@
 `fetch_patent` 默认返回正文和书目，需要原图/PDF时才包含 `media`。媒体 URL 是来源线索，实际取得、阅读并保存后才作图证；不把技术摘要当原文，不从无尺寸示意图测比例。
 
 每轮说明“查证目标 → 实际检索或阅读 → 发现和下一步”。保留真实请求、完整结构化回执和失败信息。命中总量、当前页返回、去重候选和正式比较分别计数。失败不等于零命中，数量未知不填零。
+
+## 候选保全与弱召回补检
+
+每轮结果直接追加到 `candidate-ledger.json`，不等到取文后凭记忆重建。前列、范围内、用户给定或整体关系接近的候选，不得因为后续发现了另一篇文献而无记录地被替换。具体字段、阶段闸门和校验见入口文档直接链接的 `references/candidate-ledger.md`。
+
+如果前列候选对决定性关系整体偏弱，或某个必要比对单元没有被任何查询以完整关系表达，不得直接收敛。记录弱召回原因，至少增加一条主体—动作／配合—对象／条件的关系查询，再独立选择同义／替代结构、分类或引证路线中至少一条。补检仍使用完整技术关系，不把部件词堆叠成宽泛 OR。
+
+同一轮结果建立两个视图，并对阅读队列执行“去重后补足”：
+
+- **身份台账**：`collapse_family: false`，保留每个精确公开号及法域、日期和原始排名。
+- **阅读队列**：使用工具的同族折叠视图，或对不折叠回执在本地按已知家族／完全同题临时簇分组，优先阅读不同技术族；不足时保持原查询继续翻页。不用折叠视图删除身份台账。
+
+对前列至少 10 件快审：记录独立家族数、最大家族占比和仍保留目标技术对象链的文献数。最大家族超过样本一半，或对象保留率低于 60%，就是弱召回：前者增加折叠阅读和独立关系分支，后者把领域对象链重新放回语义句和关键词短语。命中总量不用于规避该闸门。

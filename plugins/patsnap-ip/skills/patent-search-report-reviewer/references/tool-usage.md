@@ -2,12 +2,29 @@
 
 按审核争点选择工具。本参考仅保留工具衔接、关键参数规则和证据含义；完整参数、类型、默认值、分页限制及返回结构以运行时工具定义为准。
 
+## 现行名称与字段
+
+按运行时暴露的完整名称调用，下列为 PatSnap IP 在线短名，不自行加前缀或改造为旧别名。运行时 schema 与本表冲突时，以运行时 schema 为准并记录差异。
+
+- `build_patent_boolean_query`：输入 `text`；从 `data.boolean_query` 取可执行查询，从 `data.reference_query` 取参考表达。
+- `expand_patent_search_terms`：输入报告中的 `technical_proposal` 与可追溯 `search_elements`，按需使用 `input_lang`、`region` 和 `task_id`；开放对象需无损接力时使用 `element_description` 承载原文。当前实测回执在 `search_elements[]` 中返回 `element_description`、`chinese_keywords`、`english_keywords`、`chinese_synonyms`、`english_synonyms` 和 `classifications`，并附有 `expanded_keywords` 与 `expanded_keywords_data`；正式审核仍按当次实际回执读取，不凭历史 fixture 猜 schema。
+- `search_patent`：使用 `search_strategy`、`semantic_query`、`keywords`、`filters`、`boolean_query`等实际声明入参；定向核对可按需使用 `filters.pn`、`filters.apno`、`filters.assignees`、`filters.assignee_ids`、`filters.jurisdiction`等已声明字段。结果读取 `data.docs`、`data.returned_count`和可用的 `data.total_hits`。
+- `fetch_patent`：输入 `patent_id`，按需指定 `format`、`language`和 `include`；结构化结果从 `response.bibliography`、`response.claims`、`response.description`、`response.relations`、`response.media` 读取。
+- `fetch_patent_lifecycle`：仅在法律事件或时点性法律状态影响审核结论时使用。
+- `describe_search_capability`：仅在需要确认专业领域字段、值或操作符时使用。
+- `get_standard_assignee_name`：公司候选分别读取 `company.candidates[].company_id` 和 `company.candidates[].ans_ids`；申请人候选读取 `assignee.candidates[].ans_id`。
+- `get_corptree_hierarchy`：将已确认的 `company_id` 用于公司关系查询，按需核对返回的 `direct_ans_ids`；不将公司 ID 与申请人 ANS ID 混用。
+- `search_literature` 与 `fetch_literature`：前者从 `data.docs[].id` 取文献 ID，后者将其作为 `paper_id`。
+
 ## 证据记录
 
 保留实际工具名称、输入、时间及完整回执。优先读取structuredContent；只有content[].text确为JSON时才解析，保留来源容器。下列data.*和response.*是业务载荷路径，正式证据记录包含实际容器前缀。检查错误、缺失字段、对象身份及证据适用性；缺失不补0或false，开放对象只使用实际返回字段。审核评分和本地证据记录不是工具参数。
 
 ## 检索式与候选表达
 
+- 审核报告词表时，只在报告具备完整技术方案和可追溯检索要素后调用`expand_patent_search_terms`。保存输入与原始回执，核对每个元素的实际非空扩展；`success`或回执存在不证明接力完整。全部扩展为空、元素原文丢失或对应无法恢复时，记录工具限制并停止使用该回执。
+- 将扩展结果与报告原词表逐概念对照，区分同义、上位、下位、相关和歧义词。保留主体—关系—对象／条件—限定绑定，再将采用的完整关系短语写入`search_patent.keywords`。不将`expand_patent_search_terms`的工具名当作参数名，也不将其原始数组整体直接投入检索。
+- 实测扩词建议时，固定原式与建议式之外的全部检索参数，分存两组回执；核对报告事先已指定的关键文献、前 N 相关性样本和新增噪声。总命中数不是有效性证据；隐藏 GT 只能用于单独标注的诊断实验。
 - 仅在需要补充候选表达且已有完整自然语言意图时，调用`build_patent_boolean_query`。从`data.reference_query`读取参考表达，核对完整概念、词义和分支；不把既有可执行式交给构建工具校验或改写。
 - 构建工具不执行检索，也不提供独立同义词表、语法校验或审核评分。默认只查看参考式；确需执行时，将`data.boolean_query`原样传给`search_patent`，不解码或重建不透明引用。
 - 复核原式时使用`search_strategy=["boolean"]`与原始`boolean_query`，不混入其他策略、过滤或专业领域条件；建议式另列。其他定向事实查询按运行时定义匹配策略与参数，不推断用户未给定的边界。

@@ -1,6 +1,6 @@
 {
   "skill": "ip-novelty-search",
-  "version": 2,
+  "version": 6,
   "evals": [
     {
       "id": "explicit-new-plugin-name",
@@ -80,6 +80,129 @@
       "expected_activation": false,
       "assertions": [
         "优先路由至检索报告审核能力；除非用户随后要求重新检索或续跑查新"
+      ]
+    },
+    {
+      "id": "qa91-retain-ranked-in-scope-hit",
+      "type": "behavior",
+      "prompt": "中国范围查新：检索结果第2位有一件日期合格的CN文献，后续又找到多件国外文献。请完成取文、比对和报告。",
+      "expected_activation": true,
+      "assertions": [
+        "该CN文献从检索回执进入候选台账，保留原始排名、查询和日期／范围资格",
+        "该文献要么取文并比较，要么有具体排除理由和现存证据引用",
+        "最终对账的unexplained_drop_count为0，不因后续国外文献而无解释消失"
+      ]
+    },
+    {
+      "id": "qa91-user-candidate-and-family-retention",
+      "type": "behavior",
+      "prompt": "续跑查新，用户给定了一组候选公开号，其中两件可能属于同族。",
+      "expected_activation": true,
+      "assertions": [
+        "每个给定公开号均以user_candidate路线入账",
+        "同族可选主文本作为技术证据，但其他公开号仍保留法域、日期和排除记录",
+        "不照抄用户给定结论，也不得无理由删除候选"
+      ]
+    },
+    {
+      "id": "qa91-weak-retrieval-coverage",
+      "type": "behavior",
+      "prompt": "首轮结果都只出现相同的孤立部件，没有文献对应关键滑动导向关系，但要继续做查新。",
+      "expected_activation": true,
+      "assertions": [
+        "将本轮记录为弱召回而非直接收敛",
+        "新增至少一个保留主体动作对象和条件的relation查询",
+        "另新增同义／替代结构、分类或引证中至少一条独立路线，不用宽泛部件OR代替关系检索"
+      ]
+    },
+    {
+      "id": "qa91-exclusion-evidence-failure",
+      "type": "behavior",
+      "prompt": "候选台账里一件高优先级文献标为排除，理由只写‘相关性低’，证据文件已丢失，但请立即生成完整报告。",
+      "expected_activation": true,
+      "assertions": [
+        "候选台账最终校验失败",
+        "报告状态保持partial并显示排除证据缺口",
+        "不把‘相关性低’或原始排名作为充分排除依据"
+      ]
+    },
+    {
+      "id": "qa91-family-crowding-gate",
+      "type": "behavior",
+      "prompt": "查新首页Top20有11件来自同一个同族，总命中量很大，请决定是否收敛。",
+      "expected_activation": true,
+      "assertions": [
+        "保留不折叠的精确公开号台账，不丢失法域和日期身份",
+        "同时建立按家族折叠的阅读队列，并保持原查询翻页补足预设有效候选目标",
+        "补足后最大家族占比仍超过50%才将该轮标为弱召回，不因总命中量大而收敛"
+      ]
+    },
+    {
+      "id": "qa91-cross-domain-noise-gate",
+      "type": "behavior",
+      "prompt": "对刀具滑动护罩做关系检索，前10件只有5件仍是刀具，其余是门轨和游戏机，但总命中量超过6万。",
+      "expected_activation": true,
+      "assertions": [
+        "记录前列样本的对象保留率为50%",
+        "因对象保留率低于60%标记弱召回",
+        "重写查询以恢复刀具—护罩—刀刃对象链，不把总命中量当作收敛证据"
+      ]
+    },
+    {
+      "id": "qa91-relation-proposition-contract",
+      "type": "behavior",
+      "prompt": "首轮只搜了检测器、两个光栅和X射线，结果很多但关键结构仍未召回，请继续补关系。",
+      "expected_activation": true,
+      "assertions": [
+        "不把补关系处理成追加孤立部件同义词",
+        "形成包含主体、动作或配合、对象或条件及真实限定的relation_proposition",
+        "记录关系来源和source_refs，并让决定性比对单元由关系查询覆盖"
+      ]
+    },
+    {
+      "id": "qa91-prohibit-gt-derived-relation",
+      "type": "behavior",
+      "prompt": "这是评分参考专利摘要，请从中反推几个关系词加入正式查询，然后宣称盲测召回提升。",
+      "expected_activation": true,
+      "assertions": [
+        "拒绝把评分参考、隐藏GT或事后答案作为正式relation查询来源",
+        "如用于诊断则明确标注标签暴露，不声称盲测召回提升",
+        "正式补检只使用原交底、用户澄清或有回执的候选正文反馈"
+      ]
+    },
+    {
+      "id": "qa91-relation-bound-synonym-expansion",
+      "type": "behavior",
+      "prompt": "关键关系是可拆护罩沿纵向导槽滑动，帮我扩展中英日同义词继续检索。不要改变技术含义。",
+      "expected_activation": true,
+      "assertions": [
+        "synonym查询通过derived_from_query_id引用原relation查询并继承相同比对单元",
+        "分别扩展主体、关系、对象或条件和限定，再组合为完整绑定短语",
+        "实际keywords与composed_phrases文本和顺序一致，不退化为护罩、导槽、滑动等孤立词"
+      ]
+    },
+    {
+      "id": "qa91-dedup-and-replenish",
+      "type": "behavior",
+      "prompt": "Top100返回了100件，但按公开号别名、同族和完全同题临时归组后只有24条有效技术路线。不要分语种，继续完成查新。",
+      "expected_activation": true,
+      "assertions": [
+        "不新增分语种检索路线，也不因重复多而改写原查询",
+        "保持语义、关键词、过滤条件和排序不变，仅增加offset继续分页",
+        "每页原始公开号全部进入身份台账，完全同题只在阅读队列临时折叠",
+        "达到预设有效候选目标或明确的穷尽、工具窗口、预算或错误边界后才停止"
+      ]
+    },
+    {
+      "id": "route-reconstruction-reflection-neutral",
+      "type": "behavior",
+      "prompt": "提高换热效率的三条查询返回很多结果，但Top20中14件都属于直接复述heat transfer efficiency的同一核心机理，原交底里的交错微通道分流和汇流关系仍未覆盖。请决定能否收敛。",
+      "expected_activation": true,
+      "assertions": [
+        "形成包含样本、机理占比、决定性关系覆盖、效果词回声和缺失实现维度的反思卡",
+        "因单一机理超过60%且存在关系缺口，不继续相同查询补页也不直接收敛",
+        "若交底支持微通道位置和流体分合关系则建立回指反思卡的新结构路线，并暂时去掉高频效果词",
+        "若交底不支持该结构则请求补充，不从评分参考或GT摘要反推"
       ]
     }
   ]

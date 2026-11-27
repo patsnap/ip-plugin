@@ -3,6 +3,7 @@
 ## 目录
 
 - 保存输入和回执
+- 候选台账
 - 方案与特征
 - 报告草稿
 - Agent 核查
@@ -18,6 +19,18 @@
 媒体链接需实际读取；工具传入图片使用当前 Schema 的 `ref: image:<文件SHA256>`、`mime_type`、`data_base64`、`label` 和可用的 `pdf_page`、`text_locations`。本地报告可用 `host_file` 指向保存的原图；渲染器也支持把回执中 `material.assets` 按 `ref` 关联到 `material.patent_images`，将完整 Base64 图片校验后保存到任务内 `evidence/`。这一步不代表已经看图。
 
 报告引用的文件均在任务目录内，路径相对草稿；原文引句不改写，不把摘要或工具生成的技术概括当作原文。
+
+## 候选台账
+
+新任务保存 `candidate-ledger.json`，并在 `report-draft.json` 的 `report.candidate_ledger_file` 中引用。结构、字段和阶段闸门见入口文档直接链接的 `references/candidate-ledger.md`。续跑历史任务时，从保留的检索回执一次性回填台账，无法恢复的阶段和排除理由标为未决，不猜测。
+
+每次报告生成前可独立执行：
+
+```sh
+python3 scripts/validate_candidate_ledger.py --ledger /任务目录/candidate-ledger.json --root /任务目录 --phase final
+```
+
+新报告使用 `report_data_version: 2`。渲染器在 `--validate-only` 和正式生成时都会自动读取 `candidate_ledger_file` 并执行最终校验；版本 2 的 `complete` 报告缺少台账引用会直接失败。只有校验通过时才能将报告状态设为 `complete`。校验失败时保留 `partial`，将未解释丢弃、范围对账或弱召回缺口写入 `limitations`。
 
 ## 方案与特征
 
@@ -79,7 +92,9 @@
   "title": "技术方案查新报告",
   "language": "zh-CN",
   "report": {
+    "report_data_version": 2,
     "feature_plan_file": "feature-plan.json",
+    "candidate_ledger_file": "candidate-ledger.json",
     "primary_solution": "主方案",
     "status": "partial",
     "headline": "主要结论及阶段状态",
